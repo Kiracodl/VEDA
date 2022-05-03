@@ -1,0 +1,74 @@
+  <choice id="TipShape">
+    <about> 
+      <label>Tip shape</label> 			
+      <description>For Hertz and DMT contact models, either a paraboloid or cone tip can be selected.  For JKR and other models, only a paraboloid is implemented</description>
+      <enable>PATH.choice(fts_model) == 2 || PATH.choice(fts_model) == 3 || PATH.choice(fts_model) == 4 || PATH.choice(fts_model) == 19 </enable>
+    </about>
+
+    <option>
+      <about>
+	<label>Classical sphere (i.e. paraboloid), default</label>
+	<description>This is a paraboloid, which is a reasonable approximation to a sphere when the sphere radius is much larger than the area of contact. If you are not sure pick this one.</description>
+      </about>
+      <value>1</value>
+    </option>
+
+    <option>
+      <about>
+	<label>Cone</label>
+	<description>Circular cone.  Generally this is only valid for high cone angles.  For small cones angles the material will plastically deform</description>
+      </about>
+      <value>2</value>
+    </option>
+
+    <default>1</default>
+  </choice>
+
+  <number id="angle_tip">
+    <about>
+      <enable> (PATH.choice(fts_model) == 2 || PATH.choice(fts_model) == 3 || PATH.choice(fts_model) == 4  || PATH.choice(fts_model) == 19 ) &amp;&amp; PATH.choice(TipShape) == 2 </enable>	    	          
+      <label>Cone half-angle (deg)</label>
+      <description>Half-angle of the conical tip.</description>
+    </about>
+    <units> </units>
+    <min>5</min>
+    <max>90</max>
+    <default>45</default>
+  </number>
+
+	
+  <number id="Rtip">
+    <about>
+      <enable> (input.phase(ts).choice(fts_model) == 7 || input.phase(ts).choice(fts_model) == 5  || input.phase(ts).choice(fts_model) == 10  || input.phase(ts).choice(fts_model) == 13   || input.phase(ts).choice(fts_model) == 16   || input.phase(ts).choice(fts_model) == 18 || input.phase(ts).choice(fts_model) == 20 ) || ( (input.phase(ts).choice(fts_model) == 2 || input.phase(ts).choice(fts_model) == 3  || input.phase(ts).choice(fts_model) ==4 || input.phase(ts).choice(fts_model) ==19 )  &amp;&amp;  PATH.choice(TipShape) == 1) </enable>        
+      <label>Tip radius (nm)</label>
+      <description>Radius of the probe tip.</description>
+    </about>
+    <units> </units>
+    <min>1</min>
+    <max>25000</max>
+    <default>10</default>
+  </number>
+  		
+  <number id="Etip">
+    <about>
+      <enable>PATH.choice(fts_model) != 13  &amp;&amp; PATH.choice(fts_model) != 10  &amp;&amp; PATH.choice(fts_model) != 9  &amp;&amp; PATH.choice(fts_model) != 8  &amp;&amp;  input.phase(ts).choice(fts_model) != 1 &amp;&amp; input.phase(ts).choice(fts_model) != 6  &amp;&amp; input.phase(ts).choice(fts_model) != 11   &amp;&amp; PATH.choice(fts_model) != 16  &amp;&amp; PATH.choice(fts_model) != 17   &amp;&amp; PATH.choice(fts_model) != 18  &amp;&amp; PATH.choice(fts_model) != 19  &amp;&amp; PATH.choice(fts_model) != 20 </enable>
+      <label> Young's modulus of tip (GPa)</label>
+      <description></description>
+    </about>
+    <units></units>
+    <min>10</min>
+    <max>500</max>
+    <default>130</default>
+  </number>
+
+  <number id="Poisson_tip">
+    <about>
+      <enable>PATH.choice(fts_model) != 13  &amp;&amp; PATH.choice(fts_model) != 10  &amp;&amp; PATH.choice(fts_model) != 9  &amp;&amp; PATH.choice(fts_model) != 8  &amp;&amp; input.phase(ts).choice(fts_model) != 1 &amp;&amp; input.phase(ts).choice(fts_model) != 6  &amp;&amp; input.phase(ts).choice(fts_model) != 11   &amp;&amp; PATH.choice(fts_model) != 16  &amp;&amp; PATH.choice(fts_model) != 17   &amp;&amp; PATH.choice(fts_model) != 18   &amp;&amp; PATH.choice(fts_model) != 19  &amp;&amp; PATH.choice(fts_model) != 20 </enable> 
+      <label>Poisson's ratio of the tip </label>
+      <description></description>
+    </about>
+    <units></units>
+    <min>0</min>
+    <max>1</max>
+    <default>0.3</default>
+  </number>

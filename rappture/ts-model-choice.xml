@@ -1,0 +1,305 @@
+<!-- <loader> -->
+<!--   <about> -->
+<!--     <label>Loader</label> -->
+<!--     <description>Use this box to upload data </description> -->
+<!--   </about> -->
+<!--   <upload> -->
+<!--     <to>PATH.string(custom_filename)</to> -->
+<!--   </upload> -->
+<!--    <example>../../examples/si_mica_air.xml</example> -->
+<!--    <example>../../examples/si_mica_dei_water.xml</example> -->
+<!--    <example>../../examples/siN_air_mica.xml</example>  -->
+<!-- </loader> -->
+
+<choice id="fts_model">	
+  <about>
+    <label>Tip-sample interaction model</label>
+    <description>Choose a model to predict the forces exterted by the tip on the sample.</description>
+  </about>
+  
+  <option>
+    <about>
+      <label>Linear contact</label>
+      <description>Interaction forces are predicted according to a (piece-wise) linear contact model for an overall stiffness, kts, of the sample.</description>
+    </about>
+    <value>1</value>
+  </option>
+
+  <option>
+    <about>
+      <label>Linear attractive/repulsive</label>
+      <description>Interaction forces are predicted according to a (piece-wise) linear contact model for an overall stiffness, kts_r, of the sample, and an attractive-force gradient, kts_a.</description>
+    </about>
+    <value>6</value>
+  </option>
+
+  <option>
+    <about>
+      <label>Hertz contact</label>
+      <description>Hertz contact model with no attractive forces.</description>
+    </about>
+    <value>2</value>
+  </option>
+
+  
+  <option>
+    <about>
+      <label>DMT contact</label>
+      <description>Derjaguin-Muller-Toporov (DMT) contact model including van der Waals attractive forces.</description>
+    </about>
+    <value>3</value>
+  </option>
+
+  <option>
+    <about>
+      <label>DMT + DLVO interactions (liquids)</label>
+      <description>Derjaguin-Muller-Toporov + Derjaguin-Landau-Verwey-Overbeek (electrical double layer) interaction forces.</description>
+    </about>
+    <value>4</value>
+  </option>
+  
+  <option>
+    <about>
+      <label>JKR</label>
+      <description>Johnson-Kendall-Roberts interaction forces.</description>
+    </about>
+    <value>7</value>
+  </option>
+
+  <option>
+    <about>
+      <label>Chadwick</label>
+      <description>Chadwick interaction model for a very thin membrane loosely bound to a stiff substrate.</description>
+    </about>
+    <value>5</value>
+  </option>
+
+  <option>
+    <about>
+      <label>Hertz contact with bottom effect correction for thin samples</label>
+      <description>Interaction model for a moderately thin sample loosely bound to a stiff substrate. Dimitriadis et al for spherical tip shape. Gavara and Chadwick for conical</description>
+    </about>
+    <value>19</value>
+  </option>
+
+  
+  <option>
+    <about>
+      <label>Van der Waals + Morse Potential</label>
+      <description>Morse potential is used in non-contact FM-AFM to model bonding interation. Should NOT be used for AM-AFM in tapping mode, or in any repulsive regime.</description>
+    </about>
+    <value>8</value>
+  </option>
+
+  <option>
+    <about>
+      <label>Van der Waals + Lennard Jones Potential</label>
+      <description>Lennard Jones potential is used in non-contact FM-AFM to model attractive regime. Should NOT be used for AM-AFM in tapping mode, or in any repulsive regime.</description>
+    </about>
+    <value>9</value>
+  </option>
+
+  <option>
+    <about>
+      <label>Electrostatic Forces (noncontact), Xu and Salmeron</label>
+      <description></description>
+    </about>
+    <value>10</value>
+  </option>
+
+  <option>
+    <about>
+      <label>Electrostatic Forces (noncontact), Gil et al. + van der Waals</label>
+      <description></description>
+    </about>
+    <value>13</value>
+  </option>
+
+  <option>
+    <about>
+      <label>Magnetic dipole-dipole (sphere-sphere, Rasa et al)</label>
+      <description>This is the sphere-sphere model equation 6 from M. Rasa, B.W.M. Kuipers, P. Philipse, Journal of Colloid and Interface Science 2002, 250, 303-15.</description>
+    </about>
+    <value>16</value>
+  </option>
+
+
+  <!-- <option> -->
+  <!--   <about> -->
+  <!--     <label>Electrostatic Forces, nonconservative</label> -->
+  <!--     <description>Beta test. dont use this one unless you know what you are doing</description> -->
+  <!--   </about> -->
+  <!--   <value>14</value> -->
+  <!-- </option> -->
+
+
+  <!--	<option>
+	<about>
+	  <label>Custom direct (BETA test - not ready for general use)</label>
+	  <description>Direct input of experimental data</description>
+	</about>
+	<value>11</value>
+  </option> -->
+
+  <!-- <option> -->
+  <!-- 	<about> -->
+  <!-- 	  <label>Custom MD simulation (BETA test - not ready for general use)</label> -->
+  <!-- 	  <description>Input of data interpolated from molecular dynamic simulations.  Do not use unless you know what you are doing.</description> -->
+  <!-- 	</about> -->
+  <!-- 	<value>17</value> -->
+  <!-- </option> -->
+
+
+  <!-- this is Daniels least-squares version (numerical stability workaround) -->
+  <option>
+  	<about>
+  	  <label>Attard's model (Viscoelastic contact with attractive forces)</label>
+  	  <description>Use the method of Attard to compute viscoelastic contact with adhesion.</description>
+  	</about>
+  	<value>20</value>
+  </option>
+
+  <!-- has numerical issues.  still implemented in the code but removed in the GUI -->  
+  <!-- <option> -->
+  <!-- 	<about> -->
+  <!-- 	  <label>Attard's model (Viscoelastic contact with attractive forces), (Bahrams original version with numerical issues)</label> -->
+  <!-- 	  <description>Use the method of Attard to compute viscoelastic contact with adhesion.</description> -->
+  <!-- 	</about> -->
+  <!-- 	<value>18</value> -->
+  <!-- </option> -->
+
+
+
+
+  #ifndef DEFAULT_TS_CHOICE
+  #define DEFAULT_TS_CHOICE 3
+  #endif
+  <default>DEFAULT_TS_CHOICE</default>
+</choice>
+
+<group id="LinCon_pic">
+  <about>
+    <enable>!PATH.group(nc).boolean(WantHYST) &amp;&amp; PATH.choice(fts_model) == 1</enable>
+  </about>
+  <image>
+    #include "LinCon_F-d.png.txt"
+  </image>
+</group>
+<group id="LinAR_pic">
+  <about>
+    <enable>!PATH.group(nc).boolean(WantHYST) &amp;&amp; PATH.choice(fts_model) == 6</enable>
+  </about>
+  <image>
+    #include "LinAR_F_d.png.txt"
+  </image>
+</group>	
+<group id="Hertz_pic">
+  <about>
+    <enable>!PATH.group(nc).boolean(WantHYST) &amp;&amp; PATH.choice(fts_model) == 2</enable>
+  </about>
+  <image>
+ #include "Hertz_F-d.png.txt"
+  </image>
+</group>
+<group id="DMT_pic">
+  <about>
+    <enable>!PATH.group(nc).boolean(WantHYST) &amp;&amp; PATH.choice(fts_model) == 3</enable>
+  </about>
+  <image>
+    #include "DMT_F-d.png.txt"
+  </image>
+</group>	
+<group id="DMTDLVO_pic">
+  <about>
+    <enable>PATH.choice(fts_model) == 4</enable>
+  </about>
+  <image>
+    #include "DMTDLVO_F-d.png.txt"
+  </image>
+</group>
+<group id="JKR_pic">
+  <about>
+    <enable>PATH.choice(fts_model) == 7</enable>
+  </about>
+  <image>
+    #include "JKR_F-d.png.txt"
+  </image>
+</group>	
+<group id="Chadwick_pic">
+  <about>
+    <enable>!PATH.group(nc).boolean(WantHYST) &amp;&amp; PATH.choice(fts_model) == 5</enable>
+  </about>
+  <image>
+    #include "Chadwick_F-d.png.txt"
+  </image>
+</group>
+
+<group id="LinCon_Cap_pic">
+  <about> 
+    <enable>PATH.group(nc).boolean(WantHYST) &amp;&amp; PATH.choice(fts_model) == 1</enable>
+  </about>
+  <image>
+    #include "LinCon_Capillary_F-d.png.txt"
+  </image>
+</group>
+<group id="LinearAR_Cap_pic">
+  <about>
+    <enable>PATH.group(nc).boolean(WantHYST) &amp;&amp; PATH.choice(fts_model) == 6</enable>
+  </about>
+  <image>
+    #include "LinearAR_Capillary_F-d.png.txt"
+  </image>
+</group>	
+<group id="Hertz_Cap_pic">
+  <about>
+    <enable>PATH.group(nc).boolean(WantHYST) &amp;&amp; PATH.choice(fts_model) == 2</enable>
+  </about>
+  <image>
+    #include "Hertz_Capillary_F-d.png.txt"
+  </image>
+</group>
+<group id="DMT_Cap_pic">
+  <about>
+    <enable>PATH.group(nc).boolean(WantHYST) &amp;&amp; PATH.choice(fts_model) == 3</enable>
+  </about>
+  <image>
+    #include "DMT_Capillary_F-d.png.txt"
+  </image>
+</group>
+<group id="Chadwick_Cap_pic">
+  <about>
+    <enable>PATH.group(nc).boolean(WantHYST) &amp;&amp; PATH.choice(fts_model) == 5</enable>
+  </about>
+  <image>
+    #include "Chadwick_Capillary_F-d.png.txt"
+  </image>
+</group>
+
+<group id="Morse_pic">
+  <about>
+    <enable>PATH.choice(fts_model) == 8</enable>
+  </about>
+  <image>
+    #include "Morse.png.txt"
+  </image>
+</group>
+
+<group id="LJ_pic">
+  <about>
+    <enable>PATH.choice(fts_model) == 9</enable>
+  </about>
+  <image>
+    #include "LJ.png.txt"
+  </image>
+</group>
+
+<group id="Attard_pic">
+  <about>
+    <enable>PATH.choice(fts_model) == 18 || PATH.choice(fts_model) == 20 </enable>
+  </about>
+  <image>
+    #include "attard.png.txt"
+  </image>
+</group>
+
+

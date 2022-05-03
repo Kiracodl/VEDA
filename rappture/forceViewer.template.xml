@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<run>
+#define TOOL force_viewer
+#include "tool.xml"
+    
+    <input>
+    	<phase id="op">
+		<about>
+			<label>Operating conditions</label>
+		</about>
+
+       <loader>
+	 <about>
+           <label>Example loader</label>
+           <description>Use this box to load example simulations from the VEDA manual</description>
+         </about>
+
+	 <example>../../examples/ForceViewer_Ex1.xml</example>
+	 <example>../../examples/ForceViewer_Ex2.xml</example>
+	 <example>../../examples/ForceViewer_Ex3.xml</example>
+       </loader>
+
+
+       <number id="Z0">
+            <about>
+                <label>Initial gap (nm)</label>
+                <description>The initial tip-sample gap.</description>
+	    </about>
+
+            <units> </units>
+	    <default>3</default>
+        </number>	
+
+       <number id="Zf">
+            <about>
+                <label>Final gap separation (nm)</label>
+                <description>The final tip-sample gap.</description>
+	    </about>
+
+            <units></units>
+	    <default>-1</default>
+        </number>
+
+	#include "plotpnts.xml"
+
+
+	<choice id="vel_model">	
+	  <about>
+	    <label>Velocity options (for non-conservative tip-sample interaction models)</label>
+	    <description>Choose the velocity profile used to calculate non-conservative forces exterted by the tip on the sample.</description>
+	  </about>
+	  
+	  <option>
+	    <about>
+	      <label>None / quasi-static</label>
+	      <description>velocity = zero will be assumed.</description>
+	    </about>
+	    <value>1</value>
+	  </option>
+	  	  
+	  
+	  
+	  <option>
+	    <about>
+	      <label>Half sine Wave</label>
+	      <description>sine wave</description>
+	    </about>
+	    <value>3</value>
+	  </option>
+
+	  <option>
+	    <about>
+	      <label>Triangle Wave</label>
+	      <description>Linear ramp.</description>
+	    </about>
+	    <value>2</value>
+	  </option>
+
+	  <option>
+	    <about>
+	      <label>Rounded Triangle Wave</label>
+	      <description>Linear ramp. Moving average filter used to round off the bottom to avoid a discontinuity in velocity. </description>
+	    </about>
+	    <value>4</value>
+	  </option>
+
+	  <default>1</default>
+	</choice>
+
+	
+	<number id="t">
+            <about>
+                <label>Duration (s)</label>
+		<enable>input.phase(op).choice(vel_model) > 1</enable>
+                <description>Total simulation duration</description>
+            </about>
+            <units></units>
+            <default>1</default>
+        </number>
+
+
+	<number id="moving_avg_len">
+            <about>
+                <label>Moving average filter length (%)</label>
+		<enable>input.phase(op).choice(vel_model) == 4</enable>
+                <description>The length of the moving average filter used to round off the triangle.  Larger number gives a wider region of rounding</description>
+            </about>
+            <units></units>
+            <default>1</default>
+        </number>
+
+
+	</phase>
+	
+	<phase id="ts">
+		<about>
+			<label>Tip-sample interaction properties</label>
+		</about>
+#define PATH input.phase(ts)
+#include "ts-model-choice.xml"
+#include "tip.xml"
+#include "sample.xml"	
+
+	</phase>
+							
+    </input>
+</run>

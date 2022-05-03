@@ -1,0 +1,2854 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass revtex4
+\begin_preamble
+
+
+
+\usepackage{fancyhdr}
+\usepackage{listings}
+\end_preamble
+\options amsmath,amssymb,floatfix
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding auto
+\fontencoding default
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 0
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 0
+\use_package mhchem 0
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine natbib
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle fancy
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+baselineskip 20pt
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+VIRTUAL ENVIRONMENT FOR DYNAMIC AFM 
+\begin_inset Newline newline
+\end_inset
+
+ Version 2.2
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+First Time User's Manual
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+John Melcher
+\end_layout
+
+\begin_layout Affiliation
+ School of Mechanical Engineering and Birck Nanotechnology Center
+\begin_inset Newline newline
+\end_inset
+
+ Purdue University, West Lafayette, IN 47907
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+Daniel Kiracofe
+\end_layout
+
+\begin_layout Affiliation
+ School of Mechanical Engineering and Birck Nanotechnology Center
+\begin_inset Newline newline
+\end_inset
+
+ Purdue University, West Lafayette, IN 47907
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+Shuiqing Hu
+\end_layout
+
+\begin_layout Affiliation
+ School of Mechanical Engineering and Birck Nanotechnology Center
+\begin_inset Newline newline
+\end_inset
+
+ Purdue University, West Lafayette, IN 47907
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+Steven Johnson
+\end_layout
+
+\begin_layout Affiliation
+School of Mechanical Engineering and Birck Nanotechnology Center
+\begin_inset Newline newline
+\end_inset
+
+ Purdue University, West Lafayette, IN 47907
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+Arvind Raman
+\end_layout
+
+\begin_layout Affiliation
+School of Mechanical Engineering and Birck Nanotechnology Center
+\begin_inset Newline newline
+\end_inset
+
+ Purdue University, West Lafayette, IN 47907
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Date
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+today
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement hb
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename logo2.pdf
+	width 2in
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Copyright 2009-2012 John Melcher, Daniel Kiracofe, Shuiqing Hu, Steven Johnson,
+ Arvind Raman
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:WhyVEDA"
+
+\end_inset
+
+ Why VEDA?
+\end_layout
+
+\begin_layout Standard
+Since its debut in 1986, atomic force microscopy (AFM) invented by Rohher,
+ Binnig et al.
+ has emerged as a powerful tool in nanotechnology.
+ In particular, dynamic atomic force microscopy (dAFM) has proven to be
+ an invaluable tool that has enabled the imaging, measurement and manipulation
+ of matter at the molecular and atomic scale.
+ As the ability for AFM to measure and manipulate properties at the nanoscale
+ has increased, so too has the importance of understanding the tip dynamics
+ as the oscillating AFM probe interacts with nonlinear tip-sample interaction
+ forces.
+ Thus the topographic images generated in dAFM scans are actually a cumulative
+ result of nonlinear interaction forces between the probe tip and the sample,
+ cantilever probe mechanics, tip-sample geometry convolution, and the AFM
+ feedback control system.
+ Ultimately the limits of dAFM nanometrology depend on the ability to correctly
+ 
+\begin_inset Quotes eld
+\end_inset
+
+deconvolve
+\begin_inset Quotes erd
+\end_inset
+
+ or eliminate such spurious effects in some manner.
+ From an experimentalist's point of view, operating an dAFM can often be
+ quite non-intuitive due to the underlying nonlinear dynamics.
+ As a result the choice of operating conditions and cantilevers for a specific
+ experiment can involve much trial and error.
+ Where intuition fails, simulations can provide powerful insights into the
+ fundamental physics of this instrument.
+ With the aid of simulation tools like VEDA (Virtual Environment for Dynamic
+ AFM), students and researchers can develop a deeper quantitative understanding
+ of dAFM.
+\end_layout
+
+\begin_layout Standard
+This document attempts to be a 
+\begin_inset Quotes eld
+\end_inset
+
+quickstart
+\begin_inset Quotes erd
+\end_inset
+
+ guide to get new users running their first simulations with VEDA.
+ We walk through two easy examples.
+ After completing these simple examples, the user is referred to the comprehensi
+ve manual for a more detailed description and additional examples of increasing
+ complexity.
+\end_layout
+
+\begin_layout Standard
+VEDA 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Melcher_RSI_2008, kiracofe2012veda"
+literal "false"
+
+\end_inset
+
+ is organized into multiple different tools.
+ Each tool simulates one particular type of AFM experiment.
+ VEDA includes the most popular types of AFM experiments.
+ The two basic tools that we will walk though in this quickstart guide are
+\end_layout
+
+\begin_layout Description
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+The F-Z Curves tool
+\end_layout
+
+\end_inset
+
+ simulates the mechanics of an undriven microcantilever approaching or retractin
+g from a sample.
+\end_layout
+
+\begin_layout Description
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+Contact mode scanning tool
+\end_layout
+
+\end_inset
+
+ simulates contact mode scans over specified geometric features with heterogeneo
+us material properties.
+\end_layout
+
+\begin_layout Standard
+Note: VEDA is primarily designed for dynamic AFM operating (e.g.
+ tapping mode, FM, etc) but we show only static/contact mode examples in
+ this quickstart guide because they are much easier to get your feet wet
+ and learn how to operate the tools.
+ The comprehensive manual has many dynamic mode examples.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+How get help
+\end_layout
+
+\begin_layout Standard
+If you encounter a bug, the following options are available:
+\end_layout
+
+\begin_layout Itemize
+Open a support ticket on nanohub (https://nanohub.org/support/ticket/new)
+ which will be directed to the VEDA development team
+\end_layout
+
+\begin_layout Itemize
+Report the issue on the VEDA mailing list (https://engineering.purdue.edu/ECN/mail
+man/listinfo/veda-list)
+\end_layout
+
+\begin_layout Standard
+If you have a question on how to use a particular tool or feature, the following
+ options are available:
+\end_layout
+
+\begin_layout Itemize
+Ask a question on the VEDA mailing list (https://engineering.purdue.edu/ECN/mailma
+n/listinfo/veda-list)
+\end_layout
+
+\begin_layout Itemize
+Ask the question on the nanohub Questions page https://nanohub.org/resources/veda
+/questions
+\end_layout
+
+\begin_layout Standard
+If you have an idea for a new tool or feature, the following options are
+ available:
+\end_layout
+
+\begin_layout Itemize
+Suggest the idea on the VEDA mailing list (https://engineering.purdue.edu/ECN/mail
+man/listinfo/veda-list)
+\end_layout
+
+\begin_layout Itemize
+Suggest the idea on the nanohub Wishlist page: http://nanohub.org/resources/14139
+/wishlist
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:intro"
+
+\end_inset
+
+Basic concepts and terminology
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this section we will introduce basic AFM concepts and terminology for
+ the benefit of beginning AFM users.
+ Additionally, schematics are provided to illustrate relevant coordinates
+ and reference frames.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Basic AFM design
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A schematic of the standard AFM is shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:schematic"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ A microcantilever probe with a sharp tip (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:cant_sem"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) interacts with a sample.
+ The position of the sample is controlled by a stage with piezo actuators.
+ To create an image, the sample is moved so that the microcantilever probe
+ tip rasters over the sample.
+ The precise method by which an image of the sample's surface is generated
+ from the raster depends on the imaging mode.
+ However, in general, creating an image of the surface topography in AFM
+ involves monitoring some characteristic measure (deflection, amplitude,
+ phase, etc.) of the cantilever deflection caused by the interactions forces
+ between the tip and the sample.
+ Measurements of the microcantilever deflection have been made in a variety
+ of ways.
+ In the most common method, the optical-lever technique, a laser beam is
+ reflected off of the cantilever and detected by a quadrature photodetector.
+ For small deflections of the probe, signal of the photodetector is proportional
+ to the change in slope (angle) of the microcantilever.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename schematic.png
+	width 40text%
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename coords_schematic.pdf
+	width 60text%
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+A schematic of basic AFM operation (left 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Hu_thesis"
+literal "false"
+
+\end_inset
+
+) and important coordinates (right).
+ The Z-piezo expands or contracts in order to modify the Z distance 
+\begin_inset Formula $Z(t)$
+\end_inset
+
+.
+ The dither piezo is used to excite the cantilever by shaking the base (acoustic
+ excitation) by 
+\begin_inset Formula $y(t)$
+\end_inset
+
+.
+ The transverse deflection relative to the base is 
+\begin_inset Formula $u(x,t)$
+\end_inset
+
+, where 
+\begin_inset Formula $x$
+\end_inset
+
+ is the axial displacement from the base.
+ Scanning is achieved by varying 
+\begin_inset Formula $X_{scan}(t)$
+\end_inset
+
+ by a constant scanning velocity 
+\begin_inset Formula $V_{scan}=X_{scan}(t)/dt$
+\end_inset
+
+.
+ The instantaneous gap between the tip and the sample is 
+\begin_inset Formula $d(t)=Z(t)+y(t)+u(L,t)$
+\end_inset
+
+, where the Z distance 
+\begin_inset Formula $Z(t)$
+\end_inset
+
+ is modified by the Z-piezo extension/displacement or variations in the
+ sample height 
+\begin_inset Formula $h(t)$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:schematic"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename NSC12_small.jpg
+	width 40text%
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+SEM image of a typical AFM cantilever.
+ The imaging tip is in the lower right.
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:cant_sem"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Components of the AFM along with relevant coordinates are shown in Figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:schematic"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Simulations approaching the sample, either statically (F-Z curves) or with
+ an oscillating probe are achieved through extensions of the Z-piezo to
+ reduce the Z distance 
+\begin_inset Formula $Z(t)$
+\end_inset
+
+.
+ While the cantilever is approaching the sample, the stage is fixed (
+\begin_inset Formula $X_{scan}$
+\end_inset
+
+ is constant).
+ While cantilever is scanning over the sample, the stage moves the sample
+ at a constant rate 
+\begin_inset Formula $X_{scan}(t)$
+\end_inset
+
+ at a constant rate 
+\begin_inset Formula $V_{scan}=dX_{scan}(t)/dt$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Imaging modes
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+There are myriad different AFM operating modes, all of which are built on
+ the basic design above.
+ These different modes have different strengths and weaknesses, and a particular
+ task may be better served by one mode than another.
+ A taxonomy of the major AFM modes is shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:imaging_modes"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ There is a major division between static modes and dynamic modes.
+ In dynamic modes, the cantilever probe is excited (typically at resonance)
+ as it is scanned over the surface.
+ In static modes, the probe is not excited.
+ Within static modes, two of the major modes are contact mode and force-volume
+ mode.
+ In contact mode, the probe is essentially in contact with the sample at
+ all times.
+ In force-volume mode and the related jump mode, the probe touches a point,
+ retracts, moves to the next point, approaches, and touches the next point.
+ Both of these modes are built upon force-distance curves, also known as
+ F-Z Curves.
+ In dynamic modes, two of the main modes are amplitude modulated (AM) and
+ frequency modulated (FM).
+ These names can be confusing because in both AM and FM modes a feedback
+ controller is used to keep the vibration amplitude constant during a scan.
+ In AM mode, the height of the probe above the sample is what is used to
+ keep the vibration amplitude constant, while in FM mode, a more complicated
+ feedback scheme is used that attempts to keep the oscillation amplitude,
+ phase, and frequency shift constant while scanning the sample..
+ These feedback schemes are described in more detail in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:theory"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement htb
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imaging_modes.pdf
+	width 50text%
+	clip
+	special trim
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+A taxonomy of some major AFM modes.
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:imaging_modes"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A diagram of the operation of contact mode, AM, and FM modes is shown in
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:scanning"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Note that FM-AFM (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:scanning"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+b) is shown scanning far away from the sample to indicate operation in the
+ attractive regime, and that AM-AFM (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:scanning"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+c) is shown closer to the sample to indicate intermittent contact or repulsive
+ regime.
+ Although this is usually the way the two modes are used in practice, it
+ is not the distinguishing characteristic.
+ AM-AFM can be used in the attractive regime and FM-AFM can be used in the
+ repulsive regime.
+ The distinguishing characteristic between the two modes is the feedback
+ scheme.
+\end_layout
+
+\begin_layout Standard
+VEDA was originally written with AM-AFM in mind.
+ Later expansions have allowed simulations of F-Z/F-d Curves and FM methods.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement htb
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename scanning.png
+	width 50text%
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Schematic diagrams of the operation mechanisms for (a) contact mode AFM,
+ (b) FM-AFM, and (c) AM-AFM.
+ Taken from 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Hu_thesis"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:scanning"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Examples"
+
+\end_inset
+
+Examples
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Tools.FZcurves"
+
+\end_inset
+
+FZ Curves, Example 1: Approaching and retracting from a sample modeled using
+ DMT contact
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:FZcurvesEx"
+
+\end_inset
+
+Input parameters for F-Z Curves examples.
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{ruledtabular}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Tabular
+<lyxtabular version="3" rows="29" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top">
+<column alignment="right" valignment="top">
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\series bold
+PARAMETER
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Operating conditions and cantilever properties
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Number of eigenmodes
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Auto calculate 
+\begin_inset Formula $k_{i}~(i>1)$
+\end_inset
+
+?
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+no
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $k_{i}$
+\end_inset
+
+ (N/m)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.87
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $Q_{i}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+33
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $f_{i}$
+\end_inset
+
+ (kHz)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+44
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Tip mass
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Z approach velocity (nm/s)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+200
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Gamma (Z drag)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Specify Z range
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+yes
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Initial Z separation (nm)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+10
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Final Z separation (nm)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-5
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Tip-sample interaction properties
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Tip-sample interaction model
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+DMT contact
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Tip radius (nm)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+10
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Young's modulus of tip (GPa)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+130
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Poisson's ratio of the tip
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Auto calculate intermolecular distance?
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+yes
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+van der Waals adhesion force (nN)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.4167
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Hamaker constant (J)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $3.4\cdot10^{-20}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Young's modulus of sample (GPa)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Poisson's ratio of the sample
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Simulation parameters
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Number of points plotted
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1000
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Deflection points per cycle
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1000
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{ruledtabular}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This tool simulates the approach of an unexcited cantilever to a sample.
+ The result of this experiment is called an 'F-z curve' (sometimes a 
+\begin_inset Quotes eld
+\end_inset
+
+force-distance curve
+\begin_inset Quotes erd
+\end_inset
+
+, or sometimes just a 
+\begin_inset Quotes eld
+\end_inset
+
+force curve
+\begin_inset Quotes erd
+\end_inset
+
+).
+ To begin, pick 
+\begin_inset Quotes eld
+\end_inset
+
+Force Distance Curves
+\begin_inset Quotes erd
+\end_inset
+
+ from the application drop down box in the top left corner.
+ This presents you with the input window.
+ In the input window you enter the parameters for the simulation.
+ We've broken the input window into several tabs.
+ The first is labeled 
+\begin_inset Quotes eld
+\end_inset
+
+1 Operating conditions and cantilever properties
+\begin_inset Quotes erd
+\end_inset
+
+ On this tab you enter the parameters of your cantilever and instrument.
+ The cantilever parameters are values that you would typically measure or
+ calibrate in an experiment (or you can get from the cantilever manufacturer).
+ This includes things like stiffness and quality factor.
+\end_layout
+
+\begin_layout Standard
+Note that we do not ask you for things like the length or width of the cantileve
+r.
+ This is because you typically do not measure or calibrate the length or
+ width of the cantilever in the experiment.
+ The philosophy in VEDA (at least for this tab anyway) is to only ask for
+ quantities that an experimentalist would have access to.
+\end_layout
+
+\begin_layout Standard
+We have listed some typical parameters for this tool in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:FZcurvesEx"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ You can type these into the appropriate boxes.
+ Or, if you want, go to the drop down box labeled 
+\begin_inset Quotes eld
+\end_inset
+
+example loader
+\begin_inset Quotes erd
+\end_inset
+
+ and pick example 1.
+ This will populate all of the input boxes with the values appropriate to
+ this example.
+\end_layout
+
+\begin_layout Standard
+Now, move on to tab number 2, 
+\begin_inset Quotes eld
+\end_inset
+
+tip-sample interaction properties
+\begin_inset Quotes erd
+\end_inset
+
+.
+ This is where you describe the material properties of your sample.
+ There are many different models available, and they are described in detail
+ in the comprehensive manual.
+ You pick the model you want at the top, and enter the appropriate parameters
+ below.
+ The image gives you a schematic view of what the different models look
+ like if you are not familiar with all of them.
+ For this example we choosen the DMT contact model, which is very commonly
+ used in AFM.
+\end_layout
+
+\begin_layout Standard
+Tab 3, simulation parameters, does not contain anything interesting for
+ this tool.
+ In some of the other tools, it contains interesting stuff.
+ We ignore it for now.
+ Now, click simulate at the bottom left (or click on tab 4 
+\begin_inset Quotes eld
+\end_inset
+
+simulate
+\begin_inset Quotes erd
+\end_inset
+
+ at the top right).
+ After a few seconds of number crunching, the output window will appear.
+\end_layout
+
+\begin_layout Standard
+The output window has a dropdown box labeled 
+\begin_inset Quotes eld
+\end_inset
+
+Result
+\begin_inset Quotes erd
+\end_inset
+
+.
+ This shows all of the different plots that are available for this simulation.
+ Different tools have different plots depending on what is relevant to that
+ tool.
+ The different features of the output window GUI are illustrated on the
+ new few pages
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset External
+	template PDFPages
+	filename gui_mechanics.pdf
+	extra LaTeX "pages=1-5"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The primary experimental observable in this type of experiment is tip deflection
+ versus Z displacement (which should looks something like Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:FZex1_deflZ"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Typically this deflection is then multiplied by the cantilever static bending
+ stiffness to arrive at tip-sample interaction force versus Z displacement.
+ Since this is a simulation, we have the tip-sample force available to us
+ directly, see figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:FZex1_FtsZ"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Note that there appears to be some ringing of the cantilever on snap-in.
+ This is because VEDA is simulating the entire cantilever dynamics in the
+ time-domain, it is not a static solution.
+\end_layout
+
+\begin_layout Standard
+Two quantities that are often of interest in force spectroscopy are tip-sample
+ interaction force versus gap and indentation versus Z displacement.
+ In an experiment these would have to be reconstructed from the observed
+ deflection, but since this is a simulation, we have them directly.
+ You can choose those from the drop down boxes (should resemble Figures
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:FZex1_FtsD"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:FZex1_IZ"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement htb
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename FZex1_deflZ.pdf
+	width 5in
+	clip
+	special trim
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Observed cantilever tip deflection versus Z-distance for the unexcited cantileve
+r (modeled using DMT contact).
+ (FZ Curves Ex.
+ 1)
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:FZex1_deflZ"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement htb
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename FZex1_FtsZ.pdf
+	width 3.5in
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tip-sample interaction force versus Z-distance for the unexcited cantilever
+ (modeled using DMT contact).
+ (FZ Curves Ex.
+ 1)
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:FZex1_FtsZ"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement htb
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename FZex1_FtsD.pdf
+	width 5in
+	clip
+	special trim
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tip-sample interaction force versus gap for the unexcited cantilever (modeled
+ using DMT contact).
+ (FZ Curves Ex.
+ 1)
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:FZex1_FtsD"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement htb
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename FZex1_IZ.pdf
+	width 3.5in
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tip indentation into sample versus Z-distance for the unexcited cantilever
+ (modeled using DMT contact).(FZ Curves Ex.
+ 1)
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:FZex1_IZ"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Tools.ContactScan"
+
+\end_inset
+
+Contact Mode Scanning, Example 1: Tip-sample geometry convolution
+\end_layout
+
+\begin_layout Standard
+The contact mode scanning tool simulates one of the earliest and simplest
+ AFM imaging modes.
+ The utility of this tool is that allows understanding the operation of
+ the controller without having to deal with the complexities of dynamic
+ AFM.
+ This example illustrates tip-sample geometry convolution, which is a well-known
+ effect when measuring very small features.
+\end_layout
+
+\begin_layout Standard
+To start, pick 
+\begin_inset Quotes eld
+\end_inset
+
+Contact mode scanning
+\begin_inset Quotes erd
+\end_inset
+
+ from the application drop down in the top left.
+ You'll note that tab 1 looks a little different than it did for the F-z
+ curves tool.
+ We still need to know the properties of the cantilever, but because this
+ is a scanning simulation, we also need to enter things like the controller
+ parameters.
+ Select example 1 from the drop down menu to populate the parameters for
+ this example.
+\end_layout
+
+\begin_layout Standard
+Now, click to tab number 2 tip-sample interaction properties.
+ This tab looks exactly identical to tab 2 in the F-z curves tool.
+ All of the VEDA tools use this common interface for material properties.
+ Note that we have picked a 5 nm tip radius.
+ The end of the tip is assumed to be spherical.
+\end_layout
+
+\begin_layout Standard
+There is a new tab labeled feature properties.
+ The scanning tools are organized in a similar manner to many experimental
+ conditions.
+ There is a substrate (which in an experiment might be mica, HOPG, or silicon)
+ and a 
+\begin_inset Quotes eld
+\end_inset
+
+feature
+\begin_inset Quotes erd
+\end_inset
+
+ (which in an experiment might be a sample such as a virus that is sitting
+ on top of the substrate, or a geometric feature etched into the substrate
+ such as a trench in a silicon wafer).
+ This new tab is where we put information about the 
+\begin_inset Quotes eld
+\end_inset
+
+feature
+\begin_inset Quotes erd
+\end_inset
+
+.
+ In this case we've picked a sinusoidal feature with height 30 nm and width
+ 35 nm and checked the box for tip-sample convolution.
+\end_layout
+
+\begin_layout Standard
+Click simulate to begin the simulations.
+ When it's done, the result should look like 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:scancontact_Ex1_1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The measured topography (blue) resembles the actual sample geometry (red),
+ but it is just slightly wider.
+ This is a common problem with measuring widths of small features.
+ If you look at the results tab, you'll see that the available results are
+ different than for the F-z curves tool.
+\end_layout
+
+\begin_layout Standard
+Now let us illustrate one of the powerful features of VEDA, the ability
+ to run multiple simulations with varying parameters and compare them.
+ Go back to the feature properties tab (click on it) and reduce the feature
+ width to 25 nm.
+ Repeat the simulation for feature widths of 15, 5, and 1 nm.
+ When you're finished the result should look some like Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:scancontact_Ex1_2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Note that we've turned off the 
+\begin_inset Quotes eld
+\end_inset
+
+sample height
+\begin_inset Quotes erd
+\end_inset
+
+ plots to improve clarity (click on the triangle to reveal the legend, and
+ uncheck all the red lines).
+ Note that as the feature width decreases, the measured geometry looks less
+ and less like a sinusoid, and more like a rectangle a circle of radius
+ 5 nm on top (draw in dashed line for illustration).
+ In this case, the sample is showing us an image of the tip, instead of
+ the tip showing us an image of the sample!
+\end_layout
+
+\begin_layout Standard
+Now you have run two basic simulations with VEDA and you are well on your
+ way to simulating AFM.
+ This concludes the First Time User's Manual.
+ You can now open up the Comprehensive Manual for more examples and more
+ details.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement htb
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename scancontact_ex1_1.png
+	width 90text%
+	clip
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Measured topography for a 5 nm tip radius compared with the actual sinusoidal
+ feature of width 35 nm.
+ The measured topography resembles the feature, but is just slightly wider.
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:scancontact_Ex1_1"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement htb
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename scancontact_ex1_2.pdf
+	clip
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Measured geometry for a 5 nm tip radius and a sinusoidal feature of successively
+ decreasing widths.
+ For very small features, the measured geometry begins to resemble a circle
+ with a radius of 5 nm - the feature is imaging the tip instead of the tip
+ imaging the feature
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:scancontact_Ex1_2"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+References
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "Library"
+options "biochemistry"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

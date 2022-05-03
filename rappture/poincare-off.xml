@@ -1,0 +1,23 @@
+  <group id="poinc">
+   <about>
+     <enable>false</enable>
+    <label>Poincare sections</label>
+   </about>
+
+     <boolean id="Want_Strob">
+   <about>
+   <label>Stroboscopic</label>
+   <description>Check to include a stroboscopic poincare section which displays phase-space variables at integer period intervals.</description>
+   </about>
+   <default>off</default>
+   </boolean>
+
+   <boolean id="Want_Impact">
+   <about>
+   <label>Impact</label>
+   <description>Check to include a impact poincare section which displays phase-space variables at contact initialization times.</description>
+   </about>
+   <default>off</default>
+   </boolean>
+
+  </group>

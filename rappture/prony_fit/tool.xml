@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<run>
+   <tool>
+        <about>Prony Series Fit Tool</about>
+        <command>@tool/../../bin/run_prony_fit.sh @driver</command>
+        <limits>
+            <filesize>900000</filesize>
+            <cputime>6000</cputime>
+        </limits>
+	<layout>wizard</layout>
+    </tool>
+    
+    <input>
+      <phase id="input">
+	<about>
+	  <label>Input Data</label>
+	</about>
+
+       <loader>
+       	 <about>
+           <label>Uploader</label>
+           <description>Use this box to load data from you hard drive.  you will need three separate text files. one for the frequencies, one for the storage modulus, on for the loss modulus</description>
+         </about>
+	 
+	 <upload>
+	   <to>input.phase(input).string(freq_in)</to>
+	   <to>input.phase(input).string(G_loss)</to>
+	   <to>input.phase(input).string(G_storage)</to>
+	 </upload>
+       </loader>
+
+       
+       <number id="n_dma">
+	 <about>
+	   <label>Number DMA data points</label>
+	   <description>Enter the number of data point from dynamic mechanical analysis</description>
+	 </about>
+	 <min>1</min>
+	 <default>5</default>
+       </number>	
+
+       <string id="freq_in">
+	 <about>
+	   <label>Frequencies (Hz)</label>
+	   <description>Enter a comma separated list of frequencies at which DMA data is available (at least 1 point per decade recommended). The frequency range must include the desired operating frequency for the planned VEDA simulation.  It is recommended to have at least one or two decades of data below the operating frequency and at least two or three decades of data above the operating frequency.</description>
+	 </about>	 
+	 <default>1, 10, 100, 1000, 10000</default>
+       </string>
+             
+       <string id="G_loss">
+	 <about>
+	   <label>G_loss (GPa)</label>
+	   <description>Enter a comma separated list of dynamic loss shear modulus, one for each frequency</description>
+	 </about>	 
+	 <default>0.1, 0.2, 0.5, 0.2, 0.1</default>
+       </string>
+             
+
+       <string id="G_storage">
+	 <about>
+	   <label>G_storage (GPa)</label>
+	   <description>Enter a comma separated list of dynamic storage shear modulus, one for each frequency</description>
+	 </about>	 
+	 <default>1, 1.1, 1.5, 1.9, 2</default>
+       </string>
+
+       <number id="n_prony">
+	 <about>
+	   <label>Number Prony series terms</label>
+	   <description>Enter the number of Prony series terms.  This must be less than or equal to the number of DMA data points.  The relaxation times will equally spaced over the frequency range specified above.</description>
+	 </about>
+	 <min>1</min>
+	 <default>5</default>
+       </number>	
+
+       <note><contents>Note: during July and August 2012, there was a bug in this tool that may have caused the output relaxation times to be off by a factor of 2pi. If you see different output than previously, this is probably the reason</contents></note>
+
+      </phase>
+							
+    </input>
+</run>

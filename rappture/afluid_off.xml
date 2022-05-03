@@ -1,0 +1,8 @@
+	<boolean id="want_Afluid">
+	  <about>
+	    <label>Include Fluid borne loading</label>
+	    <description>When this box is checked you can enter fluid borne loading (see Xu and Raman JAP 2007, vol 102)</description>	    
+	    <enable>off</enable>
+	  </about>
+	  <default>off</default>
+	</boolean>

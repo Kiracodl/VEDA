@@ -1,0 +1,39 @@
+	<boolean id="want_Afluid">
+	  <about>
+	    <label>Include Fluid borne loading</label>
+	    <description>When this box is checked you can enter fluid borne loading (see Xu and Raman JAP 2007, vol 102)</description>	    
+	    <enable>(input.phase(op).choice(fexcite) == 1) ||(input.phase(op).choice(fexcite) == 5)</enable>
+	  </about>
+	  <default>off</default>
+	</boolean>
+	    
+        <number id="Afluid_real">
+            <about>
+                <label>Afluid real part</label>
+                <description>The real (inertial) part of the fluid borne loading</description>
+		<enable>input.phase(op).boolean(want_Afluid) &amp;&amp; ((input.phase(op).choice(fexcite) == 1) ||(input.phase(op).choice(fexcite) == 5))  </enable>
+            </about>
+            <units></units>
+            <default>0.04</default>
+        </number>
+
+        <number id="Afluid_imag">
+            <about>
+                <label>Afluid imag part</label>
+                <description>The imaginary (viscous) part of the fluid borne loading</description>
+		<enable>input.phase(op).boolean(want_Afluid)  &amp;&amp; ((input.phase(op).choice(fexcite) == 1) ||(input.phase(op).choice(fexcite) == 5)) </enable>
+            </about>
+            <units></units>
+            <default>0.009</default>
+        </number>
+
+        <number id="mstar_div_m">
+            <about>
+                <label>m* / mc</label>
+                <description>The ratio of added fluid mass to cantilever mass</description>
+		<enable>input.phase(op).boolean(want_Afluid)   &amp;&amp; ((input.phase(op).choice(fexcite) == 1) ||(input.phase(op).choice(fexcite) == 5))</enable>
+            </about>
+            <units></units>
+	    <min>0</min>
+            <default>0.95</default>
+        </number>

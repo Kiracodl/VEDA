@@ -1,0 +1,18 @@
+       <number id="LockInOrder">	
+	 <about>
+	   <label>Choose Lock In Filter Order</label>
+	   <description>Lock In Filter order</description>
+	   <enable>false</enable>
+	 </about>
+		 
+	<default>0</default>
+	</number>
+
+	<boolean id="Want_AutoCalcTC">
+	 <about>
+	  <label> Auto-Calculate Time constant</label>
+	  <description> Automatically calculates the time constant required for the simulation</description>
+	  <enable>off</enable>
+	 </about>
+	 <default>off</default>
+	</boolean>       

@@ -1,0 +1,22 @@
+#!/usr/bin/perl
+
+#purpose: goes through an too.xml file and copies all of the <default>
+#tags to <current> tags.  this allows creating a driver file from
+#a tool file without using the rappture GUI
+#
+# usage: tool_to_driver.pl < tool.xml > driver.xml
+
+
+while ($line1 = <STDIN>)
+{
+    if ($line1 =~ /default>.+<.default/)
+    {
+	print "<default>$1</default>\n";
+	print "<current>$1</current>\n";
+	
+    }
+    else
+    {
+	print $line1;
+    }    
+}

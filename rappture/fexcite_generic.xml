@@ -1,0 +1,41 @@
+      <boolean id="WantSampleExc">
+          <about> 
+            <label>use sample excitation</label> 
+            <enable>off</enable>
+          </about>
+          <default>off</default>
+        </boolean>
+        
+
+	<choice id="fexcite">
+		<about><label>Choose excitation source</label>
+		<description>Choose the source by which the cantilever is excited. This may be important for low quality factors.</description>
+		</about>	
+	
+		<option>
+		<about>
+		<label>Acoustic excitation</label>
+		</about>
+		<value>1</value>
+		</option>
+				
+		<option>
+		  <about>
+		    <label>Magnetic excitation [coating (e.g. MAC mode) or bead at free end]</label>
+		  </about>
+		  <value>7</value>
+		</option>
+
+		<option>
+		  <about>
+		    <label>Lorentz force excitation (e.g. i-Drive)</label>
+		  </about>
+		  <value>2</value>
+		</option>
+
+
+		<default>7</default>
+
+	</choice>
+
+        

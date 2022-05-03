@@ -1,0 +1,52 @@
+  <group id="poinc">
+   <about>
+    <label>Poincare sections</label>
+   </about>
+
+     <boolean id="Want_Strob">
+   <about>
+   <label>Stroboscopic</label>
+   <description>Check to include a stroboscopic poincare section which displays phase-space variables at integer period intervals.</description>
+   </about>
+   <default>off</default>
+   </boolean>
+
+   <boolean id="Want_Impact">
+   <about>
+   <label>Impact</label>
+   <description>Check to include a impact poincare section which displays phase-space variables at contact initialization times.</description>
+   </about>
+   <default>off</default>
+   </boolean>
+
+   <integer id="numpoinc">
+     <about>
+       <label>Number of Poincare plots</label>
+       <description>The number of unique Poincare plots to be generated.</description>
+           <enable>input.phase(sim).group(poinc).boolean(Want_Strob) || input.phase(sim).group(poinc).boolean(Want_Impact)</enable>
+     </about>
+     <units> </units>
+     <min>1</min>
+     <max>9</max>
+     <default>2</default>
+   </integer>
+
+   <string id="Npoinc_X1">
+              <about>
+                 <label>X-axis</label>
+                 <description>Enter comma separated values for the state-space variables to be plotted on the horizontal axis. Enter 0 for d (tip-sample gap), -1 for time, -2 for Z, or 2*n-1 for deflection in mode n</description>
+          <enable>input.phase(sim).group(poinc).boolean(Want_Strob) || input.phase(sim).group(poinc).boolean(Want_Impact)</enable>
+   </about>
+              <default>1,3</default>
+          </string>
+
+   <string id="Npoinc_Y1">
+              <about>
+                 <label>Y-axis</label>
+                 <description>Enter comma separated values for the state-space variables to be plotted on the vertical axis. Enter 0 for d(d)/dt (tip velocity), 2*n-2 for deflection in mode n, or 2*n for velocity of mode n</description>
+          <enable>input.phase(sim).group(poinc).boolean(Want_Strob) || input.phase(sim).group(poinc).boolean(Want_Impact)</enable>
+   </about>
+              <default>2,4</default>
+          </string>
+
+  </group>

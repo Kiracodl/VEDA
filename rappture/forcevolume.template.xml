@@ -1,0 +1,602 @@
+<?xml version="1.0"?>
+<run>
+#include "tool.xml"
+
+<!-- Daniel 12/22/2020. this had been named "peakforce" but was clearly set up to do force volume.  had not been published on nanohub.  not sure if it works or not.  based on some code internals, I suspect it is not finished. Not going to worry about it for now. just rename to be correct and continue with the actual peakforce code -->
+
+    <input>
+    	<phase id="op">
+		<about>
+			<label>Operating conditions and cantilever prop.</label>
+		</about>
+
+		
+		
+	<choice id="operating_mode">
+		<about>
+		<enable>no</enable>
+		<label>Choose operating mode</label>
+		</about>	
+	
+		<option>
+		<about>
+		<label>Approach</label>
+		</about>
+		<value>1</value>
+		</option>
+
+		<option>
+		<about>
+		<label>Freq Sweep</label>
+		</about>
+		<value>2</value>
+		</option>
+
+		<option>
+		<about>
+		<label>Scan</label>
+		</about>
+		<value>3</value>
+		</option>
+
+		<option>
+		<about>
+		<label>Jump</label>
+		</about>
+		<value>4</value>
+		</option>
+				
+		<default>3</default>
+	</choice>
+
+	<choice id="modulation_type">
+		<about><label>Choose modulation type</label>
+		  <enable>false</enable>
+		</about>	
+	
+		<option>
+		  <about>
+		    <label>Amplitude Modulation</label>
+		  </about>
+		  <value>1</value>
+		</option>
+		
+		<option>
+		  <about>
+		    <label>Frequency Modulation</label>		    
+		  </about>
+		  <value>2</value>
+		</option>
+		
+		<option>
+		  <about>
+		    <label>Force Volume</label>		    
+		  </about>
+		  <value>3</value>
+		</option>
+				
+		<default>3</default>
+	</choice>
+	
+    	<choice id="Z_feedback_choice">
+    	  <about>
+		<label>Z feedback choice</label>
+		<enable>off</enable>
+      	  </about>
+	  
+  	  <option>
+	    <about>
+		<label>Amplitude</label>
+	    </about>
+	    <value>1</value>
+	  </option>
+
+  	  <option>
+	    <about>
+		<label>Deflection</label>
+	    </about>
+	    <value>4</value>
+	  </option>
+
+  	  <option>
+	    <about>
+		<label>Mean Deflection</label>
+	    </about>
+	    <value>5</value>
+	  </option>
+	
+	  <option>
+	     <about>
+		<label>Force Volume</label>
+             </about>
+	     <value>7</value>
+	  </option>
+
+	  <default>7</default>
+	</choice>
+
+
+	
+	<choice id="fexcite">
+		<about><label>Choose excitation source</label>
+		<enable>no</enable>
+		<description>Choose the source by which the cantilever is excited. This may be imporant for low quality factors.</description>
+		</about>	
+	
+		<option>
+		<about>
+		<label>Acoustic excitation</label>
+		</about>
+		<value>1</value>
+		</option>
+
+		<option>
+		<about>
+		<label>Magnetic excitation</label>
+		</about>
+		<value>2</value>
+		</option>
+		
+		<option>
+		<about>
+		<label>No excitation</label>
+		</about>
+		<value>3</value>
+		</option>
+				
+		<default>3</default>
+	</choice>
+
+	<choice id="freqchoice">
+		<about><label>Choose frequency scheme</label>
+		<enable>no</enable>
+		<description>Choose the number of frequencies in the drive (excitation) signal.</description>
+		</about>	
+	
+		<option>
+		<about>
+		<label>Single frequency (conventional)</label>
+		</about>
+		<value>1</value>
+		</option>
+
+		<option>
+		<about>
+		<label>Two frequencies (bimodal)</label>
+		</about>
+		<value>2</value>
+		</option>
+				
+		<default>1</default>
+	</choice>
+
+        <number id="numModes">
+            <about>
+                <label>Number of eigenmodes</label>
+                <description>Number of eigenmodes (vibrational modes) to be included in the simulation. You will need one comma separated value for each ki, Qi, and fi for EACH eigenmode! </description>
+	    <enable>off</enable>
+            </about>
+            <units></units>
+            <min>1</min>
+            <max>9</max>
+	    <default>1</default>
+	</number>  
+			
+	<boolean id="want_Abase_direct">
+          <about>        
+            <enable>off</enable>
+          </about>
+          <default>off</default>
+        </boolean>
+
+	
+        <number id="Ainitial">
+            <about>
+	    	<enable>no</enable>
+                <label>A_0,1 (nm)</label>
+                <description>The unconstrained amplitude at the first (or only) excitation frequency far from the sample surface in the absence of tip-sample interaction forces.</description>
+            </about>
+            <units></units>
+            <min>1</min>
+            <max>1000</max>
+            <default>1</default>
+        </number>
+
+	
+        <number id="Ainitial2">
+            <about>
+                <label>A_0,2 (nm)</label>
+                <description>The unconstrained amplitude at the second (bimodal) excitation frequency far from the sample surface in the absence of tip-sample interaction forces.</description>
+		<enable>no</enable>	        	   
+	    </about>
+            <units></units>
+            <min>0</min>
+            <max>100</max>
+            <default>1</default>
+        </number>
+#define KEQDEFAULT 1
+#define BASIC 1			
+#include "keq.xml"
+
+        <string id="Quality1">
+            <about>
+                <label>Qi</label>
+                <description>Enter comma separated values of the quality factors or each eigenmode. We define quality factor as 1/(2*damping ratio)..</description>
+            </about>
+            <units></units>
+              <default>33</default>
+        </string>	
+		
+	<string id="omega1">
+            <about>
+                <label>f1 (kHz)</label>
+                <description>Enter  the natural frequency of the cantilever.</description>
+            </about>
+            <units></units>
+                       <default>44</default>
+        </string>
+
+	<string id="omegad_string">
+            <about>
+                <label>fd (kHz)</label>
+		<enable>no</enable>
+                <description>The excitation frequency applied to the cantilever. Enter comma separated values for each excitation frequency (1 for conventional, 2 for bimodal)</description>
+        </about>
+            <default>44</default>
+        </string>
+	
+	<number id="mtip">
+            <about>
+                <label>Tip mass</label>
+                <description>Tip mass as a fraction of the cantilever beam mass.</description>	        	   
+            </about>
+            <units></units>
+            <min>0</min>
+            <default>0</default>
+        </number>
+		 		
+        <number id="AprchS">
+            <about>
+                <label>Z approach velocity (nm/s) </label>
+                <description>The average speed that the base of the cantilever approaches the sample.</description>
+            </about>
+            <units></units>
+            <min>0.0001</min>
+            <default>500</default>
+     	    <enable>input.phase(op).choice(freqchoice) == 3</enable>	
+        </number>
+
+	 <number id="gamma_drag">
+            <about>
+	        <enable>off</enable>
+                <label>gamma (Z drag)</label>
+                <description>The drag coefficient (kg/s)</description>
+            </about>
+            <units></units>
+            <min>0</min>
+            <default>0</default>	
+        </number>
+
+
+	   <number id="Z0">
+             <about>
+               <label>Initial Z separation (nm)</label>
+               <description>The initial gap between the sample and the base of the cantilever. Note: this is not the tip-sample gap. Any static deflection due to long range forces is added (or subtracted) to this value to get the initial tip-sample gap.</description>    
+	     </about>
+	     
+             <units> </units>
+	     <default>12</default>
+           </number>	
+
+        <number id="F_ForceVol_dim">
+            <about>
+                <label>Peak force on the sample (nm)</label>
+                <description>The maximum force that is applied on the sample. Enter a value greater than 0 (future versions will incorporate attractive regimes)</description>
+            </about>
+            <units></units>
+            <min>0.0001</min>
+            <default>1</default>
+     	    <enable>on</enable>	
+        </number>
+
+	<number id="ForceVolSettleTime">
+	    <about>
+               <label>Peak Feedback settle time (ms)</label>
+               <description>This is the amount of time to pause at the bottom on the loop. This is dead time to account for the time the controller would be on</description>
+             </about>
+             <min>0</min>
+            <max>1000</max>
+            <default>0</default>
+	</number>
+#define SCANSPEED 1
+#include "scanning_common.xml"
+
+#include "nolockin.xml"
+
+       <note><contents>file://../ignore.html</contents></note>
+
+#include "chi.xml"
+#include "alpha.xml"
+#include "afluid.xml"
+
+
+	</phase>
+	
+	<phase id="ts">
+		<about>
+			<label>Tip-sample interaction properties</label>
+		</about>
+#define PATH input.phase(ts)
+#include "ts-model-choice.xml"
+#include "tip.xml"
+#include "sample.xml"	
+	</phase>
+	
+	
+	<phase id="sim">
+	  <about> <label>Simulation parameters</label> </about>
+
+	  
+       <boolean id="Want_ContTrans">
+	 <about> 
+	   <label>Include time history of sample engagement transients</label> 
+	   <description>To include a time history of the initial approach to the sample, select "yes." This is generally only needed for debugging an unstable controller</description>
+	 </about>
+	 <default>off</default>
+       </boolean>
+	  
+
+	#include "plotpnts.xml"
+       
+	#include "numincycle.xml"
+	
+  	<boolean id="WantHH">
+		<about> 
+		<enable>no</enable>
+		<label>Plot a higher harmonic?</label> 
+		<description>To plot a higher harmonic of the excitation frequency of the delfection waveform, select "yes."</description>
+		</about>
+		<default>off</default>
+	</boolean>
+	
+	<integer id="numHH">
+            <about>
+                <label>Number of higher harmonics</label>
+		<enable>no</enable>
+                <description>Enter the number of higher harmonics of the deflection waveform you wish to display.</description>
+	    	<enable>input.phase(sim).boolean(WantHH)</enable>         	         
+	    </about>
+            <units> </units>
+	    <min>1</min>
+	    <max>9</max>
+	    <default>2</default>
+        </integer>
+	
+	<string id="NHH1">
+            <about>
+                <label>Choose higher harmonics</label>
+		<enable>no</enable>
+		<description>These comma-separated higher harmonics of the deflection waveform will be displayed.</description>
+         	<enable>input.phase(sim).boolean(WantHH)</enable>
+	</about>
+            <default>7,9</default>
+        </string>
+		
+#define TIME_HIST_X	
+#include "timehist.xml"
+#include "scansize.xml"
+
+
+	
+		<group id="poinc">
+			<about>
+				<enable>no</enable>
+				<label>Poincare plots</label>
+			</about>
+			
+		  	<boolean id="Want_Strob">
+			<about> 
+			<label>Stroboscopic</label> 
+			<description>Check to include a stroboscopic poincare plot which displays phase-space variables at integer period intervals.</description>
+			</about>
+			<default>off</default>
+			</boolean>
+		
+			<boolean id="Want_Impact">
+			<about> 
+			<label>Impact</label> 
+			<description>Check to include a impact poincare plot which displays phase-space variables at contact initialization times.</description>
+			</about>
+			<default>off</default>
+			</boolean>
+			
+			<integer id="numpoinc">
+            		<about>
+                	<label>Number of Poincare plots</label>
+                	<description>The number of unique Poincare plots to be generated.</description>
+            		</about>
+            		<units> </units>
+            		<min>1</min>
+            		<max>9</max>
+            		<default>2</default>
+        		</integer>
+			
+			<string id="Npoinc_X1">
+            		<about>
+                	<label>X-axis</label>
+                	<description>Enter comma separated values for the state-space variables to be plotted wirh respect to the horizontal axis. Enter 0 for d (tip-sample gap).</description>
+        		<enable>input.phase(sim).group(poinc).boolean(Want_Strob) || input.phase(sim).group(poinc).boolean(Want_Impact)</enable>
+			</about>
+            		<default>1,3</default>
+        		</string>
+			
+			<string id="Npoinc_Y1">
+            		<about>
+                	<label>Y-axis</label>
+                	<description>Enter comma separated values for the state-space variables to be plotted wirh respect to the vertical axis. Enter 0 for d(d)/dt (tip velocity).</description>
+        		<enable>input.phase(sim).group(poinc).boolean(Want_Strob) || input.phase(sim).group(poinc).boolean(Want_Impact)</enable>
+			</about>
+            		<default>2,4</default>
+        		</string>
+	
+		</group>
+		
+		
+		<group id="plots">
+		  <about>
+		    <label>Output plots</label>
+		  </about>
+		  <boolean id="Want_E_Anc">
+                    <about> 
+                      <label>Ancykowski formula</label> 
+                      <description>Check to caclulate Ancykowski's formula for tip-sample dissipation (for comparison ONLY! May be inaccurate in many situations, especially in liquids.  For the true energy disspation, use the 'Energy Dissipated' checkbox above)</description>
+		      <enable>off</enable>
+                    </about>
+                    <default>off</default>
+                  </boolean>
+
+
+		  	<boolean id="Want_AZ">
+			<about> 
+                        <enable>no</enable>
+			<label>A_1,1</label> 
+			<description>Check to include the first harmonic amplitude plot.</description>
+			</about>
+			<default>off</default>
+			</boolean>
+			
+			<boolean id="Want_A2">
+			<about>
+                        <enable>no</enable>
+			<label>A_1,2</label> 
+			<description>Check to include the second frequency amplitude plot.</description>
+			</about>
+			<default>off</default>
+			</boolean>
+			
+			<boolean id="Want_P1">
+			<about> 
+			<label>Phase_1,1</label> 
+                        <enable>no</enable>
+			<description>Check to include the first harmonic phase vs. the selected x-axis variable.</description>
+			</about>
+			<default>off</default>
+			</boolean>
+			
+			<boolean id="Want_P2">
+			<about>
+                        <enable>no</enable>
+			<label>Phase_1,2</label> 
+			<description>Check to include the second frequency phase plot.</description>
+			</about>
+			<default>off</default>
+			</boolean>
+			
+			<boolean id="Want_MF">
+			<about> 
+			<enable>no</enable>
+			<label>Mean interaction force</label> 
+			<description>Check to include the mean interaction force vs. the selected x-axis variable.</description>
+			</about>
+			<default>off</default>
+			</boolean>
+			
+			<boolean id="Want_PF">
+			<about> 
+			<label>Peak interaction forces</label> 
+			<enable>no</enable>
+			<description>Check to include the peak interaction forces vs. the selected x-axis variable.</description>
+			</about>
+			<default>off</default>
+			</boolean>
+			
+			<boolean id="Want_ED">
+			<about> 
+			<label>Energy dissipated</label> 
+			<enable>no</enable>
+			<description>Check to include the engergy dissipated per cycle vs. the selected x-axis variable.</description>
+			</about>
+			<default>off</default>
+			</boolean>
+
+			<boolean id="Want_ev">
+			  <about> 
+			    <enable>off</enable> 			  
+			  </about>
+			  <default>off</default>
+			</boolean>
+			
+			<boolean id="Want_RMS">
+			  <about> 
+			    <enable>off</enable> 			  
+			  </about>
+			  <default>off</default>
+			</boolean>			
+
+			<boolean id="Want_virial">
+			  <about> 
+			    <enable>off</enable> 			  
+			  </about>
+			  <default>off</default>
+			</boolean>
+
+
+			<boolean id="Want_Fourier">
+			  <about> 
+			    <enable>off</enable> 			  
+			  </about>
+			  <default>off</default>
+			</boolean>
+
+
+			<boolean id="Want_EP">
+                        <about> 
+                        <label>Energy propagation</label> 
+                        <description>Check to include the engergy propagation terms cycle vs. the selected x-axis variable.</description>
+                        </about>
+                        <default>off</default>
+                        </boolean>
+
+			
+			<boolean id="Want_I">
+			<about> 
+			<label>Indentation</label> 
+			<description>Check to include the indentation vs. the selected x-axis variable.</description>
+			</about>
+			<default>off</default>
+			</boolean>
+			
+			<boolean id="Want_CT">
+			<about> 
+                        <enable>no</enable>
+			<label>Contact time</label> 
+			<description>Check to include the contact time vs. the selected x-axis variable.</description>
+			</about>
+			<default>off</default>
+			</boolean>
+
+			<boolean id="Want_JumpEig">
+			<about> 
+			<label>Jump mode Eigenmode response</label> 
+			<description>Check to include eigenmode responses versus time (jump mode only).</description>
+			</about>
+			<default>on</default>
+			</boolean>
+
+			<boolean id="Want_ForceFourier">
+			  <about> 
+			    <label>1st Harmonic of interaction force</label> 
+			    <description>Check to include the 1st harmonic amplitude of the tip-sample interaction force.</description>
+			    <enable>off</enable>
+			  </about>
+			  <default>off</default>
+			</boolean>
+
+		
+		</group>
+						
+	</phase>
+
+#include "feature.xml"
+    </input>
+</run>

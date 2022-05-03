@@ -1,0 +1,17 @@
+	<boolean id="AutoCalcAlpha">
+   	<about>
+   	<label>Auto calculate alpha_i</label>
+   	<description>To input alpha directly uncheck the box.  To allow the alpha_i's to be calculated, leave the box checked. If you are unsure, leave the box checked.</description>
+	</about>
+   	<default>on</default>
+   	</boolean>
+
+	<string id="alpha">
+            <about>
+                <label>alpha</label>
+  		<enable>!input.phase(op).boolean(AutoCalcAlpha)</enable>
+                <description>Enter comma separated values for the dispersion alpha of each eigenmode.</description>
+            </about>
+            <units></units>
+            <default>1.875, 4.694, 7.85</default>
+        </string>

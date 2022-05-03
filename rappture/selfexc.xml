@@ -1,0 +1,39 @@
+<group id="selfexc">
+  <about>
+    <enable>input.phase(op).choice(freqchoice) == 3</enable>
+  </about>
+  
+  <number id="selfexc_gain">
+    <about>
+      <label>Self-excitation gain</label>
+      <description>Self-excitation gain. (no units) </description>
+    </about>
+    <units></units>
+    <min>0.001</min>
+    <max>1000</max>
+    <default>10</default>
+  </number>
+
+  <number id="selfexc_sat">
+    <about>
+      <label>Self-excitation saturation</label>
+      <description>Self-excitation saturation (no units)</description>
+    </about>
+    <units></units>
+    <min>1e-5</min>
+    <max>1000</max>
+    <default>10</default>
+  </number>
+  
+  <number id="selfexc_phase">
+    <about>
+      <label>Self-excitation phase delay (degrees)</label>
+      <description>Phase delay (implemented as a time relative to the first natural frequency).  This a phase lag between 0 and 360 degree.  Values > 180 can be interpreted as a lead.  E.g. 270 deg lag is same as 90 deg lead.</description>
+    </about>
+    <units></units>
+    <min>0</min>
+    <max>360</max>
+    <default>10</default>
+  </number>
+
+</group>

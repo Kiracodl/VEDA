@@ -1,0 +1,7 @@
+<boolean id="AutoCalcOmega">
+  <about>
+    <label>Auto calculate omega_i (i>1)?</label>
+    <description>To input omega2, omega3, etc., leave the box unchecked.  To allow the omega_i's to be calculated (for i > 1), check the box. Autocalculation is valid only for rectangular diving board cantilevers</description>
+  </about>
+  <default>off</default>
+</boolean>

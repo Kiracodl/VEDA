@@ -1,0 +1,100 @@
+      <boolean id="WantSampleExc">
+          <about> 
+            <label>use sample excitation</label> 
+            <enable>off</enable>
+          </about>
+          <default>off</default>
+        </boolean>
+        
+
+
+	<choice id="fexcite">
+		<about><label>Choose excitation source</label>
+		<description>Choose the source by which the cantilever is excited. This may be important for low quality factors.</description>
+		</about>	
+	
+		<option>
+		<about>
+		<label>Acoustic excitation (Ideal)</label>
+		</about>
+		<value>1</value>
+		</option>
+				
+		<option>
+		  <about>
+		    <label>Magnetic excitation [coating (e.g. MAC mode) or bead at free end]</label>
+		  </about>
+		  <value>7</value>
+		</option>
+
+		<option>
+		<about>
+		<label>Acoustic excitation (w/ Piezo Resonance)</label>
+		</about>
+		<value>5</value>
+		</option>
+	
+		<option>
+		  <about>
+		    <label>Lorentz force excitation (e.g. i-Drive)</label>
+		  </about>
+		  <value>2</value>
+		</option>
+
+
+		<default>7</default>
+
+	</choice>
+
+	<boolean id="want_nonideal_magnetic">
+	  <about>
+	    <label>Use Non-ideal magnetic drive?</label>
+	    <description>If this box is checked, then the effects of a finite inductance in the magnetic coil is included. This is modeled as a decreasing efficiency as the excitation frequency increases, and also a phase offset between the input signal and the magnetic force.  If you are unsure, leave this off</description>
+	    <enable>input.phase(op).choice(fexcite) == 7 || input.phase(op).choice(fexcite) == 2</enable>
+	  </about>
+	  <default>off</default>
+	</boolean>
+
+	<number id="phase_slope">
+            <about>
+                <label>Magnetic Phase Slope (deg/kHz)</label>
+		<enable>input.phase(op).boolean(want_nonideal_magnetic)</enable>
+                <description>Phase offset from non-ideal magnetic drive.  You would acquire this by performing a tuning curve over a very wide bandwidth and observed deviations from the ideal simple harmonic oscillator frequency response. If you are not sure, then enter 0.</description>	        	   
+            </about>
+            <units></units>
+            <default>1</default>
+        </number>
+
+	<number id="efficiency_slope">
+            <about>
+                <label>Magnetic Efficiency Slope (%/kHz)</label>
+		<enable>input.phase(op).boolean(want_nonideal_magnetic)</enable>
+                <description>Efficiency slope from non-ideal magnetic drive.  You would acquire this by performing a tuning curve over a very wide bandwidth and observed deviations from the ideal simple harmonic oscillator frequency response. Positive number = Less efficient at high freq.  Negative number = More efficient at high freq.  If you are not sure, then enter 0</description>	        	   
+            </about>
+            <units></units>
+            <default>-2</default>
+        </number> 
+
+
+
+	<number id="osc_Q">
+            <about>
+                <label>Piezo Q</label>
+		<enable>input.phase(op).choice(fexcite) == 5</enable>
+                <description>beta testing, don't use</description>	        	   
+            </about>
+            <units></units>
+            <min>0</min>
+            <default>20</default>
+        </number>
+
+	<number id="osc_omega">
+            <about>
+                <label>Piezo Freq (kHz)</label>
+		<enable>input.phase(op).choice(fexcite) == 5</enable>
+                <description>beta testing, don't use</description>	        	   
+            </about>
+            <units></units>
+            <min>0</min>
+            <default>20</default>
+        </number>

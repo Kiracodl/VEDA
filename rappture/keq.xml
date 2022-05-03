@@ -1,0 +1,33 @@
+#ifndef KEQDEFAULT
+#define KEQDEFAULT 0.6,24
+#endif
+
+        <boolean id="CalcInputK">
+	  <about>
+	    <label>Auto calculate stiffnesses k_i (i>1)?</label>
+	    <description>To input k2, k3, etc., leave the box unchecked.  To auto calculated k2, k3, etc based on k1, check the box.  Auto calculation is valid only for rectangular diving board cantilevers</description>
+#ifdef BASIC
+          <enable>off</enable>
+#endif
+
+	  </about>
+	  <default>off</default>
+	</boolean>
+
+#ifdef BASIC
+ 	<string id="Keq1">
+            <about>
+                <label>Cantilever stiffness k_i (N/m)</label>
+                <description>Enter comma separated values for the equivalent stiffness of each eigenmode.</description>
+        </about>
+            <default>KEQDEFAULT</default>
+        </string>
+#else
+ 	<string id="Keq1">
+            <about>
+                <label>Cantilever stiffness k (N/m)</label>
+                <description>Enter cantilever stiffness (i.e. first eigenmode or static stiffness).</description>
+        </about>
+            <default>KEQDEFAULT</default>
+        </string>
+#endif

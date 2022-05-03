@@ -1,0 +1,58 @@
+	<boolean id="want_hydrodynamic_function">
+	  <about><label>Use hydrodynamic func.</label>
+	    <description>BETA test feature: expert use only.  Check this box to change the hydrodynamic added mass and viscosity as the frequency changes. The values input above for natural frequency and quality factor are used to calculate the initial added mass and viscosity. Then as excitation frequency changes, they are scaled according to the hydrodynamic function</description>
+	    </about>
+	  <default>off</default>
+	</boolean>
+
+        <number id="fluid_rho">
+            <about>
+                <label>Fluid density (kg/m^3)</label>
+		<enable>input.phase(op).boolean(want_hydrodynamic_function)</enable>
+	    <description></description>
+            </about>
+            <units></units>
+            <min>0</min>
+            <max>10000</max>
+
+            <default>998</default>
+        </number>
+
+        <number id="fluid_eta">
+            <about>
+                <label>Fluid viscosity (N-s/m^2)</label>
+		<enable>input.phase(op).boolean(want_hydrodynamic_function)</enable>
+	    <description></description>
+            </about>
+            <units></units>
+            <min>0</min>
+            <max>1</max>
+
+            <default>1e-3</default>
+        </number>
+
+        <number id="cant_width">
+            <about>
+                <label>Cantilever Width (um)</label>
+		<enable>input.phase(op).boolean(want_hydrodynamic_function)</enable>
+	    <description></description>
+            </about>
+            <units></units>
+            <min>0</min>
+            <max>1000</max>
+
+            <default>30</default>
+        </number>
+
+        <number id="cant_len">
+            <about>
+                <label>Cantilever Length (um)</label>
+		<enable>input.phase(op).boolean(want_hydrodynamic_function)</enable>
+	    <description></description>
+            </about>
+            <units></units>
+            <min>0</min>
+            <max>10000</max>
+
+            <default>225</default>
+        </number>

@@ -1,0 +1,7 @@
+  <integer id="plotpnts">
+    <about>
+      <label>Number of points plotted</label>
+      <description>The number of data points plotted/saved.</description>
+    </about>
+    <default>1000</default>
+  </integer>

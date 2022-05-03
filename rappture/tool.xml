@@ -1,0 +1,16 @@
+<!-- Due to nanohub's automated scripts, there MUST be a file called -->
+<!-- tool.xml somewhere under the rappture directory.  There will -->
+<!-- be automatic variable substitutions.  The results of those -->
+<!-- substitutions MUST be included in every template file. -->
+#ifndef TOOL
+#define TOOL az_ddaskr
+#endif
+<tool>
+  <about>Press Simulate to view results.</about>
+  <command>TOOL @driver</command>
+  <limits>
+    <filesize>90000000</filesize>
+    <cputime>918400</cputime>
+  </limits>
+  <layout>wizard</layout>
+</tool>

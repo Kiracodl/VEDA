@@ -1,0 +1,154 @@
+<string id="freetitle">
+  <about>
+    <label>User title</label>
+    <description>If you want to give your simulation a name or some description so that you can remember which one is which, type it in here.  This field is ignored by the code</description>
+  </about>
+</string>
+
+
+		<group id="plots">
+			<about>
+				<label>Output plots</label>
+#ifdef HIDE_PLOTS
+				<enable>false</enable>
+#endif
+			</about>
+
+		  	<boolean id="Want_Fourier">
+			<about> 
+			<label>Fourier</label> 
+			<description>Check to include the fourier integral plots for amplitude and phase (if unchecked, then only the lock-in values are plotted).</description>
+			</about>
+#ifdef NO_FOURIER
+			<default>off</default>
+#else
+			<default>on</default>
+#endif
+			</boolean>
+
+		
+			<boolean id="Want_RMS">
+			<about> 
+			<label>A_RMS</label> 
+			<description>Check to include the RMS amplitude plot.</description>
+			</about>
+			<default>off</default>
+			</boolean>
+		
+	
+		  	<boolean id="Want_AZ">
+			<about> 
+			<label>A_1,1</label> 
+			<description>Check to include the first harmonic amplitude plot.</description>
+			</about>
+			<default>on</default>
+			</boolean>
+			
+			<boolean id="Want_A2">
+			<about>
+			<enable>input.phase(op).choice(freqchoice) == 2</enable>
+			<label>A_1,2</label> 
+			<description>Check to include the second frequency amplitude plot.</description>
+			</about>
+			<default>on</default>
+			</boolean>
+			
+			<boolean id="Want_P1">
+			<about> 
+			<label>Phase_1,1</label> 
+			<description>Check to include the first harmonic phase vs. the selected x-axis variable.</description>
+			</about>
+			<default>on</default>
+			</boolean>
+			
+			<boolean id="Want_P2">
+			<about>
+			<enable>input.phase(op).choice(freqchoice) == 2</enable>
+			<label>Phase_1,2</label> 
+			<description>Check to include the second frequency phase plot.</description>
+			</about>
+			<default>on</default>
+			</boolean>
+			
+			<boolean id="Want_MF">
+			<about> 
+			<label>Mean interaction force</label> 
+			<description>Check to include the mean interaction force vs. the selected x-axis variable.</description>
+			</about>
+			<default>on</default>
+			</boolean>
+			
+			<boolean id="Want_PF">
+			<about> 
+			<label>Peak interaction forces</label> 
+			<description>Check to include the peak interaction forces vs. the selected x-axis variable.</description>
+			</about>
+			<default>on</default>
+			</boolean>
+			
+			<boolean id="Want_ED">
+			<about> 
+			<label>Energy dissipated</label> 
+			<description>Check to include the engergy dissipated per cycle vs. the selected x-axis variable.</description>
+			</about>
+			<default>on</default>
+			</boolean>
+			
+			<boolean id="Want_ev">
+			  <about> 
+			    <label>Energy plots in eV/drive cycle?</label> 
+			    <description>Check to plot energy units as eV/drive cycle (default). Uncheck for pW.</description>
+			  </about>
+			  <default>on</default>
+			</boolean>
+
+			<boolean id="Want_EP">
+			<about> 
+			<label>Energy propagation</label> 
+			<description>Check to include the engergy propagation terms cycle vs. the selected x-axis variable.</description>
+			</about>
+			<default>off</default>
+			</boolean>
+
+			<boolean id="Want_E_Anc">
+			<about> 
+			<label>Ancykowski formula</label> 
+			<description>Check to caclulate Ancykowski's formula for tip-sample dissipation (for comparison ONLY! May be inaccurate in many situations, especially in liquids.  For the true energy disspation, use the 'Energy Dissipated' checkbox above)</description>
+			</about>
+			<default>off</default>
+			</boolean>
+
+			<boolean id="Want_virial">
+			<about> 
+			<label>Tip-sample virial (numerical)</label> 
+			<description>Check to numerically integrate tip-sample virial</description>
+			</about>
+			<default>on</default>
+			</boolean>
+
+						
+			<boolean id="Want_I">
+			<about> 
+			<label>Indentation</label> 
+			<description>Check to include the indentation vs. the selected x-axis variable.</description>
+			</about>
+			<default>on</default>
+			</boolean>
+			
+			<boolean id="Want_CT">
+			<about> 
+			<label>Contact time</label> 
+			<description>Check to include the contact time vs. the selected x-axis variable.</description>
+			</about>
+			<default>on</default>
+			</boolean>
+
+			<boolean id="Want_ForceFourier">
+			<about> 
+			<label>1st Harmonic of interaction force</label> 
+			<description>Check to include the 1st harmonic amplitude of the tip-sample interaction force.</description>
+			</about>
+			<default>off</default>
+			</boolean>
+
+		</group>

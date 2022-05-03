@@ -1,0 +1,2849 @@
+<?xml version="1.0"?>
+<run>
+
+	<about>
+		<label>AMAC Example 2: Retraction curves</label>
+	</about>
+
+    <input>
+        <phase id="op">
+            <about>
+                <label>Operating conditions and cantilever prop.</label>
+            </about>
+            <choice id="operating_mode">
+                <about>
+                    <enable>no</enable>
+                    <label>Choose operating mode</label>
+                </about>
+                <option>
+                    <about>
+                        <label>Approach</label>
+                    </about>
+                    <value>1</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Freq Sweep</label>
+                    </about>
+                    <value>2</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Scan</label>
+                    </about>
+                    <value>3</value>
+                </option>
+                <default>1</default>
+                <current>1</current>
+            </choice>
+            <choice id="fexcite">
+                <about>
+                    <enable>no</enable>
+                    <label>Choose excitation source</label>
+                    <description>Choose the source by which the cantilever is excited. This may or may not be important depending on the operating conditions.</description>
+                </about>
+                <option>
+                    <about>
+                        <label>Acoustic excitation</label>
+                    </about>
+                    <value>1</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Magnetic excitation</label>
+                    </about>
+                    <value>2</value>
+                </option>
+                <default>1</default>
+                <current>1</current>
+            </choice>
+            <choice id="modulation_type">
+                <about>
+                    <label>Choose modulation type</label>
+                    <enable>false</enable>
+                </about>
+                <option>
+                    <about>
+                        <label>Amplitude Modulation</label>
+                    </about>
+                    <value>1</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Frequency Modulation</label>
+                    </about>
+                    <value>2</value>
+                </option>
+                <default>1</default>
+                <current>1</current>
+            </choice>
+            <choice id="freqchoice">
+                <about>
+                    <enable>no</enable>
+                    <label>Choose frequency scheme</label>
+                    <description>Choose either single mode (conventional) or bimodal excitation</description>
+                </about>
+                <option>
+                    <about>
+                        <label>Single frequency (conventional)</label>
+                    </about>
+                    <value>1</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Two frequencies (bimodal)</label>
+                    </about>
+                    <value>2</value>
+                </option>
+                <default>1</default>
+                <current>1</current>
+            </choice>
+            <number id="numModes">
+                <about>
+                    <enable>no</enable>
+                    <label>Number of eigenmodes</label>
+                    <description>Number of modes to be included in the simulation.</description>
+                </about>
+                <units/>
+                <min>1</min>
+                <max>4</max>
+                <default>1</default>
+                <current>1</current>
+            </number>
+            <boolean id="want_Abase_direct">
+                <about>
+                    <label>Direct Input of Base Amp / Mag Forces</label>
+                    <description>If this box is checked, you can enter the base excitation amplitude (acoustic drive) or magnetic modal forces (magnetic drive) directly. If it is unchecked (the default) then these parameters are automatically calculated corresponding to the specified unconstrained amplitude. Most users will want to use the default</description>
+                    <enable>off</enable>
+                </about>
+                <default>off</default>
+                <current>no</current>
+            </boolean>
+            <string id="Abase_direct">
+                <about>
+                    <label>Direct input</label>
+                    <description>Directly enter the base amplitude (nm) for acoustic excitation, or comman separated list of modal forces for magnetic excitation. For acoustic bimodal enter comma separated list, magnetic bimodal is not supported here. Most users will want to uncheck the above box and enter the tip amplitude instead</description>
+                    <enable>off</enable>
+                </about>
+                <min>0</min>
+                <max>1000</max>
+                <default>0.1</default>
+                <current>0.1</current>
+            </string>
+            <number id="Ainitial">
+                <about>
+                    <label>Unconstrained Amplitude (nm)</label>
+                    <description>The unconstrained amplitude at the first (or only) excitation frequency far from the sample surface in the absence of tip-sample interaction forces.</description>
+                    <enable>!input.phase(op).boolean(want_Abase_direct)</enable>
+                </about>
+                <units/>
+                <min>0.001</min>
+                <max>1000</max>
+                <default>10</default>
+                <current>30</current>
+            </number>
+            <number id="Ainitial2">
+                <about>
+                    <enable>no</enable>
+                    <label>A_0,2 (nm)</label>
+                    <description>The unconstrained amplitude at the second (bimodal) excitation frequency far from the sample surface in the absence of tip-sample interaction forces..</description>
+                    <enable>input.phase(op).choice(freqchoice) == 2</enable>
+                </about>
+                <units/>
+                <min>0</min>
+                <max>100</max>
+                <default>0</default>
+                <current>0</current>
+            </number>
+            <boolean id="CalcInputK">
+                <about>
+                    <label>Auto calculate stiffnesses k_i (i&gt;1)?</label>
+                    <description>To input k2, k3, etc., leave the box unchecked. To auto calculated k2, k3, etc based on k1, check the box. Auto calculation is valid only for rectangular diving board cantilevers</description>
+                    <enable>off</enable>
+                </about>
+                <default>off</default>
+                <current>yes</current>
+            </boolean>
+            <string id="Keq1">
+                <about>
+                    <label>Cantilever stiffness k_i (N/m)</label>
+                    <description>Enter comma separated values for the equivalent stiffness of each eigenmode.</description>
+                </about>
+                <default>0.6</default>
+                <current>40</current>
+            </string>
+            <string id="Quality1">
+                <about>
+                    <label>Quality factor Q</label>
+                    <description>The quality factor of the fundamental resonance defined as 1/(2*damping ratio).</description>
+                </about>
+                <units/>
+                <default>100</default>
+                <current>400</current>
+            </string>
+            <boolean id="InputChi">
+                <about>
+                    <label>Auto calculate Chi?</label>
+                    <description>To input Chi_2, Chi_3, etc., leave the box unchecked. To allow the Chi_i's to be calculated (for i &gt; 1), check the box.</description>
+                    <enable>false</enable>
+                </about>
+                <default>on</default>
+                <current>yes</current>
+            </boolean>
+            <string id="Chi2_n">
+                <about>
+                    <label>Chi_2 - Chi_n</label>
+                    <enable>false</enable>
+                    <description>Enter comma separated values for Chi values starting with the 2nd eigenmode.</description>
+                </about>
+                <default>3.47</default>
+                <current>3.47</current>
+            </string>
+            <string id="omega1">
+                <about>
+                    <label>Nat. freq. (kHz)</label>
+                    <description>Natural frequency for the chosen cantilever oscillation mode.</description>
+                </about>
+                <units/>
+                <default>100</default>
+                <current>350</current>
+            </string>
+            <string id="omegad_string">
+                <about>
+                    <label>Driving freq. (kHz)</label>
+                    <description>The excitation frequency applied to the cantilever.</description>
+                </about>
+                <default>100</default>
+                <current>350</current>
+            </string>
+            <number id="mtip">
+                <about>
+                    <enable>no</enable>
+                    <label>Tip mass</label>
+                    <description>Tip mass as a fraction of the cantilever beam mass.</description>
+                </about>
+                <units/>
+                <min>0</min>
+                <default>0</default>
+                <current>0</current>
+            </number>
+            <number id="AprchS">
+                <about>
+                    <label>Z approach velocity (nm/s) </label>
+                    <description>The average speed that the base approaches the sample.</description>
+                </about>
+                <units/>
+                <min>0.0001</min>
+                <default>200</default>
+                <enable>input.phase(op).choice(freqchoice) == 3</enable>
+                <current>200</current>
+            </number>
+            <number id="gamma_drag">
+                <about>
+                    <enable>off</enable>
+                    <label>gamma (Z drag)</label>
+                    <description>The drag coefficient (kg/s)</description>
+                </about>
+                <units/>
+                <min>0</min>
+                <default>0</default>
+                <current>0</current>
+            </number>
+            <choice id="Zrange">
+                <about>
+                    <label>Z range determination</label>
+                    <description>The autocalculated default Z range is Z0 = 5nm greater than the unconstrained amplitude and Zf = zero. You can also manually enter a Z range, or enter a setpoint to stop at.</description>
+                </about>
+                <option>
+                    <about>
+                        <label>Autocalculate range</label>
+                    </about>
+                    <value>1</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Specify Z range</label>
+                    </about>
+                    <value>2</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Approach to specified setpoint (does not work for retract)</label>
+                    </about>
+                    <value>3</value>
+                </option>
+                <default>1</default>
+                <current>2</current>
+            </choice>
+            <number id="Z0">
+                <about>
+                    <label>Initial Z separation (nm)</label>
+                    <description>The initial gap between the sample and the base of the cantilever. Note: this is not the tip-sample gap. Any static deflection due to long range forces is added (or subtracted) to this value to get the initial tip-sample gap.</description>
+                    <enable>input.phase(op).choice(Zrange) != 1</enable>
+                </about>
+                <units/>
+                <default>12</default>
+                <current>0</current>
+            </number>
+            <number id="Zf">
+                <about>
+                    <label>Final Z separation (nm)</label>
+                    <description>The final gap between the sample and the base of the cantilever.</description>
+                    <enable>input.phase(op).choice(Zrange) == 2</enable>
+                </about>
+                <units/>
+                <default>0</default>
+                <current>35</current>
+            </number>
+            <number id="Asp_f">
+                <about>
+                    <label>Final setpoint ratio</label>
+                    <description>The final gap between the sample and the base of the cantilever.</description>
+                    <enable>input.phase(op).choice(Zrange) == 3</enable>
+                </about>
+                <units/>
+                <default>0</default>
+                <current>0</current>
+            </number>
+            <boolean id="AutoCalcChi">
+                <about>
+                    <label>Auto calculate Slope calibration?</label>
+                    <description>To input Slope Calibrations, leave the box unchecked. To allow the Slope Calibrations to be calculated based on ideal beam theory, check the box.</description>
+                    <enable>off</enable>
+                </about>
+                <default>on</default>
+                <current>yes</current>
+            </boolean>
+            <boolean id="AutoCalcOmega">
+                <about>
+                    <label>Auto calculate omega_i (i&gt;1)?</label>
+                    <description>To input omega2, omega3, etc., leave the box unchecked. To allow the omega_i's to be calculated (for i &gt; 1), check the box. Autocalculation is valid only for rectangular diving board cantilevers</description>
+                    <enable>off</enable>
+                </about>
+                <default>on</default>
+                <current>yes</current>
+            </boolean>
+            <boolean id="AutoCalcAlpha">
+                <about>
+                    <label>Auto calculate alpha_i</label>
+                    <description>To input alpha directly uncheck the box. To allow the alpha_i's to be calculated, leave the box checked. If you are unsure, leave the box checked.</description>
+                    <enable>off</enable>
+                </about>
+                <default>on</default>
+                <current>yes</current>
+            </boolean>
+            <boolean id="want_Afluid">
+                <about>
+                    <label>afluid</label>
+                    <enable>off</enable>
+                </about>
+                <default>off</default>
+                <current>no</current>
+            </boolean>
+            <number id="LockInOrder">
+                <about>
+                    <label>Choose Lock In Filter Order</label>
+                    <description>Lock In Filter order</description>
+                    <enable>false</enable>
+                </about>
+                <default>0</default>
+                <current>0</current>
+            </number>
+        </phase>
+        <phase id="ts">
+            <about>
+                <label>Tip-sample interaction properties</label>
+            </about>
+            <!-- <loader> -->
+            <!-- <about> -->
+            <!-- <label>Loader</label> -->
+            <!-- <description>Use this box to upload data </description> -->
+            <!-- </about> -->
+            <!-- <upload> -->
+            <!-- <to>input.phase(ts).string(custom_filename)</to> -->
+            <!-- </upload> -->
+            <!-- <example>../../examples/si_mica_air.xml</example> -->
+            <!-- <example>../../examples/si_mica_dei_water.xml</example> -->
+            <!-- <example>../../examples/siN_air_mica.xml</example> -->
+            <!-- </loader> -->
+            <choice id="fts_model">
+                <about>
+                    <label>Tip-sample interaction model</label>
+                    <description>Choose a model to predict the forces exterted by the tip on the sample.</description>
+                </about>
+                <option>
+                    <about>
+                        <label>Linear contact</label>
+                        <description>Interaction forces are predicted according to a (piece-wise) linear contact model for an overall stiffness, kts, of the sample.</description>
+                    </about>
+                    <value>1</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Linear attractive/repulsive</label>
+                        <description>Interaction forces are predicted according to a (piece-wise) linear contact model for an overall stiffness, kts_r, of the sample, and an attractive-force gradient, kts_a.</description>
+                    </about>
+                    <value>6</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Hertz contact</label>
+                        <description>Hertz contact model with no attractive forces.</description>
+                    </about>
+                    <value>2</value>
+                </option>
+                <option>
+                    <about>
+                        <label>DMT contact</label>
+                        <description>Derjaguin-Muller-Toporov (DMT) contact model including van der Waals attractive forces. This model was the only choice available in the previous version of VEDA</description>
+                    </about>
+                    <value>3</value>
+                </option>
+                <option>
+                    <about>
+                        <label>DMT + DLVO interactions (liquids)</label>
+                        <description>Derjaguin-Muller-Toporov + Derjaguin-Landau-Verwey-Overbeek (electrical double layer) interaction forces.</description>
+                    </about>
+                    <value>4</value>
+                </option>
+                <option>
+                    <about>
+                        <label>JKR</label>
+                        <description>Johnson-Kendall-Roberts interaction forces.</description>
+                    </about>
+                    <value>7</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Chadwick</label>
+                        <description>Chadwick interaction model for a thin membrane loosely bound to a stiff substrate.</description>
+                    </about>
+                    <value>5</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Van der Waals + Morse Potential</label>
+                        <description>Morse potential is used in non-contact FM-AFM to model bonding interation. Should NOT be used for AM-AFM in tapping mode, or in any repulsive regime.</description>
+                    </about>
+                    <value>8</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Van der Waals + Lennard Jones Potential</label>
+                        <description>Lennard Jones potential is used in non-contact FM-AFM to model attractive regime. Should NOT be used for AM-AFM in tapping mode, or in any repulsive regime.</description>
+                    </about>
+                    <value>9</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Electrostatic Forces (noncontact), Xu and Salmeron</label>
+                        <description/>
+                    </about>
+                    <value>10</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Electrostatic Forces (noncontact), Gil et al. + van der Waals</label>
+                        <description/>
+                    </about>
+                    <value>13</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Magnetic dipole-dipole (sphere-sphere, Rasa et al)</label>
+                        <description>This is the sphere-sphere model equation 6 from M. Raşa, B.W.M. Kuipers, P. Philipse, Journal of Colloid and Interface Science 2002, 250, 303-15.</description>
+                    </about>
+                    <value>16</value>
+                </option>
+                <!-- <option> -->
+                <!-- <about> -->
+                <!-- <label>Electrostatic Forces, nonconservative</label> -->
+                <!-- <description>Beta test. dont use this one unless you know what you are doing</description> -->
+                <!-- </about> -->
+                <!-- <value>14</value> -->
+                <!-- </option> -->
+                <!-- <option>
+ <about>
+   <label>Custom direct (BETA test - not ready for general use)</label>
+   <description>Direct input of experimental data</description>
+ </about>
+ <value>11</value>
+  </option> -->
+                <option>
+                    <about>
+                        <label>Custom MD simulation (BETA test - not ready for general use)</label>
+                        <description>Input of data interpolated from molecular dynamic simulations. Do not use unless you know what you are doing.</description>
+                    </about>
+                    <value>17</value>
+                </option>
+                <default>3</default>
+                <current>3</current>
+            </choice>
+            <group id="LinCon_pic">
+                <about>
+                    <enable>!input.phase(ts).group(nc).boolean(WantHYST) &amp;&amp; input.phase(ts).choice(fts_model) == 1</enable>
+                </about>
+                <image>
+                    <current>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
+CksdAAAAAElFTkSuQmCC</current>
+                </image>
+            </group>
+            <group id="LinAR_pic">
+                <about>
+                    <enable>!input.phase(ts).group(nc).boolean(WantHYST) &amp;&amp; input.phase(ts).choice(fts_model) == 6</enable>
+                </about>
+                <image>
+                    <current>iVBORw0KGgoAAAANSUhEUgAAAeAAAAFoCAIAAAAAVb93AAAACXBIWXMAAAk6AAAJOgHwZJJK
+AAAAB3RJTUUH2QUEEyQ4ee27cQAAACJ0RVh0Q3JlYXRpb24gVGltZQAwNC1NYXktMjAwOSAx
+NDozNjo1Np/c6HIAAAAkdEVYdFNvZnR3YXJlAE1BVExBQiwgVGhlIE1hdGh3b3JrcywgSW5j
+LrrEUs8AAA8vSURBVHic7d3bcqNIFgVQMdEf3n+ueWCKobiJWybnJGtFR4dLxgjL9vb2IYW6
+7/f7ASCe/zx9AAAsE9AAQQlogKD+efoA+L+u6z6fz9pZge33Pq4/vE/gI/wUeAzHOxwegYnK
+D8j+zzH4dxQfDZoKuq6bhNf8ljr3+4gIx0BSGnQakZvO0MX6TAx7qPce2GIDnfyz3ybmYxLw
+kJjQoKEgIcgVGnQa83Fn31iHDRa729p7tzeY7/900Ax7mO9z+zMa7vHQJzL/qI17WXzE9t/v
+FYce/LUNNm5Zu6+NO3rw0WCNBp3YfLC79q75e7c3WLtl4zD6n9jt02U7d3XoOLf/edrpR2PP
+R5148E/f+137+XkLJWjQua0VnEPvXdvgc0dRmhe0tcq2do/7j3M88P15L5Nx+fZAeS2hfv5d
+svZJbe985wY7TR7A+UD8+qNBIRp0YvsX5E2KbZ9fp/dfzjwRto9hHv23HMbPB/CQ7dHB2s7v
+uvf5wRx9lO59NDhEg27WoQHFxXuZ/PSWWMux8zhvX+N81HYJvbjzc7aP5NBOqExAv9S9P2/l
+fnrL7Xn8i+RohO3ZPsKiw/kp2c+Omc8tgc4tBHSzNn7A5qf1bzwDNn7vja2t/p/VNw5Mtgfr
+RS0uazlx7/L6EQL6ve76kVvcz41Jeug4Q7W/yVK5ZxkcZ+QkYYMWfxQXl6wN76pxWJfNj3Py
+mR79RCaLo9d2O+z8luWDO3c+/ufpcfahY672aLCfBh3OWgxd39XicoLTtlNjz8qtnW13z3HO
+E/Dovey567UI27BRore/OvMNDr13fO8/72inu/bDfhp0m7aHnmur2Qp1otMT2D3HubZWd+e9
+fEfPr7nlmNdsHPOeW7a/fBv3e2LjCo8GO0W8hgu8WagxOs/SoAGCEtAAQQlogKDMoAGC0qAB
+ghLQAEEJaICgBDRAUAIaIKjE1+JwrRagkCDL2xIH9CfMg3jJ8Gumgc8lsGcvnE8uccqfEQdA
+UAL6aWodsEJAhxHmryogCAEdgBINLBHQkSjRwIiAjkGJBmYEdDBKdBnW2JGRgA5DggB/E9Dx
+KNHA5/MR0ABhCehITDmKifPkXdhPQIckTQABHY4SDfwhoKNSouH1BHQ8SjTw+XwEdGhKNLyb
+gA5JiQYEdHRKNLyYgAYISkBHZcoBryegwzPluIOr2ZGRgA5MpsC7CegMlGh4JQEdmxINLyag
+k1Cir3E1OzIS0OEp0fBWAjoPHRBeRkADBCWgMzDlgFcS0KmYcsCbCOgklGh4HwGdjRINryGg
+81Ci4WUEdEJKNLyDgE5FiT7L1ezISEDnpETDCwjobDRBeA0BnZYSDa0T0LyCq9mRkYBOyJQD
+3kFAZ6YVQtMEdE5KNLyAgE5OiYZ2Cei0lGhonYDOT4mGRglogKAEdGbDlEOJhhYJaICgBHRy
+ThXu42p2ZCSgW2HKAc0R0PnphtAoAd0QJRraIqCboET/4mp2ZCSg2yKGoCECGiAoAd0KT1qB
+5ghogKAEdEOcKoS2COgWmXJAEwR0W5RoaIiAbpQSDfkJ6OYo0dAKAd0uJXrE1ezISEADBCWg
+W+RJK9AEAQ0QlIBulBL9N1ezIyMBDRCUgG6XdQuQnIB+AX/dQ04CumlKNGQmoN9BiYaEBHTr
+lGhIS0C/hhIN2QjoF1CiIScB/SZKNKQioHkFV7MjIwH9DuIJEhLQL2PKAXkI6NdQoiEbAd2s
+1eu3vbJEu5odGQnoN1GiIRUB/UrqJGQgoF9GiYY8BPRbKdEQnoAGCEpAV9WvJRhWFHR/zDco
+uOrAlAOS+OfpA3idruv6px0Pb6y9Pb6x0KEIa4hMg67tZ+bWuGqEXIYMBPTNFkcTa/OK+Yij
+NqcKITAjjuI2JhVPXmLt+31VOruaHRlp0GXtnCPPzxPW86aYhlw06IK20/n7/Q5ZPN5suH3x
+FOKdXlaiIR0BXcpiqk5u2Tn6KP7nueUcEJIRRxF9OruCWhy+FmQkoO83dOcTGV37XJbiDIEJ
+6PulXDCgYEI8ArqsBIOOjL9O4B0EdHHjjA4d1pGPDV5JQNcQvUcr0RCSgL7Zxsq5n5eye16o
+g4HXE9D1DEs7Pn9WevRCZLQSDfEI6OfFWvUR4bcF8Pl8PJPwKWvP836SZ35DMAL6McUvtcGI
+R5iMjDieEWLuvCbyscGbaNC1DacHw404PqYcEIuArmpyWdEHj+QH17eDAAR0yw4NUv73C6PR
+Em3QT0YCumWXIkmJhqc5Sdis8+kslyEGAc26FmcdkIiAZokSDQEIaDYp0fAcAQ0QlIBmhSkH
+PE1A84spBzxEQLNOiYZHCWh2yF+iPY2QjAQ0m+QaPEdAs0/+Eg3pCGiAoAQ0vwxTjswlOvQr
+JMAKAQ0QVKXLjU76i1PqyTR6kWgIrnhA99E8SeTFG0nARaKhorIBvfYyFv2NXuQiEyUaqis7
+g97OX+mckpiGWoo36LV3Sed8lGioq2xAL6awyUZ6JtFQRdUXjXVuEGC/euug++IsnXNr4kkr
+kEWNBq048zjffmRUYx20n42mOFUItdRYxbG4lkNqp+dUIRT2wCoO0lOioQoXS+KCPDHtanZk
+9MzFkj7KdXZKNJRXaRWHOG6WSTQUY8TBWXIZChPQXGbWAWWYQXOBSTSUVCOgZXH7TKKhgLIj
+ju21TVY+AWwo/kQVL3nVOFMOKKb4iGN4dav5jTTFlAPuVukkoURuWYYS7TuQjCyz4z7hYxpy
+EdDcQT+FAgQ0t1Ki4T4CmpvELtHWdJLRYwE9/MD4yWmNLyjc5OEG3V/oTkYDzBlxcJ/YUw5I
+57GA7ouz1alt8icR3OHJBj2ks5huhy8l3Of5k4Qf5wmb5GsKl1V6qvdEn8hyuU0ZnvkNKTwT
+0GYar+DySXDNk9eDpllyGe5QbwYtrN8ozBfdH21kZB00QFACmjI0Vris+EnCteV0/uR8C6cK
+4azir0lYdP+EFmm9naetkpERB+WFiWnIRUBTktIKFwhoqlCi4TgBTWFKNJwloKlFiYaDBDRA
+UAKa8kw54BQBTUWmHHCEgKYKJRqOE9DU9VCJ9jRCMhLQ1CIi4SABTXUm0bCPgKYiJRqOENA8
+oXqJ9oI+ZCSgqUuJht0ENEBQApqHmDnALwKa6kw5YB8BzXOUaNgkoHmCEg07CGgepUTDOgHN
+Q5Ro+EVA8zQlGlYIaJ5TsUS7mh0ZCWiAoAQ0AZhywBIBzaNMHmCdgCaGwiXa1ezISEDzNCUa
+VghowlBy4W8CmgCUaFgioIlEiYYRAQ0QlIAmhmHKoUTDHwIaIKh/nj6A34YVrC6n0LjvV32G
+segB3XXdkMvjt2lZ11nXAR8jDmIplst+tZORgCYksw6IP+LgdVJMouMfIU3IHdA7r4Az/vN2
++0NsGWLLPx8Q9Dj/bLD9zTceqdgy+5ZPiX7abeMkoXOGzRoi8r6v753fLQUOj1DiZIsZNPGk
+eNJKjB9g2hZ9xPH9fq2DJpD+u9G3IlUkaNDfP54+EG6w98L5KUo0FJYgoCGITn2mLgFNPX3A
+HS7R8FYCmvCCTDmCHAZvIqAJLGCJDnhItEtAU8l4snH4Nba1V15JQBNbkMbqNwRPENDU0Ffm
+fq1k///KJdoyTTIS0FQyjshjcfl4tlpdx0MENDXME/lMpTVn4GUENGxSn3mOgCaDy/l4eORd
+3nBIAY+NIAQ0qVTOMtHJo6JfzQ7+58FXWrljvjG5KOPkWe9xLkBMKBo02SRstX3+9iYrDsdL
+D2FCQJNH5RS77/Sg/OUcAU1C8Ur04om+ybPbexUPivTMoEml2iT6cn1eezlNGc1+GjQ5xY65
+tZN+0plDBDTMXKvP83Tuzw3Ob58shRbfTBhxkM2D6+12WOvOw4173oCegCatrttfcndm318d
+9vivgT6dLWrmLgKahIqV6O+w5+MT5CGXZTR3MYMms7qzju3MlcjcTkCTU6E0vOnJKcMzBuEK
+AU1y+3KwflyOM1pYc46AJq3bS/Tdl37Wo7lIQJNfgBBcG0APGT1u057zzU4CGj6fT8FXTpm8
+VO7ksnawQUCTWeaFE1Z98JN10DThyJNWlj+8inFxFtD8JKBJ7sYnrVRJzMVL3MEiIw5acTqm
+K86CzZ05RIMmv1tKdOEyO5weNOJgPwFNQy5OoosZZ7FcZj8jDprwK/VWY7HY6jq4TkDTFkNe
+GiKgacWJFqw+E5uABghKQNOcpSnHwvo2wxDCE9A05MSwwnyDwAQ0LfrZjtVnMhDQtOVQI1af
+iU1A0ygdmfwENM352YutriMJAU27lGiSE9AhdP92k/8u7m3PBvPNFm+5eDDP2GjH6jN5uFhS
+FN9/74mM7t/u3K76D5x/+OKNQAUa9Hv1ybuxQQu5PJlyGHqQioBuyhCp4+Qd3j49r/gZ5b8P
+bJaMxS9d//cQ46+r2ZlvkIQRRxTjBCzRWxezu6bxKzxVfWGR4SLR6jPZaNBRfP/9Dv/dsrfh
+TOB8pryx2cYHXjqe7/fzJ5f7/9e4bv3iXajP5KFB8wK6Mzlp0DRtGKr8/U9IQUA3a+fyuPlm
+hdbVeV0+OMqII6ujGXp9JUZWw2t++61ANl3eLjNeFfBCawFdovzetc9h8UbtL1zXdWo7u8XJ
+Fg06uqH2DhHZQBGuuswO0jKDjm6y8K4vsxt99vZRxo2VvG8l3yfccvxQmQYd3Ym0vXfEcfPe
+ZCXspkGH9rMvAw3ToKObNOj3LsaA94lysvKEOGdaic93C/vF+W4x4uAVgvy8wSECGiAoAQ0Q
+lIAGCEpA8wqeu0hGAhogKAENEJSABghKQAMEJaABghLQAEEJaICgBDRAUAIaICgBDRCUgAYI
+SkADBJX7Ja9cAYf9fLeQTpRXdgFgwogDICgBDRCUgAYIKvdJQthjOD3ojAu5CGga13X/PxM+
+fhviM+IACEpAAwQloAGCEtAAQQlogKAENEBQVh3RPuugSUpAAwRlxAEQlIAGCEpAAwQloAGC
+EtAktvYqVqdf3crLYhGKgKY1Vy5Z9/1+ZTRxCGjy6bpuT4z220w2nt+4c29Qn+tBk8xQkBdT
+dVKfxxvPrwrd72GyQV+iPT+ACDRostqToYvbjG8UxEQmoAGCEtAAQQlogKCcJCSZ7ZVw10/x
+OUNIHL4XaY2AphlGHLTmypNNpDOh+HYECEqDBghKQAMEJaABghLQAEEJaICgBDRAUAIaICgB
+DRCUgAYI6r/JXGxWulYJsQAAAABJRU5ErkJggg==</current>
+                </image>
+            </group>
+            <group id="Hertz_pic">
+                <about>
+                    <enable>!input.phase(ts).group(nc).boolean(WantHYST) &amp;&amp; input.phase(ts).choice(fts_model) == 2</enable>
+                </about>
+                <image>
+                    <current>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
+LHkAAAAASUVORK5CYII=</current>
+                </image>
+            </group>
+            <group id="DMT_pic">
+                <about>
+                    <enable>!input.phase(ts).group(nc).boolean(WantHYST) &amp;&amp; input.phase(ts).choice(fts_model) == 3</enable>
+                </about>
+                <image>
+                    <current>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</current>
+                </image>
+            </group>
+            <group id="DMTDLVO_pic">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 4</enable>
+                </about>
+                <image>
+                    <current>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
+rkJggg==</current>
+                </image>
+            </group>
+            <group id="JKR_pic">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 7</enable>
+                </about>
+                <image>
+                    <current>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</current>
+                </image>
+            </group>
+            <group id="Chadwick_pic">
+                <about>
+                    <enable>!input.phase(ts).group(nc).boolean(WantHYST) &amp;&amp; input.phase(ts).choice(fts_model) == 5</enable>
+                </about>
+                <image>
+                    <current>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
+UP8FVduwbhdK/ugAAAAASUVORK5CYII=</current>
+                </image>
+            </group>
+            <group id="LinCon_Cap_pic">
+                <about>
+                    <enable>input.phase(ts).group(nc).boolean(WantHYST) &amp;&amp; input.phase(ts).choice(fts_model) == 1</enable>
+                </about>
+                <image>
+                    <current>iVBORw0KGgoAAAANSUhEUgAAAeAAAAFoCAIAAAAAVb93AAAACXBIWXMAAAk6AAAJOgHwZJJK
+AAAAB3RJTUUH2QUKEi8v+Nf6eQAAACJ0RVh0Q3JlYXRpb24gVGltZQAxMC1NYXktMjAwOSAx
+NDo0Nzo0N3dTZHQAAAAkdEVYdFNvZnR3YXJlAE1BVExBQiwgVGhlIE1hdGh3b3JrcywgSW5j
+LrrEUs8AAA5wSURBVHic7d3bcuK6FkBR6dT+/1/WeXC3y20IMWBba0ljPHTlQjpAyERItlJb
+awWAeP7X+woA8JxAAwQl0ABBCTRAUAINEJRAAwQl0ABBCTRAUAINEJRAAwQl0ABBCTQ91Vp3
+/173XW7z67e7+fqQl0BzvvrXr5c8d6+u7Xfcvv3ldzl+c+BcAs3Jaq3tr3VovNZtF7vH6j1+
+9unl3xp6b/+fpxF/+k1/ujlHbtHT73XPywVGItBcaBm67uq2e/fxS3YpPHGUvXvaWN8++E2X
+D67JfnqLtjd5973WT5WzXzowqv96XwHG99ZocXfh4yH7IOU/DeRPqacxMt8zguZC2zHm8a96
+vPAyFN0mePnI+u9nV28d1R68hu821zCZLxlBc7Lda//lje18wnYq4KnthXf/81vX5PU32k1K
+vPimu5uz+8LXV2D7RPLBTWByZ07wwa8+G/Ae+apzZ6shAo9pgKDMQQMEJdAAQQk0QFACDRCU
+QAMEJdAAQSU+UcWptMBFghx/nDjQ5eI7sdYS42fECZzGwnFxBn+mOACCEugftVbCPI8CM8o9
+xXG1VmpZGu3VcXLmN04R57X/RaI9TgQaeEO0hJ0o4NOPKY6X1sdivJ8cMDyBBghKoH9jED2E
+gK9e4VcCfYBG5zfwzCkDE2iAoAT6GINo4HYCfZhGwxASLUg4Dpop2IvjCueGbvfz8SMrAv2e
+1sqyiVLvK8K7/Kpf4bY7dR3ztj+/g/t3W2vrv7uLrT/6F58KyxTH2+zRAVfb1nbRWtt+ZPfu
+ttHbTK9vr596+uVhGUEDEb1Vz6dj4fj9/ZUR9CcMouE662j3+0Fu/EmM14ygP1JrK6VUu9yl
+YcUpuxcTyqvdHHT5eXo6i8SP2s6/cusTe9o7EN7V65du930vuhrrfxvn6dwUx6ccFg13eRwp
+97omNxNogKAE+gsG0cCVBPo7Gp3EAEdcMSGBZgrzzFoyEoH+mkE0cA2BPoPRGXABgT6VQTRw
+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</current>
+                </image>
+            </group>
+            <group id="LinearAR_Cap_pic">
+                <about>
+                    <enable>input.phase(ts).group(nc).boolean(WantHYST) &amp;&amp; input.phase(ts).choice(fts_model) == 6</enable>
+                </about>
+                <image>
+                    <current>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</current>
+                </image>
+            </group>
+            <group id="Hertz_Cap_pic">
+                <about>
+                    <enable>input.phase(ts).group(nc).boolean(WantHYST) &amp;&amp; input.phase(ts).choice(fts_model) == 2</enable>
+                </about>
+                <image>
+                    <current>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
+FBWRAAAAAElFTkSuQmCC</current>
+                </image>
+            </group>
+            <group id="DMT_Cap_pic">
+                <about>
+                    <enable>input.phase(ts).group(nc).boolean(WantHYST) &amp;&amp; input.phase(ts).choice(fts_model) == 3</enable>
+                </about>
+                <image>
+                    <current>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</current>
+                </image>
+            </group>
+            <group id="Chadwick_Cap_pic">
+                <about>
+                    <enable>input.phase(ts).group(nc).boolean(WantHYST) &amp;&amp; input.phase(ts).choice(fts_model) == 5</enable>
+                </about>
+                <image>
+                    <current>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</current>
+                </image>
+            </group>
+            <group id="Morse_pic">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 8</enable>
+                </about>
+                <image>
+                    <current>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</current>
+                </image>
+            </group>
+            <group id="LJ_pic">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 9</enable>
+                </about>
+                <image>
+                    <current>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
+LsTdogAAAABJRU5ErkJggg==</current>
+                </image>
+            </group>
+            <number id="Rtip">
+                <about>
+                    <enable> input.phase(ts).choice(fts_model) != 1 &amp;&amp; input.phase(ts).choice(fts_model) != 6 &amp;&amp; input.phase(ts).choice(fts_model) != 11 &amp;&amp; input.phase(ts).choice(fts_model) != 17</enable>
+                    <label>Tip radius (nm)</label>
+                    <description>Radius of the probe tip.</description>
+                </about>
+                <units/>
+                <min>1</min>
+                <max>100</max>
+                <default>10</default>
+                <current>20</current>
+            </number>
+            <number id="Etip">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) != 13 &amp;&amp; input.phase(ts).choice(fts_model) != 10 &amp;&amp; input.phase(ts).choice(fts_model) != 9 &amp;&amp; input.phase(ts).choice(fts_model) != 8 &amp;&amp; input.phase(ts).choice(fts_model) != 1 &amp;&amp; input.phase(ts).choice(fts_model) != 6 &amp;&amp; input.phase(ts).choice(fts_model) != 11 &amp;&amp; input.phase(ts).choice(fts_model) != 16 &amp;&amp; input.phase(ts).choice(fts_model) != 17 </enable>
+                    <label> Young's modulus of tip (GPa)</label>
+                    <description/>
+                </about>
+                <units/>
+                <min>10</min>
+                <max>500</max>
+                <default>130</default>
+                <current>130</current>
+            </number>
+            <number id="Poisson_tip">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) != 13 &amp;&amp; input.phase(ts).choice(fts_model) != 10 &amp;&amp; input.phase(ts).choice(fts_model) != 9 &amp;&amp; input.phase(ts).choice(fts_model) != 8 &amp;&amp; input.phase(ts).choice(fts_model) != 1 &amp;&amp; input.phase(ts).choice(fts_model) != 6 &amp;&amp; input.phase(ts).choice(fts_model) != 11 &amp;&amp; input.phase(ts).choice(fts_model) != 16 &amp;&amp; input.phase(ts).choice(fts_model) != 17</enable>
+                    <label>Poisson's ratio of the tip </label>
+                    <description/>
+                </about>
+                <units/>
+                <min>0</min>
+                <max>1</max>
+                <default>0.3</default>
+                <current>0.3</current>
+            </number>
+            <number id="kts_R">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 1 | input.phase(ts).choice(fts_model) == 6</enable>
+                    <label> Sample stiffness (N/m)</label>
+                    <description>Effective stiffness of the tip-sample contact. </description>
+                </about>
+                <units/>
+                <min>0</min>
+                <max>5000</max>
+                <default>10</default>
+                <current>10</current>
+            </number>
+            <number id="kts_A">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 6</enable>
+                    <label> Attractive force gradient (N/m)</label>
+                    <description>Effective attractive force gradient as the cantilever tip approaches the sample. </description>
+                </about>
+                <units/>
+                <min>-1000</min>
+                <max>1000</max>
+                <default>10</default>
+                <current>10</current>
+            </number>
+
+  <choice id="CalcADMT">
+    <about> 
+      <label>LABEL DMT calculation options</label> 			
+      <description>VEDA can autocalculate some of the model parameters from experimental data.  Choose the appropriate choice based on what data you know</description>
+      <enable>PATH.choice(fts_model) == 3 || PATH.choice(fts_model) == 4</enable>
+      <disablestyle>hide</disablestyle>
+    </about>
+
+    <option>
+      <about>
+	<label>Enter adhesion force, autocalculate Hamaker constant and intermolecular distance (recommended) </label>
+	<description>The intermolecular distance will be assumed to be 0.2 nm</description>
+      </about>
+      <value>1</value>
+    </option>
+
+    <option>
+      <about>
+	<label>Enter adhesion force and intermolecular distance, autocalculate Hamaker constant</label>
+      </about>
+      <value>2</value>
+    </option>
+
+    <option>
+      <about>
+	<label>Enter adhesion force and Hamaker constant, autocalculate intermolecular distance</label>
+      </about>
+      <value>3</value>
+    </option>
+
+    <option>
+      <about>
+	<label>Enter Hamaker constant and intermolecular distance, autocalculate adhesion force</label>
+      </about>
+      <value>4</value>
+    </option>
+
+
+    <default>4</default>
+    <current>4</current>
+  </choice>
+
+
+            <number id="Fadhesion">
+                <about>
+                    <enable>(((input.phase(ts).choice(fts_model) == 3 || input.phase(ts).choice(fts_model) == 4 || input.phase(ts).choice(fts_model) == 7 ) &amp;&amp; input.phase(ts).boolean(CalcADMT)) || (input.phase(ts).choice(fts_model) == 6)) </enable>
+                    <label> van der Waals Adhesion force (nN)</label>
+                    <description>The adhesion force is the attractive force applied on the cantilever tip by the sample by van der Waals forces just before contact, neglecting any capillary forces. Capillary force contributions to adhesion are described seperately below</description>
+                </about>
+                <units/>
+                <min>-100</min>
+                <max>100</max>
+                <default>1.4167</default>
+                <current>1.4167</current>
+            </number>
+            <number id="aDMT">
+                <about>
+                    <enable>((input.phase(ts).choice(fts_model) == 3 || input.phase(ts).choice(fts_model) == 4) &amp;&amp; !input.phase(ts).boolean(CalcADMT)) </enable>
+                    <label> Intermolecular distance (nm)</label>
+                    <description>The intermolecular distance required for the Derjaguin-Muller-Toporov (DMT contact model)</description>
+                </about>
+                <units/>
+                <min>0.01</min>
+                <max>10</max>
+                <default>0.2</default>
+                <current>0.164</current>
+            </number>
+            <number id="A_hamaker">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 13 | input.phase(ts).choice(fts_model) == 3 | input.phase(ts).choice(fts_model) == 4 | input.phase(ts).choice(fts_model) == 8 | input.phase(ts).choice(fts_model) == 9</enable>
+                    <label> Hamaker constant (J)</label>
+                    <description>The Hamaker constant is used to predict attractive van der Waals forces and depends on the material of the tip, the sample, and the surrounding media. </description>
+                </about>
+                <units/>
+                <default>3.4E-20</default>
+                <current>7.1E-20</current>
+            </number>
+            <number id="Esample">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) != 13 &amp;&amp; input.phase(ts).choice(fts_model) != 10 &amp;&amp; input.phase(ts).choice(fts_model) != 9 &amp;&amp; input.phase(ts).choice(fts_model) != 1 &amp;&amp; input.phase(ts).choice(fts_model) != 8 &amp;&amp; input.phase(ts).choice(fts_model) != 6 &amp;&amp; input.phase(ts).choice(fts_model) != 11 &amp;&amp; input.phase(ts).choice(fts_model) != 16 &amp;&amp; input.phase(ts).choice(fts_model) != 17</enable>
+                    <label> Young's modulus of sample (GPa) </label>
+                    <description/>
+                </about>
+                <units/>
+                <min>0.000001</min>
+                <max>1000</max>
+                <default>1</default>
+                <current>1.2</current>
+            </number>
+            <number id="Poisson_sample">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) != 13 &amp;&amp; input.phase(ts).choice(fts_model) != 10 &amp;&amp; input.phase(ts).choice(fts_model) != 9 &amp;&amp; input.phase(ts).choice(fts_model) != 1 &amp;&amp; input.phase(ts).choice(fts_model) != 6 &amp;&amp; input.phase(ts).choice(fts_model) != 8 &amp;&amp; input.phase(ts).choice(fts_model) != 11 &amp;&amp; input.phase(ts).choice(fts_model) != 16 &amp;&amp; input.phase(ts).choice(fts_model) != 17</enable>
+                    <label> Poisson's ratio of the sample </label>
+                    <description/>
+                </about>
+                <units/>
+                <min>0</min>
+                <max>1</max>
+                <default>0.3</default>
+                <current>0.3</current>
+            </number>
+            <number id="KD">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 4</enable>
+                    <label> Debye length (um)</label>
+                    <description>The Debye length of the liquid. This is ~1 um for deionized water, ~0.001 um for 100 mM of 1:1 electrolyte</description>
+                </about>
+                <units/>
+                <default>0.001</default>
+                <current>1</current>
+            </number>
+            <number id="epsilon">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 4 || input.phase(ts).choice(fts_model) == 10 || input.phase(ts).choice(fts_model) == 13 </enable>
+                    <label> Imaging media Dielectric constant</label>
+                    <description>Dielectric constant of the imaging media (air ~= 1, water ~= 80)</description>
+                </about>
+                <units/>
+                <default>80</default>
+                <current>80</current>
+            </number>
+            <number id="sigmat">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 4</enable>
+                    <label> Surface charge density (tip) (C/m^2)</label>
+                    <description>Surface charge density</description>
+                </about>
+                <units/>
+                <default>-0.0025</default>
+                <current>-0.0025</current>
+            </number>
+            <number id="sigmas">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 4</enable>
+                    <label> Surface charge density (sample) (C/m^2)</label>
+                    <description>Surface charge density</description>
+                </about>
+                <units/>
+                <default>-0.032</default>
+                <current>-0.032</current>
+            </number>
+            <group id="chadwick">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 5</enable>
+                </about>
+                <number id="hs">
+                    <about>
+                        <label> Membrane thickness (nm)</label>
+                        <description>The thickness of a membrane loosely bound to the sample surface.</description>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>100</max>
+                    <default>6</default>
+                    <current>6</current>
+                </number>
+            </group>
+            <group id="morse">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 8</enable>
+                </about>
+                <number id="MorseRc">
+                    <about>
+                        <label> Morse equilibrium position (nm)</label>
+                        <description>Morse equilibrium position (nm)</description>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>10</max>
+                    <default>.2357</default>
+                    <current>0.2357</current>
+                </number>
+                <number id="MorseLambda">
+                    <about>
+                        <label> Morse range (nm)</label>
+                        <description>Morse range (nm)</description>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>10</max>
+                    <default>.12</default>
+                    <current>0.12</current>
+                </number>
+                <number id="MorseU0">
+                    <about>
+                        <label> Morse depth (J)</label>
+                        <description>Morse depth (J)</description>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>1e-10</max>
+                    <default>3.641e-19</default>
+                    <current>3.641e-19</current>
+                </number>
+            </group>
+            <group id="lj">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 9</enable>
+                </about>
+                <number id="LJ_r0">
+                    <about>
+                        <label> LJ equilibrium position (nm)</label>
+                        <description>Lennard Jones equilibrium position (nm)</description>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>10</max>
+                    <default>.34</default>
+                    <current>0.34</current>
+                </number>
+                <number id="LJ_E0">
+                    <about>
+                        <enable>input.phase(ts).choice(fts_model) == 9</enable>
+                        <label> LJ binding energy (J)</label>
+                        <description>Lennard Jones binding (J)</description>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>1e-10</max>
+                    <default>4.806e-19</default>
+                    <current>4.806e-19</current>
+                </number>
+            </group>
+            <group id="md">
+                <about>
+                    <enable>(input.phase(ts).choice(fts_model) == 16) </enable>
+                </about>
+                <number id="mom_sample">
+                    <about>
+                        <label> Mag. Mom. Sample (A m^2)</label>
+                        <description/>
+                    </about>
+                    <units/>
+                    <default>8e-20</default>
+                    <current>8e-20</current>
+                </number>
+                <number id="mom_tip">
+                    <about>
+                        <label> Mag. Mom. Tip (A m^2)</label>
+                        <description/>
+                    </about>
+                    <units/>
+                    <default>5e-17</default>
+                    <current>5e-17</current>
+                </number>
+                <number id="mag_dia">
+                    <about>
+                        <label> Effective magnetic dia of sample particle (nm)</label>
+                        <description/>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <default>10</default>
+                    <current>10</current>
+                </number>
+                <number id="mag_delta">
+                    <about>
+                        <label> Thickness of non-magnetic layer (nm)</label>
+                        <description/>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <default>1</default>
+                    <current>1</current>
+                </number>
+            </group>
+            <group id="es">
+                <about>
+                    <enable>(input.phase(ts).choice(fts_model) == 10) || (input.phase(ts).choice(fts_model) == 13) || (input.phase(ts).choice(fts_model) == 14) </enable>
+                </about>
+                <number id="surface_pot">
+                    <about>
+                        <label> Surface potential (V)</label>
+                        <description/>
+                    </about>
+                    <units/>
+                    <min>-1e5</min>
+                    <max>1e5</max>
+                    <default>0</default>
+                    <current>0</current>
+                </number>
+                <number id="dc_bias_voltage">
+                    <about>
+                        <label> Tip-Sample DC Bias (V)</label>
+                        <description/>
+                    </about>
+                    <units/>
+                    <min>-1e6</min>
+                    <max>1e5</max>
+                    <default>5</default>
+                    <current>5</current>
+                </number>
+                <number id="ac_bias_voltage">
+                    <about>
+                        <label> Tip-Sample AC Bias (V)</label>
+                        <description/>
+                    </about>
+                    <units/>
+                    <min>-1e6</min>
+                    <max>1e5</max>
+                    <default>0</default>
+                    <current>0</current>
+                </number>
+                <number id="bias_freq">
+                    <about>
+                        <label> Freq. of AC Bias (kHz)</label>
+                        <description/>
+                    </about>
+                    <units/>
+                    <min>-1e5</min>
+                    <max>1e5</max>
+                    <default>5</default>
+                    <current>5</current>
+                </number>
+                <number id="es_l">
+                    <about>
+                        <label> Cantilever length (um)</label>
+                        <enable>(input.phase(ts).choice(fts_model) == 13) </enable>
+                        <description/>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>1e5</max>
+                    <default>100</default>
+                    <current>100</current>
+                </number>
+                <number id="es_w">
+                    <about>
+                        <label> Cantilever width (um)</label>
+                        <enable>(input.phase(ts).choice(fts_model) == 13) </enable>
+                        <description/>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>1e5</max>
+                    <default>30</default>
+                    <current>30</current>
+                </number>
+                <number id="es_h">
+                    <about>
+                        <label> Tip height (um)</label>
+                        <enable>(input.phase(ts).choice(fts_model) == 13) </enable>
+                        <description/>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>1e4</max>
+                    <default>10</default>
+                    <current>10</current>
+                </number>
+                <number id="theta_lever">
+                    <about>
+                        <label> Cantilever angle (deg)</label>
+                        <enable>(input.phase(ts).choice(fts_model) == 13) </enable>
+                        <description/>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>90</max>
+                    <default>10</default>
+                    <current>10</current>
+                </number>
+                <number id="theta_tip">
+                    <about>
+                        <label> Cone opening angle (deg)</label>
+                        <enable>(input.phase(ts).choice(fts_model) == 13) </enable>
+                        <description/>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>90</max>
+                    <default>10</default>
+                    <current>10</current>
+                </number>
+            </group>
+            <string id="custom_filename">
+                <about>
+                    <label> Custom filename</label>
+                    <description/>
+                    <enable>(input.phase(ts).choice(fts_model) == 11) || (input.phase(ts).choice(fts_model) == 17) </enable>
+                </about>
+                <default>fts.txt</default>
+                <current>fts.txt</current>
+            </string>
+            <boolean id="WantWLC">
+                <about>
+                    <label> Worm Like Chain (functionalized recognition)</label>
+                    <enable>on</enable>
+                </about>
+                <default>off</default>
+                <current>no</current>
+            </boolean>
+            <group id="wlc">
+                <about>
+                    <enable>input.phase(ts).boolean(WantWLC)</enable>
+                </about>
+                <number id="wlc_L0">
+                    <about>
+                        <label> L0 (nm)</label>
+                        <description>L0</description>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>2000</max>
+                    <default>1</default>
+                    <current>1</current>
+                </number>
+                <number id="wlc_Lp">
+                    <about>
+                        <label> Lp (nm)</label>
+                        <description>Lp</description>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>2000</max>
+                    <default>1</default>
+                    <current>1</current>
+                </number>
+                <number id="wlc_Fr">
+                    <about>
+                        <label> Rupture force (nN)</label>
+                        <description>The chain will rupture at this force</description>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>2000</max>
+                    <default>10</default>
+                    <current>10</current>
+                </number>
+            </group>
+            <number id="temperature">
+                <about>
+                    <label> Temperature (K)</label>
+                    <description>Temperature in kelvin</description>
+                    <enable> input.phase(ts).boolean(WantWLC) || input.phase(ts).group(solvation).boolean(WantOscillatory) </enable>
+                </about>
+                <units/>
+                <min>0</min>
+                <max>1000</max>
+                <default>300</default>
+                <current>300</current>
+            </number>
+            <group id="solvation">
+                <about>
+                    <label>Solvation forces (Jeffery et. al. PrB 2004)</label>
+                    <enable> input.phase(ts).choice(fts_model) != 11 | input.phase(ts).choice(fts_model) != 17</enable>
+                </about>
+                <boolean id="WantOscillatory">
+                    <about>
+                        <label> Include oscillatory forces?</label>
+                        <enable>on</enable>
+                    </about>
+                    <default>off</default>
+                    <current>no</current>
+                </boolean>
+                <number id="sigma_solvation">
+                    <about>
+                        <enable>input.phase(ts).group(solvation).boolean(WantOscillatory)</enable>
+                        <label> Sigma (nm)</label>
+                        <description>Period and Decay length of the oscillatory forces</description>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>2</max>
+                    <default>2.56e-1</default>
+                    <current>0.256</current>
+                </number>
+                <number id="rho_solvation">
+                    <about>
+                        <enable>input.phase(ts).group(solvation).boolean(WantOscillatory)</enable>
+                        <label> Rho</label>
+                        <description>Number density of the liquid (1/m^3)</description>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>1e30</max>
+                    <default>3.33e28</default>
+                    <current>3.33e+28</current>
+                </number>
+                <boolean id="WantHydration">
+                    <about>
+                        <label> Include hydration forces?</label>
+                    </about>
+                    <default>of</default>
+                    <current>no</current>
+                </boolean>
+                <number id="lambda_solvation">
+                    <about>
+                        <enable>input.phase(ts).group(solvation).boolean(WantHydration)</enable>
+                        <label> Lambda (nm)</label>
+                        <description>Decay length of the Hydration force</description>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>2</max>
+                    <default>2.45e-1</default>
+                    <current>0.245</current>
+                </number>
+                <number id="p_h">
+                    <about>
+                        <enable>input.phase(ts).group(solvation).boolean(WantHydration)</enable>
+                        <label> Hydration scaling</label>
+                        <description>Strength of Hydration force (empirically determined constant). Called p_h by Jeffery et al</description>
+                    </about>
+                    <units/>
+                    <min>-2e9</min>
+                    <max>2e9</max>
+                    <default>2e7</default>
+                    <current>2e+07</current>
+                </number>
+                <number id="rtip_solv">
+                    <about>
+                        <enable>input.phase(ts).group(solvation).boolean(WantHydration) || input.phase(ts).group(solvation).boolean(WantOscillatory) </enable>
+                        <label> Rtip solvation (nm)</label>
+                        <description>Effective tip radius for solvation shells. Note this may be different than the effective tip radius above</description>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>1000</max>
+                    <default>10</default>
+                    <current>10</current>
+                </number>
+                <number id="N_solv">
+                    <about>
+                        <enable>false</enable>
+                        <label> Number slices</label>
+                        <description>Number of slices for discretization of tip. N=1 (recommended) gives a simple exponentially decaying cosine for the oscillatory forces and a exponential decay for hydration force.</description>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>1000</max>
+                    <default>1</default>
+                    <current>1</current>
+                </number>
+                <boolean id="cont_grad">
+                    <about>
+                        <enable>input.phase(ts).group(solvation).boolean(WantHydration) || input.phase(ts).group(solvation).boolean(WantOscillatory) </enable>
+                        <label> Enforce continuous gradient</label>
+                        <description>If this is unchecked, then the solvation forces saturate at d=0. If this is checked, then the solvation forces continue past d=0, which enforces a continuous gradient.</description>
+                    </about>
+                    <default>false</default>
+                    <current>no</current>
+                </boolean>
+                <boolean id="Want_V_IE">
+                    <about>
+                        <label> Non-conservative solvation forces (hysteretic)</label>
+                        <description>This models the non-conservative component of solvation forces as hysteretic force using the model proposed in Voïtchovsky et al.</description>
+                        <enable>off</enable>
+                    </about>
+                    <default>off</default>
+                    <current>no</current>
+                </boolean>
+                <!-- <number id="W_SL"> -->
+                <!-- <about> -->
+                <!-- <label> W_SL</label> -->
+                <!-- <description>W_SL</description> -->
+                <!-- <enable>input.phase(ts).group(solvation).boolean(Want_V_IE)</enable> -->
+                <!-- </about> -->
+                <!-- <units> </units> -->
+                <!-- <min>0</min> -->
+                <!-- <max>1000</max> -->
+                <!-- <default>50e-3</default> -->
+                <!-- </number> -->
+                <!-- <number id="W_TL"> -->
+                <!-- <about> -->
+                <!-- <label> W_SL</label> -->
+                <!-- <description>W_TL</description> -->
+                <!-- <enable>input.phase(ts).group(solvation).boolean(Want_V_IE)</enable> -->
+                <!-- </about> -->
+                <!-- <units> </units> -->
+                <!-- <min>0</min> -->
+                <!-- <max>1000</max> -->
+                <!-- <default>50e-3</default> -->
+                <!-- </number> -->
+                <!-- <number id="solvent_alpha"> -->
+                <!-- <about> -->
+                <!-- <label> solvent_alpha</label> -->
+                <!-- <description></description> -->
+                <!-- <enable>input.phase(ts).group(solvation).boolean(Want_V_IE)</enable> -->
+                <!-- </about> -->
+                <!-- <units> </units> -->
+                <!-- <min>0</min> -->
+                <!-- <max>100e9</max> -->
+                <!-- <default>6.7e9</default> -->
+                <!-- </number> -->
+                <boolean id="Want_exp_dashpot">
+                    <about>
+                        <label> Non-conservative solvation forces (viscous)</label>
+                        <description>This models the non-conservative component of solvation forces as a viscosity that decays exponentially away from the surface. Note: Jeffery proposed that damping was proportional to stiffness, which includes oscillatory forces, but we model only a monotonic damping coefficient.</description>
+                    </about>
+                    <default>off</default>
+                    <current>no</current>
+                </boolean>
+                <number id="exp_dashpot_scale">
+                    <about>
+                        <label> Scaling (kg/s)</label>
+                        <description>Damping coefficient kg/s=N-s/m at Z=0</description>
+                        <enable>input.phase(ts).group(solvation).boolean(Want_exp_dashpot)</enable>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>1000</max>
+                    <default>1e-5</default>
+                    <current>1e-05</current>
+                </number>
+                <number id="exp_dashpot_decay">
+                    <about>
+                        <label> Decay (nm)</label>
+                        <description>Decay length. Typically this should be on the order of the molecular diameter (e.g. 0.2 - 0.3 for water)</description>
+                        <enable>input.phase(ts).group(solvation).boolean(Want_exp_dashpot)</enable>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>1000</max>
+                    <default>0.25</default>
+                    <current>0.25</current>
+                </number>
+            </group>
+            <group id="nc">
+                <about>
+                    <label>Non-conservative forces</label>
+                    <enable> input.phase(ts).choice(fts_model) != 11 | input.phase(ts).choice(fts_model) != 17</enable>
+                </about>
+                <boolean id="WantPreisach">
+                    <about>
+                        <label> Preisach</label>
+                        <description>Beta testing. Don't use.</description>
+                        <enable>off</enable>
+                    </about>
+                    <default>off</default>
+                    <current>no</current>
+                </boolean>
+                <boolean id="WantTipSqueeze">
+                    <about>
+                        <label> Tip-Sample Squeeze Film Damping </label>
+                        <description>Beta testing. Don't use.</description>
+                    </about>
+                    <default>off</default>
+                    <current>no</current>
+                </boolean>
+                <number id="etaliquid">
+                    <about>
+                        <label> Viscosity (Pa-s)</label>
+                        <description>Liquid viscosity</description>
+                        <enable>input.phase(ts).group(nc).boolean(WantTipSqueeze)</enable>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>1000</max>
+                    <default>1e-5</default>
+                    <current>1e-05</current>
+                </number>
+                <choice id="VEchoiceDMT">
+                    <about>
+                        <label> Include sample visco-elastic forces?</label>
+                        <description>Select the model for visco-elastic damping. The tip is assumed to be rigid if visoelastic forces are included.</description>
+                        <enable>input.phase(ts).choice(fts_model) == 3 || input.phase(ts).choice(fts_model) == 4</enable>
+                    </about>
+                    <option>
+                        <about>
+                            <label>None</label>
+                            <description>No visco-elastic forces</description>
+                        </about>
+                        <value>1</value>
+                    </option>
+                    <option>
+                        <about>
+                            <label>Ad-hoc Kelvin-Voigt</label>
+                            <description>This is the only viscoelastic model currently supported in conjunction with attractive forces. See the manual for more details.</description>
+                        </about>
+                        <value>4</value>
+                    </option>
+                    <default>1</default>
+                    <current>1</current>
+                </choice>
+                <choice id="VEchoiceLinear">
+                    <about>
+                        <label> Include sample visco-elastic forces?</label>
+                        <description>Select the model for visco-elastic damping. The tip is assumed to be rigid if visoelastic forces are included.</description>
+                        <enable>input.phase(ts).choice(fts_model) == 1</enable>
+                    </about>
+                    <option>
+                        <about>
+                            <label>None</label>
+                            <description>No visco-elastic forces</description>
+                        </about>
+                        <value>1</value>
+                    </option>
+                    <option>
+                        <about>
+                            <label>Kelvin-Voigt</label>
+                            <description>The kelvin-voigt model is a spring and a damper (dashpot) in parallel</description>
+                        </about>
+                        <value>2</value>
+                    </option>
+                    <option>
+                        <about>
+                            <label>Three element model</label>
+                            <description>The standard three element model is a spring in series with a Kelvin-voigt element. This is the simplest model that captures the typical features of viscoelastic solids</description>
+                        </about>
+                        <value>5</value>
+                    </option>
+                    <option>
+                        <about>
+                            <label>Ad-hoc Kelvin-Voigt (not recommended)</label>
+                            <description>This is the model used in previous versions of VEDA, and most previous literature. Use only for comparing to prior work. Not recommended for new simulations.</description>
+                        </about>
+                        <value>4</value>
+                    </option>
+                    <default>1</default>
+                    <current>1</current>
+                </choice>
+                <choice id="VEchoiceHertz">
+                    <about>
+                        <label> Include sample visco-elastic forces?</label>
+                        <description>Select the model for visco-elastic damping. The tip is assumed to be rigid if visoelastic forces are included.</description>
+                        <enable>input.phase(ts).choice(fts_model) == 2</enable>
+                    </about>
+                    <option>
+                        <about>
+                            <label>None</label>
+                            <description>No visco-elastic forces</description>
+                        </about>
+                        <value>1</value>
+                    </option>
+                    <option>
+                        <about>
+                            <label>Kelvin-Voigt</label>
+                            <description>The kelvin-voigt model is a spring and a damper (dashpot) in parallel</description>
+                        </about>
+                        <value>2</value>
+                    </option>
+                    <option>
+                        <about>
+                            <label>Three element model</label>
+                            <description>The standard three element model is a spring in series with a Kelvin-voigt element. This is the simplest model that captures the typical features of viscoelastic solids</description>
+                        </about>
+                        <value>5</value>
+                    </option>
+                    <option>
+                        <about>
+                            <label>Maxwell</label>
+                            <description>The Maxwell model is a spring and a damper (dashpot) in series. This is suitable for viscoelastic liquids. It describes solids only if the viscosity is very large.</description>
+                        </about>
+                        <value>3</value>
+                    </option>
+                    <option>
+                        <about>
+                            <label>Generalized Maxwell (Prony series)</label>
+                            <description>A number of Maxwell elements in parallel. The modulus entered as sample youngs modulus above is E_infinity.</description>
+                        </about>
+                        <value>6</value>
+                    </option>
+                    <option>
+                        <about>
+                            <label>Ad-hoc Kelvin-Voigt (not recommended)</label>
+                            <description>This is the model used in previous versions of VEDA, and most previous literature. Use only for comparing to prior work. Not recommended for new simulations.</description>
+                        </about>
+                        <value>4</value>
+                    </option>
+                    <default>1</default>
+                    <current>1</current>
+                </choice>
+                <group id="VEHertz">
+                    <about>
+                        <enable>(input.phase(ts).group(nc).choice(VEchoiceHertz) != 1) &amp;&amp; ( input.phase(ts).choice(fts_model) == 2)</enable>
+                    </about>
+                    <number id="threeelm_e2">
+                        <about>
+                            <label> E2 modulus (GPa)</label>
+                            <description>For the three element model, the sample Youngs modulus above is E1 and you enter E2 here (see manual for description of which is E1 and E2.</description>
+                            <enable>input.phase(ts).group(nc).choice(VEchoiceHertz) == 5</enable>
+                        </about>
+                        <units/>
+                        <min>0</min>
+                        <max>1000</max>
+                        <default>1</default>
+                        <current>1</current>
+                    </number>
+                    <number id="etasampleHertz">
+                        <about>
+                            <label> Sample viscosity (Pa-s)</label>
+                            <description>Enter a value for the sample viscosity.</description>
+                            <enable>( input.phase(ts).group(nc).choice(VEchoiceHertz) != 1 ) &amp;&amp; ( input.phase(ts).group(nc).choice(VEchoiceHertz) != 6 ) </enable>
+                        </about>
+                        <units/>
+                        <min>0</min>
+                        <max>100e9</max>
+                        <default>0</default>
+                        <current>0</current>
+                    </number>
+                    <integer id="gen_max_N">
+                        <about>
+                            <label> Number of elements for Generalized Maxwell </label>
+                            <description>Enter the number of elements in the Generalized Maxwell (prony series) model. You may enter up to 99 elements</description>
+                            <enable>(input.phase(ts).group(nc).choice(VEchoiceHertz) == 6) &amp;&amp; ( input.phase(ts).choice(fts_model) == 2)</enable>
+                        </about>
+                        <units/>
+                        <min>1</min>
+                        <max>99</max>
+                        <default>3</default>
+                        <current>3</current>
+                    </integer>
+                    <string id="gen_max_E">
+                        <about>
+                            <label> Generalized Maxwell Youngs modulii (GPa)</label>
+                            <description>Enter a comma separated list of the youngs modulii for the generalized maxwell model. In addition to these elements, the sample youngs modulus above counts as one element with an infinite relaxation time. </description>
+                            <enable>(input.phase(ts).group(nc).choice(VEchoiceHertz) == 6) &amp;&amp; ( input.phase(ts).choice(fts_model) == 2) </enable>
+                        </about>
+                        <default>1</default>
+                        <current>1</current>
+                    </string>
+                    <string id="gen_max_tau">
+                        <about>
+                            <label> Generalized Maxwell relaxation times (s)</label>
+                            <description>Enter a comma separated list of the relaxation times for the generalized maxwell model.</description>
+                            <enable>input.phase(ts).group(nc).choice(VEchoiceHertz) == 6</enable>
+                        </about>
+                        <default>1</default>
+                        <current>1</current>
+                    </string>
+                </group>
+                <number id="etasampleDMT">
+                    <about>
+                        <label> Sample viscosity (Pa-s)</label>
+                        <description>Enter a value for the sample viscosity.</description>
+                        <enable>( input.phase(ts).group(nc).choice(VEchoiceDMT) != 1 ) &amp;&amp; ( input.phase(ts).choice(fts_model) == 3 || input.phase(ts).choice(fts_model) == 4) </enable>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>100e9</max>
+                    <default>0</default>
+                    <current>0</current>
+                </number>
+                <number id="etasampleLin">
+                    <about>
+                        <label> Damping coefficient (N-s/m)</label>
+                        <description>Enter a viscoelasticity damping coefficient in N-s/m.</description>
+                        <enable>input.phase(ts).choice(fts_model) == 1 &amp;&amp; input.phase(ts).group(nc).choice(VEchoiceLinear) != 1 </enable>
+                    </about>
+                    <units/>
+                    <min>1e-12</min>
+                    <max>1000</max>
+                    <default>1e-6</default>
+                    <current>1e-06</current>
+                </number>
+                <number id="k2Lin">
+                    <about>
+                        <label> k2 Stiffness (N/m)</label>
+                        <description>Enter the k2 stiffness for the three element model (the number above for sample stiffness is k1). see manual for which is k1 and which is k2.</description>
+                        <enable>input.phase(ts).choice(fts_model) == 1 &amp;&amp; input.phase(ts).group(nc).choice(VEchoiceLinear) == 5</enable>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>1000</max>
+                    <default>0</default>
+                    <current>0</current>
+                </number>
+                <boolean id="WantHYST">
+                    <about>
+                        <label> Include capillary forces?</label>
+                        <enable>(input.phase(ts).choice(fts_model) != 9) &amp;&amp; (input.phase(ts).choice(fts_model) != 8) &amp;&amp; (input.phase(ts).choice(fts_model) != 4) &amp;&amp; (input.phase(ts).choice(fts_model) != 7) </enable>
+                        <description>To include surface hysteretic force components, select "yes." This adhesion hysteresis model was taken from Kober et al, Rapid Research Letters, 2008.
+
+ Checking or unchecking this box changes the figure at the top of the page. Scroll up to see the updated diagram.
+
+ Capillary forces cannot be used with JRK or DMT+DLVO models at present. Capillary forces can not be applied to Morse or Lennard Jones potential models.
+
+ NOTE: if you receive a DDASKR error, try increasing the number of deflection points per cycle, or decrease the approach velocity.</description>
+                    </about>
+                    <default>off</default>
+                    <current>no</current>
+                </boolean>
+                <number id="D_0">
+                    <about>
+                        <label> Critical gap, D_0 (nm) </label>
+                        <description>The breaking gap at which the hysteretic force component goes to zero. </description>
+                        <enable>input.phase(ts).group(nc).boolean(WantHYST)</enable>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>10</max>
+                    <default>0.6</default>
+                    <current>0.6</current>
+                </number>
+                <number id="deltaE">
+                    <about>
+                        <label> Energy dissipated, dE (eV) </label>
+                        <description>The energy dissipated in the contact process during each cycle to the hysteretic force component. </description>
+                        <enable>input.phase(ts).group(nc).boolean(WantHYST)</enable>
+                    </about>
+                    <units/>
+                    <min>0</min>
+                    <max>1000</max>
+                    <default>5</default>
+                    <current>5</current>
+                </number>
+            </group>
+        </phase>
+        <phase id="sim">
+            <about>
+                <label>Simulation parameters</label>
+            </about>
+            <number id="plotpnts">
+                <about>
+                    <label>Number of points plotted</label>
+                    <description>The number of data points plotted/saved.</description>
+                </about>
+                <units/>
+                <min>1</min>
+                <max>10000</max>
+                <default>500</default>
+                <current>500</current>
+            </number>
+
+	    <choice id="numincycle">
+	      <about>
+		<label>Accuracy versus speed tradeoff</label>
+		<description>This controls how accurate a solution is calculated. More accurate solutions require more time.</description>
+	      </about>
+	      
+	      <option>
+		<about>
+		  <label>Fastest, least accurate</label>
+		</about>
+		<value>400</value>
+	      </option>
+
+
+	      <option>
+		<about>
+		  <label>Faster, less accurate</label>
+		</about>
+		<value>600</value>
+	      </option>
+	      
+	      <option>
+		<about>
+		  <label>Standard speed/accuracy</label>
+		</about>
+		<value>750</value>
+	      </option>
+	      
+	      <option>
+		<about>
+		  <label>Slower, Most accurate</label>
+		</about>
+		<value>1000</value>
+	      </option>
+	      
+	      <option>
+		<about>
+		  <label>Expert Mode</label>
+		</about>
+		<value>0</value>
+	      </option>
+	      
+	      <default>750</default>
+	      <current>400</current>
+	    </choice>
+
+            <boolean id="WantHH">
+                <about>
+                    <label>Plot a higher harmonic?</label>
+                    <description>To plot a higher harmonic of the excitation frequency of the delfection waveform, select "yes."</description>
+                </about>
+                <default>off</default>
+                <current>no</current>
+            </boolean>
+            <integer id="numHH">
+                <about>
+                    <label>Number of higher harmonics</label>
+                    <description>Enter the number of higher harmonics of the deflection waveform you wish to display.</description>
+                    <enable>input.phase(sim).boolean(WantHH)</enable>
+                </about>
+                <units/>
+                <min>1</min>
+                <max>9</max>
+                <default>2</default>
+                <current>2</current>
+            </integer>
+            <string id="NHH1">
+                <about>
+                    <label>Choose higher harmonics</label>
+                    <description>These comma-separated higher harmonics of the deflection waveform will be displayed.</description>
+                    <enable>input.phase(sim).boolean(WantHH)</enable>
+                </about>
+                <default>7,9</default>
+                <current>7,9</current>
+            </string>
+            <group id="timehist">
+                <about>
+                    <label>Time Histories</label>
+                </about>
+                <boolean id="Wanthist">
+                    <about>
+                        <label>Include time histories</label>
+                        <description>To include a sample of deflection waveform, interaction history data and more, select "yes."</description>
+                    </about>
+                    <default>off</default>
+                    <current>no</current>
+                </boolean>
+                <boolean id="Wanthist_byA">
+                    <about>
+                        <label>History based on Amp ratios?</label>
+                        <description>To extract time histories at specific amplitude ratios locations, select "yes." To extract time histories at specific Z locations, select "no"</description>
+                        <enable>off</enable>
+                    </about>
+                    <default>on</default>
+                    <current>yes</current>
+                </boolean>
+                <boolean id="do_fft">
+                    <about>
+                        <label>Frequency display of force?</label>
+                        <description>To display the fourier transformed force and see the frequncy content select "yes". To display the force against time, select "no"</description>
+                        <enable>off</enable>
+                    </about>
+                    <default>off</default>
+                    <current>no</current>
+                </boolean>
+                <integer id="numHist">
+                    <about>
+                        <label>Number of time histories</label>
+                        <description>Number of individual time histories to be collected.</description>
+                        <enable>input.phase(sim).group(timehist).boolean(Wanthist)</enable>
+                    </about>
+                    <units/>
+                    <min>1</min>
+                    <max>9</max>
+                    <default>3</default>
+                    <current>3</current>
+                </integer>
+                <string id="Ahist1">
+                    <about>
+                        <label>Choose time history Amp ratios</label>
+                        <description>For these comma-separated values of A1/A0 the simulation plots a sample of the deflection and tip-sample interaction histories.</description>
+                        <enable>input.phase(sim).group(timehist).boolean(Wanthist)</enable>
+                    </about>
+                    <default>0.95,0.9,0.5</default>
+                    <current>0.95,0.9,0.5</current>
+                </string>
+                <integer id="Nhist">
+                    <about>
+                        <label>Number of cycles</label>
+                        <description>This is the number of complete cycles included in the sample of defelction and tip-sample interaction history.</description>
+                        <enable>input.phase(sim).group(timehist).boolean(Wanthist)</enable>
+                    </about>
+                    <units/>
+                    <min>1</min>
+                    <max>5000</max>
+                    <default>5</default>
+                    <current>5</current>
+                </integer>
+                <boolean id="Want_TH_obs_defl">
+                    <about>
+                        <label>Observed Deflection in Time History</label>
+                        <description>Check to include observed deflection in the time history plot</description>
+                    </about>
+                    <default>off</default>
+                    <current>no</current>
+                </boolean>
+                <boolean id="Want_TH_force_gap">
+                    <about>
+                        <label>Make plots of force versus gap</label>
+                        <description>By default, the time history plot is force and gap versus time. If you click this, then you get force plotted versus gap.</description>
+                    </about>
+                    <default>off</default>
+                    <current>no</current>
+                </boolean>
+            </group>
+            <boolean id="Want_ContTrans">
+                <about>
+                    <label/>
+                    <description/>
+                    <enable>off</enable>
+                </about>
+                <default>off</default>
+                <current>no</current>
+            </boolean>
+            <choice id="xchoice">
+                <about>
+                    <label>Choose X-axis variable</label>
+                    <description>Choose the independent variable. (Note: 1st harmonic amplitude is always plotted against Z-distance regardless of setting because plotting amplitude against itself is not too useful) </description>
+                </about>
+                <option>
+                    <about>
+                        <label>Amplitude ratio</label>
+                        <description>The ratio of amplitude vs. initial (unconstrained) amplitude.</description>
+                    </about>
+                    <value>1</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Z-distance (nm)</label>
+                        <description>The approach distance.</description>
+                    </about>
+                    <value>2</value>
+                </option>
+                <default>2</default>
+                <current>2</current>
+            </choice>
+            <group id="poinc">
+                <about>
+                    <enable>false</enable>
+                    <label>Poincare sections</label>
+                </about>
+                <boolean id="Want_Strob">
+                    <about>
+                        <label>Stroboscopic</label>
+                        <description>Check to include a stroboscopic poincare section which displays phase-space variables at integer period intervals.</description>
+                    </about>
+                    <default>off</default>
+                    <current>no</current>
+                </boolean>
+                <boolean id="Want_Impact">
+                    <about>
+                        <label>Impact</label>
+                        <description>Check to include a impact poincare section which displays phase-space variables at contact initialization times.</description>
+                    </about>
+                    <default>off</default>
+                    <current>no</current>
+                </boolean>
+            </group>
+            <group id="plots">
+                <about>
+                    <label>Output plots</label>
+                    <enable>false</enable>
+                </about>
+                <boolean id="Want_Fourier">
+                    <about>
+                        <label>Fourier</label>
+                        <description>Check to include the fourier integral plots for amplitude and phase (if unchecked, then only the lock-in values are plotted).</description>
+                    </about>
+                    <default>on</default>
+                    <current>yes</current>
+                </boolean>
+                <boolean id="Want_RMS">
+                    <about>
+                        <label>A_RMS</label>
+                        <description>Check to include the RMS amplitude plot.</description>
+                    </about>
+                    <default>off</default>
+                    <current>no</current>
+                </boolean>
+                <boolean id="Want_AZ">
+                    <about>
+                        <label>A_1,1</label>
+                        <description>Check to include the first harmonic amplitude plot.</description>
+                    </about>
+                    <default>on</default>
+                    <current>yes</current>
+                </boolean>
+                <boolean id="Want_A2">
+                    <about>
+                        <enable>input.phase(op).choice(freqchoice) == 2</enable>
+                        <label>A_1,2</label>
+                        <description>Check to include the second frequency amplitude plot.</description>
+                    </about>
+                    <default>on</default>
+                    <current>yes</current>
+                </boolean>
+                <boolean id="Want_P1">
+                    <about>
+                        <label>Phase_1,1</label>
+                        <description>Check to include the first harmonic phase vs. the selected x-axis variable.</description>
+                    </about>
+                    <default>on</default>
+                    <current>yes</current>
+                </boolean>
+                <boolean id="Want_P2">
+                    <about>
+                        <enable>input.phase(op).choice(freqchoice) == 2</enable>
+                        <label>Phase_1,2</label>
+                        <description>Check to include the second frequency phase plot.</description>
+                    </about>
+                    <default>on</default>
+                    <current>yes</current>
+                </boolean>
+                <boolean id="Want_MF">
+                    <about>
+                        <label>Mean interaction force</label>
+                        <description>Check to include the mean interaction force vs. the selected x-axis variable.</description>
+                    </about>
+                    <default>on</default>
+                    <current>yes</current>
+                </boolean>
+                <boolean id="Want_PF">
+                    <about>
+                        <label>Peak interaction forces</label>
+                        <description>Check to include the peak interaction forces vs. the selected x-axis variable.</description>
+                    </about>
+                    <default>on</default>
+                    <current>yes</current>
+                </boolean>
+                <boolean id="Want_ED">
+                    <about>
+                        <label>Energy dissipated</label>
+                        <description>Check to include the engergy dissipated per cycle vs. the selected x-axis variable.</description>
+                    </about>
+                    <default>on</default>
+                    <current>yes</current>
+                </boolean>
+                <boolean id="Want_ev">
+                    <about>
+                        <label>Energy plots in eV/drive cycle?</label>
+                        <description>Check to plot energy units as eV/drive cycle (default). Uncheck for pW.</description>
+                    </about>
+                    <default>on</default>
+                    <current>yes</current>
+                </boolean>
+                <boolean id="Want_EP">
+                    <about>
+                        <label>Energy propagation</label>
+                        <description>Check to include the engergy propagation terms cycle vs. the selected x-axis variable.</description>
+                    </about>
+                    <default>off</default>
+                    <current>no</current>
+                </boolean>
+                <boolean id="Want_E_Anc">
+                    <about>
+                        <label>Ancykowski formula</label>
+                        <description>Check to caclulate Ancykowski's formula for tip-sample dissipation (for comparison ONLY! May be inaccurate in many situations, especially in liquids.  For the true energy disspation, use the 'Energy Dissipated' checkbox above)</description>
+                    </about>
+                    <default>off</default>
+                    <current>no</current>
+                </boolean>
+                <boolean id="Want_virial">
+                    <about>
+                        <label>Tip-sample virial (numerical)</label>
+                        <description>Check to numerically integrate tip-sample virial</description>
+                    </about>
+                    <default>off</default>
+                    <current>yes</current>
+                </boolean>
+                <boolean id="Want_I">
+                    <about>
+                        <label>Indentation</label>
+                        <description>Check to include the indentation vs. the selected x-axis variable.</description>
+                    </about>
+                    <default>on</default>
+                    <current>yes</current>
+                </boolean>
+                <boolean id="Want_CT">
+                    <about>
+                        <label>Contact time</label>
+                        <description>Check to include the contact time vs. the selected x-axis variable.</description>
+                    </about>
+                    <default>on</default>
+                    <current>yes</current>
+                </boolean>
+                <boolean id="Want_ForceFourier">
+                    <about>
+                        <label>1st Harmonic of interaction force</label>
+                        <description>Check to include the 1st harmonic amplitude of the tip-sample interaction force.</description>
+                    </about>
+                    <default>off</default>
+                    <current>no</current>
+                </boolean>
+            </group>
+        </phase>
+    </input>
+</run>
+

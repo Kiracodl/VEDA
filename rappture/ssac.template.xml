@@ -1,0 +1,330 @@
+<?xml version="1.0"?>
+<run>
+#include "tool.xml"
+    
+    <input>
+    	<phase id="op">
+		<about>
+			<label>Operating conditions and cantilever properties</label>
+		</about>
+
+
+
+  	<boolean id="WantSampleExc">
+	  <about> 
+	    <label>use sample excitation</label> 
+	    <enable>off</enable>
+	  </about>
+	  <default>on</default>
+	</boolean>
+	
+
+	<choice id="operating_mode">
+		<about>
+		<enable>yes</enable>
+		<label>Choose operating mode</label>
+		</about>	
+	
+		<option>
+		<about>
+		<label>Approach</label>
+		</about>
+		<value>1</value>
+		</option>
+
+		<option>
+		<about>
+		<label>Freq Sweep</label>
+		</about>
+		<value>2</value>
+		</option>
+
+				
+		<default>1</default>
+	</choice>
+
+	<choice id="modulation_type">
+		<about><label>Choose modulation type</label>
+		  <enable>false</enable>
+		</about>	
+	
+		<option>
+		  <about>
+		    <label>Amplitude Modulation</label>
+		  </about>
+		  <value>1</value>
+		</option>
+		
+		<option>
+		  <about>
+		    <label>Frequency Modulation</label>		    
+		  </about>
+		  <value>2</value>
+		</option>
+				
+		<default>1</default>
+	</choice>
+	
+	
+	<choice id="fexcite">
+		<about><label>Cantilever excitation source</label>
+		<description>Choose the source by which the cantilever is excited.</description>
+		</about>	
+	
+		<option>
+		<about>
+		<label>No excitation (sample excitation only)</label>
+		</about>
+		<value>3</value>
+		</option>
+
+		<option>
+		<about>
+		<label>Acoustic excitation (Ideal)</label>
+		</about>
+		<value>1</value>
+		</option>
+				
+		<option>
+		  <about>
+		    <label>Magnetic excitation [coating (e.g. MAC mode) or bead at free end]</label>
+		  </about>
+		  <value>7</value>
+		</option>
+	
+		<option>
+		  <about>
+		    <label>Lorentz force excitation (e.g. i-Drive)</label>
+		  </about>
+		  <value>2</value>
+		</option>
+
+
+		<default>7</default>
+
+	</choice>
+
+
+
+	<choice id="freqchoice">
+	  <about>
+	    <label>CANTILEVER Excitation scheme</label>
+	    <enable>phase(op).choice(fexcite) != 3</enable>
+	    <description>Choose the number of frequencies in the drive (excitation) signal.</description>	
+	  </about>	
+	
+		<option>
+		<about>
+		<label>Single (conventional)</label>
+		</about>
+		<value>1</value>
+		</option>
+
+		<option>
+		<about>
+		<label>Bimodal </label>
+		</about>
+		<value>2</value>
+		</option>
+			
+				
+		<default>1</default>
+	</choice>
+	
+#include "ainitial_w_direct.xml"
+
+        <number id="Ainitial2">
+            <about>
+                <label>Unconstrained Amplitude (2nd drive frq) (nm)</label>
+                <description>The unconstrained amplitude at the second (bimodal) excitation frequency far from the sample surface in the absence of tip-sample interaction forces.</description>
+		<enable>input.phase(op).choice(freqchoice) == 2</enable>	        	   
+	    </about>
+            <units></units>
+            <min>0</min>
+            <max>100</max>
+            <default>1</default>
+        </number>
+
+        <number id="Asample">
+            <about>
+                <label>Sample amplitude (nm)</label>
+                <description>Amplitude of the sample</description>
+            </about>
+            <units></units>
+            <default>0.5</default>
+        </number>
+	        
+        <number id="omegas">
+            <about>
+                <label>Sample excitation frequency (kHz)</label>
+                <description>Excitation frequency of the sample</description>
+            </about>
+            <units></units>
+            <default>110</default>
+        </number>	
+
+
+
+#include "nummodes.xml"
+            <default>1</default>
+        </number>
+			
+#include "keq.xml"
+
+        <string id="Quality1">
+            <about>
+                <label>Qi</label>
+                <description>Enter comma separated values of the quality factors or each eigenmode. We define quality factor as 1/(2*damping ratio)..</description>
+            </about>
+            <units></units>
+              <default>10</default>
+        </string>
+
+#include "auto_calc_omega.xml"
+
+	<string id="omega1">
+            <about>
+                <label>fi (kHz)</label>
+                <description>Enter comma separated values for the natural frequencies of each eigenmode.</description>
+            </about>
+            <units></units>
+                       <default>10</default>
+        </string>
+
+	<string id="omegad_string">
+            <about>
+                <label>fd (kHz)</label>
+                <description>The excitation frequency applied to the cantilever. Enter comma separated values for each excitation frequency (1 for conventional, 2 for bimodal)</description>
+        </about>
+            <default>100</default>
+        </string>
+
+		
+	<number id="mtip">
+            <about>
+                <label>Tip mass</label>
+                <description>Tip mass as a fraction of the cantilever beam mass.</description>	        	   
+            </about>
+            <units></units>
+            <min>0</min>
+            <default>0</default>
+        </number>
+		 		
+        <number id="AprchS">
+            <about>
+                <label>Z approach velocity (nm/s) </label>
+                <description>The average speed that the base of the cantilever approaches the sample.</description>
+            </about>
+            <units></units>
+            <min>0.0001</min>
+            <default>2</default>
+     	    <enable>input.phase(op).choice(freqchoice) == 3</enable>	
+        </number>
+
+	 <number id="gamma_drag">
+            <about>
+	        <enable>off</enable>
+                <label>gamma (Z drag)</label>
+                <description>The drag coefficient (kg/s)</description>
+            </about>
+            <units></units>
+            <min>0</min>
+            <default>0</default>	
+        </number>
+
+  	<boolean id="WantZrange">
+		<about> 
+			<label>Specify Z range</label> 
+			<description>To specify a Z range for the simulation, select "yes."  The default Z range is 5nm greater than the unconstrained amplitude to zero.</description>
+		</about>
+		<default>on</default>
+	</boolean>
+		
+       <number id="Z0">
+            <about>
+                <label>Initial Z separation (nm)</label>
+                <description>The initial gap between the sample and the base of the cantilever. Note: this is not the tip-sample gap. Any static deflection due to long range forces is added (or subtracted) to this value to get the initial tip-sample gap.</description>
+	    	<enable>input.phase(op).boolean(WantZrange)</enable>         
+	    </about>
+
+            <units> </units>
+	    <default>1</default>
+        </number>	
+
+       <number id="Zf">
+            <about>
+                <label>Final Z separation (nm)</label>
+                <description>The final gap between the sample and the base of the cantilever.</description>
+	    	<enable>input.phase(op).boolean(WantZrange)</enable>         
+	    </about>
+
+            <units></units>
+	    <default>-1</default>
+        </number>
+
+#include "lockin.xml"       
+
+       <note><contents>file://../ignore.html</contents></note>
+
+#include "chi.xml"
+#include "alpha.xml"
+#include "afluid.xml"
+
+	</phase>
+	
+
+	<phase id="ts">
+		<about>
+		       <label>Tip-sample interaction properties</label>
+		</about>
+#define PATH input.phase(ts)
+#define DEFAULT_TS_CHOICE 2
+#include "ts-model-choice.xml"
+#include "tip.xml"	
+#include "sample.xml"
+        </phase>
+	
+	<phase id="sim">
+	<about> <label>Simulation parameters</label> </about>
+
+	#include "plotpnts.xml"
+       
+	#include "numincycle.xml"
+	
+#include "higher-harm.xml"
+				
+#define TIME_HIST_AMP		
+#include "timehist.xml"
+
+       <choice id="xchoice">	
+	 <about>
+	   <label>Choose X-axis variable</label>
+	   <description>Choose the independent variable.</description>
+	 </about>
+	 
+	 <option>
+	   <about>
+	     <label>Amplitude ratio</label>
+	     <description>The ratio of amplitude vs. initial (unconstrained) amplitude.</description>
+	   </about>
+	   <value>1</value>
+	 </option>
+
+	 <option>
+	   <about>
+	     <label>Z-distance (nm)</label>
+	     <description>The approach distance.</description>
+	   </about>
+	   <value>2</value>
+	 </option>
+	 
+	<default>2</default>
+	</choice>
+	
+#include "poincare.xml"
+		
+#include "plots.xml"		
+
+	</phase>
+    </input>
+</run>

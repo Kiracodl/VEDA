@@ -1,0 +1,11 @@
+       <number id="LS">
+         <about>
+           <label>Scan size (length) (nm)</label>
+           <description>The entire length of the substrate including the geometric feature.</description>
+         </about>
+         <units></units>
+         <min>0</min>
+         <max>20000</max>
+         <default>100</default>
+         <current>100</current>
+       </number>

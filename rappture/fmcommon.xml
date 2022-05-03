@@ -1,0 +1,101 @@
+
+	  <about><label>Freq Mod</label></about>
+
+	  <boolean id="fm_direct_control">
+	  <about>
+	    <label>Direct Amp/Phase control</label>
+	    <description>If on, then the controller works with A and phi directly.  If off, then the controller works with lock-in X and Y channels A*sin(phi) and A*cos(phi).  Use the off condition only if you need to match specific experiments.  Otherwise use the default</description>
+	  </about>
+	  <default>yes</default>
+	  </boolean>
+
+
+	  <boolean id="WantCalcFMGains">
+	    <about>
+	      <label>Autocalculate PLL gains?</label>
+	      <description>If on, then the method of Kilpatrick et al. RSI 2009 is used to calculate gains. The calculated values are displayed on the the 'Misc. internal values' tab of the output. Otherwise you can enter gains manually.</description>
+	    </about>
+	    <default>yes</default>
+	  </boolean>	  
+
+	  <number id="FmGainK0">
+	    <about>
+	      <label>PLL Prop. gain</label>
+	      <description>PLL gain</description>
+	      <enable>!input.phase(fm).boolean(WantCalcFMGains)</enable>
+	    </about>
+	    <default>0.4</default>
+	  </number>
+
+	  <number id="FmGainI0">
+	    <about>
+	      <label>PLL Int. gain</label>
+	      <description>PLL Int. gain.</description>
+	      <enable>!input.phase(fm).boolean(WantCalcFMGains)</enable>
+	    </about>
+	    <default>0.4</default>
+	  </number>
+
+	  <number id="FmGainD0">
+	    <about>
+	      <label>PLL Deriv. gain</label>
+	      <description>PLL Derivative gain.</description>
+	      <enable>!input.phase(fm).boolean(WantCalcFMGains)</enable>
+	    </about>
+	    <default>0.0</default>
+	  </number>
+
+
+	  <boolean id="WantCalcAmpGains">
+	  <about>
+	    <label>Autocalculate Amp gains?</label>
+	    <description>If on, then the method of Kilpatrick et al. RSI 2009 is used to calculate gains. The calculated values are displayed on the the 'Misc. internal values' tab of the output.  Otherwise you can enter gains manually.</description>
+	  </about>
+	  <default>yes</default>
+	  </boolean>
+
+
+	  <number id="FmGainK1">
+	    <about>
+	      <label>Amp Prop Gain</label>	     
+	      <description>FM Amplitude controller proportional gain.</description>
+	      <enable>!input.phase(fm).boolean(WantCalcAmpGains)</enable>
+	    </about>
+	    <default>0.4</default>
+	  </number>
+
+	  <number id="FmGainI1">
+	    <about>
+	      <label>Amp Int gain</label>
+	      <description>FM Amplitude controller integral gain.</description>
+	      <enable>!input.phase(fm).boolean(WantCalcAmpGains)</enable>
+	    </about>
+	    <default>0.4</default>
+	  </number>
+
+	  <number id="FmGainD1">
+	    <about>
+	      <label>Amp Deriv gain</label>
+	      <description>FM Amplitude controller derivative gain.</description>
+	      <enable>!input.phase(fm).boolean(WantCalcAmpGains)</enable>
+	    </about>
+	    <default>0.0</default>
+	  </number>
+
+
+	  <boolean id="want_pre_BPF">
+	  <about>
+	    <label>Use bandpass filter prior to lock-in</label>
+	    <description>If on, then a bandpass filter is applied to the drive signal prior to the lockin, with center frequency equal to the starting drive frequency and Q=1 (2nd order butterworth).  This is mainly used to get a detailed match to specific other simulators or specific AFM hardware.  If you don't have a specific need to match such hardware, leave this off.</description>
+	  </about>
+	  <default>no</default>
+	  </boolean>
+
+	  <boolean id="Want_NormFreqShift">
+	    <about> 
+	      <label>Displays normalized frequency shift</label> 
+	      <description>By default, frequency shift is normalized by the starting frequency.  To display the dimensional frequency shift, uncheck this box.</description>
+	    </about>
+	    <default>on</default>
+	  </boolean>
+

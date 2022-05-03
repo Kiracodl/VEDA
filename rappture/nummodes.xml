@@ -1,0 +1,9 @@
+        <number id="numModes">
+            <about>
+                <label>Number of eigenmodes</label>
+                <description>Number of eigenmodes (vibrational modes) to be included in the simulation. You will need one comma separated value for each ki, Qi, and fi for EACH eigenmode! </description>
+            </about>
+            <units></units>
+            <min>1</min>
+            <max>9</max>
+

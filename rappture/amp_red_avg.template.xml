@@ -1,0 +1,716 @@
+<?xml version="1.0"?>
+<run>
+#define TOOL amp_red_averaging
+#include "tool.xml"
+    
+   <input>
+
+     <phase id="op">
+       <about>
+	 <label>Operating cond. and cantilever prop.</label>
+       </about>
+       
+       <loader>
+	 <about>
+           <label>Example loader</label>
+           <description>Use this box to load example simulations from the VEDA manual</description>
+         </about>
+
+
+	 <!-- original conservative hertz model -->
+	 <!-- <example>../../examples/Amp_Red_Avg_Ex1.xml</example> -->
+	 
+	 <example>../../examples/Amp_Red_Avg_Ex1A.xml</example>
+	 
+	 <!-- <example>../../examples/Amp_Red_Avg_Ex2.xml</example> -->
+	 <!-- <example>../../examples/Amp_Red_Avg_Ex3.xml</example> -->
+	 
+	 <example>../../examples/Amp_Red_Avg_Ex4.xml</example>
+	 <!-- <example>../../examples/Amp_Red_Avg_Ex5A.xml</example> -->
+	 <!-- <example>../../examples/Amp_Red_Avg_Ex5B.xml</example> -->
+	 <example>../../examples/Amp_Red_Avg_Ex5C.xml</example>
+
+	 <!-- backwards compatible code, hard coded Z without iteration -->
+	 <!-- <example>../../examples/Amp_Red_Avg_Ex6A.xml</example> -->  
+	 <!-- <example>../../examples/Amp_Red_Avg_Ex6B.xml</example> -->
+	 <!-- forward euler, brent iteration -->
+	 <!-- <example>../../examples/Amp_Red_Avg_Ex6C.xml</example> -->
+	 <example>../../examples/Amp_Red_Avg_Ex6D.xml</example>
+	 
+	 <!-- <example>../../examples/Amp_Red_Avg_Ex7A.xml</example> -->
+	 <!-- <example>../../examples/Amp_Red_Avg_Ex7B.xml</example> -->
+
+	 <!-- <example>../../examples/Amp_Red_Avg_Ex8A.xml</example> -->
+	 <!-- <example>../../examples/Amp_Red_Avg_Ex8B.xml</example> -->
+
+	 <example>../../examples/Amp_Red_Avg_Ex9.xml</example>
+	 <!-- <example>../../examples/Amp_Red_Avg_Ex10.xml</example> -->
+
+	 <example>../../examples/Amp_Red_Avg_Ex11.xml</example>
+	 <!-- <example>../../examples/Amp_Red_Avg_Ex12.xml</example> -->
+
+       </loader>
+
+
+	  <choice id="operating_mode">
+	    <about>
+	      <label>Choose operating mode</label>
+	      <enable>off</enable>
+	    </about>	
+	    
+	    <option>
+	      <about>
+		<label>Approach (continuously)</label>
+	      </about>
+	      <value>1</value>
+	    </option>
+	    	    
+	    <option>
+	      <about>
+		<label>Approach and Retract (continuously)</label>
+	      </about>
+	      <value>6</value>
+	    </option>
+
+	    <option>
+	      <about>
+		<label>Approach (discrete steps)</label>
+	      </about>
+	      <value>7</value>
+	    </option>
+
+	    <default>1</default>
+	</choice>
+
+	<choice id="modulation_type">
+		<about><label>Choose modulation type</label>
+		  <enable>false</enable>
+		</about>	
+	
+		<option>
+		  <about>
+		    <label>Amplitude Modulation</label>
+		  </about>
+		  <value>1</value>
+		</option>
+		
+		<option>
+		  <about>
+		    <label>Frequency Modulation</label>		    
+		  </about>
+		  <value>2</value>
+		</option>
+				
+		<default>1</default>
+	</choice>
+	
+
+      <boolean id="WantSampleExc">
+          <about> 
+            <label>use sample excitation</label> 
+            <enable>off</enable>
+          </about>
+          <default>off</default>
+        </boolean>
+        
+
+	
+	<choice id="fexcite">
+		<about>
+		<enable>no</enable>
+		<label>Choose excitation source</label>
+		<description>Choose the source by which the cantilever is excited. This may or may not be important depending on the operating conditions.</description>
+		</about>	
+	
+		<option>
+		<about>
+		<label>Acoustic excitation</label>
+		</about>
+		<value>1</value>
+		</option>
+
+		<option>
+		<about>
+		<label>Magnetic excitation</label>
+		</about>
+		<value>2</value>
+		</option>
+				
+		<default>2</default>
+	</choice>
+
+		<boolean id="want_nonideal_magnetic">
+	  <about>
+	    <label>Use Non-ideal magnetic drive?</label>
+	    <description>If this box is checked, then the effects of a finite inductance in the magnetic coil is included. This is modeled as a decreasing efficiency as the excitation frequency increases, and also a phase offset between the input signal and the magnetic force.  If you are unsure, leave this off</description>
+	    <enable>off</enable>
+	  </about>
+	  <default>off</default>
+	</boolean>
+
+<boolean id="want_custom_B">
+  <about>
+    <label>Nonideal magnetic force ratios?</label>
+    <description>To enter custom ratios between the modal forcing on each eigenvalue, check this box.  For the defaults, leave the box unchecked. If you are unsure, leave the box unchecked.</description>
+    <enable>off</enable>
+  </about>
+  <default>off</default>
+</boolean>
+
+
+
+	<choice id="freqchoice">
+		<about><label>Choose frequency scheme</label>
+		<description>Choose the number of frequencies in the drive (excitation) signal.</description>
+		</about>	
+	
+		<option>
+		<about>
+		<label>Single frequency (conventional)</label>
+		</about>
+		<value>1</value>
+		</option>
+
+		<option>
+		<about>
+		<label>Two frequencies (bimodal)</label>
+		</about>
+		<value>2</value>
+		</option>
+
+
+				
+		<default>1</default>
+	</choice>
+
+
+
+
+#include "ainitial.xml"
+	
+        <number id="Ainitial2">
+            <about>
+                <label>Unconstrained Amplitude (2nd drive frq) (nm)</label>
+                <description>The unconstrained amplitude at the second (bimodal) excitation frequency far from the sample surface in the absence of tip-sample interaction forces. Note for this tool, the 2nd frequency amplitude should generally be small relative to the 1st frequency amplitude. For arbitrary amplitudes, use the Advanced Dynamic Approach Curves tool</description>
+		<enable>input.phase(op).choice(freqchoice) == 2</enable>	
+	    </about>
+            <units></units>
+            <min>0</min>
+            <max>100</max>
+            <default>1</default>
+        </number>
+			
+#include "keq.xml"
+
+        <string id="Quality1">
+            <about>
+                <label>Q</label>
+                <description>Enter comma separated values of the quality factors or each eigenmode. We define quality factor as 1/(2*damping ratio). For the results of this tool to be accurate, Q must be at least 10 (>30 recommended).  For lower Q, use the Basic or Advanced AM Dynamic Approach Curves tools</description>
+            </about>
+            <units></units>
+              <default>200.0, 300.0</default>
+        </string>
+
+	<!-- this is ignored by the code, but has to be there for backwards compatibility -->
+	<boolean id="AutoCalcOmega">
+	  <about>
+	    <label>Auto calculate omega_i (i>1)?</label>
+	    <description>To input omega2, omega3, etc., leave the box unchecked.  To allow the omega_i's to be calculated (for i > 1), check the box. Autocalculation is valid only for rectangular diving board cantilevers</description>
+	    <enable>off</enable>
+	  </about>
+	  <default>off</default>
+	</boolean>
+	
+
+	<!-- this a string for backwards compatibility, code will only look at first value if multiple are entered -->
+	<string id="omega1">
+            <about>
+                <label>Nat. Freq. (kHz) = Driving Freq </label>
+                <description>Enter the natural frequency of the first eigenmode. Driving frequency is always assumed to be at the natural frequency</description>
+            </about>
+            <units></units>
+            <default>10</default>
+        </string>
+
+	<!-- this is ignored by the code, but has to be there for backwards compatibility -->
+	<string id="omegad_string">
+          <about>
+            <label>Driving Freq. (kHz)</label>
+	  <enable>off</enable>
+          </about>
+          <default>10, 71</default>
+        </string>
+
+
+
+ <choice id="omega1_omega2_rounding">
+  <about>
+    <label>2nd Drive Freq rounding</label>
+    <description>For bimodal, the simulation needs to be carried out to the least common multiple of the drive periods (i.e. until the pattern repeats). In general, this may be very long (1000s of cycles).  To reduce simulation time, the second drive frequency will be rounded slightly, such the drive periods have a shorter common multiple.  There is a tradeoff between rounding and simulation.  
+    </description>
+    <enable>input.phase(op).choice(freqchoice) == 2</enable>	    
+  </about>
+
+  <option>
+    <about>
+      <label>Round to nearest 0.1 (Default, pick this one if you are unsure)</label>
+    </about>
+    <value>10</value>
+  </option>
+
+  <option>
+    <about>
+      <label>Round to nearest 0.01 (Slower, Slightly more accurate)</label>
+    </about>
+    <value>100</value>
+  </option>
+  
+  <option>
+    <about>
+      <label>Round to nearest 0.001 (Much Slower, Slightly more accurate)</label>
+    </about>
+    <value>1000</value>
+  </option>
+
+  <option>
+    <about>
+      <label>Intelligent rounding, round to integer p/q, with q &lt;= 5 (see manual)</label>
+    </about>
+    <value>-5</value>
+  </option>
+
+
+    <option>
+    <about>
+      <label>Intelligent rounding, round to integer p/q, with q &lt;= 10 (see manual)</label>
+    </about>
+    <value>-10</value>
+  </option>
+
+      <option>
+    <about>
+      <label>Intelligent rounding, round to integer p/q, with q &lt;= 20 (see manual)</label>
+    </about>
+    <value>-20</value>
+  </option>
+
+  <option>
+    <about>
+      <label>Intelligent rounding, round to integer p/q, with q &lt;= 50 (see manual)</label>
+    </about>
+    <value>-50</value>
+  </option>
+
+  <option>
+    <about>
+      <label>Intelligent rounding, round to integer p/q, with q &lt;= 100 (see manual)</label>
+    </about>
+    <value>-100</value>
+  </option>
+
+
+    <option>
+    <about>
+      <label>Intelligent rounding, round to integer p/q, with q &lt;= 1000 (see manual)</label>
+    </about>
+    <value>-1000</value>
+  </option>
+
+  
+  <default>10</default>
+</choice>
+
+
+	
+        <number id="omega2_omega1_ratio">
+          <about>
+            <label>Ratio of omega2 / omega1</label>
+            <description>Ratio of natural frequencies (see note above regarding simulation speed)</description>
+	    <enable>input.phase(op).choice(freqchoice) == 2</enable>	    
+	  </about>
+          <units></units>
+          <min>1</min>
+          <max>100</max>
+          <default>6.5</default>
+        </number>
+
+	
+	
+	<number id="mtip">
+            <about>
+                <label>Tip mass</label>
+                <description>Tip mass as a fraction of the cantilever beam mass.</description>	        	   
+            </about>
+            <units></units>
+            <min>0</min>
+            <default>0</default>
+        </number>
+		 		
+        <number id="AprchS">
+            <about>
+                <label>Z approach velocity (nm/s) </label>
+                <description>The average speed that the base of the cantilever approaches the sample. For discrete stepped approach, this parameter is ignored and Q cycles are computed at each step</description>
+		<enable>off </enable>
+            </about>
+            <units></units>
+            <min>0</min>
+            <default>0</default>
+        </number>
+
+
+	
+	 <number id="gamma_drag">
+            <about>
+	        <enable>off</enable>
+                <label>gamma (Z drag)</label>
+                <description>The drag coefficient (kg/s)</description>
+            </about>
+            <units></units>
+            <min>0</min>
+            <default>0</default>	
+        </number>
+
+
+	 <!-- <choice id="Zrange"> -->
+	 <!--   <about> -->
+	 <!--     <label>Z range determination</label> -->
+	 <!--     <description>The autocalculated default Z range is Z0 = 5nm greater than the unconstrained amplitude and Zf = zero.  You can also manually enter a Z range, or enter a setpoint to stop at.</description> -->
+	 <!--   </about>	 -->
+	     
+	 <!--   <option> -->
+	 <!--       <about> -->
+	 <!-- 	 <label>Autocalculate range</label> -->
+	 <!--       </about> -->
+	 <!--       <value>1</value> -->
+	 <!--     </option> -->
+	     
+	 <!--     <option> -->
+	 <!--       <about> -->
+	 <!-- 	 <label>Specify Z range</label> -->
+	 <!--       </about> -->
+	 <!--       <value>2</value> -->
+	 <!--     </option> -->
+	     
+	 <!--     <option> -->
+	 <!--       <about> -->
+	 <!-- 	 <label>Approach to specified setpoint (does not work for retract)</label> -->
+	 <!--       </about> -->
+	 <!--       <value>3</value> -->
+	 <!--     </option> -->
+	 <!--     <default>1</default> -->
+	 <!--   </choice> -->
+	   
+		
+	   <number id="Z0">
+             <about>
+               <label>Initial Z separation (nm)</label>
+               <description>The initial gap between the sample and the base of the cantilever. Note: this is not the tip-sample gap. Any static deflection due to long range forces is added (or subtracted) to this value to get the initial tip-sample gap.</description>
+	       <enable>off</enable>
+	     </about>
+	     
+             <units> </units>
+	     <default>12</default>
+           </number>
+	   
+	   <number id="Zf">
+             <about>
+               <label>Final Z separation (nm)</label>
+               <description>The final gap between the sample and the base of the cantilever.</description>
+	       <enable>off</enable>
+	     </about>
+	     
+             <units></units>
+	     <default>0</default>
+           </number>
+
+	   <number id="Asp_i">
+             <about>
+               <label>Initial setpoint ratio</label>
+               <description>The initial amplitude reduction.</description>
+	     </about>
+	     
+             <units></units>
+	     <min>0</min>
+             <max>1</max>
+	     <default>0.99</default>
+           </number>
+	 
+	   <number id="Asp_f">
+             <about>
+               <label>Final setpoint ratio</label>
+               <description>The final amplitude reduction.</description>
+	     </about>
+	     
+             <units></units>
+	     <min>0</min>
+             <max>1</max>
+	     <default>0.5</default>
+           </number>
+
+	   <integer id="Asp_n">
+             <about>
+               <label>Number of setpoint ratios</label>
+               <description>The number of setpoint ratios to compute.</description>
+	     </about>
+	     
+             <units></units>
+	     <min>1</min>
+             <max>10000</max>
+	     <default>5</default>
+           </integer>
+
+
+       <note><contents>file://../ignore.html</contents></note>
+
+#include "chi.xml"
+#include "alpha.xml"
+#include "afluid_off.xml"
+<!-- #include "B.xml" -->
+#include "nolockin.xml"
+	</phase>
+	
+
+	<phase id="ts">
+		<about>
+		       <label>Tip-sample interaction properties</label>
+		</about>
+#define PATH input.phase(ts)
+#define DEFAULT_TS_CHOICE 2
+#include "ts-model-choice.xml"
+#include "tip.xml"	
+#include "sample.xml"
+        </phase>
+
+	<phase id="sim">
+		<about> <label>Simulation parameters</label> </about>
+       
+		<!-- #include "numincycle.xml" -->
+
+
+<choice id="numincycle">
+  <about>
+    <label>Accuracy versus speed tradeoff</label>
+    <description>This controls how accurate a solution is calculated. More accurate solutions require more time.</description>
+  </about>
+  
+
+  <option>
+    <about>
+      <label>Faster, less accurate</label>
+    </about>
+    <value>1000</value>
+  </option>
+
+  <option>
+    <about>
+      <label>Standard speed/accuracy</label>
+    </about>
+    <value>2000</value>
+  </option>
+
+  <option>
+    <about>
+      <label>Slower, More accurate</label>
+    </about>
+    <value>4000</value>
+  </option>
+
+  <option>
+    <about>
+      <label>Expert Mode</label>
+    </about>
+    <value>0</value>
+  </option>
+
+  <default>2000</default>
+</choice>
+
+
+  <integer id="numincycle">
+    <about>
+      <label>Deflection points per cycle</label>
+      <description>Number of points calculated per oscillation cycle. NOTE: if you receive a DDASKR error, try increasing this number.</description>
+      <enable>input.phase(sim).choice(numincycle) == 0</enable>
+    </about>
+    <disablestyle>hide</disablestyle>
+    <units> </units>
+    <min>50</min>
+    <default>2000</default>
+  </integer>
+
+		
+<!-- 1e-2 is a little rough for hertz.  1e-3 looks better, but need to see what the time tradeoff is when we get to attard -->
+        <number id="AmpRedIterTol">
+            <about>
+                <label>Amp Red Iteration Tolerance (fraction)</label>
+                <description>The absolute tolerance for amplitude reduction iteration. Smaller numbers produce more accurate simulates, but require longer run times.</description>
+            </about>
+            <units></units>
+            <min>1e-6</min>
+            <max>0.05</max>
+            <default>0.01</default>
+        </number>
+	
+  	<boolean id="WantHH">
+		<about> 
+		<label>Plot a higher harmonic?</label> 
+		<description>To plot a higher harmonic of the excitation frequency of the deflection waveform, select "yes."</description>
+		<enable>off</enable>
+		</about>
+		<default>off</default>
+	</boolean>
+	
+#define TIME_HIST_AMP_ONLY
+#define NO_ACCELERATION	
+#include "timehist.xml"		
+
+	<boolean id="Want_ContTrans">
+	  <about> 
+	    <label></label> 
+	    <description></description>
+	    <enable>off</enable>
+	  </about>
+	  <default>off</default>
+	</boolean>
+
+
+	<choice id="xchoice">	
+	  <about>
+	    <label>Choose X-axis variable</label>
+	    <description>Choose the independent variable. (Note: 1st harmonic amplitude is always plotted against Z-distance regardless of setting because plotting amplitude against itself is not too useful) </description>
+	  </about>
+	  
+	  <option>
+	    <about>
+	      <label>Amplitude ratio</label>
+	      <description>The ratio of amplitude vs. initial (unconstrained) amplitude.</description>
+	    </about>
+	    <value>1</value>
+	  </option>
+	  
+	  <option>
+	    <about>
+	      <label>Z-distance (nm)</label>
+	      <description>The approach distance.</description>
+	    </about>
+	    <value>2</value>
+	  </option>
+
+	  <option>
+	   <about>
+	     <label>2nd Frequency Amplitude ratio (bimodal only) </label>
+	     <description>The ratio of amplitude @ 2nd frequency vs. initial (unconstrained) amplitude at 2nd frequency.</description>
+	   </about>
+	   <value>4</value>
+	 </option>
+
+	<default>2</default>
+	</choice>
+	
+#include "poincare-off.xml"
+
+#define HIDE_PLOTS
+#include "plots.xml"	
+
+
+<!-- could probably delete these features from the code but for now just comment out of GUI -->
+<group id="backwards_compat">
+  <about>
+    <label>Backwards Compatibility Settings</label>
+    <enable>off</enable>
+  </about>
+
+
+  
+  <choice id="ode_solver">	
+    <about>
+      <label>ODE solver</label>
+    </about>
+	  
+    <option>
+      <about>
+	<label>Fwd Euler (used in Bahrams code)</label>
+	<description>Foward Euler.</description>
+      </about>
+      <value>5</value>
+    </option>
+    
+    <option>
+      <about>
+	<label>4th order Runge-Kutta (recommended for production)</label>
+	<description>With this option, time step can be approx 10-50x larger with same accuracy</description>
+      </about>
+      <value>2</value>
+    </option>
+    
+    <default>2</default>
+  </choice>
+
+
+    <choice id="iteration_method">	
+    <about>
+      <label>Iteration method</label>
+    </about>
+	  
+    <option>
+      <about>
+	<label>Bahrams iteration method</label>
+	<description>The version exactly from Bahrams code</description>
+      </about>
+      <value>3</value>
+    </option>
+    
+    <option>
+      <about>
+	<label>Brents method (i.e. matlab fzero() function)(recommended for production)</label>
+	<description>This method is approximately 2x faster. </description>
+      </about>
+      <value>2</value>
+    </option>
+
+
+    <option>
+      <about>
+	<label>All Hard coded (both Z and A2), DEBUGGING ONLY, DELETE ME FOR PRODUCTION</label>
+	<description>Note A2 here is always actual deflection, not observed deflection, regardless of other settings </description>
+      </about>
+      <value>1</value>
+    </option>
+
+    <option>
+      <about>
+	<label>Hard coded Z, iterate on A2 with Brents method, DEBUGGING ONLY, DELETE ME FOR PRODUCTION</label>
+	<description> </description>
+      </about>
+      <value>4</value>
+    </option>
+
+    <default>2</default>
+    </choice>
+   
+    <string id="debug_z_nm">
+      <about>
+        <label>Fixed Z values (nm)</label>
+        <description>Enter comma separated values of the Z values to use</description>
+	<enable>input.phase(sim).group(backwards_compat).choice(iteration_method) == 1 || input.phase(sim).group(backwards_compat).choice(iteration_method) == 4 </enable>	        	   
+      </about>
+      <units></units>
+      <default></default>
+    </string>
+
+    <string id="debug_A2_nm">
+      <about>
+        <label>Fixed A2 values (nm)</label>
+        <description>Enter comma separated values of the A2 values to use</description>
+	<enable>input.phase(sim).group(backwards_compat).choice(iteration_method) == 1</enable>	        	   
+      </about>
+      <units></units>
+      <default></default>
+    </string>    
+  
+</group>
+	</phase>
+	
+
+    </input>
+</run>

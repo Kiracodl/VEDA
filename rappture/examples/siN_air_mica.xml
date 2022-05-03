@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+<run>
+  <about><label>Si tip on Mica in dry air</label></about>
+  
+  
+  <input>
+    
+    <phase id="ts">
+      <about>
+        <label>Tip-sample interaction properties (substrate)</label>
+      </about>
+      
+      <choice id="fts_model">
+	<about>
+	  <label>Tip-sample interaction model</label>
+	  <description>Choose a model to predict the forces exterted by the tip on the sample.</description>
+	</about>
+	
+	<option>
+	  <about>
+	    <label>Linear contact</label>
+	    <description>Interaction forces are predicted according to a (piece-wise) linear contact model for an overall stiffness, kts, of the sample.</description>
+	  </about>
+	  <value>1</value>
+	</option>
+	
+	<option>
+	  <about>
+	    <label>Linear attractive/repulsive</label>
+	    <description>Interaction forces are predicted according to a (piece-wise) linear contact model for an overall stiffness, kts_r, of the sample, and an attractive-force gradient, kts_a.</description>
+	  </about>
+	  <value>6</value>
+	</option>
+	
+	<option>
+	  <about>
+	    <label>Hertz contact</label>
+	    <description>Hertz contact model with no attractive forces.</description>
+	  </about>
+	  <value>2</value>
+	</option>
+	
+	
+	<option>
+	  <about>
+	    <label>DMT contact</label>
+	    <description>Derjaguin-Muller-Toporov (DMT) contact model including van der Waals attractive forces.</description>
+	  </about>
+	  <value>3</value>
+	</option>
+	
+	<option>
+	  <about>
+	    <label>DMT + DLVO interactions</label>
+	    <description>Derjaguin-Muller-Toporov + Derjaguin-Landau-Verwey-Overbeek interaction forces.</description>
+	  </about>
+	  <value>4</value>
+	</option>
+	
+	<option>
+	  <about>
+	    <label>Chadwick</label>
+	    <description>Chadwick interaction model for a thin membrane loosely bound to a stiff substrate.</description>
+	  </about>
+	  <value>5</value>
+	</option>
+	<default>2</default>
+	<current>3</current>
+      </choice>
+      
+      <boolean id="CalcADMT">
+	<about>	
+	  <enable>PATH.choice(fts_model) == 6 || PATH.choice(fts_model) == 3 || PATH.choice(fts_model) == 4</enable>	
+	  <label>Auto Calculate aDMT?</label>
+	  
+	</about>     
+	<default>on</default>
+	<current>on</current>
+      </boolean>
+      
+      <number id="Rtip">
+        <about>
+          <enable>input.group(ts).choice(fts_model) != 1 &amp;&amp; input.group(ts).choice(fts_model) != 6</enable>
+	  
+          <label>Tip radius (nm)</label>
+          <description>Radius of the probe tip.</description>
+        </about>
+        <units> </units>
+        <min>1</min>
+        <max>100</max>
+        <default>10</default>
+	<current>10</current>
+      </number>
+      
+      
+      <number id="Etip">
+        <about>
+          <enable>input.group(ts).choice(fts_model) != 1 &amp;&amp; input.group(ts).choice(fts_model) != 6</enable>
+          <label> Young's modulus of tip (GPa)</label>
+          <description></description>
+        </about>
+        <units></units>
+        <min>10</min>
+        <max>500</max>
+        <default>130</default>
+	<current>130</current>
+      </number>
+      
+      <number id="Poisson_tip">
+        <about>
+          <enable>input.group(ts).choice(fts_model) != 1 &amp;&amp; input.group(ts).choice(fts_model) != 6</enable>
+          <label>Poisson's ratio of the tip </label>
+          <description></description>
+        </about>
+        <units></units>
+        <min>0</min>
+        <max>1</max>
+        <default>0.3</default>
+	<current>0.3</current>
+      </number>
+      
+      
+      
+      <number id="Fadhesion">
+        <about>
+	  <enable>input.group(ts).choice(fts_model) == 6 || input.group(ts).choice(fts_model) == 3 || input.group(ts).choice(fts_model) == 4</enable>
+          <label>van der Waals Adhesion force (nN)</label>
+          <description>The adhesion force is the attractive force applied on the cantilever tip by the sample by van der Waals forces just before contact, neglecting any capillary forces. Capillary force contributions to adhesion are described seperately below</description>
+        </about>
+        <units></units>
+        <min>0</min>
+        <max>100</max>
+        <default>4</default>
+	<current>10</current>
+      </number>
+      
+      <number id="A_hamaker">
+        <about>
+          <enable>input.group(ts).choice(fts_model) == 3 | input.group(ts).choice(fts_model) == 4</enable>
+          <label> Hamaker constant (J)</label>
+          <description>The Hamaker constant is used to predict attractive van der Waals forces and depends on the material of the tip, the sample, and the surrounding media. </description>
+        </about>
+        <units></units>
+        <default>12.79E-20</default>
+	<current>12.79e-20</current> <!-- ref Senden cs 94 --> 
+      </number>
+      
+      <number id="Esample">
+        <about>
+          <enable>input.group(ts).choice(fts_model) != 1 &amp;&amp; input.group(ts).choice(fts_model) != 6</enable>
+          <label> Young's modulus of sample (GPa) </label>
+          <description></description>
+        </about>
+        <units></units>
+        <min>0.001</min>
+        <max>500</max>
+        <default>60</default>
+	<current>60</current>
+      </number>
+      
+      <number id="Poisson_sample">
+        <about>
+          <enable>input.group(ts).choice(fts_model) != 1 &amp;&amp; input.group(ts).choice(fts_model) != 6</enable>
+          <label> Poisson's ratio of the sample </label>
+          <description></description>
+        </about>
+        <units></units>
+        <min>0</min>
+        <max>1</max>
+        <default>0.3</default>
+	<current>0.3</current>
+      </number>
+      
+      <number id="KD">
+        <about>
+          <enable>input.group(ts).choice(fts_model) == 4</enable>
+          <label>Debye length (um)</label>
+          <description>The Debye length of the liquid. This is 1 um for deionized water.</description>
+        </about>
+        <units></units>
+        <default>1</default>
+      </number>
+      
+      
+      
+      <group id="nc">
+	<about>
+	  <label>Non-conservative forces</label>
+	</about>
+	
+	<boolean id="WantVE">
+	  <about>
+	    <label>Include visco-elastic forces?</label>
+	    <description>To include visco-elastic damping, select "yes."</description>
+	  </about>
+	  <default>off</default>
+	  <current>off</current>
+	</boolean>
+	
+	<number id="etasample">
+	  <about>
+	    <label>Sample viscosity (Pa*s) </label>
+	    <description>To include nonconservative interaction forces, enter a non-zero value for the sample viscosity. </description>
+            <enable>input.group(ts).group(nc).boolean(WantVE)</enable>
+	  </about>
+          <units> </units>
+          <min>0</min>
+          <max>1000</max>
+          <default>10</default>
+	</number>
+	
+	<boolean id="WantHYST">
+	  <about>
+	    <label>Include capillary forces?</label>
+	    <description>To include surface hysteretic force components, select "yes." This adhesion hysteresis model was taken from Kober et al, Rapid Reasearch Letters, 2008. NOTE: if you receive a DDASKR error, try increasing the number of deflection points per cycle, or decrease the approach velocity.</description>
+	  </about>
+	  <default>off</default>
+	  <current>off</current>
+	</boolean>
+	
+	<number id="D_0">
+          <about>
+            <label>Critical gap, D_0 (nm) </label>
+            <description>The breaking gap at which the hysteretic force component goes to zero. </description>
+            <enable>input.group(ts).group(nc).boolean(WantHYST)</enable>
+	  </about>
+          <units> </units>
+          <min>0</min>
+          <max>10</max>
+          <default>0.6</default>
+	</number>
+	
+	<number id="deltaE">
+          <about>
+            <label>Energy dissipated, dE (eV) </label>
+            <description>The energy dissipated in the contact process during each cycle to the hysteretic force component. </description>
+            <enable>input.group(ts).group(nc).boolean(WantHYST)</enable>
+	  </about>
+          <units> </units>
+          <min>0</min>
+          <max>1000</max>
+          <default>5</default>
+        </number>
+	
+      </group>
+
+    </phase>
+    
+  </input>
+</run>

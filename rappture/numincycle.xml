@@ -1,0 +1,71 @@
+<choice id="numincycle">
+  <about>
+    <label>Accuracy versus speed tradeoff</label>
+    <description>This controls how accurate a solution is calculated. More accurate solutions require more time.</description>
+  </about>
+  
+  <option>
+    <about>
+      <label>Fastest, least accurate</label>
+    </about>
+    <value>400</value>
+  </option>
+
+
+  <option>
+    <about>
+      <label>Faster, less accurate</label>
+    </about>
+    <value>600</value>
+  </option>
+
+  <option>
+    <about>
+      <label>Standard speed/accuracy</label>
+    </about>
+    <value>750</value>
+  </option>
+
+  <option>
+    <about>
+      <label>Slower, Most accurate</label>
+    </about>
+    <value>1000</value>
+  </option>
+
+  <option>
+    <about>
+      <label>Expert Mode</label>
+    </about>
+    <value>0</value>
+  </option>
+
+  <default>750</default>
+</choice>
+
+
+  <integer id="numincycle">
+    <about>
+      <label>Deflection points per cycle</label>
+      <description>Number of points calculated per oscillation cycle. NOTE: if you receive a DDASKR error, try increasing this number.</description>
+      <enable>input.phase(sim).choice(numincycle) == 0</enable>
+    </about>
+    <disablestyle>hide</disablestyle>
+    <units> </units>
+    <min>10</min>
+    <default>1000</default>
+  </integer>
+
+
+  <!-- this is mostly for debugging -->
+    <integer id="openmp_num_threads">
+    <about>
+      <label>Openmp num threads for attard</label>
+      <description>number of threads.</description>
+    </about>
+    <disablestyle>hide</disablestyle>
+    <units> </units>
+    <min>1</min>
+    <max>16</max>
+    <default>4</default>
+  </integer>

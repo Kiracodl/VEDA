@@ -1,0 +1,138 @@
+       <choice id="LockInOrder">	
+	 <about>
+	   <label>Choose Lock-In Filter Order</label>
+	   <description>Lock In Filter order</description>
+	 </about>
+
+#ifdef ALLOWLOCKINOFF
+
+	 <option>
+	   <about>
+	     <label>None</label>
+	     <description>Do not use a lock in</description>
+	   </about>
+	   <value>0</value>
+	 </option>
+#endif
+
+#ifndef DEFAULTLOCKINORDER
+#define DEFAULTLOCKINORDER 2
+#endif
+
+	 <option>
+	   <about>
+	     <label>1st order (20 dB/decade)</label>
+	     <description>1st order Butterworth filter (20 dB/decade or 6 dB/octave)</description>
+	   </about>
+	   <value>1</value>
+	 </option>
+
+	 <option>
+	   <about>
+	     <label>2nd order (40 dB/decade)</label>
+	     <description>2nd order Butterworth filter (40 dB/decade or 12 dB/octave)</description>
+	   </about>
+	   <value>2</value>
+	 </option>
+
+	 <option>
+	   <about>
+	     <label>4th order (80 dB/decade)</label>
+	     <description>4th order Butterworth filter (80 dB/decade or 24 dB/octave)</description>
+	   </about>
+	   <value>4</value>
+	 </option>
+	 
+	<default>DEFAULTLOCKINORDER</default>
+	</choice>
+	
+	<boolean id="Want_AutoCalcTC">
+	 <about>
+	  <label> Auto-Calculate Time constant</label>
+	  <description> Automatically calculates the time constant required for the simulation</description>
+	 </about>
+	 <default>on</default>
+	</boolean>       
+
+       <choice id="LockInTC">
+         <about>
+           <label>Lock-in time constant</label>
+           <description>The amplitude feedback parameter is determined by a filter with this time constant in microseconds.  Note the controller performance is affected by Lock-in time constant so if you change time-constant you may need to change the gains as well.</description>
+	   <enable>!input.phase(op).boolean(Want_AutoCalcTC)</enable>
+         </about>
+    	        <option>
+		<about>
+		<label>10 us ( 100 kHz Bandwidth)</label>
+		</about>
+		<value>10</value>
+		</option>		
+
+    	        <option>
+		<about>
+		<label>20 us ( 50 kHz Bandwidth)</label>
+		</about>
+		<value>20</value>
+		</option>		
+
+
+    	        <option>
+		<about>
+		<label>50 us ( 20 kHz Bandwidth)</label>
+		</about>
+		<value>50</value>
+		</option>		
+
+    	        <option>
+		<about>
+		<label>100 us ( 10 kHz Bandwidth)</label>
+		</about>
+		<value>100</value>
+		</option>		
+
+    	        <option>
+		<about>
+		<label>200 us ( 5 kHz Bandwidth)</label>
+		</about>
+		<value>200</value>
+		</option>		
+
+    	        <option>
+		<about>
+		<label>500 us ( 2 kHz Bandwidth)</label>
+		</about>
+		<value>500</value>
+		</option>		
+
+    	        <option>
+		<about>
+		<label>1 ms ( 1 kHz Bandwidth)</label>
+		</about>
+		<value>1000</value>
+		</option>		
+
+    	        <option>
+		<about>
+		<label>2 ms ( 500 Hz Bandwidth)</label>
+		</about>
+		<value>2000</value>
+		</option>		
+
+    	        <option>
+		<about>
+		<label>5 ms ( 200 Hz Bandwidth)</label>
+		</about>
+		<value>5000</value>
+		</option>		
+
+
+    	        <option>
+		<about>
+		<label>10 ms ( 100 Hz Bandwidth)</label>
+		</about>
+		<value>10000</value>
+		</option>		
+
+
+                <default>2000</default>
+                <current>2000</current>
+            </choice>

@@ -1,0 +1,3107 @@
+<?xml version="1.0"?>
+<run>
+    <tool>
+        <about>Press Simulate to view results.</about>
+        <command>force_viewer @driver</command>
+        <limits>
+            <filesize>9000000</filesize>
+            <cputime>91840</cputime>
+        </limits>
+        <layout>wizard</layout>
+        <version>
+            <rappture>
+                <language>fortran</language>
+                <revision>$LastChangedRevision: 1527 $</revision>
+                <modified>$LastChangedDate: 2009-06-22 15:38:49 -0400 (Mon, 22 Jun 2009) $</modified>
+            </rappture>
+        </version>
+    </tool>
+    <input>
+        <phase id="op">
+            <about>
+                <label>Operating conditions</label>
+            </about>
+            <number id="Z0">
+                <about>
+                    <label>Initial gap (nm)</label>
+                    <description>The initial tip-sample gap.</description>
+                </about>
+                <units>
+                </units>
+                <default>3</default>
+                <current>3</current>
+            </number>
+            <number id="Zf">
+                <about>
+                    <label>Final gap separation (nm)</label>
+                    <description>The final tip-sample gap.</description>
+                </about>
+                <units>
+                </units>
+                <default>-1</default>
+                <current>0.3</current>
+            </number>
+            <number id="plotpnts">
+                <about>
+                    <label>Number of points plotted</label>
+                    <description>The number of data points plotted/saved.</description>
+                </about>
+                <units>
+                </units>
+                <min>1</min>
+                <max>10000</max>
+                <default>1000</default>
+                <current>1000</current>
+            </number>
+            <choice id="vel_model">
+                <about>
+                    <label>Non-conservative velocity options</label>
+                    <description>Choose the velocity profile used to calculate non-conservative forces exterted by the tip on the sample.</description>
+                </about>
+                <option>
+                    <about>
+                        <label>None / quasi-static</label>
+                        <description>velocity = zero will be assumed.</description>
+                    </about>
+                    <value>1</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Constant velocity</label>
+                        <description>velocity = constant will be assumed. Enter value below</description>
+                    </about>
+                    <value>2</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Linear ramp velocity</label>
+                        <description>Linear ramp between two values will be assumed. Enter values below.</description>
+                    </about>
+                    <value>3</value>
+                </option>
+                <option>
+                    <about>
+                        <label>1/2 Sine</label>
+                        <description>Starts at zero, go to the value below, and then goes back to zero. Displacement follows 1/2 cosine</description>
+                    </about>
+                    <value>4</value>
+                </option>
+                <default>1</default>
+                <current>1</current>
+            </choice>
+            <number id="vel1">
+                <about>
+                    <label>Velocity 1 (um/s)</label>
+                    <enable>input.phase(op).choice(vel_model) &gt; 1</enable>
+                    <description>The first (or only) velocity. Positive = away from sample, negative = towards sample</description>
+                </about>
+                <units>
+                </units>
+                <default>1</default>
+                <current>1</current>
+            </number>
+            <number id="vel2">
+                <about>
+                    <label>Velocity 2 (um/s)</label>
+                    <enable>input.phase(op).choice(vel_model) == 3</enable>
+                    <description>The second velocity velocity</description>
+                </about>
+                <units>
+                </units>
+                <default>1</default>
+                <current>1</current>
+            </number>
+        </phase>
+        <phase id="ts">            <about>
+                <label>Tip-sample interaction properties</label>
+            </about>
+            <loader>
+                <about>
+                    <label>Example loader</label>
+                    <description>Use this box to load example property sets</description>
+                </about>
+                <example>../../examples/si_mica_air.xml</example>
+                <example>../../examples/si_mica_dei_water.xml</example>
+                <example>../../examples/siN_air_mica.xml</example>
+                <current>
+                </current>
+            </loader>
+            <choice id="fts_model">                <about>
+                    <label>Tip-sample interaction model</label>
+                    <description>Choose a model to predict the forces exterted by the tip on the sample.</description>
+                </about>
+                <option>
+                    <about>
+                        <label>Linear contact</label>
+                        <description>Interaction forces are predicted according to a (piece-wise) linear contact model for an overall stiffness, kts, of the sample.</description>
+                    </about>
+                    <value>1</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Linear attractive/repulsive</label>
+                        <description>Interaction forces are predicted according to a (piece-wise) linear contact model for an overall stiffness, kts_r, of the sample, and an attractive-force gradient, kts_a.</description>
+                    </about>
+                    <value>6</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Hertz contact</label>
+                        <description>Hertz contact model with no attractive forces.</description>
+                    </about>
+                    <value>2</value>
+                </option>
+                <option>
+                    <about>
+                        <label>DMT contact</label>
+                        <description>Derjaguin-Muller-Toporov (DMT) contact model including van der Waals attractive forces. This model was the only choice available in the previous version of VEDA</description>
+                    </about>
+                    <value>3</value>
+                </option>
+                <option>
+                    <about>
+                        <label>DMT + DLVO interactions (liquids)</label>
+                        <description>Derjaguin-Muller-Toporov + Derjaguin-Landau-Verwey-Overbeek (electrical double layer) interaction forces.</description>
+                    </about>
+                    <value>4</value>
+                </option>
+                <option>
+                    <about>
+                        <label>JKR</label>
+                        <description>Johnson-Kendall-Roberts interaction forces.</description>
+                    </about>
+                    <value>7</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Chadwick</label>
+                        <description>Chadwick interaction model for a thin membrane loosely bound to a stiff substrate.</description>
+                    </about>
+                    <value>5</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Van der Waals + Morse Potential</label>
+                        <description>Morse potential is used in non-contact FM-AFM to model bonding interation. Should NOT be used for AM-AFM in tapping mode, or in any repulsive regime.</description>
+                    </about>
+                    <value>8</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Van der Waals + Lennard Jones Potential</label>
+                        <description>Lennard Jones potential is used in non-contact FM-AFM to model attractive regime. Should NOT be used for AM-AFM in tapping mode, or in any repulsive regime.</description>
+                    </about>
+                    <value>9</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Electrostatic Forces (noncontact), Xu and Salmeron</label>
+                        <description>
+                        </description>
+                    </about>
+                    <value>10</value>
+                </option>
+                <option>
+                    <about>
+                        <label>Electrostatic Forces (noncontact), Gil et al. + van der Waals</label>
+                        <description>
+                        </description>
+                    </about>
+                    <value>13</value>
+                </option>
+                <default>3</default>
+                <current>10</current>
+<!-- <option>
+ <about>
+   <label>Custom direct (BETA test - not ready for general use)</label>
+   <description>Direct input of experimental data</description>
+ </about>
+ <value>11</value>
+  </option> --></choice>
+            <group id="LinCon_pic">
+                <about>
+                    <enable>!input.phase(ts).group(nc).boolean(WantHYST) &amp;&amp; input.phase(ts).choice(fts_model) == 1</enable>
+                </about>
+                <image>
+                    <current>
+                    </current>
+                </image>
+            </group>
+            <group id="LinAR_pic">
+                <about>
+                    <enable>!input.phase(ts).group(nc).boolean(WantHYST) &amp;&amp; input.phase(ts).choice(fts_model) == 6</enable>
+                </about>
+                <image>
+                    <current>
+                    </current>
+                </image>
+            </group>
+            <group id="Hertz_pic">
+                <about>
+                    <enable>!input.phase(ts).group(nc).boolean(WantHYST) &amp;&amp; input.phase(ts).choice(fts_model) == 2</enable>
+                </about>
+                <image>
+                    <current>
+                    </current>
+                </image>
+            </group>
+            <group id="DMT_pic">
+                <about>
+                    <enable>!input.phase(ts).group(nc).boolean(WantHYST) &amp;&amp; input.phase(ts).choice(fts_model) == 3</enable>
+                </about>
+                <image>
+                    <current>
+                    </current>
+                </image>
+            </group>
+            <group id="DMTDLVO_pic">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 4</enable>
+                </about>
+                <image>
+                    <current>
+                    </current>
+                </image>
+            </group>
+            <group id="JKR_pic">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 7</enable>
+                </about>
+                <image>
+                    <current>
+                    </current>
+                </image>
+            </group>
+            <group id="Chadwick_pic">
+                <about>
+                    <enable>!input.phase(ts).group(nc).boolean(WantHYST) &amp;&amp; input.phase(ts).choice(fts_model) == 5</enable>
+                </about>
+                <image>
+                    <current>
+                    </current>
+                </image>
+            </group>
+            <group id="LinCon_Cap_pic">
+                <about>
+                    <enable>input.phase(ts).group(nc).boolean(WantHYST) &amp;&amp; input.phase(ts).choice(fts_model) == 1</enable>
+                </about>
+                <image>
+                    <current>
+                    </current>
+                </image>
+            </group>
+            <group id="LinearAR_Cap_pic">
+                <about>
+                    <enable>input.phase(ts).group(nc).boolean(WantHYST) &amp;&amp; input.phase(ts).choice(fts_model) == 6</enable>
+                </about>
+                <image>
+                    <current>
+                    </current>
+                </image>
+            </group>
+            <group id="Hertz_Cap_pic">
+                <about>
+                    <enable>input.phase(ts).group(nc).boolean(WantHYST) &amp;&amp; input.phase(ts).choice(fts_model) == 2</enable>
+                </about>
+                <image>
+                    <current>
+                    </current>
+                </image>
+            </group>
+            <group id="DMT_Cap_pic">
+                <about>
+                    <enable>input.phase(ts).group(nc).boolean(WantHYST) &amp;&amp; input.phase(ts).choice(fts_model) == 3</enable>
+                </about>
+                <image>
+                    <current>
+                    </current>
+                </image>
+            </group>
+            <group id="Chadwick_Cap_pic">
+                <about>
+                    <enable>input.phase(ts).group(nc).boolean(WantHYST) &amp;&amp; input.phase(ts).choice(fts_model) == 5</enable>
+                </about>
+                <image>
+                    <current>
+                    </current>
+                </image>
+            </group>
+            <group id="Morse_pic">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 8</enable>
+                </about>
+                <image>
+                    <current>
+                    </current>
+                </image>
+            </group>
+            <group id="LJ_pic">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 9</enable>
+                </about>
+                <image>
+                    <current>
+                    </current>
+                </image>
+            </group>
+            <number id="Rtip">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) != 1 &amp;&amp; input.phase(ts).choice(fts_model) != 6 &amp;&amp; input.phase(ts).choice(fts_model) != 11</enable>
+                    <label>Tip radius (nm)</label>
+                    <description>Radius of the probe tip.</description>
+                </about>
+                <units>
+                </units>
+                <min>1</min>
+                <max>100</max>
+                <default>10</default>
+                <current>10</current>
+            </number>
+            <number id="Etip">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) != 13 &amp;&amp; input.phase(ts).choice(fts_model) != 10 &amp;&amp; input.phase(ts).choice(fts_model) != 9 &amp;&amp; input.phase(ts).choice(fts_model) != 8 &amp;&amp; input.phase(ts).choice(fts_model) != 1 &amp;&amp; input.phase(ts).choice(fts_model) != 6 &amp;&amp; input.phase(ts).choice(fts_model) != 11</enable>
+                    <label>Young's modulus of tip (GPa)</label>
+                    <description>
+                    </description>
+                </about>
+                <units>
+                </units>
+                <min>10</min>
+                <max>500</max>
+                <default>130</default>
+                <current>130</current>
+            </number>
+            <number id="Poisson_tip">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) != 13 &amp;&amp; input.phase(ts).choice(fts_model) != 10 &amp;&amp; input.phase(ts).choice(fts_model) != 9 &amp;&amp; input.phase(ts).choice(fts_model) != 8 &amp;&amp; input.phase(ts).choice(fts_model) != 1 &amp;&amp; input.phase(ts).choice(fts_model) != 6 &amp;&amp; input.phase(ts).choice(fts_model) != 11</enable>
+                    <label>Poisson's ratio of the tip</label>
+                    <description>
+                    </description>
+                </about>
+                <units>
+                </units>
+                <min>0</min>
+                <max>1</max>
+                <default>0.3</default>
+                <current>0.3</current>
+            </number>
+            <number id="kts_R">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 1 | input.phase(ts).choice(fts_model) == 6</enable>
+                    <label>Sample stiffness (N/m)</label>
+                    <description>Effective stiffness of the tip-sample contact.</description>
+                </about>
+                <units>
+                </units>
+                <min>0</min>
+                <max>5000</max>
+                <default>10</default>
+                <current>10</current>
+            </number>
+            <number id="kts_A">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 6</enable>
+                    <label>Attractive force gradient (N/m)</label>
+                    <description>Effective attractive force gradient as the cantilever tip approaches the sample.</description>
+                </about>
+                <units>
+                </units>
+                <min>-1000</min>
+                <max>1000</max>
+                <default>10</default>
+                <current>10</current>
+            </number>
+            <boolean id="CalcADMT">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 3 || input.phase(ts).choice(fts_model) == 4</enable>
+                    <label>Auto Calculate intermolecular distance?</label>
+                    <description>Check this box to automatically calculate the intermolecular distance in the DMT model from the adhesion force, the tip radius and the Hamaker constant (this was the default in the original version). This is most useful for matching to a single experiment. Uncheck this box to enter the intermolecular distance directly. This is most useful for parameter studies</description>
+                </about>
+                <default>on</default>
+                <current>yes</current>
+            </boolean>
+            <number id="Fadhesion">
+                <about>
+                    <enable>(((input.phase(ts).choice(fts_model) == 3 || input.phase(ts).choice(fts_model) == 4 || input.phase(ts).choice(fts_model) == 7 ) &amp;&amp; input.phase(ts).boolean(CalcADMT)) || (input.phase(ts).choice(fts_model) == 6))</enable>
+                    <label>van der Waals Adhesion force (nN)</label>
+                    <description>The adhesion force is the attractive force applied on the cantilever tip by the sample by van der Waals forces just before contact, neglecting any capillary forces. Capillary force contributions to adhesion are described seperately below</description>
+                </about>
+                <units>
+                </units>
+                <min>-100</min>
+                <max>100</max>
+                <default>1.4167</default>
+                <current>1.4167</current>
+            </number>
+            <number id="aDMT">
+                <about>
+                    <enable>((input.phase(ts).choice(fts_model) == 3 || input.phase(ts).choice(fts_model) == 4) &amp;&amp; !input.phase(ts).boolean(CalcADMT))</enable>
+                    <label>Intermolecular distance (nm)</label>
+                    <description>The intermolecular distance required for the Derjaguin-Muller-Toporov (DMT contact model)</description>
+                </about>
+                <units>
+                </units>
+                <min>0.01</min>
+                <max>10</max>
+                <default>0.2</default>
+                <current>0.2</current>
+            </number>
+            <number id="A_hamaker">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 13 | input.phase(ts).choice(fts_model) == 3 | input.phase(ts).choice(fts_model) == 4 | input.phase(ts).choice(fts_model) == 8 | input.phase(ts).choice(fts_model) == 9</enable>
+                    <label>Hamaker constant (J)</label>
+                    <description>The Hamaker constant is used to predict attractive van der Waals forces and depends on the material of the tip, the sample, and the surrounding media.</description>
+                </about>
+                <units>
+                </units>
+                <default>3.4E-20</default>
+                <current>3.4E-20</current>
+            </number>
+            <number id="Esample">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) != 13 &amp;&amp; input.phase(ts).choice(fts_model) != 10 &amp;&amp; input.phase(ts).choice(fts_model) != 9 &amp;&amp; input.phase(ts).choice(fts_model) != 1 &amp;&amp; input.phase(ts).choice(fts_model) != 8 &amp;&amp; input.phase(ts).choice(fts_model) != 6 &amp;&amp; input.phase(ts).choice(fts_model) != 11</enable>
+                    <label>Young's modulus of sample (GPa)</label>
+                    <description>
+                    </description>
+                </about>
+                <units>
+                </units>
+                <min>0.000001</min>
+                <max>1000</max>
+                <default>1</default>
+                <current>1</current>
+            </number>
+            <number id="Poisson_sample">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) != 13 &amp;&amp; input.phase(ts).choice(fts_model) != 10 &amp;&amp; input.phase(ts).choice(fts_model) != 9 &amp;&amp; input.phase(ts).choice(fts_model) != 1 &amp;&amp; input.phase(ts).choice(fts_model) != 6 &amp;&amp; input.phase(ts).choice(fts_model) != 8 &amp;&amp; input.phase(ts).choice(fts_model) != 11</enable>
+                    <label>Poisson's ratio of the sample</label>
+                    <description>
+                    </description>
+                </about>
+                <units>
+                </units>
+                <min>0</min>
+                <max>1</max>
+                <default>0.3</default>
+                <current>0.3</current>
+            </number>
+            <number id="KD">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 4</enable>
+                    <label>Debye length (um)</label>
+                    <description>The Debye length of the liquid. This is ~1 um for deionized water, ~0.001 um for 100 mM of 1:1 electrolyte</description>
+                </about>
+                <units>
+                </units>
+                <default>0.001</default>
+                <current>0.001</current>
+            </number>
+            <number id="epsilon">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 4 || input.phase(ts).choice(fts_model) == 10 || input.phase(ts).choice(fts_model) == 13</enable>
+                    <label>Imaging media Dielectric constant</label>
+                    <description>Dielectric constant of the imaging media (air ~= 1, water ~= 80)</description>
+                </about>
+                <units>
+                </units>
+                <default>80</default>
+                <current>80</current>
+            </number>
+            <number id="sigmat">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 4</enable>
+                    <label>Surface charge density (tip) (C/m^2)</label>
+                    <description>Surface charge density</description>
+                </about>
+                <units>
+                </units>
+                <default>-0.0025</default>
+                <current>-0.0025</current>
+            </number>
+            <number id="sigmas">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 4</enable>
+                    <label>Surface charge density (sample) (C/m^2)</label>
+                    <description>Surface charge density</description>
+                </about>
+                <units>
+                </units>
+                <default>-0.032</default>
+                <current>-0.032</current>
+            </number>
+            <number id="hs">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 5</enable>
+                    <label>Membrane thickness (nm)</label>
+                    <description>The thickness of a membrane loosely bound to the sample surface.</description>
+                </about>
+                <units>
+                </units>
+                <min>0</min>
+                <max>100</max>
+                <default>6</default>
+                <current>6</current>
+            </number>
+            <group id="morse">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 8</enable>
+                </about>
+                <number id="MorseRc">
+                    <about>
+                        <label>Morse equilibrium position (nm)</label>
+                        <description>Morse equilibrium position (nm)</description>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>10</max>
+                    <default>.2357</default>
+                    <current>0.2357</current>
+                </number>
+                <number id="MorseLambda">
+                    <about>
+                        <label>Morse range (nm)</label>
+                        <description>Morse range (nm)</description>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>10</max>
+                    <default>.12</default>
+                    <current>0.12</current>
+                </number>
+                <number id="MorseU0">
+                    <about>
+                        <label>Morse depth (J)</label>
+                        <description>Morse depth (J)</description>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>1e-10</max>
+                    <default>3.641e-19</default>
+                    <current>3.641e-19</current>
+                </number>
+            </group>
+            <group id="lj">
+                <about>
+                    <enable>input.phase(ts).choice(fts_model) == 9</enable>
+                </about>
+                <number id="LJ_r0">
+                    <about>
+                        <label>LJ equilibrium position (nm)</label>
+                        <description>Lennard Jones equilibrium position (nm)</description>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>10</max>
+                    <default>.34</default>
+                    <current>0.34</current>
+                </number>
+                <number id="LJ_E0">
+                    <about>
+                        <enable>input.phase(ts).choice(fts_model) == 9</enable>
+                        <label>LJ binding energy (J)</label>
+                        <description>Lennard Jones binding (J)</description>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>1e-10</max>
+                    <default>4.806e-19</default>
+                    <current>4.806e-19</current>
+                </number>
+            </group>
+            <group id="es">
+                <about>
+                    <enable>(input.phase(ts).choice(fts_model) == 10) || (input.phase(ts).choice(fts_model) == 13)</enable>
+                </about>
+                <number id="dc_bias_voltage">
+                    <about>
+                        <label>Tip-Sample DC Bias (V)</label>
+                        <description>
+                        </description>
+                    </about>
+                    <units>
+                    </units>
+                    <min>-1e5</min>
+                    <max>1e5</max>
+                    <default>5</default>
+                    <current>5</current>
+                </number>
+                <number id="ac_bias_voltage">
+                    <about>
+                        <label>Tip-Sample AC Bias (V)</label>
+                        <description>
+                        </description>
+                    </about>
+                    <units>
+                    </units>
+                    <min>-1e5</min>
+                    <max>1e5</max>
+                    <default>5</default>
+                    <current>0</current>
+                </number>
+                <number id="bias_freq">
+                    <about>
+                        <label>Freq. of AC Bias (kHz)</label>
+                        <description>
+                        </description>
+                    </about>
+                    <units>
+                    </units>
+                    <min>-1e5</min>
+                    <max>1e5</max>
+                    <default>5</default>
+                    <current>5</current>
+                </number>
+                <number id="es_l">
+                    <about>
+                        <label>Cantilever length (um)</label>
+                        <enable>(input.phase(ts).choice(fts_model) == 13)</enable>
+                        <description>
+                        </description>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>1e5</max>
+                    <default>100</default>
+                    <current>100</current>
+                </number>
+                <number id="es_w">
+                    <about>
+                        <label>Cantilever width (um)</label>
+                        <enable>(input.phase(ts).choice(fts_model) == 13)</enable>
+                        <description>
+                        </description>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>1e5</max>
+                    <default>100</default>
+                    <current>100</current>
+                </number>
+                <number id="es_h">
+                    <about>
+                        <label>Tip height (um)</label>
+                        <enable>(input.phase(ts).choice(fts_model) == 13)</enable>
+                        <description>
+                        </description>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>1e4</max>
+                    <default>10</default>
+                    <current>10</current>
+                </number>
+                <number id="theta_lever">
+                    <about>
+                        <label>Cantilever angle (deg)</label>
+                        <enable>(input.phase(ts).choice(fts_model) == 13)</enable>
+                        <description>
+                        </description>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>90</max>
+                    <default>10</default>
+                    <current>10</current>
+                </number>
+                <number id="theta_tip">
+                    <about>
+                        <label>Cone opening angle (deg)</label>
+                        <enable>(input.phase(ts).choice(fts_model) == 13)</enable>
+                        <description>
+                        </description>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>90</max>
+                    <default>10</default>
+                    <current>10</current>
+                </number>
+            </group>
+            <group id="solvation">
+                <about>
+                    <label>Solvation forces (Jeffery et. al. PrB 2004)</label>
+                </about>
+                <boolean id="WantOscillatory">
+                    <about>
+                        <label>Include oscillatory forces?</label>
+                        <enable>on</enable>
+                    </about>
+                    <default>off</default>
+                    <current>no</current>
+                </boolean>
+                <number id="sigma_solvation">
+                    <about>
+                        <enable>input.phase(ts).group(solvation).boolean(WantOscillatory)</enable>
+                        <label>Sigma (nm)</label>
+                        <description>Period and Decay length of the oscillatory forces</description>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>2</max>
+                    <default>2.56e-1</default>
+                    <current>0.256</current>
+                </number>
+                <number id="rho_solvation">
+                    <about>
+                        <enable>input.phase(ts).group(solvation).boolean(WantOscillatory)</enable>
+                        <label>Rho</label>
+                        <description>Number density of the liquid (1/m^3)</description>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>1e30</max>
+                    <default>3.33e28</default>
+                    <current>3.33e+28</current>
+                </number>
+                <boolean id="WantHydration">
+                    <about>
+                        <label>Include hydration forces?</label>
+                    </about>
+                    <default>of</default>
+                    <current>no</current>
+                </boolean>
+                <number id="lambda_solvation">
+                    <about>
+                        <enable>input.phase(ts).group(solvation).boolean(WantHydration)</enable>
+                        <label>Lambda (nm)</label>
+                        <description>Decay length of the Hydration force</description>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>2</max>
+                    <default>2.45e-1</default>
+                    <current>0.245</current>
+                </number>
+                <number id="p_h">
+                    <about>
+                        <enable>input.phase(ts).group(solvation).boolean(WantHydration)</enable>
+                        <label>p_h</label>
+                        <description>Strength of Hydration force (empirically determined constant)</description>
+                    </about>
+                    <units>
+                    </units>
+                    <min>-2e9</min>
+                    <max>2e9</max>
+                    <default>2e7</default>
+                    <current>2e+07</current>
+                </number>
+                <number id="rtip_solv">
+                    <about>
+                        <enable>input.phase(ts).group(solvation).boolean(WantHydration) || input.phase(ts).group(solvation).boolean(WantOscillatory)</enable>
+                        <label>Rtip solvation (nm)</label>
+                        <description>Effective tip radius for solvation shells. Note this may be different than the effective tip radius above</description>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>1000</max>
+                    <default>10</default>
+                    <current>10</current>
+                </number>
+                <number id="N_solv">
+                    <about>
+                        <enable>input.phase(ts).group(solvation).boolean(WantHydration) || input.phase(ts).group(solvation).boolean(WantOscillatory)</enable>
+                        <label>Number slices</label>
+                        <description>Number of slices for discretization of tip. N=1 (recommended) gives a simple exponentially decaying cosine for the oscillatory forces and a exponential decay for hydration force. N&gt;1 uses the model of Jeffrety to account for the finite size of tip.</description>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>1000</max>
+                    <default>1</default>
+                    <current>1</current>
+                </number>
+                <boolean id="cont_grad">
+                    <about>
+                        <enable>input.phase(ts).group(solvation).boolean(WantHydration) || input.phase(ts).group(solvation).boolean(WantOscillatory)</enable>
+                        <label>Enforce continuous gradient</label>
+                        <description>If this is unchecked, then the solvation forces saturate at d=0. If this is checked, then the solvation forces continue past d=0, which enforces a continuous gradient.</description>
+                    </about>
+                    <default>false</default>
+                    <current>no</current>
+                </boolean>
+                <boolean id="Want_exp_dashpot">
+                    <about>
+                        <label>Non-conservative solvation forces (viscous)</label>
+                        <description>This models the non-conservative component of solvation forces as a viscosity that decays exponentially away from the surface. Note: Jeffery proposed that damping was proportional to stiffness, which includes oscillatory forces, but me model only a monotonic damping coefficient.</description>
+                    </about>
+                    <default>off</default>
+                    <current>no</current>
+                </boolean>
+                <number id="exp_dashpot_scale">
+                    <about>
+                        <label>Scaling (kg/s)</label>
+                        <description>Damping coefficient kg/s=N-s/m at Z=0</description>
+                        <enable>input.phase(ts).group(solvation).boolean(Want_exp_dashpot)</enable>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>1000</max>
+                    <default>1e-5</default>
+                    <current>1e-05</current>
+                </number>
+                <number id="exp_dashpot_decay">
+                    <about>
+                        <label>Decay (nm)</label>
+                        <description>Decay length. Typically this should be on the order of the molecular diameter (e.g. 0.2 - 0.3 for water)</description>
+                        <enable>input.phase(ts).group(solvation).boolean(Want_exp_dashpot)</enable>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>1000</max>
+                    <default>1</default>
+                    <current>1</current>
+                </number>
+            </group>
+            <group id="nc">
+                <about>
+                    <label>Non-conservative forces</label>
+                </about>
+                <boolean id="WantPreisach">
+                    <about>
+                        <label>Preisach</label>
+                        <enable>false</enable>
+                        <description>Beta testing. Don't use.</description>
+                    </about>
+                    <default>off</default>
+                    <current>no</current>
+                </boolean>
+                <boolean id="WantTipSqueeze">
+                    <about>
+                        <label>Tip-Sample Squeeze Film Damping</label>
+                        <description>Beta testing. Don't use.</description>
+                    </about>
+                    <default>off</default>
+                    <current>no</current>
+                </boolean>
+                <number id="etaliquid">
+                    <about>
+                        <label>Viscosity (Pa-s)</label>
+                        <description>Liquid viscosity</description>
+                        <enable>input.phase(ts).group(nc).boolean(WantTipSqueeze)</enable>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>1000</max>
+                    <default>1e-5</default>
+                    <current>1e-05</current>
+                </number>
+                <choice id="VEchoice">
+                    <about>                        <label>Include sample visco-elastic forces?</label>
+                        <description>Select the model for visco-elastic damping</description>
+<!-- <enable>off</enable> --></about>
+                    <option>
+                        <about>
+                            <label>None</label>
+                            <description>No visco-elastic forces</description>
+                        </about>
+                        <value>1</value>
+                    </option>
+                    <option>
+                        <about>
+                            <label>Kelvin-Voigt viscoelasticity</label>
+                            <description>The kelvin-voigt model is a spring and a damper (dashpot) in parallel</description>
+                        </about>
+                        <value>2</value>
+                    </option>
+                    <option>
+                        <about>
+                            <label>Three element model viscoelasticity</label>
+                            <description>The standard three element model is a spring in series with a Kelvin-voigt element. This is the simplest model that captures the typical features of viscoelastic solids</description>
+                        </about>
+                        <value>5</value>
+                    </option>
+                    <option>
+                        <about>
+                            <label>Maxwell viscoelasticity</label>
+                            <description>The Maxwell model is a spring and a damper (dashpot) in series. This is suitable for viscoelastic liquids. It describes solids only if the viscosity is very large.</description>
+                        </about>
+                        <value>3</value>
+                    </option>
+                    <option>
+                        <about>
+                            <label>Ad-hoc Kelvin-Voigt viscoelasticity (not recommended)</label>
+                            <description>This is the model used in previous versions of VEDA, and some previous literature. Use only for comparing to prior work. Not recommended for new simulations.</description>
+                        </about>
+                        <value>4</value>
+                    </option>
+                    <default>1</default>
+                    <current>1</current>
+                </choice>
+                <number id="threeelm_e2">
+                    <about>
+                        <label>E2 modulus (GPa)</label>
+                        <description>For the three element model, the sample Youngs modulus above is E1 and you enter E2 here (see manual for description of which is E1 and E2.</description>
+                        <enable>input.phase(ts).group(nc).choice(VEchoice) == 5</enable>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>1000</max>
+                    <default>1</default>
+                    <current>1</current>
+                </number>
+                <number id="etasampleHertz">
+                    <about>                        <label>Sample viscosity (Pa-s)</label>
+                        <description>Enter a value for the sample viscosity. This option applies for Hertz, DMT, and DMT+DLVO models.</description>
+                        <enable>(input.phase(ts).choice(fts_model) == 2 || input.phase(ts).choice(fts_model) == 3 || input.phase(ts).choice(fts_model) == 4)</enable>
+<!-- <enable>input.phase(ts).group(nc).choice(VEchoiceHertz) == 2</enable> --></about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>100e9</max>
+                    <default>0</default>
+                    <current>0</current>
+                </number>
+                <number id="etasampleLin">
+                    <about>
+                        <label>Damping coefficient (N-s/m)</label>
+                        <description>To include viscoelasticity, enter a non-zero damping coefficient in N-s/m. This option applies to linear and linear att/rep models.</description>
+                        <enable>input.phase(ts).choice(fts_model) == 1 || input.phase(ts).choice(fts_model) == 6</enable>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>1000</max>
+                    <default>0</default>
+                    <current>0</current>
+                </number>
+                <boolean id="WantHYST">
+                    <about>
+                        <label>Include capillary forces?</label>
+                        <enable>(input.phase(ts).choice(fts_model) != 9) &amp;&amp; (input.phase(ts).choice(fts_model) != 8) &amp;&amp; (input.phase(ts).choice(fts_model) != 4) &amp;&amp; (input.phase(ts).choice(fts_model) != 7)</enable>
+                        <description>To include surface hysteretic force components, select "yes." This adhesion hysteresis model was taken from Kober et al, Rapid Research Letters, 2008.
+
+ Checking or unchecking this box changes the figure at the top of the page. Scroll up to see the updated diagram.
+
+ Capillary forces cannot be used with JRK or DMT+DLVO models at present. Capillary forces can not be applied to Morse or Lennard Jones potential models.
+
+ NOTE: if you receive a DDASKR error, try increasing the number of deflection points per cycle, or decrease the approach velocity.</description>
+                    </about>
+                    <default>off</default>
+                    <current>no</current>
+                </boolean>
+                <number id="D_0">
+                    <about>
+                        <label>Critical gap, D_0 (nm)</label>
+                        <description>The breaking gap at which the hysteretic force component goes to zero.</description>
+                        <enable>input.phase(ts).group(nc).boolean(WantHYST)</enable>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>10</max>
+                    <default>0.6</default>
+                    <current>0.6</current>
+                </number>
+                <number id="deltaE">
+                    <about>
+                        <label>Energy dissipated, dE (eV)</label>
+                        <description>The energy dissipated in the contact process during each cycle to the hysteretic force component.</description>
+                        <enable>input.phase(ts).group(nc).boolean(WantHYST)</enable>
+                    </about>
+                    <units>
+                    </units>
+                    <min>0</min>
+                    <max>1000</max>
+                    <default>5</default>
+                    <current>5</current>
+                </number>
+            </group>
+<!--
+<string id="custom_filename">
+  <about>
+    <label>LABELCustom filename</label>
+    <description> </description>
+    <enable>input.phase(ts).choice(fts_model) == 11</enable>
+  </about>
+  <default>fts.txt</default>
+</string> --></phase>
+    </input>
+    <output>
+        <curve id="FtsGap">
+            <about>
+                <label>Tip-sample interaction force vs gap</label>
+                <group>Tip-sample interaction force vs gap</group>
+            </about>
+            <xaxis>
+                <label>tip-sample gap</label>
+                <units>nm</units>
+            </xaxis>
+            <yaxis>
+                <label>Force</label>
+                <units>nN</units>
+            </yaxis>
+            <component>
+                <xy>  0.2997300E+001 -0.3019819E+002
+  0.2994600E+001 -0.3025266E+002
+  0.2991900E+001 -0.3030729E+002
+  0.2989200E+001 -0.3036207E+002
+  0.2986500E+001 -0.3041699E+002
+  0.2983800E+001 -0.3047206E+002
+  0.2981100E+001 -0.3052729E+002
+  0.2978400E+001 -0.3058266E+002
+  0.2975700E+001 -0.3063818E+002
+  0.2973000E+001 -0.3069386E+002
+  0.2970300E+001 -0.3074968E+002
+  0.2967600E+001 -0.3080566E+002
+  0.2964900E+001 -0.3086179E+002
+  0.2962200E+001 -0.3091808E+002
+  0.2959500E+001 -0.3097452E+002
+  0.2956800E+001 -0.3103111E+002
+  0.2954100E+001 -0.3108786E+002
+  0.2951400E+001 -0.3114477E+002
+  0.2948700E+001 -0.3120183E+002
+  0.2946000E+001 -0.3125905E+002
+  0.2943300E+001 -0.3131643E+002
+  0.2940600E+001 -0.3137396E+002
+  0.2937900E+001 -0.3143166E+002
+  0.2935200E+001 -0.3148951E+002
+  0.2932500E+001 -0.3154752E+002
+  0.2929800E+001 -0.3160569E+002
+  0.2927100E+001 -0.3166403E+002
+  0.2924400E+001 -0.3172252E+002
+  0.2921700E+001 -0.3178118E+002
+  0.2919000E+001 -0.3184000E+002
+  0.2916300E+001 -0.3189899E+002
+  0.2913600E+001 -0.3195813E+002
+  0.2910900E+001 -0.3201745E+002
+  0.2908200E+001 -0.3207693E+002
+  0.2905500E+001 -0.3213657E+002
+  0.2902800E+001 -0.3219638E+002
+  0.2900100E+001 -0.3225636E+002
+  0.2897400E+001 -0.3231650E+002
+  0.2894700E+001 -0.3237682E+002
+  0.2892000E+001 -0.3243730E+002
+  0.2889300E+001 -0.3249795E+002
+  0.2886600E+001 -0.3255878E+002
+  0.2883900E+001 -0.3261977E+002
+  0.2881200E+001 -0.3268093E+002
+  0.2878500E+001 -0.3274227E+002
+  0.2875800E+001 -0.3280378E+002
+  0.2873100E+001 -0.3286547E+002
+  0.2870400E+001 -0.3292732E+002
+  0.2867700E+001 -0.3298936E+002
+  0.2865000E+001 -0.3305156E+002
+  0.2862300E+001 -0.3311395E+002
+  0.2859600E+001 -0.3317651E+002
+  0.2856900E+001 -0.3323925E+002
+  0.2854200E+001 -0.3330217E+002
+  0.2851500E+001 -0.3336526E+002
+  0.2848800E+001 -0.3342854E+002
+  0.2846100E+001 -0.3349199E+002
+  0.2843400E+001 -0.3355563E+002
+  0.2840700E+001 -0.3361944E+002
+  0.2838000E+001 -0.3368344E+002
+  0.2835300E+001 -0.3374763E+002
+  0.2832600E+001 -0.3381199E+002
+  0.2829900E+001 -0.3387654E+002
+  0.2827200E+001 -0.3394128E+002
+  0.2824500E+001 -0.3400620E+002
+  0.2821800E+001 -0.3407131E+002
+  0.2819100E+001 -0.3413660E+002
+  0.2816400E+001 -0.3420209E+002
+  0.2813700E+001 -0.3426776E+002
+  0.2811000E+001 -0.3433362E+002
+  0.2808300E+001 -0.3439967E+002
+  0.2805600E+001 -0.3446591E+002
+  0.2802900E+001 -0.3453234E+002
+  0.2800200E+001 -0.3459897E+002
+  0.2797500E+001 -0.3466579E+002
+  0.2794800E+001 -0.3473280E+002
+  0.2792100E+001 -0.3480001E+002
+  0.2789400E+001 -0.3486741E+002
+  0.2786700E+001 -0.3493501E+002
+  0.2784000E+001 -0.3500280E+002
+  0.2781300E+001 -0.3507079E+002
+  0.2778600E+001 -0.3513898E+002
+  0.2775900E+001 -0.3520737E+002
+  0.2773200E+001 -0.3527596E+002
+  0.2770500E+001 -0.3534475E+002
+  0.2767800E+001 -0.3541375E+002
+  0.2765100E+001 -0.3548294E+002
+  0.2762400E+001 -0.3555234E+002
+  0.2759700E+001 -0.3562194E+002
+  0.2757000E+001 -0.3569174E+002
+  0.2754300E+001 -0.3576175E+002
+  0.2751600E+001 -0.3583197E+002
+  0.2748900E+001 -0.3590239E+002
+  0.2746200E+001 -0.3597302E+002
+  0.2743500E+001 -0.3604386E+002
+  0.2740800E+001 -0.3611491E+002
+  0.2738100E+001 -0.3618617E+002
+  0.2735400E+001 -0.3625764E+002
+  0.2732700E+001 -0.3632933E+002
+  0.2730000E+001 -0.3640122E+002
+  0.2727300E+001 -0.3647333E+002
+  0.2724600E+001 -0.3654566E+002
+  0.2721900E+001 -0.3661820E+002
+  0.2719200E+001 -0.3669095E+002
+  0.2716500E+001 -0.3676392E+002
+  0.2713800E+001 -0.3683711E+002
+  0.2711100E+001 -0.3691052E+002
+  0.2708400E+001 -0.3698415E+002
+  0.2705700E+001 -0.3705800E+002
+  0.2703000E+001 -0.3713207E+002
+  0.2700300E+001 -0.3720636E+002
+  0.2697600E+001 -0.3728088E+002
+  0.2694900E+001 -0.3735562E+002
+  0.2692200E+001 -0.3743059E+002
+  0.2689500E+001 -0.3750578E+002
+  0.2686800E+001 -0.3758120E+002
+  0.2684100E+001 -0.3765684E+002
+  0.2681400E+001 -0.3773272E+002
+  0.2678700E+001 -0.3780882E+002
+  0.2676000E+001 -0.3788515E+002
+  0.2673300E+001 -0.3796172E+002
+  0.2670600E+001 -0.3803852E+002
+  0.2667900E+001 -0.3811555E+002
+  0.2665200E+001 -0.3819281E+002
+  0.2662500E+001 -0.3827032E+002
+  0.2659800E+001 -0.3834805E+002
+  0.2657100E+001 -0.3842603E+002
+  0.2654400E+001 -0.3850424E+002
+  0.2651700E+001 -0.3858269E+002
+  0.2649000E+001 -0.3866138E+002
+  0.2646300E+001 -0.3874031E+002
+  0.2643600E+001 -0.3881949E+002
+  0.2640900E+001 -0.3889890E+002
+  0.2638200E+001 -0.3897856E+002
+  0.2635500E+001 -0.3905847E+002
+  0.2632800E+001 -0.3913862E+002
+  0.2630100E+001 -0.3921902E+002
+  0.2627400E+001 -0.3929967E+002
+  0.2624700E+001 -0.3938056E+002
+  0.2622000E+001 -0.3946171E+002
+  0.2619300E+001 -0.3954311E+002
+  0.2616600E+001 -0.3962476E+002
+  0.2613900E+001 -0.3970666E+002
+  0.2611200E+001 -0.3978881E+002
+  0.2608500E+001 -0.3987123E+002
+  0.2605800E+001 -0.3995389E+002
+  0.2603100E+001 -0.4003682E+002
+  0.2600400E+001 -0.4012000E+002
+  0.2597700E+001 -0.4020345E+002
+  0.2595000E+001 -0.4028715E+002
+  0.2592300E+001 -0.4037112E+002
+  0.2589600E+001 -0.4045534E+002
+  0.2586900E+001 -0.4053984E+002
+  0.2584200E+001 -0.4062459E+002
+  0.2581500E+001 -0.4070962E+002
+  0.2578800E+001 -0.4079491E+002
+  0.2576100E+001 -0.4088047E+002
+  0.2573400E+001 -0.4096629E+002
+  0.2570700E+001 -0.4105239E+002
+  0.2568000E+001 -0.4113876E+002
+  0.2565300E+001 -0.4122541E+002
+  0.2562600E+001 -0.4131232E+002
+  0.2559900E+001 -0.4139952E+002
+  0.2557200E+001 -0.4148699E+002
+  0.2554500E+001 -0.4157473E+002
+  0.2551800E+001 -0.4166276E+002
+  0.2549100E+001 -0.4175106E+002
+  0.2546400E+001 -0.4183965E+002
+  0.2543700E+001 -0.4192852E+002
+  0.2541000E+001 -0.4201767E+002
+  0.2538300E+001 -0.4210710E+002
+  0.2535600E+001 -0.4219683E+002
+  0.2532900E+001 -0.4228684E+002
+  0.2530200E+001 -0.4237713E+002
+  0.2527500E+001 -0.4246772E+002
+  0.2524800E+001 -0.4255860E+002
+  0.2522100E+001 -0.4264977E+002
+  0.2519400E+001 -0.4274123E+002
+  0.2516700E+001 -0.4283299E+002
+  0.2514000E+001 -0.4292504E+002
+  0.2511300E+001 -0.4301739E+002
+  0.2508600E+001 -0.4311004E+002
+  0.2505900E+001 -0.4320299E+002
+  0.2503200E+001 -0.4329624E+002
+  0.2500500E+001 -0.4338979E+002
+  0.2497800E+001 -0.4348365E+002
+  0.2495100E+001 -0.4357781E+002
+  0.2492400E+001 -0.4367227E+002
+  0.2489700E+001 -0.4376705E+002
+  0.2487000E+001 -0.4386213E+002
+  0.2484300E+001 -0.4395752E+002
+  0.2481600E+001 -0.4405323E+002
+  0.2478900E+001 -0.4414924E+002
+  0.2476200E+001 -0.4424557E+002
+  0.2473500E+001 -0.4434222E+002
+  0.2470800E+001 -0.4443919E+002
+  0.2468100E+001 -0.4453647E+002
+  0.2465400E+001 -0.4463407E+002
+  0.2462700E+001 -0.4473199E+002
+  0.2460000E+001 -0.4483024E+002
+  0.2457300E+001 -0.4492881E+002
+  0.2454600E+001 -0.4502771E+002
+  0.2451900E+001 -0.4512693E+002
+  0.2449200E+001 -0.4522648E+002
+  0.2446500E+001 -0.4532636E+002
+  0.2443800E+001 -0.4542657E+002
+  0.2441100E+001 -0.4552712E+002
+  0.2438400E+001 -0.4562799E+002
+  0.2435700E+001 -0.4572921E+002
+  0.2433000E+001 -0.4583076E+002
+  0.2430300E+001 -0.4593265E+002
+  0.2427600E+001 -0.4603488E+002
+  0.2424900E+001 -0.4613745E+002
+  0.2422200E+001 -0.4624037E+002
+  0.2419500E+001 -0.4634363E+002
+  0.2416800E+001 -0.4644723E+002
+  0.2414100E+001 -0.4655119E+002
+  0.2411400E+001 -0.4665549E+002
+  0.2408700E+001 -0.4676014E+002
+  0.2406000E+001 -0.4686515E+002
+  0.2403300E+001 -0.4697051E+002
+  0.2400600E+001 -0.4707623E+002
+  0.2397900E+001 -0.4718230E+002
+  0.2395200E+001 -0.4728874E+002
+  0.2392500E+001 -0.4739553E+002
+  0.2389800E+001 -0.4750269E+002
+  0.2387100E+001 -0.4761020E+002
+  0.2384400E+001 -0.4771809E+002
+  0.2381700E+001 -0.4782634E+002
+  0.2379000E+001 -0.4793496E+002
+  0.2376300E+001 -0.4804395E+002
+  0.2373600E+001 -0.4815332E+002
+  0.2370900E+001 -0.4826305E+002
+  0.2368200E+001 -0.4837317E+002
+  0.2365500E+001 -0.4848366E+002
+  0.2362800E+001 -0.4859453E+002
+  0.2360100E+001 -0.4870578E+002
+  0.2357400E+001 -0.4881741E+002
+  0.2354700E+001 -0.4892942E+002
+  0.2352000E+001 -0.4904183E+002
+  0.2349300E+001 -0.4915462E+002
+  0.2346600E+001 -0.4926780E+002
+  0.2343900E+001 -0.4938137E+002
+  0.2341200E+001 -0.4949533E+002
+  0.2338500E+001 -0.4960969E+002
+  0.2335800E+001 -0.4972445E+002
+  0.2333100E+001 -0.4983960E+002
+  0.2330400E+001 -0.4995516E+002
+  0.2327700E+001 -0.5007111E+002
+  0.2325000E+001 -0.5018748E+002
+  0.2322300E+001 -0.5030424E+002
+  0.2319600E+001 -0.5042142E+002
+  0.2316900E+001 -0.5053901E+002
+  0.2314200E+001 -0.5065700E+002
+  0.2311500E+001 -0.5077541E+002
+  0.2308800E+001 -0.5089424E+002
+  0.2306100E+001 -0.5101349E+002
+  0.2303400E+001 -0.5113315E+002
+  0.2300700E+001 -0.5125324E+002
+  0.2298000E+001 -0.5137374E+002
+  0.2295300E+001 -0.5149468E+002
+  0.2292600E+001 -0.5161604E+002
+  0.2289900E+001 -0.5173783E+002
+  0.2287200E+001 -0.5186006E+002
+  0.2284500E+001 -0.5198271E+002
+  0.2281800E+001 -0.5210581E+002
+  0.2279100E+001 -0.5222934E+002
+  0.2276400E+001 -0.5235331E+002
+  0.2273700E+001 -0.5247772E+002
+  0.2271000E+001 -0.5260258E+002
+  0.2268300E+001 -0.5272788E+002
+  0.2265600E+001 -0.5285363E+002
+  0.2262900E+001 -0.5297983E+002
+  0.2260200E+001 -0.5310648E+002
+  0.2257500E+001 -0.5323359E+002
+  0.2254800E+001 -0.5336115E+002
+  0.2252100E+001 -0.5348918E+002
+  0.2249400E+001 -0.5361766E+002
+  0.2246700E+001 -0.5374661E+002
+  0.2244000E+001 -0.5387603E+002
+  0.2241300E+001 -0.5400591E+002
+  0.2238600E+001 -0.5413626E+002
+  0.2235900E+001 -0.5426709E+002
+  0.2233200E+001 -0.5439839E+002
+  0.2230500E+001 -0.5453017E+002
+  0.2227800E+001 -0.5466242E+002
+  0.2225100E+001 -0.5479516E+002
+  0.2222400E+001 -0.5492838E+002
+  0.2219700E+001 -0.5506209E+002
+  0.2217000E+001 -0.5519629E+002
+  0.2214300E+001 -0.5533098E+002
+  0.2211600E+001 -0.5546616E+002
+  0.2208900E+001 -0.5560184E+002
+  0.2206200E+001 -0.5573802E+002
+  0.2203500E+001 -0.5587469E+002
+  0.2200800E+001 -0.5601188E+002
+  0.2198100E+001 -0.5614956E+002
+  0.2195400E+001 -0.5628776E+002
+  0.2192700E+001 -0.5642646E+002
+  0.2190000E+001 -0.5656568E+002
+  0.2187300E+001 -0.5670542E+002
+  0.2184600E+001 -0.5684567E+002
+  0.2181900E+001 -0.5698645E+002
+  0.2179200E+001 -0.5712775E+002
+  0.2176500E+001 -0.5726957E+002
+  0.2173800E+001 -0.5741192E+002
+  0.2171100E+001 -0.5755481E+002
+  0.2168400E+001 -0.5769823E+002
+  0.2165700E+001 -0.5784218E+002
+  0.2163000E+001 -0.5798668E+002
+  0.2160300E+001 -0.5813172E+002
+  0.2157600E+001 -0.5827730E+002
+  0.2154900E+001 -0.5842343E+002
+  0.2152200E+001 -0.5857011E+002
+  0.2149500E+001 -0.5871734E+002
+  0.2146800E+001 -0.5886513E+002
+  0.2144100E+001 -0.5901348E+002
+  0.2141400E+001 -0.5916239E+002
+  0.2138700E+001 -0.5931186E+002
+  0.2136000E+001 -0.5946190E+002
+  0.2133300E+001 -0.5961251E+002
+  0.2130600E+001 -0.5976369E+002
+  0.2127900E+001 -0.5991545E+002
+  0.2125200E+001 -0.6006779E+002
+  0.2122500E+001 -0.6022071E+002
+  0.2119800E+001 -0.6037422E+002
+  0.2117100E+001 -0.6052831E+002
+  0.2114400E+001 -0.6068299E+002
+  0.2111700E+001 -0.6083827E+002
+  0.2109000E+001 -0.6099414E+002
+  0.2106300E+001 -0.6115061E+002
+  0.2103600E+001 -0.6130769E+002
+  0.2100900E+001 -0.6146537E+002
+  0.2098200E+001 -0.6162366E+002
+  0.2095500E+001 -0.6178257E+002
+  0.2092800E+001 -0.6194208E+002
+  0.2090100E+001 -0.6210222E+002
+  0.2087400E+001 -0.6226298E+002
+  0.2084700E+001 -0.6242437E+002
+  0.2082000E+001 -0.6258638E+002
+  0.2079300E+001 -0.6274902E+002
+  0.2076600E+001 -0.6291230E+002
+  0.2073900E+001 -0.6307622E+002
+  0.2071200E+001 -0.6324078E+002
+  0.2068500E+001 -0.6340598E+002
+  0.2065800E+001 -0.6357183E+002
+  0.2063100E+001 -0.6373834E+002
+  0.2060400E+001 -0.6390549E+002
+  0.2057700E+001 -0.6407331E+002
+  0.2055000E+001 -0.6424179E+002
+  0.2052300E+001 -0.6441093E+002
+  0.2049600E+001 -0.6458074E+002
+  0.2046900E+001 -0.6475123E+002
+  0.2044200E+001 -0.6492239E+002
+  0.2041500E+001 -0.6509423E+002
+  0.2038800E+001 -0.6526676E+002
+  0.2036100E+001 -0.6543997E+002
+  0.2033400E+001 -0.6561387E+002
+  0.2030700E+001 -0.6578846E+002
+  0.2028000E+001 -0.6596376E+002
+  0.2025300E+001 -0.6613975E+002
+  0.2022600E+001 -0.6631645E+002
+  0.2019900E+001 -0.6649386E+002
+  0.2017200E+001 -0.6667198E+002
+  0.2014500E+001 -0.6685082E+002
+  0.2011800E+001 -0.6703038E+002
+  0.2009100E+001 -0.6721066E+002
+  0.2006400E+001 -0.6739167E+002
+  0.2003700E+001 -0.6757342E+002
+  0.2001000E+001 -0.6775590E+002
+  0.1998300E+001 -0.6793912E+002
+  0.1995600E+001 -0.6812308E+002
+  0.1992900E+001 -0.6830779E+002
+  0.1990200E+001 -0.6849326E+002
+  0.1987500E+001 -0.6867948E+002
+  0.1984800E+001 -0.6886646E+002
+  0.1982100E+001 -0.6905421E+002
+  0.1979400E+001 -0.6924272E+002
+  0.1976700E+001 -0.6943201E+002
+  0.1974000E+001 -0.6962208E+002
+  0.1971300E+001 -0.6981292E+002
+  0.1968600E+001 -0.7000456E+002
+  0.1965900E+001 -0.7019698E+002
+  0.1963200E+001 -0.7039020E+002
+  0.1960500E+001 -0.7058421E+002
+  0.1957800E+001 -0.7077903E+002
+  0.1955100E+001 -0.7097466E+002
+  0.1952400E+001 -0.7117110E+002
+  0.1949700E+001 -0.7136836E+002
+  0.1947000E+001 -0.7156643E+002
+  0.1944300E+001 -0.7176534E+002
+  0.1941600E+001 -0.7196507E+002
+  0.1938900E+001 -0.7216564E+002
+  0.1936200E+001 -0.7236705E+002
+  0.1933500E+001 -0.7256930E+002
+  0.1930800E+001 -0.7277240E+002
+  0.1928100E+001 -0.7297635E+002
+  0.1925400E+001 -0.7318117E+002
+  0.1922700E+001 -0.7338685E+002
+  0.1920000E+001 -0.7359339E+002
+  0.1917300E+001 -0.7380081E+002
+  0.1914600E+001 -0.7400911E+002
+  0.1911900E+001 -0.7421829E+002
+  0.1909200E+001 -0.7442836E+002
+  0.1906500E+001 -0.7463932E+002
+  0.1903800E+001 -0.7485118E+002
+  0.1901100E+001 -0.7506394E+002
+  0.1898400E+001 -0.7527761E+002
+  0.1895700E+001 -0.7549219E+002
+  0.1893000E+001 -0.7570770E+002
+  0.1890300E+001 -0.7592413E+002
+  0.1887600E+001 -0.7614148E+002
+  0.1884900E+001 -0.7635978E+002
+  0.1882200E+001 -0.7657901E+002
+  0.1879500E+001 -0.7679919E+002
+  0.1876800E+001 -0.7702031E+002
+  0.1874100E+001 -0.7724240E+002
+  0.1871400E+001 -0.7746545E+002
+  0.1868700E+001 -0.7768946E+002
+  0.1866000E+001 -0.7791445E+002
+  0.1863300E+001 -0.7814041E+002
+  0.1860600E+001 -0.7836736E+002
+  0.1857900E+001 -0.7859530E+002
+  0.1855200E+001 -0.7882424E+002
+  0.1852500E+001 -0.7905418E+002
+  0.1849800E+001 -0.7928513E+002
+  0.1847100E+001 -0.7951709E+002
+  0.1844400E+001 -0.7975006E+002
+  0.1841700E+001 -0.7998407E+002
+  0.1839000E+001 -0.8021911E+002
+  0.1836300E+001 -0.8045518E+002
+  0.1833600E+001 -0.8069230E+002
+  0.1830900E+001 -0.8093046E+002
+  0.1828200E+001 -0.8116969E+002
+  0.1825500E+001 -0.8140997E+002
+  0.1822800E+001 -0.8165132E+002
+  0.1820100E+001 -0.8189375E+002
+  0.1817400E+001 -0.8213726E+002
+  0.1814700E+001 -0.8238186E+002
+  0.1812000E+001 -0.8262755E+002
+  0.1809300E+001 -0.8287434E+002
+  0.1806600E+001 -0.8312224E+002
+  0.1803900E+001 -0.8337126E+002
+  0.1801200E+001 -0.8362139E+002
+  0.1798500E+001 -0.8387265E+002
+  0.1795800E+001 -0.8412505E+002
+  0.1793100E+001 -0.8437859E+002
+  0.1790400E+001 -0.8463327E+002
+  0.1787700E+001 -0.8488911E+002
+  0.1785000E+001 -0.8514611E+002
+  0.1782300E+001 -0.8540428E+002
+  0.1779600E+001 -0.8566363E+002
+  0.1776900E+001 -0.8592416E+002
+  0.1774200E+001 -0.8618588E+002
+  0.1771500E+001 -0.8644880E+002
+  0.1768800E+001 -0.8671292E+002
+  0.1766100E+001 -0.8697826E+002
+  0.1763400E+001 -0.8724481E+002
+  0.1760700E+001 -0.8751259E+002
+  0.1758000E+001 -0.8778161E+002
+  0.1755300E+001 -0.8805187E+002
+  0.1752600E+001 -0.8832338E+002
+  0.1749900E+001 -0.8859614E+002
+  0.1747200E+001 -0.8887017E+002
+  0.1744500E+001 -0.8914548E+002
+  0.1741800E+001 -0.8942207E+002
+  0.1739100E+001 -0.8969994E+002
+  0.1736400E+001 -0.8997912E+002
+  0.1733700E+001 -0.9025959E+002
+  0.1731000E+001 -0.9054139E+002
+  0.1728300E+001 -0.9082450E+002
+  0.1725600E+001 -0.9110894E+002
+  0.1722900E+001 -0.9139473E+002
+  0.1720200E+001 -0.9168185E+002
+  0.1717500E+001 -0.9197034E+002
+  0.1714800E+001 -0.9226019E+002
+  0.1712100E+001 -0.9255141E+002
+  0.1709400E+001 -0.9284401E+002
+  0.1706700E+001 -0.9313800E+002
+  0.1704000E+001 -0.9343339E+002
+  0.1701300E+001 -0.9373018E+002
+  0.1698600E+001 -0.9402840E+002
+  0.1695900E+001 -0.9432804E+002
+  0.1693200E+001 -0.9462911E+002
+  0.1690500E+001 -0.9493163E+002
+  0.1687800E+001 -0.9523560E+002
+  0.1685100E+001 -0.9554103E+002
+  0.1682400E+001 -0.9584793E+002
+  0.1679700E+001 -0.9615632E+002
+  0.1677000E+001 -0.9646619E+002
+  0.1674300E+001 -0.9677757E+002
+  0.1671600E+001 -0.9709046E+002
+  0.1668900E+001 -0.9740486E+002
+  0.1666200E+001 -0.9772080E+002
+  0.1663500E+001 -0.9803828E+002
+  0.1660800E+001 -0.9835730E+002
+  0.1658100E+001 -0.9867789E+002
+  0.1655400E+001 -0.9900004E+002
+  0.1652700E+001 -0.9932378E+002
+  0.1650000E+001 -0.9964910E+002
+  0.1647300E+001 -0.9997603E+002
+  0.1644600E+001 -0.1003046E+003
+  0.1641900E+001 -0.1006347E+003
+  0.1639200E+001 -0.1009665E+003
+  0.1636500E+001 -0.1013000E+003
+  0.1633800E+001 -0.1016350E+003
+  0.1631100E+001 -0.1019718E+003
+  0.1628400E+001 -0.1023102E+003
+  0.1625700E+001 -0.1026504E+003
+  0.1623000E+001 -0.1029922E+003
+  0.1620300E+001 -0.1033357E+003
+  0.1617600E+001 -0.1036810E+003
+  0.1614900E+001 -0.1040279E+003
+  0.1612200E+001 -0.1043767E+003
+  0.1609500E+001 -0.1047272E+003
+  0.1606800E+001 -0.1050794E+003
+  0.1604100E+001 -0.1054334E+003
+  0.1601400E+001 -0.1057893E+003
+  0.1598700E+001 -0.1061469E+003
+  0.1596000E+001 -0.1065063E+003
+  0.1593300E+001 -0.1068676E+003
+  0.1590600E+001 -0.1072307E+003
+  0.1587900E+001 -0.1075957E+003
+  0.1585200E+001 -0.1079626E+003
+  0.1582500E+001 -0.1083313E+003
+  0.1579800E+001 -0.1087019E+003
+  0.1577100E+001 -0.1090744E+003
+  0.1574400E+001 -0.1094488E+003
+  0.1571700E+001 -0.1098252E+003
+  0.1569000E+001 -0.1102035E+003
+  0.1566300E+001 -0.1105838E+003
+  0.1563600E+001 -0.1109660E+003
+  0.1560900E+001 -0.1113502E+003
+  0.1558200E+001 -0.1117365E+003
+  0.1555500E+001 -0.1121247E+003
+  0.1552800E+001 -0.1125149E+003
+  0.1550100E+001 -0.1129073E+003
+  0.1547400E+001 -0.1133016E+003
+  0.1544700E+001 -0.1136980E+003
+  0.1542000E+001 -0.1140966E+003
+  0.1539300E+001 -0.1144972E+003
+  0.1536600E+001 -0.1148999E+003
+  0.1533900E+001 -0.1153047E+003
+  0.1531200E+001 -0.1157117E+003
+  0.1528500E+001 -0.1161209E+003
+  0.1525800E+001 -0.1165322E+003
+  0.1523100E+001 -0.1169457E+003
+  0.1520400E+001 -0.1173615E+003
+  0.1517700E+001 -0.1177794E+003
+  0.1515000E+001 -0.1181996E+003
+  0.1512300E+001 -0.1186220E+003
+  0.1509600E+001 -0.1190467E+003
+  0.1506900E+001 -0.1194737E+003
+  0.1504200E+001 -0.1199030E+003
+  0.1501500E+001 -0.1203346E+003
+  0.1498800E+001 -0.1207686E+003
+  0.1496100E+001 -0.1212049E+003
+  0.1493400E+001 -0.1216435E+003
+  0.1490700E+001 -0.1220846E+003
+  0.1488000E+001 -0.1225280E+003
+  0.1485300E+001 -0.1229739E+003
+  0.1482600E+001 -0.1234222E+003
+  0.1479900E+001 -0.1238730E+003
+  0.1477200E+001 -0.1243262E+003
+  0.1474500E+001 -0.1247819E+003
+  0.1471800E+001 -0.1252402E+003
+  0.1469100E+001 -0.1257009E+003
+  0.1466400E+001 -0.1261643E+003
+  0.1463700E+001 -0.1266302E+003
+  0.1461000E+001 -0.1270986E+003
+  0.1458300E+001 -0.1275697E+003
+  0.1455600E+001 -0.1280434E+003
+  0.1452900E+001 -0.1285197E+003
+  0.1450200E+001 -0.1289987E+003
+  0.1447500E+001 -0.1294804E+003
+  0.1444800E+001 -0.1299648E+003
+  0.1442100E+001 -0.1304519E+003
+  0.1439400E+001 -0.1309418E+003
+  0.1436700E+001 -0.1314344E+003
+  0.1434000E+001 -0.1319298E+003
+  0.1431300E+001 -0.1324280E+003
+  0.1428600E+001 -0.1329291E+003
+  0.1425900E+001 -0.1334330E+003
+  0.1423200E+001 -0.1339397E+003
+  0.1420500E+001 -0.1344494E+003
+  0.1417800E+001 -0.1349619E+003
+  0.1415100E+001 -0.1354774E+003
+  0.1412400E+001 -0.1359959E+003
+  0.1409700E+001 -0.1365174E+003
+  0.1407000E+001 -0.1370418E+003
+  0.1404300E+001 -0.1375693E+003
+  0.1401600E+001 -0.1380998E+003
+  0.1398900E+001 -0.1386334E+003
+  0.1396200E+001 -0.1391701E+003
+  0.1393500E+001 -0.1397099E+003
+  0.1390800E+001 -0.1402529E+003
+  0.1388100E+001 -0.1407991E+003
+  0.1385400E+001 -0.1413484E+003
+  0.1382700E+001 -0.1419010E+003
+  0.1380000E+001 -0.1424568E+003
+  0.1377300E+001 -0.1430159E+003
+  0.1374600E+001 -0.1435782E+003
+  0.1371900E+001 -0.1441439E+003
+  0.1369200E+001 -0.1447130E+003
+  0.1366500E+001 -0.1452854E+003
+  0.1363800E+001 -0.1458612E+003
+  0.1361100E+001 -0.1464405E+003
+  0.1358400E+001 -0.1470232E+003
+  0.1355700E+001 -0.1476094E+003
+  0.1353000E+001 -0.1481991E+003
+  0.1350300E+001 -0.1487924E+003
+  0.1347600E+001 -0.1493892E+003
+  0.1344900E+001 -0.1499896E+003
+  0.1342200E+001 -0.1505937E+003
+  0.1339500E+001 -0.1512014E+003
+  0.1336800E+001 -0.1518128E+003
+  0.1334100E+001 -0.1524279E+003
+  0.1331400E+001 -0.1530468E+003
+  0.1328700E+001 -0.1536694E+003
+  0.1326000E+001 -0.1542958E+003
+  0.1323300E+001 -0.1549261E+003
+  0.1320600E+001 -0.1555603E+003
+  0.1317900E+001 -0.1561983E+003
+  0.1315200E+001 -0.1568403E+003
+  0.1312500E+001 -0.1574863E+003
+  0.1309800E+001 -0.1581362E+003
+  0.1307100E+001 -0.1587902E+003
+  0.1304400E+001 -0.1594482E+003
+  0.1301700E+001 -0.1601104E+003
+  0.1299000E+001 -0.1607766E+003
+  0.1296300E+001 -0.1614471E+003
+  0.1293600E+001 -0.1621217E+003
+  0.1290900E+001 -0.1628006E+003
+  0.1288200E+001 -0.1634838E+003
+  0.1285500E+001 -0.1641713E+003
+  0.1282800E+001 -0.1648631E+003
+  0.1280100E+001 -0.1655593E+003
+  0.1277400E+001 -0.1662599E+003
+  0.1274700E+001 -0.1669649E+003
+  0.1272000E+001 -0.1676745E+003
+  0.1269300E+001 -0.1683886E+003
+  0.1266600E+001 -0.1691073E+003
+  0.1263900E+001 -0.1698306E+003
+  0.1261200E+001 -0.1705585E+003
+  0.1258500E+001 -0.1712911E+003
+  0.1255800E+001 -0.1720285E+003
+  0.1253100E+001 -0.1727706E+003
+  0.1250400E+001 -0.1735175E+003
+  0.1247700E+001 -0.1742693E+003
+  0.1245000E+001 -0.1750260E+003
+  0.1242300E+001 -0.1757876E+003
+  0.1239600E+001 -0.1765542E+003
+  0.1236900E+001 -0.1773259E+003
+  0.1234200E+001 -0.1781026E+003
+  0.1231500E+001 -0.1788844E+003
+  0.1228800E+001 -0.1796714E+003
+  0.1226100E+001 -0.1804635E+003
+  0.1223400E+001 -0.1812610E+003
+  0.1220700E+001 -0.1820637E+003
+  0.1218000E+001 -0.1828718E+003
+  0.1215300E+001 -0.1836852E+003
+  0.1212600E+001 -0.1845042E+003
+  0.1209900E+001 -0.1853285E+003
+  0.1207200E+001 -0.1861585E+003
+  0.1204500E+001 -0.1869940E+003
+  0.1201800E+001 -0.1878352E+003
+  0.1199100E+001 -0.1886820E+003
+  0.1196400E+001 -0.1895346E+003
+  0.1193700E+001 -0.1903930E+003
+  0.1191000E+001 -0.1912572E+003
+  0.1188300E+001 -0.1921273E+003
+  0.1185600E+001 -0.1930034E+003
+  0.1182900E+001 -0.1938854E+003
+  0.1180200E+001 -0.1947736E+003
+  0.1177500E+001 -0.1956678E+003
+  0.1174800E+001 -0.1965683E+003
+  0.1172100E+001 -0.1974749E+003
+  0.1169400E+001 -0.1983879E+003
+  0.1166700E+001 -0.1993071E+003
+  0.1164000E+001 -0.2002328E+003
+  0.1161300E+001 -0.2011650E+003
+  0.1158600E+001 -0.2021037E+003
+  0.1155900E+001 -0.2030489E+003
+  0.1153200E+001 -0.2040009E+003
+  0.1150500E+001 -0.2049595E+003
+  0.1147800E+001 -0.2059249E+003
+  0.1145100E+001 -0.2068971E+003
+  0.1142400E+001 -0.2078763E+003
+  0.1139700E+001 -0.2088624E+003
+  0.1137000E+001 -0.2098555E+003
+  0.1134300E+001 -0.2108557E+003
+  0.1131600E+001 -0.2118631E+003
+  0.1128900E+001 -0.2128778E+003
+  0.1126200E+001 -0.2138997E+003
+  0.1123500E+001 -0.2149291E+003
+  0.1120800E+001 -0.2159658E+003
+  0.1118100E+001 -0.2170101E+003
+  0.1115400E+001 -0.2180620E+003
+  0.1112700E+001 -0.2191216E+003
+  0.1110000E+001 -0.2201888E+003
+  0.1107300E+001 -0.2212640E+003
+  0.1104600E+001 -0.2223470E+003
+  0.1101900E+001 -0.2234379E+003
+  0.1099200E+001 -0.2245370E+003
+  0.1096500E+001 -0.2256441E+003
+  0.1093800E+001 -0.2267595E+003
+  0.1091100E+001 -0.2278831E+003
+  0.1088400E+001 -0.2290151E+003
+  0.1085700E+001 -0.2301556E+003
+  0.1083000E+001 -0.2313046E+003
+  0.1080300E+001 -0.2324623E+003
+  0.1077600E+001 -0.2336287E+003
+  0.1074900E+001 -0.2348038E+003
+  0.1072200E+001 -0.2359879E+003
+  0.1069500E+001 -0.2371809E+003
+  0.1066800E+001 -0.2383830E+003
+  0.1064100E+001 -0.2395942E+003
+  0.1061400E+001 -0.2408148E+003
+  0.1058700E+001 -0.2420446E+003
+  0.1056000E+001 -0.2432839E+003
+  0.1053300E+001 -0.2445328E+003
+  0.1050600E+001 -0.2457913E+003
+  0.1047900E+001 -0.2470595E+003
+  0.1045200E+001 -0.2483376E+003
+  0.1042500E+001 -0.2496256E+003
+  0.1039800E+001 -0.2509237E+003
+  0.1037100E+001 -0.2522319E+003
+  0.1034400E+001 -0.2535504E+003
+  0.1031700E+001 -0.2548792E+003
+  0.1029000E+001 -0.2562185E+003
+  0.1026300E+001 -0.2575684E+003
+  0.1023600E+001 -0.2589290E+003
+  0.1020900E+001 -0.2603004E+003
+  0.1018200E+001 -0.2616827E+003
+  0.1015500E+001 -0.2630761E+003
+  0.1012800E+001 -0.2644806E+003
+  0.1010100E+001 -0.2658964E+003
+  0.1007400E+001 -0.2673236E+003
+  0.1004700E+001 -0.2687624E+003
+  0.1002000E+001 -0.2702127E+003
+  0.9993000E+000 -0.2716749E+003
+  0.9966000E+000 -0.2731489E+003
+  0.9939000E+000 -0.2746350E+003
+  0.9912000E+000 -0.2761332E+003
+  0.9885000E+000 -0.2776438E+003
+  0.9858000E+000 -0.2791667E+003
+  0.9831000E+000 -0.2807022E+003
+  0.9804000E+000 -0.2822505E+003
+  0.9777000E+000 -0.2838115E+003
+  0.9750000E+000 -0.2853856E+003
+  0.9723000E+000 -0.2869728E+003
+  0.9696000E+000 -0.2885732E+003
+  0.9669000E+000 -0.2901871E+003
+  0.9642000E+000 -0.2918146E+003
+  0.9615000E+000 -0.2934558E+003
+  0.9588000E+000 -0.2951109E+003
+  0.9561000E+000 -0.2967800E+003
+  0.9534000E+000 -0.2984633E+003
+  0.9507000E+000 -0.3001610E+003
+  0.9480000E+000 -0.3018732E+003
+  0.9453000E+000 -0.3036001E+003
+  0.9426000E+000 -0.3053419E+003
+  0.9399000E+000 -0.3070987E+003
+  0.9372000E+000 -0.3088707E+003
+  0.9345000E+000 -0.3106581E+003
+  0.9318000E+000 -0.3124610E+003
+  0.9291000E+000 -0.3142797E+003
+  0.9264000E+000 -0.3161143E+003
+  0.9237000E+000 -0.3179650E+003
+  0.9210000E+000 -0.3198321E+003
+  0.9183000E+000 -0.3217156E+003
+  0.9156000E+000 -0.3236158E+003
+  0.9129000E+000 -0.3255329E+003
+  0.9102000E+000 -0.3274671E+003
+  0.9075000E+000 -0.3294185E+003
+  0.9048000E+000 -0.3313875E+003
+  0.9021000E+000 -0.3333741E+003
+  0.8994000E+000 -0.3353787E+003
+  0.8967000E+000 -0.3374014E+003
+  0.8940000E+000 -0.3394425E+003
+  0.8913000E+000 -0.3415022E+003
+  0.8886000E+000 -0.3435806E+003
+  0.8859000E+000 -0.3456781E+003
+  0.8832000E+000 -0.3477949E+003
+  0.8805000E+000 -0.3499311E+003
+  0.8778000E+000 -0.3520871E+003
+  0.8751000E+000 -0.3542631E+003
+  0.8724000E+000 -0.3564593E+003
+  0.8697000E+000 -0.3586760E+003
+  0.8670000E+000 -0.3609135E+003
+  0.8643000E+000 -0.3631719E+003
+  0.8616000E+000 -0.3654516E+003
+  0.8589000E+000 -0.3677529E+003
+  0.8562000E+000 -0.3700759E+003
+  0.8535000E+000 -0.3724211E+003
+  0.8508000E+000 -0.3747885E+003
+  0.8481000E+000 -0.3771787E+003
+  0.8454000E+000 -0.3795918E+003
+  0.8427000E+000 -0.3820281E+003
+  0.8400000E+000 -0.3844879E+003
+  0.8373000E+000 -0.3869716E+003
+  0.8346000E+000 -0.3894794E+003
+  0.8319000E+000 -0.3920117E+003
+  0.8292000E+000 -0.3945687E+003
+  0.8265000E+000 -0.3971509E+003
+  0.8238000E+000 -0.3997585E+003
+  0.8211000E+000 -0.4023918E+003
+  0.8184000E+000 -0.4050513E+003
+  0.8157000E+000 -0.4077372E+003
+  0.8130000E+000 -0.4104499E+003
+  0.8103000E+000 -0.4131898E+003
+  0.8076000E+000 -0.4159572E+003
+  0.8049000E+000 -0.4187525E+003
+  0.8022000E+000 -0.4215761E+003
+  0.7995000E+000 -0.4244283E+003
+  0.7968000E+000 -0.4273096E+003
+  0.7941000E+000 -0.4302203E+003
+  0.7914000E+000 -0.4331608E+003
+  0.7887000E+000 -0.4361316E+003
+  0.7860000E+000 -0.4391331E+003
+  0.7833000E+000 -0.4421657E+003
+  0.7806000E+000 -0.4452298E+003
+  0.7779000E+000 -0.4483258E+003
+  0.7752000E+000 -0.4514542E+003
+  0.7725000E+000 -0.4546156E+003
+  0.7698000E+000 -0.4578102E+003
+  0.7671000E+000 -0.4610386E+003
+  0.7644000E+000 -0.4643013E+003
+  0.7617000E+000 -0.4675988E+003
+  0.7590000E+000 -0.4709315E+003
+  0.7563000E+000 -0.4742999E+003
+  0.7536000E+000 -0.4777047E+003
+  0.7509000E+000 -0.4811462E+003
+  0.7482000E+000 -0.4846251E+003
+  0.7455000E+000 -0.4881418E+003
+  0.7428000E+000 -0.4916969E+003
+  0.7401000E+000 -0.4952910E+003
+  0.7374000E+000 -0.4989247E+003
+  0.7347000E+000 -0.5025985E+003
+  0.7320000E+000 -0.5063130E+003
+  0.7293000E+000 -0.5100689E+003
+  0.7266000E+000 -0.5138667E+003
+  0.7239000E+000 -0.5177071E+003
+  0.7212000E+000 -0.5215907E+003
+  0.7185000E+000 -0.5255182E+003
+  0.7158000E+000 -0.5294901E+003
+  0.7131000E+000 -0.5335073E+003
+  0.7104000E+000 -0.5375704E+003
+  0.7077000E+000 -0.5416801E+003
+  0.7050000E+000 -0.5458371E+003
+  0.7023000E+000 -0.5500421E+003
+  0.6996000E+000 -0.5542959E+003
+  0.6969000E+000 -0.5585992E+003
+  0.6942000E+000 -0.5629529E+003
+  0.6915000E+000 -0.5673576E+003
+  0.6888000E+000 -0.5718143E+003
+  0.6861000E+000 -0.5763236E+003
+  0.6834000E+000 -0.5808866E+003
+  0.6807000E+000 -0.5855039E+003
+  0.6780000E+000 -0.5901765E+003
+  0.6753000E+000 -0.5949052E+003
+  0.6726000E+000 -0.5996910E+003
+  0.6699000E+000 -0.6045348E+003
+  0.6672000E+000 -0.6094375E+003
+  0.6645000E+000 -0.6144001E+003
+  0.6618000E+000 -0.6194236E+003
+  0.6591000E+000 -0.6245089E+003
+  0.6564000E+000 -0.6296571E+003
+  0.6537000E+000 -0.6348693E+003
+  0.6510000E+000 -0.6401464E+003
+  0.6483000E+000 -0.6454896E+003
+  0.6456000E+000 -0.6508999E+003
+  0.6429000E+000 -0.6563786E+003
+  0.6402000E+000 -0.6619268E+003
+  0.6375000E+000 -0.6675455E+003
+  0.6348000E+000 -0.6732362E+003
+  0.6321000E+000 -0.6789999E+003
+  0.6294000E+000 -0.6848379E+003
+  0.6267000E+000 -0.6907516E+003
+  0.6240000E+000 -0.6967422E+003
+  0.6213000E+000 -0.7028110E+003
+  0.6186000E+000 -0.7089595E+003
+  0.6159000E+000 -0.7151891E+003
+  0.6132000E+000 -0.7215011E+003
+  0.6105000E+000 -0.7278970E+003
+  0.6078000E+000 -0.7343784E+003
+  0.6051000E+000 -0.7409467E+003
+  0.6024000E+000 -0.7476035E+003
+  0.5997000E+000 -0.7543505E+003
+  0.5970000E+000 -0.7611892E+003
+  0.5943000E+000 -0.7681213E+003
+  0.5916000E+000 -0.7751486E+003
+  0.5889000E+000 -0.7822727E+003
+  0.5862000E+000 -0.7894955E+003
+  0.5835000E+000 -0.7968188E+003
+  0.5808000E+000 -0.8042444E+003
+  0.5781000E+000 -0.8117744E+003
+  0.5754000E+000 -0.8194106E+003
+  0.5727000E+000 -0.8271550E+003
+  0.5700000E+000 -0.8350098E+003
+  0.5673000E+000 -0.8429770E+003
+  0.5646000E+000 -0.8510587E+003
+  0.5619000E+000 -0.8592573E+003
+  0.5592000E+000 -0.8675748E+003
+  0.5565000E+000 -0.8760138E+003
+  0.5538000E+000 -0.8845764E+003
+  0.5511000E+000 -0.8932653E+003
+  0.5484000E+000 -0.9020828E+003
+  0.5457000E+000 -0.9110314E+003
+  0.5430000E+000 -0.9201139E+003
+  0.5403000E+000 -0.9293330E+003
+  0.5376000E+000 -0.9386912E+003
+  0.5349000E+000 -0.9481915E+003
+  0.5322000E+000 -0.9578368E+003
+  0.5295000E+000 -0.9676300E+003
+  0.5268000E+000 -0.9775742E+003
+  0.5241000E+000 -0.9876725E+003
+  0.5214000E+000 -0.9979280E+003
+  0.5187000E+000 -0.1008344E+004
+  0.5160000E+000 -0.1018924E+004
+  0.5133000E+000 -0.1029672E+004
+  0.5106000E+000 -0.1040590E+004
+  0.5079000E+000 -0.1051683E+004
+  0.5052000E+000 -0.1062954E+004
+  0.5025000E+000 -0.1074408E+004
+  0.4998000E+000 -0.1086047E+004
+  0.4971000E+000 -0.1097877E+004
+  0.4944000E+000 -0.1109901E+004
+  0.4917000E+000 -0.1122124E+004
+  0.4890000E+000 -0.1134550E+004
+  0.4863000E+000 -0.1147183E+004
+  0.4836000E+000 -0.1160029E+004
+  0.4809000E+000 -0.1173091E+004
+  0.4782000E+000 -0.1186375E+004
+  0.4755000E+000 -0.1199887E+004
+  0.4728000E+000 -0.1213630E+004
+  0.4701000E+000 -0.1227611E+004
+  0.4674000E+000 -0.1241835E+004
+  0.4647000E+000 -0.1256307E+004
+  0.4620000E+000 -0.1271034E+004
+  0.4593000E+000 -0.1286022E+004
+  0.4566000E+000 -0.1301276E+004
+  0.4539000E+000 -0.1316803E+004
+  0.4512000E+000 -0.1332610E+004
+  0.4485000E+000 -0.1348703E+004
+  0.4458000E+000 -0.1365090E+004
+  0.4431000E+000 -0.1381776E+004
+  0.4404000E+000 -0.1398771E+004
+  0.4377000E+000 -0.1416081E+004
+  0.4350000E+000 -0.1433715E+004
+  0.4323000E+000 -0.1451680E+004
+  0.4296000E+000 -0.1469984E+004
+  0.4269000E+000 -0.1488638E+004
+  0.4242000E+000 -0.1507648E+004
+  0.4215000E+000 -0.1527025E+004
+  0.4188000E+000 -0.1546778E+004
+  0.4161000E+000 -0.1566916E+004
+  0.4134000E+000 -0.1587451E+004
+  0.4107000E+000 -0.1608392E+004
+  0.4080000E+000 -0.1629750E+004
+  0.4053000E+000 -0.1651536E+004
+  0.4026000E+000 -0.1673762E+004
+  0.3999000E+000 -0.1696440E+004
+  0.3972000E+000 -0.1719582E+004
+  0.3945000E+000 -0.1743200E+004
+  0.3918000E+000 -0.1767309E+004
+  0.3891000E+000 -0.1791921E+004
+  0.3864000E+000 -0.1817051E+004
+  0.3837000E+000 -0.1842713E+004
+  0.3810000E+000 -0.1868923E+004
+  0.3783000E+000 -0.1895696E+004
+  0.3756000E+000 -0.1923048E+004
+  0.3729000E+000 -0.1950997E+004
+  0.3702000E+000 -0.1979559E+004
+  0.3675000E+000 -0.2008753E+004
+  0.3648000E+000 -0.2038598E+004
+  0.3621000E+000 -0.2069113E+004
+  0.3594000E+000 -0.2100318E+004
+  0.3567000E+000 -0.2132235E+004
+  0.3540000E+000 -0.2164885E+004
+  0.3513000E+000 -0.2198290E+004
+  0.3486000E+000 -0.2232475E+004
+  0.3459000E+000 -0.2267463E+004
+  0.3432000E+000 -0.2303280E+004
+  0.3405000E+000 -0.2339952E+004
+  0.3378000E+000 -0.2377508E+004
+  0.3351000E+000 -0.2415975E+004
+  0.3324000E+000 -0.2455383E+004
+  0.3297000E+000 -0.2495763E+004
+  0.3270000E+000 -0.2537148E+004
+  0.3243000E+000 -0.2579570E+004
+  0.3216000E+000 -0.2623066E+004
+  0.3189000E+000 -0.2667671E+004
+  0.3162000E+000 -0.2713423E+004
+  0.3135000E+000 -0.2760363E+004
+  0.3108000E+000 -0.2808531E+004
+  0.3081000E+000 -0.2857971E+004
+  0.3054000E+000 -0.2908729E+004
+  0.3027000E+000 -0.2960850E+004
+  0.3000000E+000 -0.3014385E+004
+</xy>
+            </component>
+        </curve>
+        <curve id="FtsGrad">
+            <about>
+                <label>Tip-sample interaction stiffness vs gap (positive stiffness = positive freq. shift)</label>
+                <group>Tip-sample interaction stiffness vs gap (positive stiffness = positive freq. shift)</group>
+            </about>
+            <xaxis>
+                <label>tip-sample gap</label>
+                <units>nm</units>
+            </xaxis>
+            <yaxis>
+                <label>Interaction Stiffess</label>
+                <units>nN/nm</units>
+            </yaxis>
+            <component>
+                <xy>  0.2997300E+001 -0.2017752E+002
+  0.2994600E+001 -0.2020484E+002
+  0.2991900E+001 -0.2025959E+002
+  0.2989200E+001 -0.2031454E+002
+  0.2986500E+001 -0.2036969E+002
+  0.2983800E+001 -0.2042504E+002
+  0.2981100E+001 -0.2048058E+002
+  0.2978400E+001 -0.2053633E+002
+  0.2975700E+001 -0.2059229E+002
+  0.2973000E+001 -0.2064844E+002
+  0.2970300E+001 -0.2070480E+002
+  0.2967600E+001 -0.2076136E+002
+  0.2964900E+001 -0.2081814E+002
+  0.2962200E+001 -0.2087511E+002
+  0.2959500E+001 -0.2093230E+002
+  0.2956800E+001 -0.2098970E+002
+  0.2954100E+001 -0.2104730E+002
+  0.2951400E+001 -0.2110512E+002
+  0.2948700E+001 -0.2116315E+002
+  0.2946000E+001 -0.2122139E+002
+  0.2943300E+001 -0.2127984E+002
+  0.2940600E+001 -0.2133851E+002
+  0.2937900E+001 -0.2139740E+002
+  0.2935200E+001 -0.2145650E+002
+  0.2932500E+001 -0.2151582E+002
+  0.2929800E+001 -0.2157536E+002
+  0.2927100E+001 -0.2163512E+002
+  0.2924400E+001 -0.2169510E+002
+  0.2921700E+001 -0.2175530E+002
+  0.2919000E+001 -0.2181573E+002
+  0.2916300E+001 -0.2187638E+002
+  0.2913600E+001 -0.2193725E+002
+  0.2910900E+001 -0.2199835E+002
+  0.2908200E+001 -0.2205968E+002
+  0.2905500E+001 -0.2212124E+002
+  0.2902800E+001 -0.2218302E+002
+  0.2900100E+001 -0.2224504E+002
+  0.2897400E+001 -0.2230728E+002
+  0.2894700E+001 -0.2236976E+002
+  0.2892000E+001 -0.2243247E+002
+  0.2889300E+001 -0.2249542E+002
+  0.2886600E+001 -0.2255860E+002
+  0.2883900E+001 -0.2262202E+002
+  0.2881200E+001 -0.2268568E+002
+  0.2878500E+001 -0.2274958E+002
+  0.2875800E+001 -0.2281371E+002
+  0.2873100E+001 -0.2287809E+002
+  0.2870400E+001 -0.2294271E+002
+  0.2867700E+001 -0.2300758E+002
+  0.2865000E+001 -0.2307269E+002
+  0.2862300E+001 -0.2313804E+002
+  0.2859600E+001 -0.2320364E+002
+  0.2856900E+001 -0.2326949E+002
+  0.2854200E+001 -0.2333559E+002
+  0.2851500E+001 -0.2340194E+002
+  0.2848800E+001 -0.2346855E+002
+  0.2846100E+001 -0.2353540E+002
+  0.2843400E+001 -0.2360251E+002
+  0.2840700E+001 -0.2366987E+002
+  0.2838000E+001 -0.2373749E+002
+  0.2835300E+001 -0.2380537E+002
+  0.2832600E+001 -0.2387351E+002
+  0.2829900E+001 -0.2394191E+002
+  0.2827200E+001 -0.2401057E+002
+  0.2824500E+001 -0.2407949E+002
+  0.2821800E+001 -0.2414868E+002
+  0.2819100E+001 -0.2421813E+002
+  0.2816400E+001 -0.2428785E+002
+  0.2813700E+001 -0.2435784E+002
+  0.2811000E+001 -0.2442809E+002
+  0.2808300E+001 -0.2449862E+002
+  0.2805600E+001 -0.2456941E+002
+  0.2802900E+001 -0.2464049E+002
+  0.2800200E+001 -0.2471183E+002
+  0.2797500E+001 -0.2478345E+002
+  0.2794800E+001 -0.2485535E+002
+  0.2792100E+001 -0.2492753E+002
+  0.2789400E+001 -0.2499998E+002
+  0.2786700E+001 -0.2507272E+002
+  0.2784000E+001 -0.2514574E+002
+  0.2781300E+001 -0.2521904E+002
+  0.2778600E+001 -0.2529263E+002
+  0.2775900E+001 -0.2536651E+002
+  0.2773200E+001 -0.2544067E+002
+  0.2770500E+001 -0.2551512E+002
+  0.2767800E+001 -0.2558986E+002
+  0.2765100E+001 -0.2566490E+002
+  0.2762400E+001 -0.2574023E+002
+  0.2759700E+001 -0.2581585E+002
+  0.2757000E+001 -0.2589177E+002
+  0.2754300E+001 -0.2596799E+002
+  0.2751600E+001 -0.2604451E+002
+  0.2748900E+001 -0.2612133E+002
+  0.2746200E+001 -0.2619845E+002
+  0.2743500E+001 -0.2627588E+002
+  0.2740800E+001 -0.2635361E+002
+  0.2738100E+001 -0.2643165E+002
+  0.2735400E+001 -0.2650999E+002
+  0.2732700E+001 -0.2658865E+002
+  0.2730000E+001 -0.2666762E+002
+  0.2727300E+001 -0.2674690E+002
+  0.2724600E+001 -0.2682649E+002
+  0.2721900E+001 -0.2690640E+002
+  0.2719200E+001 -0.2698663E+002
+  0.2716500E+001 -0.2706718E+002
+  0.2713800E+001 -0.2714805E+002
+  0.2711100E+001 -0.2722924E+002
+  0.2708400E+001 -0.2731076E+002
+  0.2705700E+001 -0.2739260E+002
+  0.2703000E+001 -0.2747477E+002
+  0.2700300E+001 -0.2755726E+002
+  0.2697600E+001 -0.2764009E+002
+  0.2694900E+001 -0.2772325E+002
+  0.2692200E+001 -0.2780675E+002
+  0.2689500E+001 -0.2789058E+002
+  0.2686800E+001 -0.2797474E+002
+  0.2684100E+001 -0.2805925E+002
+  0.2681400E+001 -0.2814410E+002
+  0.2678700E+001 -0.2822929E+002
+  0.2676000E+001 -0.2831482E+002
+  0.2673300E+001 -0.2840070E+002
+  0.2670600E+001 -0.2848693E+002
+  0.2667900E+001 -0.2857351E+002
+  0.2665200E+001 -0.2866043E+002
+  0.2662500E+001 -0.2874771E+002
+  0.2659800E+001 -0.2883535E+002
+  0.2657100E+001 -0.2892334E+002
+  0.2654400E+001 -0.2901169E+002
+  0.2651700E+001 -0.2910040E+002
+  0.2649000E+001 -0.2918948E+002
+  0.2646300E+001 -0.2927891E+002
+  0.2643600E+001 -0.2936872E+002
+  0.2640900E+001 -0.2945889E+002
+  0.2638200E+001 -0.2954942E+002
+  0.2635500E+001 -0.2964034E+002
+  0.2632800E+001 -0.2973162E+002
+  0.2630100E+001 -0.2982328E+002
+  0.2627400E+001 -0.2991532E+002
+  0.2624700E+001 -0.3000773E+002
+  0.2622000E+001 -0.3010053E+002
+  0.2619300E+001 -0.3019371E+002
+  0.2616600E+001 -0.3028727E+002
+  0.2613900E+001 -0.3038123E+002
+  0.2611200E+001 -0.3047557E+002
+  0.2608500E+001 -0.3057030E+002
+  0.2605800E+001 -0.3066542E+002
+  0.2603100E+001 -0.3076094E+002
+  0.2600400E+001 -0.3085686E+002
+  0.2597700E+001 -0.3095318E+002
+  0.2595000E+001 -0.3104989E+002
+  0.2592300E+001 -0.3114701E+002
+  0.2589600E+001 -0.3124454E+002
+  0.2586900E+001 -0.3134248E+002
+  0.2584200E+001 -0.3144082E+002
+  0.2581500E+001 -0.3153957E+002
+  0.2578800E+001 -0.3163874E+002
+  0.2576100E+001 -0.3173833E+002
+  0.2573400E+001 -0.3183833E+002
+  0.2570700E+001 -0.3193876E+002
+  0.2568000E+001 -0.3203961E+002
+  0.2565300E+001 -0.3214088E+002
+  0.2562600E+001 -0.3224258E+002
+  0.2559900E+001 -0.3234471E+002
+  0.2557200E+001 -0.3244727E+002
+  0.2554500E+001 -0.3255026E+002
+  0.2551800E+001 -0.3265370E+002
+  0.2549100E+001 -0.3275757E+002
+  0.2546400E+001 -0.3286188E+002
+  0.2543700E+001 -0.3296663E+002
+  0.2541000E+001 -0.3307183E+002
+  0.2538300E+001 -0.3317748E+002
+  0.2535600E+001 -0.3328358E+002
+  0.2532900E+001 -0.3339013E+002
+  0.2530200E+001 -0.3349714E+002
+  0.2527500E+001 -0.3360460E+002
+  0.2524800E+001 -0.3371253E+002
+  0.2522100E+001 -0.3382092E+002
+  0.2519400E+001 -0.3392977E+002
+  0.2516700E+001 -0.3403909E+002
+  0.2514000E+001 -0.3414888E+002
+  0.2511300E+001 -0.3425914E+002
+  0.2508600E+001 -0.3436988E+002
+  0.2505900E+001 -0.3448110E+002
+  0.2503200E+001 -0.3459279E+002
+  0.2500500E+001 -0.3470497E+002
+  0.2497800E+001 -0.3481764E+002
+  0.2495100E+001 -0.3493079E+002
+  0.2492400E+001 -0.3504443E+002
+  0.2489700E+001 -0.3515857E+002
+  0.2487000E+001 -0.3527321E+002
+  0.2484300E+001 -0.3538834E+002
+  0.2481600E+001 -0.3550397E+002
+  0.2478900E+001 -0.3562011E+002
+  0.2476200E+001 -0.3573676E+002
+  0.2473500E+001 -0.3585391E+002
+  0.2470800E+001 -0.3597158E+002
+  0.2468100E+001 -0.3608976E+002
+  0.2465400E+001 -0.3620847E+002
+  0.2462700E+001 -0.3632769E+002
+  0.2460000E+001 -0.3644744E+002
+  0.2457300E+001 -0.3656771E+002
+  0.2454600E+001 -0.3668851E+002
+  0.2451900E+001 -0.3680985E+002
+  0.2449200E+001 -0.3693172E+002
+  0.2446500E+001 -0.3705413E+002
+  0.2443800E+001 -0.3717709E+002
+  0.2441100E+001 -0.3730058E+002
+  0.2438400E+001 -0.3742463E+002
+  0.2435700E+001 -0.3754922E+002
+  0.2433000E+001 -0.3767437E+002
+  0.2430300E+001 -0.3780008E+002
+  0.2427600E+001 -0.3792634E+002
+  0.2424900E+001 -0.3805317E+002
+  0.2422200E+001 -0.3818056E+002
+  0.2419500E+001 -0.3830853E+002
+  0.2416800E+001 -0.3843706E+002
+  0.2414100E+001 -0.3856618E+002
+  0.2411400E+001 -0.3869587E+002
+  0.2408700E+001 -0.3882614E+002
+  0.2406000E+001 -0.3895700E+002
+  0.2403300E+001 -0.3908845E+002
+  0.2400600E+001 -0.3922049E+002
+  0.2397900E+001 -0.3935312E+002
+  0.2395200E+001 -0.3948635E+002
+  0.2392500E+001 -0.3962019E+002
+  0.2389800E+001 -0.3975463E+002
+  0.2387100E+001 -0.3988968E+002
+  0.2384400E+001 -0.4002534E+002
+  0.2381700E+001 -0.4016162E+002
+  0.2379000E+001 -0.4029852E+002
+  0.2376300E+001 -0.4043604E+002
+  0.2373600E+001 -0.4057418E+002
+  0.2370900E+001 -0.4071296E+002
+  0.2368200E+001 -0.4085237E+002
+  0.2365500E+001 -0.4099242E+002
+  0.2362800E+001 -0.4113311E+002
+  0.2360100E+001 -0.4127444E+002
+  0.2357400E+001 -0.4141642E+002
+  0.2354700E+001 -0.4155905E+002
+  0.2352000E+001 -0.4170234E+002
+  0.2349300E+001 -0.4184629E+002
+  0.2346600E+001 -0.4199090E+002
+  0.2343900E+001 -0.4213618E+002
+  0.2341200E+001 -0.4228213E+002
+  0.2338500E+001 -0.4242876E+002
+  0.2335800E+001 -0.4257606E+002
+  0.2333100E+001 -0.4272405E+002
+  0.2330400E+001 -0.4287272E+002
+  0.2327700E+001 -0.4302208E+002
+  0.2325000E+001 -0.4317214E+002
+  0.2322300E+001 -0.4332290E+002
+  0.2319600E+001 -0.4347435E+002
+  0.2316900E+001 -0.4362652E+002
+  0.2314200E+001 -0.4377940E+002
+  0.2311500E+001 -0.4393299E+002
+  0.2308800E+001 -0.4408730E+002
+  0.2306100E+001 -0.4424234E+002
+  0.2303400E+001 -0.4439810E+002
+  0.2300700E+001 -0.4455459E+002
+  0.2298000E+001 -0.4471182E+002
+  0.2295300E+001 -0.4486980E+002
+  0.2292600E+001 -0.4502851E+002
+  0.2289900E+001 -0.4518798E+002
+  0.2287200E+001 -0.4534820E+002
+  0.2284500E+001 -0.4550918E+002
+  0.2281800E+001 -0.4567092E+002
+  0.2279100E+001 -0.4583343E+002
+  0.2276400E+001 -0.4599671E+002
+  0.2273700E+001 -0.4616077E+002
+  0.2271000E+001 -0.4632560E+002
+  0.2268300E+001 -0.4649123E+002
+  0.2265600E+001 -0.4665764E+002
+  0.2262900E+001 -0.4682485E+002
+  0.2260200E+001 -0.4699286E+002
+  0.2257500E+001 -0.4716168E+002
+  0.2254800E+001 -0.4733130E+002
+  0.2252100E+001 -0.4750174E+002
+  0.2249400E+001 -0.4767300E+002
+  0.2246700E+001 -0.4784508E+002
+  0.2244000E+001 -0.4801799E+002
+  0.2241300E+001 -0.4819173E+002
+  0.2238600E+001 -0.4836632E+002
+  0.2235900E+001 -0.4854175E+002
+  0.2233200E+001 -0.4871803E+002
+  0.2230500E+001 -0.4889516E+002
+  0.2227800E+001 -0.4907315E+002
+  0.2225100E+001 -0.4925201E+002
+  0.2222400E+001 -0.4943174E+002
+  0.2219700E+001 -0.4961234E+002
+  0.2217000E+001 -0.4979382E+002
+  0.2214300E+001 -0.4997619E+002
+  0.2211600E+001 -0.5015946E+002
+  0.2208900E+001 -0.5034362E+002
+  0.2206200E+001 -0.5052868E+002
+  0.2203500E+001 -0.5071465E+002
+  0.2200800E+001 -0.5090153E+002
+  0.2198100E+001 -0.5108933E+002
+  0.2195400E+001 -0.5127806E+002
+  0.2192700E+001 -0.5146772E+002
+  0.2190000E+001 -0.5165832E+002
+  0.2187300E+001 -0.5184985E+002
+  0.2184600E+001 -0.5204234E+002
+  0.2181900E+001 -0.5223578E+002
+  0.2179200E+001 -0.5243018E+002
+  0.2176500E+001 -0.5262554E+002
+  0.2173800E+001 -0.5282188E+002
+  0.2171100E+001 -0.5301920E+002
+  0.2168400E+001 -0.5321749E+002
+  0.2165700E+001 -0.5341678E+002
+  0.2163000E+001 -0.5361707E+002
+  0.2160300E+001 -0.5381836E+002
+  0.2157600E+001 -0.5402065E+002
+  0.2154900E+001 -0.5422396E+002
+  0.2152200E+001 -0.5442830E+002
+  0.2149500E+001 -0.5463366E+002
+  0.2146800E+001 -0.5484006E+002
+  0.2144100E+001 -0.5504749E+002
+  0.2141400E+001 -0.5525598E+002
+  0.2138700E+001 -0.5546551E+002
+  0.2136000E+001 -0.5567611E+002
+  0.2133300E+001 -0.5588778E+002
+  0.2130600E+001 -0.5610052E+002
+  0.2127900E+001 -0.5631434E+002
+  0.2125200E+001 -0.5652925E+002
+  0.2122500E+001 -0.5674526E+002
+  0.2119800E+001 -0.5696237E+002
+  0.2117100E+001 -0.5718058E+002
+  0.2114400E+001 -0.5739991E+002
+  0.2111700E+001 -0.5762037E+002
+  0.2109000E+001 -0.5784195E+002
+  0.2106300E+001 -0.5806468E+002
+  0.2103600E+001 -0.5828854E+002
+  0.2100900E+001 -0.5851357E+002
+  0.2098200E+001 -0.5873975E+002
+  0.2095500E+001 -0.5896709E+002
+  0.2092800E+001 -0.5919561E+002
+  0.2090100E+001 -0.5942532E+002
+  0.2087400E+001 -0.5965621E+002
+  0.2084700E+001 -0.5988831E+002
+  0.2082000E+001 -0.6012160E+002
+  0.2079300E+001 -0.6035611E+002
+  0.2076600E+001 -0.6059185E+002
+  0.2073900E+001 -0.6082881E+002
+  0.2071200E+001 -0.6106701E+002
+  0.2068500E+001 -0.6130645E+002
+  0.2065800E+001 -0.6154715E+002
+  0.2063100E+001 -0.6178911E+002
+  0.2060400E+001 -0.6203234E+002
+  0.2057700E+001 -0.6227684E+002
+  0.2055000E+001 -0.6252264E+002
+  0.2052300E+001 -0.6276973E+002
+  0.2049600E+001 -0.6301812E+002
+  0.2046900E+001 -0.6326782E+002
+  0.2044200E+001 -0.6351885E+002
+  0.2041500E+001 -0.6377121E+002
+  0.2038800E+001 -0.6402490E+002
+  0.2036100E+001 -0.6427994E+002
+  0.2033400E+001 -0.6453634E+002
+  0.2030700E+001 -0.6479411E+002
+  0.2028000E+001 -0.6505324E+002
+  0.2025300E+001 -0.6531377E+002
+  0.2022600E+001 -0.6557568E+002
+  0.2019900E+001 -0.6583900E+002
+  0.2017200E+001 -0.6610373E+002
+  0.2014500E+001 -0.6636988E+002
+  0.2011800E+001 -0.6663746E+002
+  0.2009100E+001 -0.6690648E+002
+  0.2006400E+001 -0.6717695E+002
+  0.2003700E+001 -0.6744888E+002
+  0.2001000E+001 -0.6772228E+002
+  0.1998300E+001 -0.6799716E+002
+  0.1995600E+001 -0.6827353E+002
+  0.1992900E+001 -0.6855140E+002
+  0.1990200E+001 -0.6883078E+002
+  0.1987500E+001 -0.6911168E+002
+  0.1984800E+001 -0.6939411E+002
+  0.1982100E+001 -0.6967808E+002
+  0.1979400E+001 -0.6996361E+002
+  0.1976700E+001 -0.7025069E+002
+  0.1974000E+001 -0.7053935E+002
+  0.1971300E+001 -0.7082959E+002
+  0.1968600E+001 -0.7112143E+002
+  0.1965900E+001 -0.7141487E+002
+  0.1963200E+001 -0.7170993E+002
+  0.1960500E+001 -0.7200661E+002
+  0.1957800E+001 -0.7230494E+002
+  0.1955100E+001 -0.7260491E+002
+  0.1952400E+001 -0.7290655E+002
+  0.1949700E+001 -0.7320986E+002
+  0.1947000E+001 -0.7351485E+002
+  0.1944300E+001 -0.7382154E+002
+  0.1941600E+001 -0.7412994E+002
+  0.1938900E+001 -0.7444006E+002
+  0.1936200E+001 -0.7475191E+002
+  0.1933500E+001 -0.7506551E+002
+  0.1930800E+001 -0.7538086E+002
+  0.1928100E+001 -0.7569798E+002
+  0.1925400E+001 -0.7601689E+002
+  0.1922700E+001 -0.7633758E+002
+  0.1920000E+001 -0.7666009E+002
+  0.1917300E+001 -0.7698441E+002
+  0.1914600E+001 -0.7731056E+002
+  0.1911900E+001 -0.7763856E+002
+  0.1909200E+001 -0.7796842E+002
+  0.1906500E+001 -0.7830015E+002
+  0.1903800E+001 -0.7863376E+002
+  0.1901100E+001 -0.7896927E+002
+  0.1898400E+001 -0.7930669E+002
+  0.1895700E+001 -0.7964604E+002
+  0.1893000E+001 -0.7998733E+002
+  0.1890300E+001 -0.8033057E+002
+  0.1887600E+001 -0.8067577E+002
+  0.1884900E+001 -0.8102296E+002
+  0.1882200E+001 -0.8137214E+002
+  0.1879500E+001 -0.8172333E+002
+  0.1876800E+001 -0.8207655E+002
+  0.1874100E+001 -0.8243180E+002
+  0.1871400E+001 -0.8278911E+002
+  0.1868700E+001 -0.8314848E+002
+  0.1866000E+001 -0.8350994E+002
+  0.1863300E+001 -0.8387349E+002
+  0.1860600E+001 -0.8423916E+002
+  0.1857900E+001 -0.8460696E+002
+  0.1855200E+001 -0.8497690E+002
+  0.1852500E+001 -0.8534901E+002
+  0.1849800E+001 -0.8572328E+002
+  0.1847100E+001 -0.8609975E+002
+  0.1844400E+001 -0.8647843E+002
+  0.1841700E+001 -0.8685933E+002
+  0.1839000E+001 -0.8724247E+002
+  0.1836300E+001 -0.8762787E+002
+  0.1833600E+001 -0.8801554E+002
+  0.1830900E+001 -0.8840550E+002
+  0.1828200E+001 -0.8879777E+002
+  0.1825500E+001 -0.8919236E+002
+  0.1822800E+001 -0.8958929E+002
+  0.1820100E+001 -0.8998859E+002
+  0.1817400E+001 -0.9039026E+002
+  0.1814700E+001 -0.9079432E+002
+  0.1812000E+001 -0.9120079E+002
+  0.1809300E+001 -0.9160970E+002
+  0.1806600E+001 -0.9202105E+002
+  0.1803900E+001 -0.9243487E+002
+  0.1801200E+001 -0.9285118E+002
+  0.1798500E+001 -0.9326998E+002
+  0.1795800E+001 -0.9369131E+002
+  0.1793100E+001 -0.9411519E+002
+  0.1790400E+001 -0.9454162E+002
+  0.1787700E+001 -0.9497063E+002
+  0.1785000E+001 -0.9540224E+002
+  0.1782300E+001 -0.9583648E+002
+  0.1779600E+001 -0.9627335E+002
+  0.1776900E+001 -0.9671288E+002
+  0.1774200E+001 -0.9715509E+002
+  0.1771500E+001 -0.9760000E+002
+  0.1768800E+001 -0.9804763E+002
+  0.1766100E+001 -0.9849800E+002
+  0.1763400E+001 -0.9895114E+002
+  0.1760700E+001 -0.9940706E+002
+  0.1758000E+001 -0.9986578E+002
+  0.1755300E+001 -0.1003273E+003
+  0.1752600E+001 -0.1007917E+003
+  0.1749900E+001 -0.1012590E+003
+  0.1747200E+001 -0.1017292E+003
+  0.1744500E+001 -0.1022022E+003
+  0.1741800E+001 -0.1026783E+003
+  0.1739100E+001 -0.1031572E+003
+  0.1736400E+001 -0.1036392E+003
+  0.1733700E+001 -0.1041242E+003
+  0.1731000E+001 -0.1046122E+003
+  0.1728300E+001 -0.1051032E+003
+  0.1725600E+001 -0.1055973E+003
+  0.1722900E+001 -0.1060946E+003
+  0.1720200E+001 -0.1065949E+003
+  0.1717500E+001 -0.1070984E+003
+  0.1714800E+001 -0.1076051E+003
+  0.1712100E+001 -0.1081150E+003
+  0.1709400E+001 -0.1086281E+003
+  0.1706700E+001 -0.1091445E+003
+  0.1704000E+001 -0.1096642E+003
+  0.1701300E+001 -0.1101871E+003
+  0.1698600E+001 -0.1107134E+003
+  0.1695900E+001 -0.1112430E+003
+  0.1693200E+001 -0.1117760E+003
+  0.1690500E+001 -0.1123125E+003
+  0.1687800E+001 -0.1128523E+003
+  0.1685100E+001 -0.1133957E+003
+  0.1682400E+001 -0.1139425E+003
+  0.1679700E+001 -0.1144928E+003
+  0.1677000E+001 -0.1150467E+003
+  0.1674300E+001 -0.1156042E+003
+  0.1671600E+001 -0.1161653E+003
+  0.1668900E+001 -0.1167300E+003
+  0.1666200E+001 -0.1172984E+003
+  0.1663500E+001 -0.1178705E+003
+  0.1660800E+001 -0.1184463E+003
+  0.1658100E+001 -0.1190259E+003
+  0.1655400E+001 -0.1196092E+003
+  0.1652700E+001 -0.1201964E+003
+  0.1650000E+001 -0.1207874E+003
+  0.1647300E+001 -0.1213823E+003
+  0.1644600E+001 -0.1219812E+003
+  0.1641900E+001 -0.1225839E+003
+  0.1639200E+001 -0.1231907E+003
+  0.1636500E+001 -0.1238014E+003
+  0.1633800E+001 -0.1244162E+003
+  0.1631100E+001 -0.1250351E+003
+  0.1628400E+001 -0.1256581E+003
+  0.1625700E+001 -0.1262852E+003
+  0.1623000E+001 -0.1269165E+003
+  0.1620300E+001 -0.1275520E+003
+  0.1617600E+001 -0.1281918E+003
+  0.1614900E+001 -0.1288359E+003
+  0.1612200E+001 -0.1294843E+003
+  0.1609500E+001 -0.1301370E+003
+  0.1606800E+001 -0.1307941E+003
+  0.1604100E+001 -0.1314557E+003
+  0.1601400E+001 -0.1321217E+003
+  0.1598700E+001 -0.1327923E+003
+  0.1596000E+001 -0.1334674E+003
+  0.1593300E+001 -0.1341470E+003
+  0.1590600E+001 -0.1348313E+003
+  0.1587900E+001 -0.1355203E+003
+  0.1585200E+001 -0.1362140E+003
+  0.1582500E+001 -0.1369124E+003
+  0.1579800E+001 -0.1376155E+003
+  0.1577100E+001 -0.1383235E+003
+  0.1574400E+001 -0.1390364E+003
+  0.1571700E+001 -0.1397542E+003
+  0.1569000E+001 -0.1404769E+003
+  0.1566300E+001 -0.1412047E+003
+  0.1563600E+001 -0.1419374E+003
+  0.1560900E+001 -0.1426752E+003
+  0.1558200E+001 -0.1434182E+003
+  0.1555500E+001 -0.1441663E+003
+  0.1552800E+001 -0.1449197E+003
+  0.1550100E+001 -0.1456783E+003
+  0.1547400E+001 -0.1464422E+003
+  0.1544700E+001 -0.1472114E+003
+  0.1542000E+001 -0.1479861E+003
+  0.1539300E+001 -0.1487662E+003
+  0.1536600E+001 -0.1495517E+003
+  0.1533900E+001 -0.1503429E+003
+  0.1531200E+001 -0.1511396E+003
+  0.1528500E+001 -0.1519419E+003
+  0.1525800E+001 -0.1527500E+003
+  0.1523100E+001 -0.1535638E+003
+  0.1520400E+001 -0.1543833E+003
+  0.1517700E+001 -0.1552088E+003
+  0.1515000E+001 -0.1560401E+003
+  0.1512300E+001 -0.1568773E+003
+  0.1509600E+001 -0.1577206E+003
+  0.1506900E+001 -0.1585699E+003
+  0.1504200E+001 -0.1594253E+003
+  0.1501500E+001 -0.1602869E+003
+  0.1498800E+001 -0.1611547E+003
+  0.1496100E+001 -0.1620288E+003
+  0.1493400E+001 -0.1629092E+003
+  0.1490700E+001 -0.1637960E+003
+  0.1488000E+001 -0.1646893E+003
+  0.1485300E+001 -0.1655890E+003
+  0.1482600E+001 -0.1664954E+003
+  0.1479900E+001 -0.1674083E+003
+  0.1477200E+001 -0.1683280E+003
+  0.1474500E+001 -0.1692544E+003
+  0.1471800E+001 -0.1701876E+003
+  0.1469100E+001 -0.1711276E+003
+  0.1466400E+001 -0.1720746E+003
+  0.1463700E+001 -0.1730286E+003
+  0.1461000E+001 -0.1739897E+003
+  0.1458300E+001 -0.1749579E+003
+  0.1455600E+001 -0.1759333E+003
+  0.1452900E+001 -0.1769160E+003
+  0.1450200E+001 -0.1779060E+003
+  0.1447500E+001 -0.1789034E+003
+  0.1444800E+001 -0.1799083E+003
+  0.1442100E+001 -0.1809207E+003
+  0.1439400E+001 -0.1819407E+003
+  0.1436700E+001 -0.1829684E+003
+  0.1434000E+001 -0.1840038E+003
+  0.1431300E+001 -0.1850471E+003
+  0.1428600E+001 -0.1860983E+003
+  0.1425900E+001 -0.1871575E+003
+  0.1423200E+001 -0.1882247E+003
+  0.1420500E+001 -0.1893000E+003
+  0.1417800E+001 -0.1903836E+003
+  0.1415100E+001 -0.1914754E+003
+  0.1412400E+001 -0.1925756E+003
+  0.1409700E+001 -0.1936843E+003
+  0.1407000E+001 -0.1948014E+003
+  0.1404300E+001 -0.1959272E+003
+  0.1401600E+001 -0.1970617E+003
+  0.1398900E+001 -0.1982049E+003
+  0.1396200E+001 -0.1993571E+003
+  0.1393500E+001 -0.2005181E+003
+  0.1390800E+001 -0.2016882E+003
+  0.1388100E+001 -0.2028674E+003
+  0.1385400E+001 -0.2040558E+003
+  0.1382700E+001 -0.2052536E+003
+  0.1380000E+001 -0.2064607E+003
+  0.1377300E+001 -0.2076773E+003
+  0.1374600E+001 -0.2089034E+003
+  0.1371900E+001 -0.2101393E+003
+  0.1369200E+001 -0.2113849E+003
+  0.1366500E+001 -0.2126404E+003
+  0.1363800E+001 -0.2139058E+003
+  0.1361100E+001 -0.2151813E+003
+  0.1358400E+001 -0.2164670E+003
+  0.1355700E+001 -0.2177629E+003
+  0.1353000E+001 -0.2190692E+003
+  0.1350300E+001 -0.2203860E+003
+  0.1347600E+001 -0.2217133E+003
+  0.1344900E+001 -0.2230513E+003
+  0.1342200E+001 -0.2244001E+003
+  0.1339500E+001 -0.2257598E+003
+  0.1336800E+001 -0.2271305E+003
+  0.1334100E+001 -0.2285123E+003
+  0.1331400E+001 -0.2299054E+003
+  0.1328700E+001 -0.2313098E+003
+  0.1326000E+001 -0.2327257E+003
+  0.1323300E+001 -0.2341531E+003
+  0.1320600E+001 -0.2355923E+003
+  0.1317900E+001 -0.2370432E+003
+  0.1315200E+001 -0.2385061E+003
+  0.1312500E+001 -0.2399811E+003
+  0.1309800E+001 -0.2414682E+003
+  0.1307100E+001 -0.2429677E+003
+  0.1304400E+001 -0.2444796E+003
+  0.1301700E+001 -0.2460041E+003
+  0.1299000E+001 -0.2475412E+003
+  0.1296300E+001 -0.2490913E+003
+  0.1293600E+001 -0.2506542E+003
+  0.1290900E+001 -0.2522303E+003
+  0.1288200E+001 -0.2538196E+003
+  0.1285500E+001 -0.2554223E+003
+  0.1282800E+001 -0.2570385E+003
+  0.1280100E+001 -0.2586684E+003
+  0.1277400E+001 -0.2603121E+003
+  0.1274700E+001 -0.2619698E+003
+  0.1272000E+001 -0.2636415E+003
+  0.1269300E+001 -0.2653276E+003
+  0.1266600E+001 -0.2670280E+003
+  0.1263900E+001 -0.2687430E+003
+  0.1261200E+001 -0.2704727E+003
+  0.1258500E+001 -0.2722172E+003
+  0.1255800E+001 -0.2739768E+003
+  0.1253100E+001 -0.2757516E+003
+  0.1250400E+001 -0.2775418E+003
+  0.1247700E+001 -0.2793475E+003
+  0.1245000E+001 -0.2811689E+003
+  0.1242300E+001 -0.2830062E+003
+  0.1239600E+001 -0.2848595E+003
+  0.1236900E+001 -0.2867290E+003
+  0.1234200E+001 -0.2886149E+003
+  0.1231500E+001 -0.2905174E+003
+  0.1228800E+001 -0.2924367E+003
+  0.1226100E+001 -0.2943729E+003
+  0.1223400E+001 -0.2963262E+003
+  0.1220700E+001 -0.2982969E+003
+  0.1218000E+001 -0.3002850E+003
+  0.1215300E+001 -0.3022909E+003
+  0.1212600E+001 -0.3043147E+003
+  0.1209900E+001 -0.3063565E+003
+  0.1207200E+001 -0.3084167E+003
+  0.1204500E+001 -0.3104954E+003
+  0.1201800E+001 -0.3125929E+003
+  0.1199100E+001 -0.3147092E+003
+  0.1196400E+001 -0.3168447E+003
+  0.1193700E+001 -0.3189996E+003
+  0.1191000E+001 -0.3211740E+003
+  0.1188300E+001 -0.3233683E+003
+  0.1185600E+001 -0.3255826E+003
+  0.1182900E+001 -0.3278172E+003
+  0.1180200E+001 -0.3300722E+003
+  0.1177500E+001 -0.3323480E+003
+  0.1174800E+001 -0.3346448E+003
+  0.1172100E+001 -0.3369627E+003
+  0.1169400E+001 -0.3393022E+003
+  0.1166700E+001 -0.3416633E+003
+  0.1164000E+001 -0.3440464E+003
+  0.1161300E+001 -0.3464517E+003
+  0.1158600E+001 -0.3488795E+003
+  0.1155900E+001 -0.3513300E+003
+  0.1153200E+001 -0.3538035E+003
+  0.1150500E+001 -0.3563003E+003
+  0.1147800E+001 -0.3588206E+003
+  0.1145100E+001 -0.3613648E+003
+  0.1142400E+001 -0.3639331E+003
+  0.1139700E+001 -0.3665258E+003
+  0.1137000E+001 -0.3691431E+003
+  0.1134300E+001 -0.3717855E+003
+  0.1131600E+001 -0.3744531E+003
+  0.1128900E+001 -0.3771463E+003
+  0.1126200E+001 -0.3798654E+003
+  0.1123500E+001 -0.3826107E+003
+  0.1120800E+001 -0.3853825E+003
+  0.1118100E+001 -0.3881811E+003
+  0.1115400E+001 -0.3910069E+003
+  0.1112700E+001 -0.3938602E+003
+  0.1110000E+001 -0.3967414E+003
+  0.1107300E+001 -0.3996507E+003
+  0.1104600E+001 -0.4025885E+003
+  0.1101900E+001 -0.4055552E+003
+  0.1099200E+001 -0.4085511E+003
+  0.1096500E+001 -0.4115766E+003
+  0.1093800E+001 -0.4146320E+003
+  0.1091100E+001 -0.4177177E+003
+  0.1088400E+001 -0.4208342E+003
+  0.1085700E+001 -0.4239817E+003
+  0.1083000E+001 -0.4271607E+003
+  0.1080300E+001 -0.4303716E+003
+  0.1077600E+001 -0.4336147E+003
+  0.1074900E+001 -0.4368905E+003
+  0.1072200E+001 -0.4401993E+003
+  0.1069500E+001 -0.4435417E+003
+  0.1066800E+001 -0.4469180E+003
+  0.1064100E+001 -0.4503286E+003
+  0.1061400E+001 -0.4537740E+003
+  0.1058700E+001 -0.4572547E+003
+  0.1056000E+001 -0.4607711E+003
+  0.1053300E+001 -0.4643236E+003
+  0.1050600E+001 -0.4679127E+003
+  0.1047900E+001 -0.4715389E+003
+  0.1045200E+001 -0.4752027E+003
+  0.1042500E+001 -0.4789045E+003
+  0.1039800E+001 -0.4826449E+003
+  0.1037100E+001 -0.4864243E+003
+  0.1034400E+001 -0.4902433E+003
+  0.1031700E+001 -0.4941024E+003
+  0.1029000E+001 -0.4980020E+003
+  0.1026300E+001 -0.5019429E+003
+  0.1023600E+001 -0.5059254E+003
+  0.1020900E+001 -0.5099502E+003
+  0.1018200E+001 -0.5140177E+003
+  0.1015500E+001 -0.5181287E+003
+  0.1012800E+001 -0.5222836E+003
+  0.1010100E+001 -0.5264830E+003
+  0.1007400E+001 -0.5307276E+003
+  0.1004700E+001 -0.5350179E+003
+  0.1002000E+001 -0.5393546E+003
+  0.9993000E+000 -0.5437383E+003
+  0.9966000E+000 -0.5481697E+003
+  0.9939000E+000 -0.5526493E+003
+  0.9912000E+000 -0.5571778E+003
+  0.9885000E+000 -0.5617560E+003
+  0.9858000E+000 -0.5663845E+003
+  0.9831000E+000 -0.5710639E+003
+  0.9804000E+000 -0.5757951E+003
+  0.9777000E+000 -0.5805786E+003
+  0.9750000E+000 -0.5854153E+003
+  0.9723000E+000 -0.5903059E+003
+  0.9696000E+000 -0.5952511E+003
+  0.9669000E+000 -0.6002516E+003
+  0.9642000E+000 -0.6053084E+003
+  0.9615000E+000 -0.6104221E+003
+  0.9588000E+000 -0.6155936E+003
+  0.9561000E+000 -0.6208236E+003
+  0.9534000E+000 -0.6261131E+003
+  0.9507000E+000 -0.6314628E+003
+  0.9480000E+000 -0.6368737E+003
+  0.9453000E+000 -0.6423465E+003
+  0.9426000E+000 -0.6478823E+003
+  0.9399000E+000 -0.6534818E+003
+  0.9372000E+000 -0.6591460E+003
+  0.9345000E+000 -0.6648759E+003
+  0.9318000E+000 -0.6706724E+003
+  0.9291000E+000 -0.6765365E+003
+  0.9264000E+000 -0.6824691E+003
+  0.9237000E+000 -0.6884713E+003
+  0.9210000E+000 -0.6945441E+003
+  0.9183000E+000 -0.7006886E+003
+  0.9156000E+000 -0.7069057E+003
+  0.9129000E+000 -0.7131966E+003
+  0.9102000E+000 -0.7195623E+003
+  0.9075000E+000 -0.7260041E+003
+  0.9048000E+000 -0.7325229E+003
+  0.9021000E+000 -0.7391201E+003
+  0.8994000E+000 -0.7457967E+003
+  0.8967000E+000 -0.7525539E+003
+  0.8940000E+000 -0.7593931E+003
+  0.8913000E+000 -0.7663153E+003
+  0.8886000E+000 -0.7733220E+003
+  0.8859000E+000 -0.7804143E+003
+  0.8832000E+000 -0.7875936E+003
+  0.8805000E+000 -0.7948613E+003
+  0.8778000E+000 -0.8022187E+003
+  0.8751000E+000 -0.8096671E+003
+  0.8724000E+000 -0.8172080E+003
+  0.8697000E+000 -0.8248429E+003
+  0.8670000E+000 -0.8325731E+003
+  0.8643000E+000 -0.8404003E+003
+  0.8616000E+000 -0.8483259E+003
+  0.8589000E+000 -0.8563515E+003
+  0.8562000E+000 -0.8644786E+003
+  0.8535000E+000 -0.8727089E+003
+  0.8508000E+000 -0.8810439E+003
+  0.8481000E+000 -0.8894855E+003
+  0.8454000E+000 -0.8980353E+003
+  0.8427000E+000 -0.9066950E+003
+  0.8400000E+000 -0.9154663E+003
+  0.8373000E+000 -0.9243512E+003
+  0.8346000E+000 -0.9333515E+003
+  0.8319000E+000 -0.9424689E+003
+  0.8292000E+000 -0.9517055E+003
+  0.8265000E+000 -0.9610632E+003
+  0.8238000E+000 -0.9705440E+003
+  0.8211000E+000 -0.9801499E+003
+  0.8184000E+000 -0.9898830E+003
+  0.8157000E+000 -0.9997454E+003
+  0.8130000E+000 -0.1009739E+004
+  0.8103000E+000 -0.1019867E+004
+  0.8076000E+000 -0.1030130E+004
+  0.8049000E+000 -0.1040532E+004
+  0.8022000E+000 -0.1051074E+004
+  0.7995000E+000 -0.1061759E+004
+  0.7968000E+000 -0.1072589E+004
+  0.7941000E+000 -0.1083567E+004
+  0.7914000E+000 -0.1094695E+004
+  0.7887000E+000 -0.1105977E+004
+  0.7860000E+000 -0.1117413E+004
+  0.7833000E+000 -0.1129008E+004
+  0.7806000E+000 -0.1140765E+004
+  0.7779000E+000 -0.1152684E+004
+  0.7752000E+000 -0.1164771E+004
+  0.7725000E+000 -0.1177027E+004
+  0.7698000E+000 -0.1189456E+004
+  0.7671000E+000 -0.1202060E+004
+  0.7644000E+000 -0.1214843E+004
+  0.7617000E+000 -0.1227808E+004
+  0.7590000E+000 -0.1240958E+004
+  0.7563000E+000 -0.1254296E+004
+  0.7536000E+000 -0.1267826E+004
+  0.7509000E+000 -0.1281552E+004
+  0.7482000E+000 -0.1295476E+004
+  0.7455000E+000 -0.1309603E+004
+  0.7428000E+000 -0.1323936E+004
+  0.7401000E+000 -0.1338479E+004
+  0.7374000E+000 -0.1353236E+004
+  0.7347000E+000 -0.1368210E+004
+  0.7320000E+000 -0.1383407E+004
+  0.7293000E+000 -0.1398829E+004
+  0.7266000E+000 -0.1414481E+004
+  0.7239000E+000 -0.1430367E+004
+  0.7212000E+000 -0.1446493E+004
+  0.7185000E+000 -0.1462862E+004
+  0.7158000E+000 -0.1479478E+004
+  0.7131000E+000 -0.1496347E+004
+  0.7104000E+000 -0.1513474E+004
+  0.7077000E+000 -0.1530863E+004
+  0.7050000E+000 -0.1548519E+004
+  0.7023000E+000 -0.1566448E+004
+  0.6996000E+000 -0.1584655E+004
+  0.6969000E+000 -0.1603145E+004
+  0.6942000E+000 -0.1621924E+004
+  0.6915000E+000 -0.1640998E+004
+  0.6888000E+000 -0.1660371E+004
+  0.6861000E+000 -0.1680051E+004
+  0.6834000E+000 -0.1700043E+004
+  0.6807000E+000 -0.1720353E+004
+  0.6780000E+000 -0.1740989E+004
+  0.6753000E+000 -0.1761955E+004
+  0.6726000E+000 -0.1783260E+004
+  0.6699000E+000 -0.1804910E+004
+  0.6672000E+000 -0.1826911E+004
+  0.6645000E+000 -0.1849271E+004
+  0.6618000E+000 -0.1871998E+004
+  0.6591000E+000 -0.1895099E+004
+  0.6564000E+000 -0.1918581E+004
+  0.6537000E+000 -0.1942454E+004
+  0.6510000E+000 -0.1966723E+004
+  0.6483000E+000 -0.1991399E+004
+  0.6456000E+000 -0.2016489E+004
+  0.6429000E+000 -0.2042003E+004
+  0.6402000E+000 -0.2067948E+004
+  0.6375000E+000 -0.2094336E+004
+  0.6348000E+000 -0.2121174E+004
+  0.6321000E+000 -0.2148472E+004
+  0.6294000E+000 -0.2176241E+004
+  0.6267000E+000 -0.2204491E+004
+  0.6240000E+000 -0.2233232E+004
+  0.6213000E+000 -0.2262474E+004
+  0.6186000E+000 -0.2292229E+004
+  0.6159000E+000 -0.2322509E+004
+  0.6132000E+000 -0.2353324E+004
+  0.6105000E+000 -0.2384686E+004
+  0.6078000E+000 -0.2416609E+004
+  0.6051000E+000 -0.2449103E+004
+  0.6024000E+000 -0.2482183E+004
+  0.5997000E+000 -0.2515861E+004
+  0.5970000E+000 -0.2550152E+004
+  0.5943000E+000 -0.2585068E+004
+  0.5916000E+000 -0.2620625E+004
+  0.5889000E+000 -0.2656837E+004
+  0.5862000E+000 -0.2693719E+004
+  0.5835000E+000 -0.2731287E+004
+  0.5808000E+000 -0.2769556E+004
+  0.5781000E+000 -0.2808544E+004
+  0.5754000E+000 -0.2848268E+004
+  0.5727000E+000 -0.2888744E+004
+  0.5700000E+000 -0.2929990E+004
+  0.5673000E+000 -0.2972026E+004
+  0.5646000E+000 -0.3014869E+004
+  0.5619000E+000 -0.3058540E+004
+  0.5592000E+000 -0.3103059E+004
+  0.5565000E+000 -0.3148446E+004
+  0.5538000E+000 -0.3194722E+004
+  0.5511000E+000 -0.3241909E+004
+  0.5484000E+000 -0.3290031E+004
+  0.5457000E+000 -0.3339110E+004
+  0.5430000E+000 -0.3389169E+004
+  0.5403000E+000 -0.3440235E+004
+  0.5376000E+000 -0.3492331E+004
+  0.5349000E+000 -0.3545485E+004
+  0.5322000E+000 -0.3599722E+004
+  0.5295000E+000 -0.3655072E+004
+  0.5268000E+000 -0.3711563E+004
+  0.5241000E+000 -0.3769223E+004
+  0.5214000E+000 -0.3828084E+004
+  0.5187000E+000 -0.3888177E+004
+  0.5160000E+000 -0.3949535E+004
+  0.5133000E+000 -0.4012190E+004
+  0.5106000E+000 -0.4076178E+004
+  0.5079000E+000 -0.4141533E+004
+  0.5052000E+000 -0.4208294E+004
+  0.5025000E+000 -0.4276497E+004
+  0.4998000E+000 -0.4346182E+004
+  0.4971000E+000 -0.4417389E+004
+  0.4944000E+000 -0.4490160E+004
+  0.4917000E+000 -0.4564538E+004
+  0.4890000E+000 -0.4640568E+004
+  0.4863000E+000 -0.4718297E+004
+  0.4836000E+000 -0.4797770E+004
+  0.4809000E+000 -0.4879039E+004
+  0.4782000E+000 -0.4962154E+004
+  0.4755000E+000 -0.5047167E+004
+  0.4728000E+000 -0.5134134E+004
+  0.4701000E+000 -0.5223110E+004
+  0.4674000E+000 -0.5314154E+004
+  0.4647000E+000 -0.5407326E+004
+  0.4620000E+000 -0.5502690E+004
+  0.4593000E+000 -0.5600308E+004
+  0.4566000E+000 -0.5700250E+004
+  0.4539000E+000 -0.5802584E+004
+  0.4512000E+000 -0.5907383E+004
+  0.4485000E+000 -0.6014720E+004
+  0.4458000E+000 -0.6124673E+004
+  0.4431000E+000 -0.6237324E+004
+  0.4404000E+000 -0.6352753E+004
+  0.4377000E+000 -0.6471049E+004
+  0.4350000E+000 -0.6592300E+004
+  0.4323000E+000 -0.6716599E+004
+  0.4296000E+000 -0.6844043E+004
+  0.4269000E+000 -0.6974732E+004
+  0.4242000E+000 -0.7108770E+004
+  0.4215000E+000 -0.7246264E+004
+  0.4188000E+000 -0.7387327E+004
+  0.4161000E+000 -0.7532076E+004
+  0.4134000E+000 -0.7680631E+004
+  0.4107000E+000 -0.7833119E+004
+  0.4080000E+000 -0.7989670E+004
+  0.4053000E+000 -0.8150420E+004
+  0.4026000E+000 -0.8315513E+004
+  0.3999000E+000 -0.8485094E+004
+  0.3972000E+000 -0.8659318E+004
+  0.3945000E+000 -0.8838345E+004
+  0.3918000E+000 -0.9022341E+004
+  0.3891000E+000 -0.9211480E+004
+  0.3864000E+000 -0.9405943E+004
+  0.3837000E+000 -0.9605918E+004
+  0.3810000E+000 -0.9811603E+004
+  0.3783000E+000 -0.1002320E+005
+  0.3756000E+000 -0.1024093E+005
+  0.3729000E+000 -0.1046501E+005
+  0.3702000E+000 -0.1069568E+005
+  0.3675000E+000 -0.1093317E+005
+  0.3648000E+000 -0.1117775E+005
+  0.3621000E+000 -0.1142968E+005
+  0.3594000E+000 -0.1168923E+005
+  0.3567000E+000 -0.1195671E+005
+  0.3540000E+000 -0.1223241E+005
+  0.3513000E+000 -0.1251665E+005
+  0.3486000E+000 -0.1280977E+005
+  0.3459000E+000 -0.1311211E+005
+  0.3432000E+000 -0.1342404E+005
+  0.3405000E+000 -0.1374594E+005
+  0.3378000E+000 -0.1407822E+005
+  0.3351000E+000 -0.1442130E+005
+  0.3324000E+000 -0.1477561E+005
+  0.3297000E+000 -0.1514163E+005
+  0.3270000E+000 -0.1551984E+005
+  0.3243000E+000 -0.1591075E+005
+  0.3216000E+000 -0.1631490E+005
+  0.3189000E+000 -0.1673285E+005
+  0.3162000E+000 -0.1716521E+005
+  0.3135000E+000 -0.1761258E+005
+  0.3108000E+000 -0.1807564E+005
+  0.3081000E+000 -0.1855508E+005
+  0.3054000E+000 -0.1905163E+005
+  0.3027000E+000 -0.1956605E+005
+  0.3000000E+000  0.1982783E+005
+</xy>
+            </component>
+        </curve>
+        <string id="echo">
+            <about>
+                <label>Echo of input parameters</label>
+            </about>
+            <current>Rtip = 10
+Etip = 130
+Poisson_tip = 0.3
+mat properties for: input.phase(ts)
+kts_R 10
+kts_A 10
+Fadhesion 1.4167
+A_hamaker 3.4E-20
+fts_model           10
+want tip squeeze  F
+want oscillatory  F
+want hydration  F
+dc_bias_voltage 5
+ac_bias_voltage 0
+bias_freq 5
+VEchoice            1
+Esample 1
+Poisson_sample 0.3
+KD 0.001
+epsilon 80
+sigmat -0.0025
+sigmas -0.032
+hs 6
+want presiach  F
+</current>
+        </string>
+        <time>Wed May 11 13:40:12 2011 EDT</time>
+        <status>0</status>
+        <user>drk</user>
+        <host></host>
+    </output>
+</run>

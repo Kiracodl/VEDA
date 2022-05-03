@@ -1,0 +1,46 @@
+#nanowhim rc file for veda suite
+
+#set.config controls_icon splash.png
+
+start.app "Pick a tool here" imgview.sh $dir/splash.png
+
+start.app "Tip-sample force viewer" /usr/bin/invoke_app -C rappture -t veda -T $dir/../rappture/forceViewer
+
+start.app "Force Distance Curves" /usr/bin/invoke_app -C rappture -t veda -T $dir/../rappture/fzcurves_new
+
+#start.app "Jump Mode (i.e. triggered F-z curves)" /usr/bin/invoke_app -C rappture -t veda -T $dir/../rappture/jump
+
+start.app "Contact Mode Scanning" /usr/bin/invoke_app -C rappture -t veda -T $dir/../rappture/scan_contact
+
+start.app "Amplitude Modulated Approach Curves (basic: ambient or vacuum only)" /usr/bin/invoke_app -C rappture -t veda -T $dir/../rappture/dac
+
+start.app "Amplitude Modulated Scanning (basic: ambient or vacuum only)" /usr/bin/invoke_app -C rappture -t veda -T $dir/../rappture/scanbasic
+
+start.app "Amplitude Modulated Approach Curves (advanced: liquids & bimodal)" /usr/bin/invoke_app -C rappture -t veda -T $dir/../rappture/adac
+
+start.app "Amplitude Modulated Scanning (advanced: liquids & bimodal)" /usr/bin/invoke_app -C rappture -t veda -T $dir/../rappture/scanning
+
+start.app "Amplitude Modulated Approach Curves (steady state solution, faster but less accurate, ambient or vaccum only)" /usr/bin/invoke_app -C rappture -t veda -T $dir/../rappture/amp_red_avg
+
+start.app "Frequency Sweep (basic: ambient or vacuum only)" /usr/bin/invoke_app -C rappture -t veda -T $dir/../rappture/freqsweep
+
+start.app "Frequency Sweep (advanced: liquids)" /usr/bin/invoke_app -C rappture -t veda -T $dir/../rappture/freqadv
+
+start.app "Frequency Modulated Approach Curves" /usr/bin/invoke_app -C rappture -t veda -T $dir/../rappture/fmac
+
+start.app "Frequency Modulated Scanning" /usr/bin/invoke_app -C rappture -t veda -T $dir/../rappture/fmscan
+
+start.app "Force Modulation Scanning (beta testing)" /usr/bin/invoke_app -C rappture -t veda -T $dir/../rappture/forcemod
+
+start.app "Peak Force Tapping" /usr/bin/invoke_app -C rappture -t veda -T $dir/../rappture/peakforcebasic 
+
+start.app "Single Point" /usr/bin/invoke_app -C rappture -t veda -T $dir/../rappture/fixedpoint
+
+start.app "Fit Viscoelastic DMA data to Prony Series" /usr/bin/invoke_app -C rappture -t veda -T $dir/../rappture/prony_fit
+
+
+
+
+
+
+

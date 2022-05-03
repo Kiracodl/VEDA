@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+<run>
+#include "tool.xml"
+    
+    <input>
+    	<phase id="op">
+		<about>
+			<label>Operating cond. + Cantilever prop.</label>
+		</about>
+
+       <loader>
+	 <about>
+           <label>Example loader</label>
+           <description>Use this box to load example simulations from the VEDA manual</description>
+         </about>
+	 
+	 <example>../../examples/AMS_adv_Ex1.xml</example>
+       </loader>
+
+
+	<choice id="operating_mode">
+		<about>
+		<enable>no</enable>
+		<label>Choose operating mode</label>
+		</about>	
+	
+		<option>
+		<about>
+		<label>Approach</label>
+		</about>
+		<value>1</value>
+		</option>
+
+		<option>
+		<about>
+		<label>Freq Sweep</label>
+		</about>
+		<value>2</value>
+		</option>
+
+		<option>
+		<about>
+		<label>Scan</label>
+		</about>
+		<value>3</value>
+		</option>
+				
+		<default>3</default>
+	</choice>
+
+	<choice id="modulation_type">
+		<about><label>Choose modulation type</label>
+		  <enable>false</enable>
+		</about>	
+	
+		<option>
+		  <about>
+		    <label>Amplitude Modulation</label>
+		  </about>
+		  <value>1</value>
+		</option>
+		
+		<option>
+		  <about>
+		    <label>Frequency Modulation</label>		    
+		  </about>
+		  <value>2</value>
+		</option>
+				
+		<default>1</default>
+	</choice>
+	
+
+#include "fexcite_generic.xml"
+
+	<choice id="freqchoice">
+		<about><label>Choose frequency scheme</label>
+		<description>Choose the number of frequencies in the drive (excitation) signal.</description>
+		</about>	
+	
+		<option>
+		<about>
+		<label>Single frequency (conventional)</label>
+		</about>
+		<value>1</value>
+		</option>
+
+		<option>
+		<about>
+		<label>Two frequencies (bimodal)</label>
+		</about>
+		<value>2</value>
+		</option>
+
+		<option>
+		<about>
+		<label>Self-excitation (BETA testing)</label>
+		</about>
+		<value>3</value>
+		</option>
+				
+		<default>1</default>
+	</choice>
+
+#include "nummodes.xml"
+            <default>2</default>
+        </number>
+
+#include "selfexc.xml"
+			
+#include "ainitial_w_direct.xml"
+	
+        <number id="Ainitial2">
+            <about>
+                <label>Unconstrained Amplitude (2nd drive frq) (nm)</label>
+                <description>The unconstrained amplitude at the second (bimodal) excitation frequency far from the sample surface in the absence of tip-sample interaction forces.</description>
+		<enable>input.phase(op).choice(freqchoice) == 2</enable>	        	   
+	    </about>
+            <units></units>
+            <min>0</min>
+            <max>100</max>
+            <default>1</default>
+        </number>
+#include "keq.xml"
+
+        <string id="Quality1">
+            <about>
+                <label>Qi</label>
+                <description>Enter comma separated values of the quality factors or each eigenmode. We define quality factor as 1/(2*damping ratio)..</description>
+            </about>
+            <units></units>
+              <default>1.2,2.0</default>
+        </string>
+	
+		
+#include "auto_calc_omega.xml"
+
+	<string id="omega1">
+            <about>
+                <label>Nat. Freq. (kHz)</label>
+                <description>Enter comma separated values for the natural frequencies of each eigenmode.</description>
+            </about>
+            <units></units>
+                       <default>9.3,71</default>
+        </string>
+
+	<string id="omegad_string">
+            <about>
+                <label>Driving Freq. (kHz)</label>
+                <description>The excitation frequency applied to the cantilever. Enter comma separated values for each excitation frequency (1 for conventional, 2 for bimodal)</description>
+        </about>
+            <default>9.3</default>
+        </string>
+	
+	<number id="mtip">
+            <about>
+                <label>Tip mass</label>
+                <description>Tip mass as a fraction of the cantilever beam mass.</description>	        	   
+            </about>
+            <units></units>
+            <min>0</min>
+            <default>0</default>
+        </number>
+		 		
+            <number id="Asp">
+                <about>
+                    <label>Set point ratio </label>
+                    <description>Enter the ratio of scanning amplitude to initial amplitude</description>
+                </about>
+                <units></units>
+                <min>0.01</min>
+                <max>0.99</max>
+                <default>0.90</default>
+                <current>0.9</current>
+            </number>
+
+            <number id="SNratio">
+                <about>
+                    <label>Signal/Noise ratio (dB)</label>
+                    <description>Enter the ratio of initial amplitude to noise amplitude in dB (S/N (dB) = 20*log10(S/N))</description>
+                </about>
+                <units></units>
+                <min>0.01</min>
+                <max>1000</max>
+                <default>30</default>
+                <current>30</current>
+            </number>
+
+    	<choice id="Z_feedback_choice">
+    	  <about>
+		<label>Z feedback choice</label>
+		<enable>off</enable>
+      	  </about>
+	  
+  	  <option>
+	    <about>
+		<label>Amplitude</label>
+	    </about>
+	    <value>1</value>
+	  </option>
+
+  	  <option>
+	    <about>
+		<label>Deflection</label>
+	    </about>
+	    <value>4</value>
+	  </option>
+
+  	  <option>
+	    <about>
+		<label>Mean Deflection</label>
+	    </about>
+	    <value>5</value>
+	  </option>
+
+	  <default>1</default>
+	</choice>
+
+
+#include "scanning_common.xml"
+#include "lockin.xml"
+
+       <note><contents>file://../ignore.html</contents></note>
+
+#include "chi.xml"
+#include "alpha.xml"
+#include "afluid.xml"
+
+	</phase>
+
+	<phase id="ts">
+		<about>
+		       <label>Tip-sample interact. prop: substrate</label>
+		</about>
+				
+#define PATH input.phase(ts)
+#define LABEL Substrate:
+#include "ts-model-choice.xml"
+#include "tip.xml"
+#include "sample.xml"
+#undef PATH
+        </phase>
+
+	
+	<phase id="sim">
+		<about> <label>Simulation parameters</label> </about>
+
+	#include "plotpnts.xml"
+       
+	#include "numincycle.xml"
+	
+
+#include "higher-harm.xml"
+			
+#define TIME_HIST_X
+#include "timehist.xml"			
+
+#include "scansize.xml"
+       
+       <boolean id="Want_ContTrans">
+	 <about> 
+	   <label>Include time history of sample engagement transients</label> 
+	   <description>To include a time history of the initial approach to the sample, select "yes." This is generally only needed for debugging an unstable controller</description>
+	 </about>
+	 <default>off</default>
+       </boolean>
+    
+#include "poincare-off.xml"
+#include "plots.xml"
+
+				
+	</phase>
+
+#include "feature.xml"
+
+    </input>
+</run>

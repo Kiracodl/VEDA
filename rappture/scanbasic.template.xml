@@ -1,0 +1,318 @@
+<?xml version="1.0"?>
+<run>
+#include "tool.xml"
+    
+   <input>      
+     <phase id="op">
+       <about>
+	 <label>Operating cond. + Cantilever prop.</label>
+       </about>
+       
+       <loader>
+	 <about>
+           <label>Example loader</label>
+           <description>Use this box to load example simulations from the VEDA manual</description>
+         </about>
+	 
+	 <example>../../examples/AMS_Ex1.xml</example>
+	 <example>../../examples/AMS_Ex2.xml</example>
+	 <example>../../examples/AMS_Ex3.xml</example>
+	 <example>../../examples/AMS_Ex4.xml</example>
+	 <example>../../examples/AMS_Ex5.xml</example>
+       </loader>
+
+	
+	<choice id="operating_mode">
+		<about>
+		<enable>no</enable>
+		<label>Choose operating mode</label>
+		</about>	
+	
+		<option>
+		<about>
+		<label>Approach</label>
+		</about>
+		<value>1</value>
+		</option>
+
+		<option>
+		<about>
+		<label>Freq Sweep</label>
+		</about>
+		<value>2</value>
+		</option>
+
+		<option>
+		<about>
+		<label>Scan</label>
+		</about>
+		<value>3</value>
+		</option>
+				
+		<default>3</default>
+	</choice>
+
+	<choice id="modulation_type">
+		<about><label>Choose modulation type</label>
+		  <enable>false</enable>
+		</about>	
+	
+		<option>
+		  <about>
+		    <label>Amplitude Modulation</label>
+		  </about>
+		  <value>1</value>
+		</option>
+		
+		<option>
+		  <about>
+		    <label>Frequency Modulation</label>		    
+		  </about>
+		  <value>2</value>
+		</option>
+				
+		<default>1</default>
+	</choice>
+	
+#include "fexcite_generic.xml"
+
+	<choice id="freqchoice">
+		<about>
+		  <label>Choose frequency scheme</label>
+		  <description>Choose the number of frequencies in the drive (excitation) signal.</description>
+		  <enable>no</enable>
+		</about>	
+	
+		<option>
+		<about>
+		<label>Single frequency (conventional)</label>
+		</about>
+		<value>1</value>
+		</option>
+
+		<option>
+		<about>
+		<label>Two frequencies (bimodal)</label>
+		</about>
+		<value>2</value>
+		</option>
+				
+		<default>1</default>
+	</choice>
+
+        <number id="numModes">
+            <about>
+	    	<enable>no</enable>
+                <label>Number of eigenmodes</label>
+                <description>Number of modes to be included in the simulation.</description>
+            </about>
+            <units></units>
+            <min>1</min>
+            <max>4</max>
+            <default>1</default>
+        </number>
+				
+#include "ainitial.xml"
+
+#include "keq.xml"
+
+        <string id="Quality1">
+            <about>
+                <label>Quality Factor</label>
+                <description>Enter the quality factors for the eigenmode. We define quality factor as 1/(2*damping ratio).</description>
+            </about>
+            <units></units>
+              <default>2.0</default>
+        </string>
+	
+	<boolean id="InputChi">
+   	<about>
+     	  <label>Auto calculate Chi?</label>
+   	  <description>To input Chi_2, Chi_3, etc., leave the box unchecked.  To allow the Chi_i's to be calculated (for i > 1), check the box.</description>
+	  <enable>no</enable>
+   	</about>
+   	<default>on</default>
+   	</boolean>
+
+	<boolean id="want_Afluid">
+   	<about>
+     	  <label></label>
+   	  <description></description>
+	  <enable>no</enable>
+   	</about>
+   	<default>off</default>
+   	</boolean>
+
+
+  	<string id="Chi2_n">
+            <about>
+                <label>Chi_2 - Chi_n</label>
+  		<enable>no</enable>
+                <description>Enter comma separated values for Chi values starting with the 2nd eigenmode.</description>
+        </about>
+            <default>3.47</default>
+        </string>
+		
+	<string id="omega1">
+            <about>
+                <label>Nat Freq (kHz)</label>
+                <description>Enter the natural frequency of the first eigenmode.</description>
+            </about>
+            <units></units>
+                       <default>9.3</default>
+        </string>
+
+	<string id="omegad_string">
+            <about>
+                <label>Drive Freq (kHz)</label>
+                <description>The excitation frequency applied to the cantilever. Enter comma separated values for each excitation frequency (1 for conventional, 2 for bimodal)</description>
+        </about>
+            <default>9.3</default>
+        </string>
+	
+	<number id="mtip">
+            <about>
+                <label>Tip mass</label>
+                <description>Tip mass as a fraction of the cantilever beam mass.</description>	        	   
+            </about>
+            <units></units>
+            <min>0</min>
+            <default>0</default>
+        </number>
+		 		
+	<boolean id="AutoCalcChi">
+	  <about>
+	    <label>Auto calculate Slope calibration?</label>
+	    <description>To input Slope Calibrations, leave the box unchecked.  To allow the Slope Calibrations to be calculated based on ideal beam theory, check the box.</description>
+	    <enable>off</enable>
+	  </about>
+	  <default>on</default>
+   	</boolean>
+
+	<boolean id="AutoCalcOmega">
+	  <about>
+	    <label>Auto calculate omega_i (i>1)?</label>
+	    <description>To input omega2, omega3, etc., leave the box unchecked.  To allow the omega_i's to be calculated (for i > 1), check the box. Autocalculation is valid only for rectangular diving board cantilevers</description>
+	    <enable>on</enable>
+	  </about>
+	  <default>on</default>
+	</boolean>
+
+
+       <boolean id="AutoCalcAlpha">
+	 <about>
+	   <label>Auto calculate alpha_i</label>
+	   <description>To input alpha directly uncheck the box.  To allow the alpha_i's to be calculated, leave the box checked. If you are unsure, leave the box checked.</description>
+	   <enable>off</enable>
+	 </about>
+   	<default>on</default>
+   	</boolean>
+    
+
+            <number id="Asp">
+                <about>
+                    <label>Set point ratio </label>
+                    <description>Enter the ratio of scanning amplitude to initial amplitude</description>
+                </about>
+                <units></units>
+                <min>0.01</min>
+                <max>0.99</max>
+                <default>0.90</default>
+                <current>0.9</current>
+            </number>
+
+            <number id="SNratio">
+                <about>
+                    <label>Signal/Noise ratio (dB)</label>
+                    <description>Enter the ratio of initial amplitude to noise amplitude in dB (S/N (dB) = 20*log10(S/N))</description>
+                </about>
+                <units></units>
+                <min>0.01</min>
+                <max>1000</max>
+                <default>30</default>
+                <current>30</current>
+            </number>
+
+    	<choice id="Z_feedback_choice">
+    	  <about>
+		<label>Z feedback choice</label>
+		<enable>off</enable>
+      	  </about>
+	  
+  	  <option>
+	    <about>
+		<label>Amplitude</label>
+	    </about>
+	    <value>1</value>
+	  </option>
+
+  	  <option>
+	    <about>
+		<label>Deflection</label>
+	    </about>
+	    <value>4</value>
+	  </option>
+
+  	  <option>
+	    <about>
+		<label>Mean Deflection</label>
+	    </about>
+	    <value>5</value>
+	  </option>
+
+	  <default>1</default>
+	</choice>
+
+#include "scanning_common.xml"
+#include "lockin.xml"
+
+	</phase>
+
+	<phase id="ts">
+		<about>
+		       <label>Tip-sample interact. prop: substrate</label>
+		</about>
+#define LABEL Substrate:		
+#define PATH input.phase(ts)
+#include "ts-model-choice.xml"
+#include "tip.xml"
+#include "sample.xml"
+#undef PATH
+        </phase>
+
+	
+	<phase id="sim">
+	  <about> <label>Simulation parameters</label> </about>
+	  #include "plotpnts.xml"
+       
+	#include "numincycle.xml"
+	
+
+#include "higher-harm.xml"
+			
+#define TIME_HIST_X
+#include "timehist.xml"
+		
+#include "scansize.xml"
+
+       <boolean id="Want_ContTrans">
+	 <about> 
+	   <enable>on</enable>
+	   <label>Include time history of sample engagement transients</label> 
+	   <description>To include a time history of the initial approach to the sample, select "yes." This is generally only needed for debugging an unstable controller</description>
+	 </about>
+	 <default>off</default>
+       </boolean>
+
+
+#include "poincare-off.xml"
+
+#define HIDE_PLOTS
+#include "plots.xml"
+				
+	</phase>
+
+#include "feature.xml"
+
+    </input>
+</run>

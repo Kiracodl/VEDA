@@ -1,0 +1,18 @@
+<boolean id="want_custom_B">
+  <about>
+    <label>Nonideal magnetic force ratios?</label>
+    <description>To enter custom ratios between the modal forcing on each eigenvalue, check this box.  For the defaults, leave the box unchecked. If you are unsure, leave the box unchecked.</description>
+    <enable>input.phase(op).choice(fexcite) == 2 || input.phase(op).choice(fexcite) == 7 </enable>
+  </about>
+  <default>off</default>
+</boolean>
+
+	<string id="B_input">
+            <about>
+                <label>B</label>
+  		<enable>input.phase(op).boolean(want_custom_B)</enable>
+                <description>Enter comma separated values for the magnetic forcing of each eigenmode</description>
+            </about>
+            <units></units>
+            <default>1,1,1</default>
+        </string>

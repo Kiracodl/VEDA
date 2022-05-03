@@ -1,0 +1,31 @@
+	<boolean id="want_Abase_direct">
+	  <about>
+	    <label>Direct Input of Base Amp / Mag Forces</label>
+	    <description>If this box is checked, you can enter the base excitation amplitude (acoustic drive) or magnetic modal forces (magnetic drive) directly.  If it is unchecked (the default) then these parameters are automatically calculated corresponding to the specified unconstrained amplitude. Most users will want to use the default</description>	    
+	    <enable>input.phase(op).choice(freqchoice) != 3</enable>
+	  </about>
+	  <default>off</default>
+	</boolean>
+
+	<string id="Abase_direct">
+	  <about>
+	    <label>Direct input</label>
+	    <description>Directly enter the base amplitude (nm) for acoustic excitation, or comma separated list of modal forces (N) for magnetic excitation. For acoustic bimodal enter comma separated list; magnetic bimodal is not supported here. Most users will want to uncheck the above box and enter the tip amplitude instead</description>
+	    <enable>input.phase(op).boolean(want_Abase_direct)   </enable>
+	  </about>
+	  <min>0</min>
+	  <max>1000</max>
+	  <default>0.1</default>
+	</string>
+	    
+        <number id="Ainitial">
+            <about>
+                <label>Unconstrained Amplitude (nm)</label>
+                <description>The unconstrained amplitude at the first (or only) excitation frequency far from the sample surface in the absence of tip-sample interaction forces.</description>
+		<enable>!input.phase(op).boolean(want_Abase_direct)</enable>
+            </about>
+            <units></units>
+            <min>0.001</min>
+            <max>1000</max>
+            <default>10</default>
+        </number>

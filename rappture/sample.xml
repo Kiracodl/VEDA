@@ -1,0 +1,1307 @@
+#ifndef LABEL
+#define LABEL
+#endif
+
+<number id="kts_R">
+  <about>
+    <enable>PATH.choice(fts_model) == 1 | PATH.choice(fts_model) == 6</enable>	
+    <label>LABEL Sample stiffness (N/m)</label>
+    <description>Effective stiffness of the tip-sample contact. </description>
+    <disablestyle>hide</disablestyle>
+  </about>
+  <units></units>
+  <min>0</min>
+  <max>5000</max>
+  <default>10</default>
+</number>
+
+<number id="kts_A">
+  <about>
+    <enable>PATH.choice(fts_model) == 6</enable>	
+    <label>LABEL Attractive force gradient (N/m)</label>
+    <description>Effective attractive force gradient as the cantilever tip approaches the sample. </description>
+    <disablestyle>hide</disablestyle>
+  </about>
+  <units></units>
+  <min>-1000</min>
+  <max>1000</max>
+  <default>10</default>
+</number>
+
+
+
+  <choice id="CalcADMT">
+    <about> 
+      <label>LABEL DMT calculation options</label> 			
+      <description>VEDA can autocalculate some of the model parameters from experimental data.  Choose the appropriate choice based on what data you know</description>
+      <enable>PATH.choice(fts_model) == 3 || PATH.choice(fts_model) == 4</enable>
+      <disablestyle>hide</disablestyle>
+    </about>
+
+    <option>
+      <about>
+	<label>Enter adhesion force, autocalculate Hamaker constant and intermolecular distance (recommended) </label>
+	<description>The intermolecular distance will be assumed to be 0.2 nm</description>
+      </about>
+      <value>1</value>
+    </option>
+
+    <option>
+      <about>
+	<label>Enter adhesion force and intermolecular distance, autocalculate Hamaker constant</label>
+      </about>
+      <value>2</value>
+    </option>
+
+    <option>
+      <about>
+	<label>Enter adhesion force and Hamaker constant, autocalculate intermolecular distance</label>
+      </about>
+      <value>3</value>
+    </option>
+
+    <option>
+      <about>
+	<label>Enter Hamaker constant and intermolecular distance, autocalculate adhesion force</label>
+      </about>
+      <value>4</value>
+    </option>
+
+
+    <default>1</default>
+  </choice>
+
+
+<number id="Fadhesion">
+  <about>
+    <enable>(((PATH.choice(fts_model) == 3 || PATH.choice(fts_model) == 4 || PATH.choice(fts_model) == 7 ) &amp;&amp; PATH.choice(CalcADMT) != 4 ) || (PATH.choice(fts_model) == 6)) </enable>
+    <disablestyle>hide</disablestyle>
+    <label>LABEL van der Waals Adhesion force (nN)</label>
+    <description>The adhesion force is the attractive force applied on the cantilever tip by the sample by van der Waals forces just before contact, neglecting any capillary forces.  This force could be obtained from an F-z curve (in dry nitrogen or another environment where capillary forces are negligible).  Capillary force contributions to adhesion are described seperately below</description>
+  </about>
+  <units></units>
+  <min>-100</min>
+  <max>100</max>
+  <default>1.4167</default>
+</number>
+
+<number id="aDMT">
+  <about>
+    <enable>((PATH.choice(fts_model) == 3 || PATH.choice(fts_model) == 4) &amp;&amp; (PATH.choice(CalcADMT)==2 || PATH.choice(CalcADMT)==4 )) </enable>	
+    <disablestyle>hide</disablestyle>
+    <label>LABEL Intermolecular distance (nm)</label>
+    <description>The intermolecular distance required for the Derjaguin-Muller-Toporov (DMT) contact model.  Most users will want to check the 'Autocalculate intermolecular distance' box and have this parameter calculated from adhesion force instead of entering it directly</description>
+  </about>
+  <units></units>
+  <min>0.01</min>
+  <max>10</max>
+  <default>0.2</default>
+</number>
+
+
+<number id="A_hamaker">
+  <about>
+    <enable> (PATH.choice(fts_model) == 13 |  PATH.choice(fts_model) == 8  | PATH.choice(fts_model) == 9  | PATH.choice(fts_model) == 18 | PATH.choice(fts_model) == 20)    || ((PATH.choice(fts_model) == 3 | PATH.choice(fts_model) == 4) &amp;&amp;  (PATH.choice(CalcADMT)==3 || PATH.choice(CalcADMT)==4 )) </enable>	
+    <label>LABEL Hamaker constant (J)</label>
+    <description>The Hamaker constant is  used to predict attractive van der Waals forces and depends on the material of the tip, the sample, and the surrounding media. </description>
+    <disablestyle>hide</disablestyle>
+  </about>
+  <units></units>
+  <default>3.4E-20</default>
+</number>
+
+
+
+<number id="Esample">
+  <about>
+    <enable>PATH.choice(fts_model) != 13  &amp;&amp; PATH.choice(fts_model) != 10  &amp;&amp; PATH.choice(fts_model) != 9  &amp;&amp; PATH.choice(fts_model) != 1 &amp;&amp; PATH.choice(fts_model) != 8 &amp;&amp; PATH.choice(fts_model) != 6  &amp;&amp; PATH.choice(fts_model) != 11  &amp;&amp; PATH.choice(fts_model) != 16  &amp;&amp; PATH.choice(fts_model) != 17  &amp;&amp; PATH.choice(fts_model) != 18  &amp;&amp; PATH.choice(fts_model) != 20 </enable>		    
+    <label>LABEL Modulus of sample (GPa) </label>
+    <description>The modulus of the sample.  By default, Youngs modulus, but if you are using viscoelasticity you can pick between youngs modulus and shear modulus below.</description>
+    <disablestyle>hide</disablestyle>
+  </about>
+  <units></units>
+  <min>0.000001</min>
+  <max>1000</max>
+  <default>1</default>
+</number>
+
+<number id="Poisson_sample">
+  <about>
+    <enable>PATH.choice(fts_model) != 13  &amp;&amp; PATH.choice(fts_model) != 10  &amp;&amp; PATH.choice(fts_model) != 9  &amp;&amp; PATH.choice(fts_model) != 1 &amp;&amp; PATH.choice(fts_model) != 6  &amp;&amp; PATH.choice(fts_model) != 8  &amp;&amp; PATH.choice(fts_model) != 11   &amp;&amp; PATH.choice(fts_model) != 16  &amp;&amp; PATH.choice(fts_model) != 17   &amp;&amp; PATH.choice(fts_model) != 19 </enable>		    
+    <label>LABEL Poisson's ratio of the sample </label>
+    <description></description>
+    <disablestyle>hide</disablestyle>
+  </about>
+  <units></units>
+  <min>0</min>
+  <max>1</max>
+  <default>0.3</default>
+</number>			
+
+<number id="KD">
+  <about>
+    <enable>PATH.choice(fts_model) == 4</enable>		    
+    <label>LABEL Debye length (um)</label>
+    <description>The Debye length of the liquid. This is ~1 um for deionized water, ~0.001 um for 100 mM of 1:1 electrolyte</description>
+    <disablestyle>hide</disablestyle>
+  </about>
+  <units></units>
+  <default>0.001</default>
+</number>	
+
+
+<number id="epsilon">
+  <about>
+    <enable>PATH.choice(fts_model) == 4 || PATH.choice(fts_model) == 10  || PATH.choice(fts_model) == 13 </enable>		    
+    <label>LABEL Imaging media Dielectric constant</label>
+    <description>Dielectric constant of the imaging media (air ~= 1, water ~= 80)</description>
+    <disablestyle>hide</disablestyle>
+  </about>
+  <units></units>
+  <default>80</default>
+</number>
+
+<number id="sigmat">
+  <about>
+    <enable>PATH.choice(fts_model) == 4</enable>		    
+    <label>LABEL Surface charge density (tip) (C/m^2)</label>
+    <description>Surface charge density</description>
+    <disablestyle>hide</disablestyle>
+  </about>
+  <units></units>
+  <default>-0.0025</default>
+</number>
+
+<number id="sigmas">
+  <about>
+    <enable>PATH.choice(fts_model) == 4</enable>		    
+    <label>LABEL Surface charge density (sample) (C/m^2)</label>
+    <description>Surface charge density</description>
+    <disablestyle>hide</disablestyle>
+  </about>
+  <units></units>
+  <default>-0.032</default>
+</number>	
+
+
+  <number id="hs">
+    <about>
+      <label>LABEL Membrane thickness (nm)</label>
+      <description>The thickness of a membrane or cell loosely bound to the sample surface.</description>
+      <enable>PATH.choice(fts_model) == 5 || PATH.choice(fts_model) == 19</enable>
+    <disablestyle>hide</disablestyle>
+    </about>
+    <units></units>
+    <min>0</min>
+    <max>2000</max>
+    <default>6</default>
+  </number>
+
+
+
+  <number id="MorseRc">
+    <about>
+    <enable>PATH.choice(fts_model) == 8</enable>	
+      <label>LABEL Morse equilibrium position (nm)</label>
+      <description>Morse equilibrium position (nm)</description>
+    <disablestyle>hide</disablestyle>
+    </about>
+    <units></units>
+    <min>0</min>
+    <max>10</max>
+    <default>.2357</default>
+  </number>
+
+
+  <number id="MorseLambda">
+    <about>
+    <enable>PATH.choice(fts_model) == 8</enable>	
+      <label>LABEL Morse range (nm)</label>
+      <description>Morse range (nm)</description>
+    <disablestyle>hide</disablestyle>
+    </about>
+    <units></units>
+    <min>0</min>
+    <max>10</max>
+    <default>.12</default>
+  </number>
+  
+  <number id="MorseU0">
+    <about>
+    <enable>PATH.choice(fts_model) == 8</enable>	
+      <label>LABEL Morse depth (J)</label>
+      <description>Morse depth (J)</description>
+    <disablestyle>hide</disablestyle>
+    </about>
+    <units></units>
+    <min>0</min>
+    <max>1e-10</max>
+    <default>3.641e-19</default>
+  </number>
+
+  <number id="LJ_r0">
+    <about>
+      <label>LABEL LJ equilibrium position (nm)</label>
+      <description>Lennard Jones potential equilibrium position (nm). Recommended range is 0.2 - 0.3 nm.</description>
+      <enable>PATH.choice(fts_model) == 9 |  PATH.choice(fts_model) == 18 | PATH.choice(fts_model) == 20  </enable>	
+      <disablestyle>hide</disablestyle>
+    </about>
+    <units></units>
+    <min>0.1</min>
+    <max>1</max>
+    <default>.3</default>
+  </number>
+
+  <number id="LJ_E0">
+    <about>
+      <enable>PATH.choice(fts_model) == 9</enable>	
+      <label>LABEL LJ binding energy (J)</label>
+      <description>Lennard Jones binding (J)</description>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <units></units>
+    <min>0</min>
+    <max>1e-10</max>
+    <default>4.806e-19</default>
+  </number>
+
+
+<group id="md">
+
+  <about> 
+    <enable>(PATH.choice(fts_model) == 16) </enable>	
+  </about>
+
+  <number id="mom_sample">
+    <about>
+      <label>LABEL Mag. Mom. Sample (A m^2)</label>
+      <description></description>
+    </about>
+    <units></units>
+    <default>8e-20</default>
+  </number>
+
+  <number id="mom_tip">
+    <about>
+      <label>LABEL Mag. Mom. Tip (A m^2)</label>
+      <description></description>
+    </about>
+    <units></units>
+    <default>5e-17</default>
+  </number>
+
+  <number id="mag_dia">
+    <about>
+      <label>LABEL Effective magnetic dia of sample particle (nm)</label>
+      <description></description>
+    </about>
+    <units></units>
+    <min>0</min>
+    <default>10</default>
+  </number>
+
+
+  <number id="mag_delta">
+    <about>
+      <label>LABEL Thickness of non-magnetic layer (nm)</label>
+      <description></description>
+    </about>
+    <units></units>
+    <min>0</min>
+    <default>1</default>
+  </number>
+
+  
+</group>
+
+<group id="es">
+  <about> 
+    <enable>(PATH.choice(fts_model) == 10) || (PATH.choice(fts_model) == 13) || (PATH.choice(fts_model) == 14) </enable>	
+  </about>
+   
+  <number id="surface_pot">
+    <about>
+      <label>LABEL Surface potential (V)</label>
+      <description></description>
+    </about>
+    <units></units>
+    <min>-1e5</min>
+    <max>1e5</max>
+    <default>0</default>
+  </number>
+
+
+  <number id="dc_bias_voltage">
+    <about>
+      <label>LABEL Tip-Sample DC Bias (V)</label>
+      <description></description>
+    </about>
+    <units></units>
+    <min>-1e6</min>
+    <max>1e5</max>
+    <default>5</default>
+  </number>
+
+  <number id="ac_bias_voltage">
+    <about>
+      <label>LABEL Tip-Sample AC Bias (V)</label>
+      <description></description>
+    </about>
+    <units></units>
+    <min>-1e6</min>
+    <max>1e5</max>
+    <default>0</default>
+  </number>
+
+  <number id="bias_freq">
+    <about>
+      <label>LABEL Freq. of AC Bias (kHz)</label>
+      <description></description>
+    </about>
+    <units></units>
+    <min>-1e5</min>
+    <max>1e5</max>
+    <default>5</default>
+  </number>
+
+
+  <number id="es_l">
+    <about>
+      <label>LABEL Cantilever length (um)</label>
+      <enable>(PATH.choice(fts_model) == 13) </enable>	
+      <description></description>
+    </about>
+    <units></units>
+    <min>0</min>
+    <max>1e5</max>
+    <default>100</default>
+  </number>
+  
+  <number id="es_w">
+    <about>
+      <label>LABEL Cantilever width (um)</label>
+      <enable>(PATH.choice(fts_model) == 13) </enable>	
+      <description></description>
+    </about>
+    <units></units>
+    <min>0</min>
+    <max>1e5</max>
+    <default>30</default>
+  </number>
+
+  <number id="es_h">
+    <about>
+      <label>LABEL Tip height (um)</label>
+      <enable>(PATH.choice(fts_model) == 13) </enable>	
+      <description></description>
+    </about>
+    <units></units>
+    <min>0</min>
+    <max>1e4</max>
+    <default>10</default>
+  </number>
+
+  <number id="theta_lever">
+    <about>
+      <label>LABEL Cantilever angle (deg)</label>
+      <enable>(PATH.choice(fts_model) == 13) </enable>	
+      <description></description>
+    </about>
+    <units></units>
+    <min>0</min>
+    <max>90</max>
+    <default>10</default>
+  </number>
+
+  <number id="theta_tip">
+    <about>
+      <label>LABEL Cone opening angle (deg)</label>
+      <enable>(PATH.choice(fts_model) == 13) </enable>	
+      <description></description>
+    </about>
+    <units></units>
+    <min>0</min>
+    <max>90</max>
+    <default>10</default>
+  </number>
+</group>
+
+ 
+<string id="custom_filename">
+  <about>    
+    <label>LABEL Custom filename</label>
+    <description> </description>
+    <enable>(PATH.choice(fts_model) == 11)  || (PATH.choice(fts_model) == 17) </enable>
+    <disablestyle>hide</disablestyle>
+  </about>
+  <default>fts.txt</default>
+</string>
+
+  <boolean id="WantWLC">
+    <about> 
+      <label>LABEL Worm Like Chain (functionalized recognition)</label> 
+      <enable>(PATH.choice(fts_model) != 18)  &amp;&amp; (PATH.choice(fts_model) != 20) </enable>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <default>off</default>
+  </boolean>
+
+ <group id="wlc">
+ <about>
+   <enable>PATH.boolean(WantWLC)</enable>	
+ </about>
+
+ <number id="wlc_L0">
+   <about>
+     <label>LABEL L0 (nm)</label>
+     <description>L0</description>
+    </about>
+    <units></units>
+    <min>0</min>
+    <max>2000</max>
+    <default>1</default>
+  </number>
+
+ <number id="wlc_Lp">
+   <about>
+     <label>LABEL Lp (nm)</label>
+     <description>Lp</description>
+    </about>
+    <units></units>
+    <min>0</min>
+    <max>2000</max>
+    <default>1</default>
+  </number>
+
+ <number id="wlc_Fr">
+   <about>
+     <label>LABEL Rupture force (nN)</label>
+     <description>The chain will rupture at this force</description>
+    </about>
+    <units></units>
+    <min>0</min>
+    <max>2000</max>
+    <default>10</default>
+  </number>
+
+
+ </group>
+
+ <number id="temperature">
+   <about>
+     <label>LABEL Temperature (K)</label>
+     <description>Temperature in kelvin</description>
+     <enable> PATH.boolean(WantWLC) || PATH.group(solvation).boolean(WantOscillatory) </enable>
+    <disablestyle>hide</disablestyle>
+    </about>
+    <units></units>
+    <min>0</min>
+    <max>1000</max>
+    <default>300</default>
+  </number>
+
+
+<group id="solvation">
+  <about>
+    <label>Solvation forces (Jeffery et. al. PrB 2004)</label>
+    <enable>(PATH.choice(fts_model) != 18)  &amp;&amp; (PATH.choice(fts_model) != 20)  </enable>  
+  </about>
+  
+
+  <boolean id="WantOscillatory">
+    <about> 
+      <label>LABEL Include oscillatory forces?</label> 
+      <enable>on</enable>
+    </about>
+    <default>off</default>
+  </boolean>
+
+  <number id="sigma_solvation">
+    <about>
+      <enable>PATH.group(solvation).boolean(WantOscillatory)</enable>	
+      <label>LABEL Sigma (nm)</label>
+      <description>Period and Decay length of the oscillatory forces</description>
+    <disablestyle>hide</disablestyle>
+    </about>
+    <units></units>
+    <min>0</min>
+    <max>2</max>
+    <default>2.56e-1</default>
+  </number>
+
+  <number id="rho_solvation">
+    <about>
+      <enable>PATH.group(solvation).boolean(WantOscillatory)</enable>	
+      <label>LABEL Rho</label>
+      <description>Number density of the liquid (1/m^3)</description>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <units></units>
+    <min>0</min>
+    <max>1e30</max>
+    <default>3.33e28</default>
+  </number>
+
+  <boolean id="WantHydration">
+    <about> 
+      <label>LABEL Include hydration forces?</label> 
+    </about>
+    <default>of</default>
+  </boolean>
+
+  <number id="lambda_solvation">
+    <about>
+      <enable>PATH.group(solvation).boolean(WantHydration)</enable>	
+      <label>LABEL Lambda (nm)</label>
+      <description>Decay length of the Hydration force</description>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <units></units>
+    <min>0</min>
+    <max>10</max>
+    <default>2.45e-1</default>
+  </number>
+
+ <number id="p_h">
+    <about>
+      <enable>PATH.group(solvation).boolean(WantHydration)</enable>	
+      <label>LABEL Hydration scaling</label>
+      <description>Strength of Hydration force (empirically determined constant).  Called p_h by Jeffery et al</description>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <units></units>
+    <min>-2e9</min>
+    <max>2e9</max>
+    <default>2e7</default>
+  </number>
+
+<number id="rtip_solv">
+    <about>
+      <enable>PATH.group(solvation).boolean(WantHydration) || PATH.group(solvation).boolean(WantOscillatory)  </enable>	
+      <label>LABEL Rtip solvation (nm)</label>
+      <description>Effective tip radius for solvation shells.  Note this may be different than the effective tip radius above</description>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <units></units>
+    <min>0</min>
+    <max>1000</max>
+    <default>10</default>
+  </number>
+ 
+
+  <boolean id="cont_grad">
+    <about>
+       <enable>PATH.group(solvation).boolean(WantHydration) || PATH.group(solvation).boolean(WantOscillatory)  </enable>	
+      <label>LABEL Enforce continuous gradient</label>
+      <description>If this is unchecked, then the solvation forces saturate at d=0. If this is checked, then the solvation forces continue past d=0, which enforces a continuous gradient.</description>
+    <disablestyle>hide</disablestyle>
+    </about>
+    <default>false</default>
+  </boolean>
+
+  <boolean id="Want_hysteretic_hydration">
+    <about> 
+      <label>LABEL Non-conservative hydration forces (hysteretic)</label>
+      <description>This models the non-conservative component of hydration forces as hysteretic force (i.e. independent of frequency).  See the manual for details</description>
+      <enable>off</enable>
+    </about>
+    <default>off</default>
+  </boolean>
+
+  <number id="App_decay">
+    <about>
+      <label>LABEL Approach decay length</label>
+      <description>Approach decay length</description>
+      <enable>PATH.group(solvation).boolean(Want_hysteretic_hydration)</enable>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <units> </units>
+    <min>0</min>
+    <max>100</max>
+    <default>0.25</default>
+  </number>
+
+  <number id="Ret_decay">
+    <about>
+      <label>LABEL Retract decay length</label>
+      <description>Retract decay length</description>
+      <enable>PATH.group(solvation).boolean(Want_hysteretic_hydration)</enable>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <units> </units>
+    <min>0</min>
+    <max>100</max>
+    <default>0.125</default>
+  </number>
+
+  <number id="app_scaling">
+    <about>
+      <label>LABEL Approach scaling (nN)</label>
+      <description>Approach scaling</description>
+      <enable>PATH.group(solvation).boolean(Want_hysteretic_hydration)</enable>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <units> </units>
+    <min>0</min>
+    <max>2e3</max>
+    <default>5</default>
+  </number>
+
+  <number id="cutoff_dist">
+    <about>
+      <label>LABEL Cutoff distance (nm)</label>
+      <description>Cutoff distance</description>
+      <enable>PATH.group(solvation).boolean(Want_hysteretic_hydration)</enable>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <units> </units>
+    <min>0</min>
+    <max>100</max>
+    <default>1.5</default>
+  </number>
+
+  <integer id="nside">
+    <about>
+      <label>LABEL Number of terms</label>
+      <description>Number of terms</description>
+      <enable>PATH.group(solvation).boolean(Want_hysteretic_hydration)</enable>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <units> </units>
+    <min>10</min>
+    <max>100</max>
+    <default>50</default>
+  </integer>
+
+  <boolean id="Want_exp_dashpot">
+    <about> 
+      <label>LABEL Non-conservative solvation forces (viscous)</label>
+      <description>This models the non-conservative component of solvation forces as a viscosity that decays exponentially away from the surface.  Note: Jeffery proposed that damping was proportional to stiffness, which includes oscillatory forces, but we model only a monotonic damping coefficient.</description>
+    </about>
+    <default>off</default>
+  </boolean>
+
+  <number id="exp_dashpot_scale">
+    <about>    
+      <label>LABEL Scaling (kg/s)</label>
+      <description>Damping coefficient kg/s=N-s/m at Z=0</description>
+      <enable>PATH.group(solvation).boolean(Want_exp_dashpot)</enable>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <units> </units>
+    <min>0</min>
+    <max>1000</max>
+    <default>1e-5</default>
+  </number>
+
+  <number id="exp_dashpot_decay">
+    <about>    
+      <label>LABEL Decay (nm)</label>
+      <description>Decay length. Typically this should be on the order of the molecular diameter (e.g. 0.2 - 0.3 for water)</description>
+      <enable>PATH.group(solvation).boolean(Want_exp_dashpot)</enable>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <units> </units>
+    <min>0</min>
+    <max>1000</max>
+    <default>0.25</default>
+  </number>
+
+</group>
+
+
+<group id="nc">
+  <about>
+    <label>Non-conservative forces</label>
+    <enable> PATH.choice(fts_model) != 11 | PATH.choice(fts_model) != 17</enable>
+  </about>
+
+<!-- Preisach model cannot be directly activated by the user.  Instead a particular hysteretic model -->
+<!-- is selected by the user, and then VEDA generates the appropriate coefficient tables (using a matlab -->
+<!-- script).  see the hysteretic hydration force for an example -->
+  <!-- <boolean id="WantPreisach"> -->
+  <!--   <about>  -->
+  <!--     <label>LABEL Preisach</label> 			 -->
+  <!--     <enable>off</enable> -->
+  <!--   </about> -->
+  <!--   <default>off</default> -->
+  <!-- </boolean> -->
+  
+  <boolean id="WantTipSqueeze">
+    <about> 
+      <label>LABEL Tip-Sample Squeeze Film Damping </label> 			
+      <description>Beta testing. Don't use.</description>
+      <enable>(PATH.choice(fts_model) != 18)  &amp;&amp; (PATH.choice(fts_model) != 20)</enable>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <default>off</default>
+  </boolean>
+
+  <number id="etaliquid">
+    <about>    
+      <label>LABEL Viscosity (Pa-s)</label>
+      <description>Liquid viscosity</description>
+      <enable>PATH.group(nc).boolean(WantTipSqueeze)</enable>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <units> </units>
+    <min>0</min>
+    <max>1000</max>
+    <default>1e-5</default>
+  </number>
+'
+     
+
+  <choice id="VEchoiceLinear">
+    <about> 
+      <label>LABEL Include sample visco-elastic forces?</label> 			
+      <description>Select the model for visco-elastic damping.  The tip is assumed to be rigid if visoelastic forces are included.</description>
+      <enable>PATH.choice(fts_model) == 1</enable>
+      <disablestyle>hide</disablestyle>
+    </about>
+    
+    <option>
+      <about>
+	<label>None</label>
+	<description>No visco-elastic forces</description>
+      </about>
+      <value>1</value>
+    </option>
+     
+    <option>
+      <about>
+	<label>Kelvin-Voigt</label>
+	<description>The kelvin-voigt model is a spring and a damper (dashpot) in parallel</description>
+      </about>
+      <value>2</value>
+    </option>
+
+     <option>
+       <about>
+     	 <label>Maxwell</label>
+     	 <description>The Maxwell model is a spring and a damper (dashpot) in series.  This is suitable for viscoelastic liquids. It describes solids only if the viscosity is very large.</description>
+       </about>
+       <value>3</value>
+     </option>
+
+
+     <option>
+       <about>
+     	 <label>Three element model</label>
+     	 <description>The standard three element model is a spring in series with a Kelvin-voigt element. This is the simplest model that captures the typical features of viscoelastic solids</description>
+       </about>
+       <value>5</value>
+     </option>
+
+    <option>
+      <about>
+	<label>Ad-hoc Kelvin-Voigt (not recommended)</label>
+	<description>This is the model used in previous versions of VEDA, and most previous literature. Use only for comparing to prior work. Not recommended for new simulations.</description>
+      </about>
+      <value>4</value>
+    </option>
+
+
+     <default>1</default>
+  </choice>
+
+
+  <choice id="VEchoiceHertz">
+    <about> 
+      <label>LABEL Include sample visco-elastic forces?</label> 			
+      <description>Select the model for visco-elastic damping.  The tip is assumed to be rigid if visoelastic forces are included.</description>
+      <enable>PATH.choice(fts_model) == 2  || PATH.choice(fts_model) == 3</enable>
+      <disablestyle>hide</disablestyle>
+      <disablestyle>hide</disablestyle>
+    </about>
+    
+    <option>
+      <about>
+	<label>None</label>
+	<description>No visco-elastic forces</description>
+      </about>
+      <value>1</value>
+    </option>
+     
+    <option>
+      <about>
+	<label>Kelvin-Voigt</label>
+	<description>The kelvin-voigt model is a spring and a damper (dashpot) in parallel</description>
+      </about>
+      <value>2</value>
+    </option>
+
+     <option>
+       <about>
+     	 <label>Three element model</label>
+     	 <description>The standard three element model is a spring in series with a Kelvin-voigt element. This is the simplest model that captures the typical features of viscoelastic solids</description>
+       </about>
+       <value>5</value>
+     </option>
+
+     <option>
+       <about>
+     	 <label>Maxwell</label>
+     	 <description>The Maxwell model is a spring and a damper (dashpot) in series.  This is suitable for viscoelastic liquids. It describes solids only if the viscosity is very large.</description>
+       </about>
+       <value>3</value>
+     </option>
+
+     <option>
+       <about>
+     	 <label>Generalized Maxwell (Prony series for stress relaxation function)</label>
+     	 <description>A number of Maxwell elements in parallel. The modulus entered as sample modulus above is E_infinity.</description>
+       </about>
+       <value>6</value>
+     </option>
+
+    <option>
+      <about>
+	<label>Ad-hoc Kelvin-Voigt (not recommended)</label>
+	<description>This is the model used in previous versions of VEDA, and most previous literature. Use only for comparing to prior work. Not recommended for new simulations.</description>
+      </about>
+      <value>4</value>
+    </option>
+
+
+     <default>1</default>
+  </choice>
+
+
+   <integer id="N_attard_spatial">
+    <about>    
+      <label>LABEL Num spatial points for Attard</label>
+      <description>Number of spatial discretization points for Attards model. Higher number is more accurate, but slower. </description>
+      <enable> (PATH.choice(fts_model) == 18) || (PATH.choice(fts_model) == 20) </enable>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <units> </units>
+    <min>19</min>
+    <max>1000</max>
+    <default>200</default>
+  </integer>
+
+   <integer id="N_attard_fourier">
+    <about>    
+      <label>LABEL Num Fourier basis functions for Attard</label>
+      <description>Number of fourier basis functions for Attards model. Higher number is more accurate, but slower. At least 10 is recommended.</description>
+      <enable> (PATH.choice(fts_model) == 20) ||  (PATH.choice(fts_model) == 18) </enable>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <units> </units>
+    <min>0</min>
+    <max>200</max>
+    <default>10</default>
+   </integer>
+
+   <number id="attard_radial_extent">
+    <about>    
+      <label>LABEL Radial extent of Attard computational domain (multiple of tip radius)</label>
+      <description>Size of the computational domain for Attards model. Higher number is more accurate, but slower. At least 1.5 is recommended </description>
+      <enable> (PATH.choice(fts_model) == 18) || (PATH.choice(fts_model) == 20)  </enable>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <units> </units>
+    <min>1</min>
+    <max>10</max>
+    <default>2</default>
+  </number>
+
+   <number id="attard_start">
+    <about>    
+      <label>LABEL Starting distance of Attard computation (nm above undeformed surface)</label>
+      <description>Starting point above the surface. </description>
+      <enable> (PATH.choice(fts_model) == 18) || (PATH.choice(fts_model) == 20)  </enable>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <units> </units>
+    <min>2</min>
+    <max>20</max>
+    <default>4</default>
+  </number>
+
+
+  <number id="attard_stop">
+    <about>    
+      <label>LABEL Stopping distance of Attard computation (nm above deformed surface)</label>
+      <description>Stopping point above the surface. </description>
+      <enable> (PATH.choice(fts_model) == 18) || (PATH.choice(fts_model) == 20)  </enable>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <units> </units>
+    <min>2</min>
+    <max>20</max>
+    <default>4</default>
+  </number>
+  
+<!-- this was for a hysteretic model... different attractive forces on approach vs retract. don't think it was ever fully finished. commented out in current version -->
+<!--    <number id="attard_stick_width"> -->
+<!--     <about>     -->
+<!--       <label>LABEL Stick width Attard (nm)</label> -->
+<!--       <description></description> -->
+<!--       <!-\- <enable> PATH.choice(fts_model) == 18</enable> -\-> -->
+<!--       <enable>false</enable> -->
+<!--       <disablestyle>hide</disablestyle> -->
+<!--     </about> -->
+<!--     <units> </units> -->
+<!--     <min>0</min> -->
+<!--     <max>1000</max> -->
+<!--     <default>0</default> -->
+<!--   </number> -->
+<!-- ' -->
+<!--    <number id="attard_stick_depth"> -->
+<!--     <about>     -->
+<!--       <label>LABEL Stick depth Attard (pm)</label> -->
+<!--       <description></description> -->
+<!--       <!-\- <enable> PATH.choice(fts_model) == 18</enable> -\-> -->
+<!--       <enable>false</enable> -->
+<!--       <disablestyle>hide</disablestyle> -->
+<!--     </about> -->
+<!--     <units> </units> -->
+<!--     <min>0</min> -->
+<!--     <max>1000</max> -->
+<!--     <default>15</default> -->
+<!--   </number> -->
+
+
+  <group id="VEAttard">
+    <about>
+      <enable>PATH.choice(fts_model) == 18  ||  PATH.choice(fts_model) == 20 </enable>
+    </about>
+
+    <image>
+      #include "three_element_model.png.txt"
+    </image>
+    
+    <choice id="modulus_type">
+      <about> 
+	<label>LABEL Preferred modulus input</label> 			
+	<description>Choose the type of data that you have.  Shear modulus is the most common for viscoelastic DMA data.</description>
+      </about>
+
+      <option>
+	<about>
+	  <label>Young's modulus</label>
+	</about>
+	<value>1</value>
+      </option>
+
+      <option>
+	<about>
+	  <label>Shear modulus</label>
+	</about>
+	<value>2</value>
+      </option>
+
+      <default>2</default>
+    </choice>
+
+    
+    <choice id="VEChoiceAttard">
+      <about> 
+	<label>LABEL Three element model inputs</label> 			
+	<description>Only the three element model is implemented for Attard.  You can choose between entering E1, E2, and eta, or E0, Einfinity, and stress relaxation time.</description>
+      </about>
+
+      <option>
+	<about>
+	  <label>E1, E2, eta</label>
+	</about>
+	<value>5</value>
+      </option>
+
+      <option>
+	<about>
+	  <label>E0, Einf, tau</label>
+	</about>
+	<value>7</value>
+      </option>
+
+      <default>7</default>
+    </choice>
+
+
+    <number id="threeelm_e1">
+      <about>    
+	<label>LABEL 1st element modulus (GPa)</label>
+	<description>See schematic of which is E1 and E2.</description>
+	<enable>(PATH.group(nc).group(VEAttard).choice(VEChoiceAttard) == 5) </enable>
+	    <disablestyle>hide</disablestyle>
+      </about>
+      <units> </units>
+      <min>0</min>
+      <max>1000</max>
+      <default>1</default>
+    </number>
+
+    <number id="threeelm_e2">
+      <about>    
+	<label>LABEL 2nd element modulus (GPa)</label>
+	<description>See schematic of which is E1 and E2.</description>
+	<enable>(PATH.group(nc).group(VEAttard).choice(VEChoiceAttard) == 5) </enable>
+	    <disablestyle>hide</disablestyle>
+      </about>
+      <units> </units>
+      <min>0</min>
+      <max>1000</max>
+      <default>1</default>
+    </number>
+        
+    <number id="etasampleHertz">
+      <about>    
+	<label>LABEL Sample viscosity (Pa-s)</label>
+	<description>Enter a value for the sample viscosity.</description>
+	<enable>(PATH.group(nc).group(VEAttard).choice(VEChoiceAttard) == 5) </enable>
+	<disablestyle>hide</disablestyle>
+      </about>
+      <units> </units>
+      <min>0</min>
+      <max>100e9</max>
+      <default>1</default>
+    </number>
+
+
+    <number id="threeelm_e0">
+      <about>    
+	<label>LABEL Modulus at t=0 (GPa)</label>
+	<description>Short time modulus.</description>
+	<enable>(PATH.group(nc).group(VEAttard).choice(VEChoiceAttard) == 7) </enable>
+	<disablestyle>hide</disablestyle>
+      </about>
+      <units> </units>
+      <min>0</min>
+      <max>1000</max>
+      <default>1</default>
+    </number>
+
+    <number id="threeelm_einf">
+      <about>    
+	<label>LABEL Modulus as t->infinity (GPa)</label>
+	<description>Long time modulus.</description>
+	<enable>(PATH.group(nc).group(VEAttard).choice(VEChoiceAttard) == 7) </enable>
+	    <disablestyle>hide</disablestyle>
+      </about>
+      <units> </units>
+      <min>0</min>
+      <max>1000</max>
+      <default>0.7</default>
+    </number>
+        
+    <number id="threeelm_tau_stress">
+      <about>    
+	<label>LABEL Stress Relaxation Time (s)</label>
+	<description>Enter a value for the stress relaxation time (note, different than the creep retardation time). Note the relaxation time must be small relative to the cantilever oscillation period (i.e. sample must be able to fully relax between each tap)</description>
+	<enable>(PATH.group(nc).group(VEAttard).choice(VEChoiceAttard) == 7) </enable>
+	<disablestyle>hide</disablestyle>
+      </about>
+      <units> </units>
+      <min>0</min>
+      <max>10</max>
+      <default>1e-6</default>
+    </number>       
+  </group>
+
+<!--______________________________________________________________ -->
+  
+  <group id="VEHertz">
+    <about>
+      <enable>(PATH.group(nc).choice(VEchoiceHertz) != 1) &amp;&amp; ( PATH.choice(fts_model) == 2 || PATH.choice(fts_model) == 3) </enable>
+    </about>
+    
+    <image>
+      #include "viscoelastic_elements.png.txt"
+    </image>
+
+    <choice id="modulus_type">
+      <about> 
+	<label>LABEL Preferred modulus input</label> 			
+	<description>Choose the type of data that you have.  Shear modulus is the most common for viscoelastic DMA data.</description>
+      </about>
+
+      <option>
+	<about>
+	  <label>Young's modulus</label>
+	</about>
+	<value>1</value>
+      </option>
+
+      <option>
+	<about>
+	  <label>Shear modulus</label>
+	</about>
+	<value>2</value>
+      </option>
+
+      <default>2</default>
+    </choice>
+
+    <number id="threeelm_e2">
+      <about>    
+	<label>LABEL 2nd element modulus (GPa)</label>
+	<description>For the three element model, the 'sample modulus' above is the first element (E1 or G1) and you enter the second element here (E2 or G2). See schematic of which is E1 and E2. Note, there is currently no way to enter E_0 and E_infinity for three element model, you have to use E1 and E2.</description>
+	<enable>(PATH.group(nc).choice(VEchoiceHertz) == 5)  ||  PATH.choice(fts_model) == 18  ||  PATH.choice(fts_model) == 20 </enable>
+	    <disablestyle>hide</disablestyle>
+      </about>
+      <units> </units>
+      <min>0</min>
+      <max>1000</max>
+      <default>1</default>
+    </number>
+    
+    
+    <number id="etasampleHertz">
+      <about>    
+	<label>LABEL Sample viscosity (Pa-s)</label>
+	<description>Enter a value for the sample viscosity.</description>
+	<enable> (( PATH.group(nc).choice(VEchoiceHertz) != 1 ) &amp;&amp; ( PATH.group(nc).choice(VEchoiceHertz) != 6 ))  ||  PATH.choice(fts_model) == 18  ||  PATH.choice(fts_model) == 20  </enable>
+	<disablestyle>hide</disablestyle>
+      </about>
+      <units> </units>
+      <min>0</min>
+      <max>100e9</max>
+      <default>1</default>
+    </number>
+    
+    <integer id="gen_max_N">
+      <about>    
+	<label>LABEL Number of elements for Generalized Maxwell </label>
+	<description>Enter the number of elements in the Generalized Maxwell (prony series) model.  You may enter up to 99 elements</description>
+	<enable>(PATH.group(nc).choice(VEchoiceHertz) == 6)  &amp;&amp;    PATH.choice(fts_model) != 18   &amp;&amp;   PATH.choice(fts_model) != 20 </enable>     
+    <disablestyle>hide</disablestyle>
+      </about>
+      <units> </units>
+      <min>1</min>
+      <max>99</max>
+      <default>3</default>
+    </integer>
+    
+    <string id="gen_max_E">
+      <about>    
+	<label>LABEL Generalized Maxwell modulii (GPa)</label>
+	<description>Enter a comma separated list of the modulii for the generalized maxwell model. In addition to these elements, the sample modulus above counts as one element with an infinite relaxation time. </description>
+	<enable>(PATH.group(nc).choice(VEchoiceHertz) == 6)  &amp;&amp;    PATH.choice(fts_model) != 18   &amp;&amp;   PATH.choice(fts_model) != 20 </enable>     
+	<disablestyle>hide</disablestyle>
+      </about>
+      <default>1</default>
+    </string>
+    
+    <string id="gen_max_tau">
+      <about>    
+	<label>LABEL Generalized Maxwell relaxation times (s)</label>
+	<description>Enter a comma separated list of the relaxation times for the generalized maxwell model.</description>
+	<enable>(PATH.group(nc).choice(VEchoiceHertz) == 6)  &amp;&amp;    PATH.choice(fts_model) != 18   &amp;&amp;   PATH.choice(fts_model) != 20 </enable>     
+	<disablestyle>hide</disablestyle>
+      </about>
+      <default>1</default>
+    </string>
+  </group>
+
+  <group id="linear_schematic">
+    <about>    
+      <enable>PATH.choice(fts_model) == 1   &amp;&amp; PATH.group(nc).choice(VEchoiceLinear) != 1 </enable>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <image>
+      #include "viscoelastic_elements.png.txt"
+    </image>      
+    </group>
+    
+    <number id="etasampleLin">
+    <about>    
+      <label>LABEL Damping coefficient (N-s/m)</label>
+      <description>Enter a viscoelasticity damping coefficient in N-s/m.</description>
+      <enable>PATH.choice(fts_model) == 1   &amp;&amp; PATH.group(nc).choice(VEchoiceLinear) != 1 </enable>
+    <disablestyle>hide</disablestyle>
+    </about>
+    <units> </units>
+    <min>1e-12</min>
+    <max>1000</max>
+    <default>1e-6</default>
+  </number>
+
+  <number id="k2Lin">
+    <about>    
+      <label>LABEL k2 Stiffness (N/m)</label>
+      <description>Enter the k2 stiffness for the three element model (the number above for sample stiffness is k1).  see manual for which is k1 and which is k2.</description>
+      <enable>PATH.choice(fts_model) == 1   &amp;&amp; PATH.group(nc).choice(VEchoiceLinear) == 5</enable>
+    <disablestyle>hide</disablestyle>
+    </about>
+    <units> </units>
+    <min>0</min>
+    <max>1000</max>
+    <default>0</default>
+  </number>
+
+
+  <boolean id="WantSurfHyst">
+    <about> 
+      <label>LABEL Include Surface energy hystersis? (for DMT model only)</label> 
+      <enable>(PATH.choice(fts_model) == 3)  || (PATH.choice(fts_model) == 4) </enable> 
+      <description>To include surface energy hysteresis, select "yes."  This model was modified from a model proposed by Garcia PRL 2006. </description>
+      <disablestyle>hide</disablestyle>
+    </about>
+    <default>off</default>
+  </boolean>
+
+  <number id="SurfHystGamma">
+    <about>    
+      <label>LABEL Gamma (J/m^2)</label>
+      <description>The change in surface energy between the approach and retract trajectories</description>
+      <enable>PATH.group(nc).boolean(WantSurfHyst)</enable>
+    <disablestyle>hide</disablestyle>
+    </about>
+    <units> </units>
+    <min>0</min>
+    <max>10</max>
+    <default>20e-3</default>
+  </number>
+  
+
+  <boolean id="WantHYST">
+    <about> 
+      <label>LABEL Include capillary forces?</label> 
+      <enable>(PATH.choice(fts_model) != 9)  &amp;&amp; (PATH.choice(fts_model) != 8)  &amp;&amp; (PATH.choice(fts_model) != 4)  &amp;&amp; (PATH.choice(fts_model) != 7)  &amp;&amp; (PATH.choice(fts_model) != 18)  &amp;&amp; (PATH.choice(fts_model) != 20)  </enable>
+      <disablestyle>hide</disablestyle>
+      <description>To include surface hysteretic force components, select "yes."  This adhesion hysteresis model was taken from Kober et al, Rapid Research Letters, 2008.  
+
+	Checking or unchecking this box changes the figure at the top of the page.  Scroll up to see the updated diagram.
+
+	Capillary forces cannot be used with JRK or DMT+DLVO models at present.  Capillary forces can not be applied to Morse or Lennard Jones potential models.
+
+	NOTE: if you receive a DDASKR error, try increasing the number of deflection points per cycle, or decrease the approach velocity.</description>
+    </about>
+    <default>off</default>
+  </boolean>
+  
+
+
+  <number id="D_0">
+    <about>    
+      <label>LABEL Critical gap, D_0 (nm) </label>
+      <description>The breaking gap at which the hysteretic force component goes to zero. </description>
+      <enable>PATH.group(nc).boolean(WantHYST)</enable>
+    <disablestyle>hide</disablestyle>
+    </about>
+    <units> </units>
+    <min>0</min>
+    <max>10</max>
+    <default>0.6</default>
+  </number>
+  
+  <number id="deltaE">
+    <about>    
+      <label>LABEL Energy dissipated, dE (eV) </label>
+      <description>The energy dissipated in the contact process during each cycle to the hysteretic force component. </description>
+      <enable>PATH.group(nc).boolean(WantHYST)</enable>
+    <disablestyle>hide</disablestyle>
+    </about>
+    <units> </units>
+    <min>0</min>
+    <max>1000</max>
+    <default>5</default>
+  </number>
+    
+
+</group>	
+
+

@@ -1,0 +1,74 @@
+2.1.0
+First version to be published at the new "veda" url instead of "adac"
+
+2.0.26
+First version published since the 2012 RSI article
+added matlab gui to fit prony series
+add option for fft on time history outputs
+ability to plot force vs gap for time hist
+allow turning off obs defl in time hist
+added direct output (i.e. interferometer).  
+added anti-aliasing to f-z curves output
+
+2.0.24
+bug fixes for linear contact viscoelasiticty
+
+2.0.23
+added magnetic dipole-dipole interactions
+
+2.0.22
+Major overhaul of viscoelasticity code
+Bug fix: solvation shell properties can now be specified separately for substrate and feature
+Bug fix: Ancyzkowski formula output now works correct when driving off resonance
+
+2.0.21
+added self-excitation for tapping mode 
+minor bug fixes (calculation of base sample work, approach to setpoint in freq sweep, acoustic mode in FM)
+
+2.0.20
+added AC bias for electrostatic
+
+2.0.19
+Published FM Scanning tool
+added AC bias for electrostatic
+
+2.0.18
+- added anti-aliasing filters for controller outputs
+
+2.0.14
+- fixed bug in lock-in time constant calculation
+- added approach/retract for AM approach curves
+- many manual updates and example updates
+
+version 2.0.8:
+fixed a bug in retraction curves
+
+version 2.0.7:
+
+Version 2.0.6:
+-Sample engagement is now much more robust for AM Scanning.  
+-Added option to plot sample engagement transients for advanced AM Scanning
+
+Version 2.0.5
+-Higher harmonics can now specified as reals instead of integers
+-Controllers (Z, and FM) are now proper PI controllers
+-Controller gains are not normalized by sampling frequency (was a bad hack for the old controller)
+-Time history plots are now much quicker
+-Energy propagation plots now include drive input energy and fluid damping energy (not available for acoustic mode).
+-Minimum allowable amplitude is now 0.01 nm
+
+Version 2.0.4
+- Bugfix: acoustic drive forcing amplitude was incorrect for tip mass > 0
+- New feature: VEDA now simulates an actual lock-in amplifier in addition to the fourier sine and
+cosine integrals.  All feedback control is now based on lock-in amplifiers.
+- New tools: force viewer tool, FM approach curves
+- Manual has been significantly re-organized
+- The majority of the examples in the manual have been programmed into the tools.  You 
+can now run most manual examples in two clicks.  
+- VEDA is now open source under the Q Public License
+
+Version 2.0.3
+- Bugfix: acoustic mode forcing phase was incorrect for tip mass > 0
+
+Version 2.0.2, 2.0.1, 2.0.0
+- no release notes

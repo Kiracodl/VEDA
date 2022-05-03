@@ -1,0 +1,75 @@
+
+            <number id="LineSpeed">
+                <about>
+                    <label>Scan Lines per second </label>
+                    <description>Enter the rate that the AFM moves across the sample. Lines per second * scan length = scan velocity</description>
+                </about>
+                <units></units>
+                <min>0.001</min>
+                <max>1000</max>
+#ifdef SCANSPEED
+                <default>SCANSPEED</default>
+                <current>SCANSPEED</current>
+#else
+              	<default>10</default>
+                <current>10</current>
+#endif
+            </number>
+
+            <number id="KP">
+                <about>
+                    <label>Proportional feedback gain.</label>
+                    <description>Z controller Proportional gain.</description>
+                </about>
+                <units></units>
+                <min>0</min>
+                <max>100</max>
+
+#ifdef PROPGAIN
+                <default>PROPGAIN</default>
+                <current>PROPGAIN</current>
+#else
+              	<default>0.04</default>
+                <current>0.04</current>
+#endif
+            </number>
+
+            <number id="KI">
+                <about>
+                    <label>Integral gain</label>
+                    <description>Z controller Integral gain.</description>
+                </about>
+                <units></units>
+                <min>0</min>
+                <max>100</max>
+
+#ifdef INTGAIN
+                <default>INTGAIN</default>
+                <current>INTGAIN</current>
+#else
+              	<default>0.04</default>
+                <current>0.04</current>
+#endif
+            </number>
+
+#ifndef SAMPLING_FREQ_ENABLE
+#define SAMPLING_FREQ_ENABLE on
+#endif
+	    
+	    <number id="sample_freq"> 
+	      <about> 
+	 	<label>Sampling frequency (MHz)</label> 
+	 	<description>The freqency at which the controller samples the deflection signal.</description>
+		<enable>SAMPLING_FREQ_ENABLE</enable>
+	      </about> 
+	      <default>1</default>
+	    </number>
+	      
+	    <boolean id="ConstZ">
+	      <about>
+		<label>Constant Z mode</label>
+		<description>Check this box to disable the Z controller and scan over sample at a constant height.  Uncheck this box to use the Z controller (default).  Note, proportional and integral gains are still used for the sample engagement phase</description>
+	      </about>
+	      <default>off</default>
+	    </boolean>
+	    

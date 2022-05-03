@@ -1,0 +1,3112 @@
+% Encoding: ISO-8859-1
+
+@article{rajabifar2018dynamic,
+  title={Dynamic AFM on Viscoelastic Polymer Samples with Surface Forces},
+  author={Rajabifar, Bahram and Jadhav, Jyoti M and Kiracofe, Daniel and Meyers, Gregory F and Raman, Arvind},
+  journal={Macromolecules},
+  volume={51},
+  number={23},
+  pages={9649--9661},
+  year={2018},
+  publisher={ACS Publications}
+}
+
+@ARTICLE{debeer2010dissipation,
+  author = {deBeer, S. and Ende, D. and Mugele, F.},
+  title = {Dissipation and oscillatory solvation forces in confined liquids
+	studied by small-amplitude atomic force spectroscopy},
+  journal = {Nanotechnology},
+  year = {2010},
+  volume = {21},
+  pages = {325703},
+  publisher = {IOP Publishing}
+}
+
+@ARTICLE{Abdurixit_ASurfSci_2000,
+  author = {Abdurixit, A and Baratoff, A and Meyer, E},
+  title = {Molecular dynamics simulations of dynamic force microscopy: applications
+	to the Si(111)-7 X 7 surface},
+  journal = {Appl. Surf. Sci.},
+  year = {2000},
+  volume = {157},
+  pages = {355-360},
+  number = {4},
+  month = {APR},
+  date-added = {2008-04-23 12:15:35 -0400},
+  date-modified = {2008-04-23 12:50:09 -0400},
+  issn = {0169-4332},
+  unique-id = {ISI:000086808100028}
+}
+
+@ARTICLE{Albrecht_1991,
+  author = {Albrecht, T.R. and Grutter, P. and Horne, D. and Rugar, D.},
+  title = {Frequency-modulation detection using high-Q cantilevers for enhanced
+	force microscope sensitivity},
+  journal = {Appl. Phys.},
+  year = {1991},
+  volume = {69},
+  pages = {668-673},
+  number = {2},
+  month = {Jan},
+  date = {JAN 15},
+  date-added = {2008-10-07 15:57:00 -0400},
+  date-modified = {2008-10-07 15:57:01 -0400},
+  isi = {ISI:A1991EU22500017},
+  issn = {0021-8979},
+  publication-type = {J}
+}
+
+@ARTICLE{Anczykowski_APA_1998,
+  author = {Anczykowski, B. and Cleveland, J. P. and Kruger, D. and Elings, V.
+	and Fuchs, H.},
+  title = {Analysis of the interaction mechanisms in dynamic mode SFM by means
+	of experimental data and computer simulation},
+  journal = {Appl. Phys. A},
+  year = {1998},
+  volume = {66},
+  pages = {S885--S889},
+  month = {Mar},
+  date = {MAR},
+  date-added = {2007-12-07 14:08:45 -0500},
+  date-modified = {2007-12-07 14:09:32 -0500},
+  isi = {ISI:000076887100045},
+  issn = {0947-8396},
+  part-number = {Part 2 Suppl. S},
+  publication-type = {J}
+}
+
+@ARTICLE{Anczykowski_ASURF_1999,
+  author = {Anczykowski, B. and Gotsmann, B. and Fuchs, H. and Cleveland, J.
+	P. and Elings, V. B.},
+  title = {How to measure energy dissipation in dynamic mode atomic force microscopy},
+  journal = {Appl. Surf. Sci.},
+  year = {1999},
+  volume = {140},
+  pages = {376--382},
+  number = {3-4},
+  month = {Feb},
+  date = {FEB},
+  date-added = {2007-10-08 19:26:27 -0400},
+  date-modified = {2007-10-08 19:27:19 -0400},
+  isi = {ISI:000078876200026},
+  issn = {0169-4332},
+  publication-type = {J}
+}
+
+@ARTICLE{Anczykowski_PRB_1996,
+  author = {Anczykowski, B. and Kruger, D. and Fuchs, H.},
+  title = {Cantilever dynamics in quasinoncontact force microscopy: Spectroscopic
+	aspects},
+  journal = {Phys. Rev. B},
+  year = {1996},
+  volume = {53},
+  pages = {15485--15488},
+  number = {23},
+  month = {Jun},
+  date = {JUN 15},
+  date-added = {2007-07-17 10:53:19 -0400},
+  date-modified = {2007-10-07 19:40:34 -0400},
+  isi = {ISI:A1996UT77000029},
+  issn = {0163-1829},
+  publication-type = {J}
+}
+
+@BOOK{Ascher_1998,
+  title = {Computer methods for ordinary differential equations and differential-algebraic
+	equations},
+  publisher = {SIAM},
+  year = {1998},
+  author = {Ascher, Uri M. and Petzold, Linda R.},
+  pages = {3 - 305},
+  abstract = {Computer methods for ordinary differential equations and differential-algebraic
+	equations are presented. Topics discussed include: ordinary differential
+	equations; initial value problems; boundary value problems; differential-algebraic
+	equations; dynamical systems; Euler equation; nonlinear equations;
+	Runge-Kutta methods; error estimation; implicit linear multistep
+	methods; difference methods; index reduction and stabilization; and
+	Radau collocation.},
+  copyright = {Compilation and indexing terms, Copyright 2007 Elsevier Inc. All rights
+	reserved},
+  date-added = {2007-11-13 14:34:38 -0500},
+  date-modified = {2008-05-05 11:44:35 -0400},
+  language = {English}
+}
+
+@ARTICLE{Ashby_APL_2007,
+  author = {Ashby, Paul D.},
+  title = {Gentle imaging of soft materials in solution with amplitude modulation
+	atomic force microscopy: Q control and thermal noise},
+  journal = {Appl. Phys. Lett.},
+  year = {2007},
+  volume = {91},
+  number = {25},
+  month = {DEC 17},
+  article-number = {254102},
+  bdsk-url-1 = {http://dx.doi.org/10.1063/1.2824576%7D},
+  date-added = {2008-04-23 12:23:19 -0400},
+  date-modified = {2008-04-23 12:48:28 -0400},
+  doi = {10.1063/1.2824576},
+  issn = {0003-6951},
+  unique-id = {ISI:000251908100108}
+}
+
+@ARTICLE{Ashhab:1999lr,
+  author = {Ashhab, M. and Salapaka, M. V. and Dahleh, M. and Mezic, I.},
+  title = {Melnikov-based dynamical analysis of microcantilevers in scanning
+	probe microscopy},
+  journal = {Nonlinear Dyn.},
+  year = {1999},
+  volume = {20},
+  pages = {197--220},
+  number = {3},
+  month = {Nov},
+  date = {NOV},
+  date-added = {2007-10-12 15:37:21 -0400},
+  date-modified = {2007-10-12 15:52:28 -0400},
+  isi = {ISI:000083423900001},
+  issn = {0924-090X},
+  publication-type = {J}
+}
+
+@ARTICLE{Ashhab_AUTO_1999,
+  author = {Ashhab, M. and Salapaka, M. V. and Dahleh, M. and Mezic, I.},
+  title = {Dynamical analysis and control of microcantilevers},
+  journal = {Automatica},
+  year = {1999},
+  volume = {35},
+  pages = {1663--1670},
+  number = {10},
+  month = {Oct},
+  date = {OCT},
+  date-added = {2007-07-16 15:32:47 -0400},
+  date-modified = {2007-10-07 19:40:51 -0400},
+  isi = {ISI:000082781800004},
+  issn = {0005-1098},
+  publication-type = {J}
+}
+
+@ARTICLE{attard2001langmuir,
+  author = {Attard, P.},
+  title = {Interaction and deformation of viscoelastic particles. 2. Adhesive
+	particles},
+  journal = {Langmuir},
+  year = {2001},
+  volume = {17},
+  pages = {4322--4328},
+  number = {14},
+  owner = {drk},
+  publisher = {ACS Publications},
+  timestamp = {2012.07.09}
+}
+
+@ARTICLE{attard2001prE,
+  author = {Attard, P.},
+  title = {Interaction and deformation of viscoelastic particles: Nonadhesive
+	particles},
+  journal = {Physical Review E},
+  year = {2001},
+  volume = {63},
+  pages = {061604},
+  number = {6},
+  owner = {drk},
+  publisher = {APS},
+  timestamp = {2012.07.09}
+}
+
+@ARTICLE{attard2000interaction,
+  author = {Attard, P.},
+  title = {Interaction and deformation of elastic bodies: origin of adhesion
+	hysteresis},
+  journal = {The Journal of Physical Chemistry B},
+  year = {2000},
+  volume = {104},
+  pages = {10635--10641},
+  number = {45},
+  owner = {drk},
+  publisher = {ACS Publications},
+  timestamp = {2012.07.09}
+}
+
+@ARTICLE{attard1992deformation,
+  author = {Attard, P. and Parker, J. L.},
+  title = {Deformation and adhesion of elastic bodies in contact},
+  journal = {Physical Review A},
+  year = {1992},
+  volume = {46},
+  pages = {7959},
+  number = {12},
+  owner = {drk},
+  publisher = {APS},
+  timestamp = {2012.07.09}
+}
+
+@ARTICLE{Balantekin_APL_2005,
+  author = {Balantekin, M. and Atalar, A.},
+  title = {Enhanced higher-harmonic imaging in tapping-mode atomic force microscopy},
+  journal = {Appl. Phys. Lett.},
+  year = {2005},
+  volume = {87},
+  pages = {243513},
+  number = {24},
+  date-added = {2009-01-12 15:02:28 -0500},
+  date-modified = {2009-01-12 15:02:28 -0500}
+}
+
+@ARTICLE{Basak_APL_2007,
+  author = {Basak, S. and Raman, A.},
+  title = {Dynamics of tapping mode atomic force microscopy in liquids: Theory
+	and experiments},
+  journal = {Appl. Phys. Lett.},
+  year = {2007},
+  volume = {91},
+  pages = {064107},
+  number = {6},
+  month = {Aug},
+  af = {Basak, Sudipta Raman, Arvind},
+  date = {AUG 6},
+  date-added = {2007-09-26 13:44:00 -0400},
+  date-modified = {2007-10-07 19:41:11 -0400},
+  di = {ARTN 064107},
+  isi = {ISI:000248661400158},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{Basak_JAP_2006,
+  author = {Basak, S. and Raman, A. and Garimella, S. V.},
+  title = {Hydrodynamic loading of microcantilevers vibrating in viscous fluids},
+  journal = {J. Appl. Phys.},
+  year = {2006},
+  volume = {99},
+  pages = {114906},
+  number = {11},
+  month = {Jun},
+  date = {JUN 1},
+  date-added = {2007-09-26 13:55:01 -0400},
+  date-modified = {2007-10-07 19:41:30 -0400},
+  di = {ARTN 114906},
+  isi = {ISI:000238314900123},
+  issn = {0021-8979},
+  publication-type = {J}
+}
+
+@ARTICLE{Basso:2000fk,
+  author = {Basso, M. and Giarre, L. and Dahleh, M. and Mezic, I.},
+  title = {Complex dynamics in a harmonically excited Lennard-Jones oscillator:
+	Microcantilever-sample interaction in scanning probe microscopes},
+  journal = {J. Dyn. Syst., Meas. Control},
+  year = {2000},
+  volume = {122},
+  pages = {240--245},
+  number = {1},
+  month = {Mar},
+  date = {MAR},
+  date-added = {2007-10-12 15:52:57 -0400},
+  date-modified = {2007-10-12 16:05:48 -0400},
+  isi = {ISI:000086589500034},
+  issn = {0022-0434},
+  publication-type = {J}
+}
+
+@ARTICLE{basso2008modelling,
+  author = {Basso, M. and Paoletti, P. and Tiribilli, B. and Vassalli, M.},
+  title = {Modelling and analysis of autonomous micro-cantilever oscillations},
+  journal = {Nanotechnology},
+  year = {2008},
+  volume = {19},
+  pages = {475501},
+  publisher = {IOP Publishing}
+}
+
+@ARTICLE{Bausch_BJ_1998,
+  author = {Bausch, A. R. and Ziemann, F. and Boulbitch, A. A. and Jacobson,
+	K. and Sackmann, E.},
+  title = {Local measurements of viscoelastic parameters of adherent cell surfaces
+	by magnetic bead microrheometry},
+  journal = {Biophys. J.},
+  year = {1998},
+  volume = {75},
+  pages = {2038--2049},
+  number = {4},
+  month = {Oct},
+  date = {OCT},
+  date-added = {2007-12-06 17:08:20 -0500},
+  date-modified = {2007-12-06 17:08:42 -0500},
+  isi = {ISI:000076144000044},
+  issn = {0006-3495},
+  publication-type = {J}
+}
+
+@ARTICLE{Berg:1997qy,
+  author = {Berg, J. and Briggs, G. A. D.},
+  title = {Nonlinear dynamics of intermittent-contact mode atomic force microscopy},
+  journal = {Phys. Rev. B},
+  year = {1997},
+  volume = {55},
+  pages = {14899--14908},
+  number = {22},
+  month = {Jun},
+  date = {JUN 1},
+  date-added = {2007-10-12 16:06:03 -0400},
+  date-modified = {2007-10-12 16:06:17 -0400},
+  isi = {ISI:A1997XF60200037},
+  issn = {1098-0121},
+  publication-type = {J}
+}
+
+@ARTICLE{Binnig_1986,
+  author = {Binnig, G. and Quate, C. F. and Gerber, C.},
+  title = {Atomic Force Microscope},
+  journal = {Phys. Rev. Lett.},
+  year = {1986},
+  volume = {56},
+  pages = {930--933},
+  number = {9},
+  month = {Mar},
+  date = {MAR 3},
+  date-added = {2007-10-11 19:48:56 -0400},
+  date-modified = {2007-10-12 16:44:43 -0400},
+  isi = {ISI:A1986A543600013},
+  issn = {0031-9007},
+  publication-type = {J}
+}
+
+@ARTICLE{Boisgard:1998uq,
+  author = {Boisgard, R. and Michel, D. and Aime, J. P.},
+  title = {Hysteresis generated by attractive interaction: oscillating behavior
+	of a vibrating tip-microlever system near a surface},
+  journal = {Surf. Sci.},
+  year = {1998},
+  volume = {401},
+  pages = {199--205},
+  number = {2},
+  month = {Apr},
+  date = {APR 1},
+  date-added = {2007-10-12 16:06:28 -0400},
+  date-modified = {2007-10-12 16:06:41 -0400},
+  isi = {ISI:000073707100010},
+  issn = {0039-6028},
+  publication-type = {J}
+}
+
+@ARTICLE{Bradley_1932,
+  author = {Bradley, R. A. and Colvin, J.},
+  title = {On reactions in solids - A comparison of the methods of deriving
+	the energy of activation},
+  journal = {Phil. Mag.},
+  year = {1932},
+  volume = {14},
+  pages = {1102--1114},
+  number = {95},
+  month = {Dec},
+  date = {DEC},
+  date-added = {2007-10-07 19:29:06 -0400},
+  date-modified = {2007-10-07 19:43:02 -0400},
+  isi = {ISI:000200051700008},
+  issn = {1478-6443},
+  publication-type = {J},
+  special-issue = {Sp. Iss. 7TH SERIES}
+}
+
+@BOOK{Brenan_1989,
+  title = {Numerical Solution of Initial Value Problems in Differential Algebraic
+	Equations},
+  publisher = {Elsevier, New York},
+  year = {1989, republished by SIAM, 1996},
+  author = {Brenan, K.E. and Campbell, S.L. and Petzold, L. R.},
+  date-added = {2007-07-18 16:20:30 -0400},
+  date-modified = {2007-07-18 16:23:12 -0400}
+}
+
+@ARTICLE{Brown_SIAM_1994,
+  author = {Brown, P. N. and Hindmarsh, A. C. and Petzold, L. R.},
+  title = {USING KRYLOV METHODS IN THE SOLUTION OF LARGE-SCALE DIFFERENTIAL-ALGEBRAIC
+	SYSTEMS},
+  journal = {SIAM J. Sci. Compu.},
+  year = {1994},
+  volume = {15},
+  pages = {1467--1488},
+  number = {6},
+  month = {Nov},
+  date = {NOV},
+  date-added = {2007-07-18 16:28:58 -0400},
+  date-modified = {2007-11-13 14:48:51 -0500},
+  isi = {ISI:A1994PP62600012},
+  issn = {1064-8275},
+  publication-type = {J}
+}
+
+@ARTICLE{buguin2001active,
+  author = {Buguin, A. and Du Roure, O. and Silberzan, P.},
+  title = {Active atomic force microscopy cantilevers for imaging in liquids},
+  journal = {Applied Physics Letters},
+  year = {2001},
+  volume = {78},
+  pages = {2982}
+}
+
+@ARTICLE{BURNHAM:1995fj,
+  author = {Burnham, N. A. and Kulik, A. J. and Gremaud, G. and BRIGGS, G. A.
+	D.},
+  title = {NANOSUBHARMONICS - THE DYNAMICS OF SMALL NONLINEAR CONTACTS},
+  journal = {Phys. Rev. Lett.},
+  year = {1995},
+  volume = {74},
+  pages = {5092--5095},
+  number = {25},
+  month = {Jun},
+  date = {JUN 19},
+  date-added = {2007-10-12 16:06:51 -0400},
+  date-modified = {2007-10-12 16:07:53 -0400},
+  isi = {ISI:A1995RD28300032},
+  issn = {0031-9007},
+  publication-type = {J}
+}
+
+@ARTICLE{Bustamante_WLC,
+  author = {Bustamante, C and Marko, JF and Siggia, ED and Smith, S},
+  title = {Entropic elasticity of lambda-phage DNA.},
+  journal = {Science},
+  year = {1994},
+  volume = {265},
+  pages = {1599-600--},
+  number = {5178},
+  month = sep,
+  keywords = {Bacteriophage lambda, DNA, Viral, Least-Squares Analysis, Thermodynamics},
+  owner = {alexander},
+  timestamp = {2011.11.07},
+  url = {http://ukpmc.ac.uk/abstract/MED/8079175}
+}
+
+@BOOK{butt2003physics,
+  title = {Physics and chemistry of interfaces},
+  publisher = {Wiley-VCH},
+  year = {2003},
+  author = {Butt, H.J. and Graf, K. and Kappl, M. and Wiley, J.}
+}
+
+@ARTICLE{Butt_SSR_2005,
+  author = {Butt, H J and Cappella, B and Kappl, M},
+  title = {Force measurements with the atomic force microscope: Technique, interpretation
+	and applications},
+  journal = {Surf. Sci. Rep.},
+  year = {2005},
+  volume = {59},
+  pages = {1-152},
+  number = {1-6},
+  month = {Oct},
+  abstract = {The atomic force microscope (AFM) is not only a tool to image the
+	topography of solid surfaces at high resolution. It can also be used
+	to measure force-versus-distance curves. Such curves, briefly called
+	force curves, provide valuable information on local material properties
+	such as elasticity, hardness, Hamaker constant, adhesion and surface
+	charge densities. For this reason the measurement of force curves
+	has become essential in different fields of research such as surface
+	science, materials engineering, and biology. Another application
+	is the analysis of surface forces per se. Some of the most fundamental
+	questions in colloid and surface science can be addressed directly
+	with the AFM: What are the interactions between particles in a liquid?
+	How can a dispersion be stabilized? How do surfaces in general and
+	particles in particular adhere to each other? Particles and surfaces
+	interactions have major implications for friction and lubrication.
+	Force measurements on single molecules involving the rupture of single
+	chemical bonds and the stretching of polymer chains have almost become
+	routine. The structure and properties of confined liquids can be
+	addressed since force measurements provide information on the energy
+	of a confined liquid film. After the review of Cappella {[}B. Cappella,
+	G. Dietler, Surf. Sci. Rep. 34 (1999) 1-104] 6 years of intense development
+	have occurred. In 1999, the AFM was used only by experts to do force
+	measurements. Now, force curves are used by many AFM researchers
+	to characterize materials and single molecules. The technique and
+	our understanding of surface forces has reached a new level of maturity.
+	In this review we describe the technique of AFM force measurements.
+	Important experimental issues such as the determination of the spring
+	constant and of the tip radius are discussed. Cur-rent state of the
+	art in analyzing force curves obtained under different conditions
+	is presented. Possibilities, perspectives but also open questions
+	and limitations are discussed. (c) 2005 Elsevier B.V. All rights
+	reserved.},
+  bdsk-url-1 = {http://dx.doi.org/10.1016/j.curfrep.2005.08.003%7D},
+  date-added = {2008-11-24 20:44:31 -0500},
+  date-modified = {2009-02-02 11:49:23 -0500}
+}
+
+@ARTICLE{Butt_NANO_1995,
+  author = {Butt, H. J. and Jaschke, M.},
+  title = {CALCULATION OF THERMAL NOISE IN ATOMIC-FORCE MICROSCOPY},
+  journal = {Nanotechnology},
+  year = {1995},
+  volume = {6},
+  pages = {1--7},
+  number = {1},
+  month = {Jan},
+  date = {JAN},
+  date-added = {2007-10-08 18:56:05 -0400},
+  date-modified = {2007-10-08 18:56:41 -0400},
+  isi = {ISI:A1995RK91000001},
+  issn = {0957-4484},
+  publication-type = {J}
+}
+
+@ARTICLE{Cappella_SSR_1999,
+  author = {Cappella, B. and Dietler, G.},
+  title = {Force-distance curves by atomic force microscopy},
+  journal = {Surf. Sci. Rep.},
+  year = {1999},
+  volume = {34},
+  pages = {1--+},
+  number = {1-3},
+  date-added = {2007-07-17 12:04:36 -0400},
+  date-modified = {2007-10-08 17:56:32 -0400},
+  isi = {ISI:000081229900001},
+  issn = {0167-5729},
+  publication-type = {J}
+}
+
+@ARTICLE{Caron:2004yq,
+  author = {Caron, A. and Rabe, U. and Reinstadtler, M. and Turner, J. A. and
+	Arnold, W.},
+  title = {Imaging using lateral bending modes of atomic force microscope cantilevers},
+  journal = {Appl. Phys. Lett.},
+  year = {2004},
+  volume = {85},
+  pages = {6398--6400},
+  number = {26},
+  month = {Dec},
+  date = {DEC 27},
+  date-added = {2007-10-11 19:48:35 -0400},
+  date-modified = {2007-10-11 19:48:46 -0400},
+  isi = {ISI:000225785300026},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{Chadwick_SIAM_2002,
+  author = {Chadwick, R S},
+  title = {Axisymmetric indentation of a thin incompressible elastic layer},
+  journal = {SIAM J. Appl. Math.},
+  year = {2002},
+  volume = {62},
+  pages = {1520-1530},
+  number = {5},
+  month = {JUL 3},
+  abstract = {Axisymmetric indentation of an incompressible elastic layer by a frictionless
+	rigid sphere is considered. Estimates of the contact radius and the
+	force required to produce a given indentation are given when the
+	thickness of the layer is mall compared to the contact radius. The
+	elastic layer is either bonded to or slips along a rigid substrate.
+	The estimates are obtained by asymptotically matching a lubrication-type
+	expansion valid in the contact region to an edge layer expansion
+	studied using the Wiener-Hopf technique. A substantially larger force
+	is required to equally indent a bonded layer compared to a slipping
+	layer. In the former case the force is inversely proportional to
+	the cube of the layer thickness, rather than to the layer thickness
+	itself, if the layer is free to slip.},
+  date-added = {2008-11-24 20:43:59 -0500},
+  date-modified = {2008-11-24 20:43:59 -0500}
+}
+
+@ARTICLE{Chau_2007,
+  author = {Chau, A. and Rignier, S. and Delchambre, A. and Lambert, P.},
+  title = {Three-dimensional model for capillary nanobridges and capillary forces},
+  journal = {MODELLING AND SIMULATION IN MATERIALS SCIENCE AND ENGINEERING},
+  year = {2007},
+  volume = {15},
+  pages = {305--317},
+  number = {3},
+  month = {Apr},
+  af = {Chau, Alexandre Rignier, Stiphane Delchambre, Alain Lambert, Pierre},
+  date = {APR},
+  date-added = {2007-07-17 10:08:18 -0400},
+  date-modified = {2007-07-17 10:45:03 -0400},
+  isi = {ISI:000245828600009},
+  issn = {0965-0393},
+  publication-type = {J}
+}
+
+@ARTICLE{Chau_SIM_2007,
+  author = {Chau, A. and Rignier, S. and Delchambre, A. and Lambert, P.},
+  title = {Three-dimensional model for capillary nanobridges and capillary forces},
+  journal = {Modeling Simul. Mater. Sci. Eng.},
+  year = {2007},
+  volume = {15},
+  pages = {305--317},
+  number = {3},
+  month = {Apr},
+  af = {Chau, Alexandre Rignier, Stiphane Delchambre, Alain Lambert, Pierre},
+  date = {APR},
+  date-added = {2007-10-08 18:04:54 -0400},
+  date-modified = {2008-01-15 13:24:36 -0500},
+  isi = {ISI:000245828600009},
+  issn = {0965-0393},
+  publication-type = {J}
+}
+
+@ARTICLE{Chen:1996dz,
+  author = {Chen, G. Y. and Warmack, R. J. and Oden, P. I. and Thundat, T.},
+  title = {Transient response of tapping scanning force microscopy in liquids},
+  journal = {J. Vac. Sci. Technol. B},
+  year = {1996},
+  volume = {14},
+  pages = {1313--1317},
+  number = {2},
+  month = {Mar-Apr},
+  date = {MAR-APR},
+  date-added = {2007-10-15 01:06:46 -0400},
+  date-modified = {2007-10-15 01:06:46 -0400},
+  isi = {ISI:A1996UH89000150},
+  issn = {1071-1023},
+  publication-type = {J}
+}
+
+@ARTICLE{CHEN:1994pb,
+  author = {CHEN, J. and WORKMAN, R. K. and SARID, D. and HOPER, R.},
+  title = {NUMERICAL SIMULATIONS OF A SCANNING FORCE MICROSCOPE WITH A LARGE-AMPLITUDE
+	VIBRATING CANTILEVER},
+  journal = {Nanotechnology},
+  year = {1994},
+  volume = {5},
+  pages = {199--204},
+  number = {4},
+  month = {Oct},
+  date = {OCT},
+  date-added = {2007-10-15 01:06:46 -0400},
+  date-modified = {2007-10-15 01:06:46 -0400},
+  isi = {ISI:A1994QP88400003},
+  issn = {0957-4484},
+  publication-type = {J}
+}
+
+@ARTICLE{Clarke:2005kl,
+  author = {Clarke, R. J. and Cox, S. M. and Williams, P. M. and Jensen, O. E.},
+  title = {The drag on a microcantilever oscillating near a wall},
+  journal = {J. Fluid Mech.},
+  year = {2005},
+  volume = {545},
+  pages = {397--426},
+  month = {Dec},
+  date = {DEC 25},
+  date-added = {2007-10-15 01:06:46 -0400},
+  date-modified = {2007-10-15 01:06:46 -0400},
+  isi = {ISI:000234304100018},
+  issn = {0022-1120},
+  publication-type = {J}
+}
+
+@ARTICLE{Clarke:2006dk,
+  author = {Clarke, R. J. and Jensen, O. E. and Billingham, J. and Williams,
+	P. M.},
+  title = {Three-dimensional flow due to a microcantilever oscillating near
+	a wall: an unsteady slender-body analysis},
+  journal = {Proc. Roy. Soc. A},
+  year = {2006},
+  volume = {462},
+  pages = {913--933},
+  number = {2067},
+  month = {Mar},
+  date = {MAR 8},
+  date-added = {2007-10-15 01:06:46 -0400},
+  date-modified = {2007-10-15 01:06:46 -0400},
+  isi = {ISI:000235237800011},
+  issn = {1364-5021},
+  publication-type = {J}
+}
+
+@ARTICLE{Cleveland_1993,
+  author = {Cleveland, J.P. and Manne, S. and Bocek, D. and Hansma, P.K.},
+  title = {A Nondestructive Method For Determining The Spring Constant Of Cantilevers
+	For Scanning Force Microscopy},
+  journal = {Rev. Sci. Instrum.},
+  year = {1993},
+  volume = {64},
+  pages = {403-405},
+  number = {2},
+  month = {Feb},
+  date-added = {2008-10-20 14:45:00 -0400},
+  date-modified = {2008-10-20 14:45:01 -0400},
+  isi = {ISI:A1993KM79900018},
+  issn = {0034-6748}
+}
+
+@ARTICLE{Clifford_NANO_2005,
+  author = {Clifford, C. A. and Seah, M. P.},
+  title = {The determination of atomic force microscope cantilever spring constants
+	via dimensional methods for nanomechanical analysis},
+  journal = {Nanotechnology},
+  year = {2005},
+  volume = {16},
+  pages = {1666--1680},
+  number = {9},
+  month = {Sep},
+  date = {SEP},
+  date-added = {2007-10-08 18:15:34 -0400},
+  date-modified = {2007-10-12 16:29:33 -0400},
+  isi = {ISI:000232089500044},
+  issn = {0957-4484},
+  publication-type = {J}
+}
+
+@ARTICLE{Couturier_EPJ_2001,
+  author = {Couturier, G and Aime, J. P. and Salardenne, J and Boisgard, R},
+  title = {A virtual non contact-atomic force microscope (NC-AFM): Simulation
+	and comparison with analytical models},
+  journal = {Euro. Phys. J. - Appl. Phys.},
+  year = {2001},
+  volume = {15},
+  pages = {141-147},
+  number = {2},
+  month = {Aug},
+  date-added = {2008-04-23 12:13:15 -0400},
+  date-modified = {2008-05-06 16:32:19 -0400},
+  issn = {1286-0042},
+  unique-id = {ISI:000170215600008}
+}
+
+@ARTICLE{Dankowicz_CONF_2009,
+  author = {Dankowicz, Harry and Paul, Mark R.},
+  title = {Discontinuity-induced bifurcations in systems with hysteretic force
+	interactions},
+  journal = {Proc 9th Bienial Conf Engr Sys and Anal},
+  year = {2009},
+  pages = {633-641},
+  abstract = {This paper presents the application of the discontinuity-mapping technique
+	to the analysis of discontinuity-induced bifurcations of periodic
+	trajectories in an example piecewise smooth system in which changes
+	in the vector field associated with the crossing of a discontinuity-surface
+	depend on the direction of crossing, The analysis is motivatived
+	by a hysteretic model of the capillary force interactions between
+	an atomic-force-microscope cantilever probe tip and a nanoscale sample
+	surface in the presence of a thin liquid film on the tip and the
+	surface and operating in intermittent-contact mode. The analysis
+	predicts the sudden termination of branches of periodic system responses
+	at parameter values corresponding to grazing contact with the onset
+	of the hysteretic force interactions. It further establishes the
+	increase beyond all bounds of the magnitude of one of the eigenvalues
+	of the linearization of a suitably defined Poincare mapping indicating
+	the destabilizing influence of near-grazing contact.},
+  date-added = {2009-07-30 16:40:44 -0400},
+  date-modified = {2009-07-30 16:40:44 -0400}
+}
+
+@ARTICLE{Dankowicz:2007kx,
+  author = {Dankowicz, H. and Zhao, X. P. and Misra, S.},
+  title = {Near-grazing dynamics in tapping-mode atomic-force microscopy},
+  journal = {Int. J. Non-Linear Mech.},
+  year = {2007},
+  volume = {42},
+  pages = {697--709},
+  number = {4},
+  month = {May},
+  af = {Dankowicz, Harry Zhao, Xiaopeng Misra, Sambit},
+  date = {MAY},
+  date-added = {2007-10-12 16:08:11 -0400},
+  date-modified = {2007-10-12 16:11:21 -0400},
+  isi = {ISI:000248031600011},
+  issn = {0020-7462},
+  publication-type = {J}
+}
+
+@ARTICLE{Derjaguin_1945,
+  author = {Derjaguin, B. and Landau, L.},
+  title = {Theory Of Stability Of Highly Charged Liophobic Sols And Adhesion
+	Of Highly Charged Particles In Solutions Of Electrolytes},
+  journal = {Zhurnal Eksperimentalnoi I Teoreticheskoi Fiziki},
+  year = {1945},
+  volume = {15},
+  pages = {663-682},
+  number = {11},
+  date-added = {2008-12-27 17:55:51 -0500},
+  date-modified = {2008-12-27 17:55:51 -0500},
+  isi = {ISI:A1945YH34900007},
+  issn = {0044-4510},
+  publication-type = {J}
+}
+
+@ARTICLE{Derjaguin_1975,
+  author = {Derjaguin, B.V. and Muller, V.M. and Toporov, Y.P.},
+  title = {Effect of contact deformations on adhesion of particles},
+  journal = {Journal Colloid Interface Sci.},
+  year = {1975},
+  volume = {53},
+  pages = {314-326},
+  number = {2},
+  date-added = {2008-10-07 17:44:00 -0400},
+  date-modified = {2008-10-07 17:44:01 -0400},
+  isi = {ISI:A1975AZ13400018},
+  issn = {0021-9797},
+  publication-type = {J}
+}
+
+@ARTICLE{DMT_1975,
+  author = {Derjauin, B. V. and M\"uller, V. M. and Toporov, Y. P.},
+  title = {EFFECT OF CONTACT DEFORMATIONS ON ADHESION OF PARTICLES},
+  journal = {J. Colloid Interface Sci.},
+  year = {1975},
+  volume = {53},
+  pages = {314--326},
+  number = {2},
+  date-added = {2007-07-17 11:53:07 -0400},
+  date-modified = {2007-10-12 16:30:04 -0400},
+  isi = {ISI:A1975AZ13400018},
+  issn = {0021-9797},
+  publication-type = {J}
+}
+
+@ARTICLE{El-Rifai_CEP_2007,
+  author = {El Rifai, O. M. and Youcef-Toumi, K.},
+  title = {On automating atomic force microscopes: An adaptive control approach},
+  journal = {Cont. Eng. Prac.},
+  year = {2007},
+  volume = {15},
+  pages = {349--361},
+  number = {3},
+  month = {Mar},
+  af = {El Rifai, Osamah M. Youcef-Toumi, Kamal},
+  date = {MAR},
+  date-added = {2007-07-16 15:33:05 -0400},
+  date-modified = {2007-10-12 16:36:40 -0400},
+  isi = {ISI:000243678600008},
+  issn = {0967-0661},
+  publication-type = {J}
+}
+
+@ARTICLE{Fuss20091189,
+  author = {M.C. Fuss and E. Sahagún and M. Köber and F. Briones and M. Luna
+	and J.J. Sáenz},
+  title = {Phase contrast in Simultaneous Topography and Recognition imaging},
+  journal = {Ultramicroscopy},
+  year = {2009},
+  volume = {109},
+  pages = {1189 - 1192},
+  number = {9},
+  keywords = {Atomic force microscopy},
+  abstract = {The operation of a force microscope in Simultaneous Topography and
+	Recognition (TREC) imaging mode is analyzed by means of numerical
+	simulations. Both topography and recognition signals are analyzed
+	by using a worm-like chain force as the specific interaction between
+	the functionalized tip probe and the sample. The special feedback
+	mechanism in this mode is shown to couple the phase signal to the
+	presence of molecular recognition interactions even in absence of
+	dissipation.},
+  doi = {10.1016/j.ultramic.2009.05.009},
+  issn = {0304-3991},
+  owner = {alexander},
+  timestamp = {2011.11.07},
+  url = {http://www.sciencedirect.com/science/article/pii/S030439910900120X}
+}
+
+@ARTICLE{Garcia_PRL_2006,
+  author = {Garcia, R. and Gomez, C. J. and Martinez, N. F. and Patil, S. and
+	Dietz, C. and Magerle, R.},
+  title = {Identification of nanoscale dissipation processes by dynamic atomic
+	force microscopy},
+  journal = {Phys. Rev. Lett.},
+  year = {2006},
+  volume = {97},
+  pages = {016103},
+  number = {1},
+  month = {Jul},
+  af = {Garcia, R. Gomez, C. J. Martinez, N. F. Patil, S. Dietz, C. Magerle,
+	R.},
+  date = {JUL 7},
+  date-added = {2007-07-17 11:06:28 -0400},
+  date-modified = {2007-10-08 17:57:26 -0400},
+  di = {ARTN 016103},
+  isi = {ISI:000238849000032},
+  issn = {0031-9007},
+  publication-type = {J}
+}
+
+@ARTICLE{Garcia_SSR_2002,
+  author = {Garcia, R. and Perez, R.},
+  title = {Dynamic atomic force microscopy methods},
+  journal = {Surf. Sci. Rep.},
+  year = {2002},
+  volume = {47},
+  pages = {197--301},
+  number = {6-8},
+  date-added = {2007-07-16 15:25:00 -0400},
+  date-modified = {2007-10-08 17:57:40 -0400},
+  isi = {ISI:000178346000001},
+  issn = {0167-5729},
+  publication-type = {J}
+}
+
+@ARTICLE{Garcia_PRB_2000,
+  author = {Garcia, R. and San Paulo, A.},
+  title = {Dynamics of a vibrating tip near or in intermittent contact with
+	a surface},
+  journal = {Phys. Rev. B},
+  year = {2000},
+  volume = {61},
+  pages = {13381-13384},
+  number = {20},
+  month = {May},
+  date = {MAY 15},
+  date-added = {2007-07-16 14:46:29 -0400},
+  date-modified = {2008-11-24 20:45:36 -0500}
+}
+
+@ARTICLE{Garcia_ULTRA_2000,
+  author = {Garcia, R. and San Paulo, A.},
+  title = {Amplitude curves and operating regimes in dynamic atomic force microscopy},
+  journal = {Ultramicroscopy},
+  year = {2000},
+  volume = {82},
+  pages = {79--83},
+  number = {1-4},
+  month = {Feb},
+  date = {FEB},
+  isi = {ISI:000085551100012},
+  issn = {0304-3991},
+  publication-type = {J}
+}
+
+@ARTICLE{Garcia_PRB_1999,
+  author = {Garcia, R. and San Paulo, A.},
+  title = {Attractive and repulsive tip-sample interaction regimes in tapping-mode
+	atomic force microscopy},
+  journal = {Phys. Rev. B},
+  year = {1999},
+  volume = {60},
+  pages = {4961--4967},
+  number = {7},
+  month = {Aug},
+  date = {AUG 15},
+  date-added = {2007-07-17 10:25:28 -0400},
+  date-modified = {2007-10-08 17:56:59 -0400},
+  isi = {ISI:000082241500094},
+  issn = {0163-1829},
+  publication-type = {J}
+}
+
+@ARTICLE{Giessibl:2003ys,
+  author = {Giessibl, F. J.},
+  title = {Advances in atomic force microscopy},
+  journal = {Rev. Mod. Phys.},
+  year = {2003},
+  volume = {75},
+  pages = {949--983},
+  number = {3},
+  month = {Jul},
+  date = {JUL},
+  date-added = {2007-10-11 19:49:38 -0400},
+  date-modified = {2007-10-11 19:53:01 -0400},
+  isi = {ISI:000185026100007},
+  issn = {0034-6861},
+  publication-type = {J}
+}
+
+@ARTICLE{Giessibl_APL_2001,
+  author = {Giessibl, F. J.},
+  title = {A direct method to calculate tip-sample forces from frequency shifts
+	in frequency-modulation atomic force microscopy},
+  journal = {Appl. Phys. Lett.},
+  year = {2001},
+  volume = {78},
+  pages = {123--125},
+  number = {1},
+  month = {Jan},
+  date = {JAN 1},
+  date-added = {2007-10-08 19:19:41 -0400},
+  date-modified = {2007-10-08 19:20:02 -0400},
+  isi = {ISI:000166122000042},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{gil2003electrostatic,
+  author = {Gil, A. and Colchero, J. and Gomez-Herrero, J. and Baro, AM},
+  title = {Electrostatic force gradient signal: resolution enhancement in electrostatic
+	force microscopy and improved Kelvin probe microscopy},
+  journal = {Nanotechnology},
+  year = {2003},
+  volume = {14},
+  pages = {332}
+}
+
+@ARTICLE{Girard:2006fr,
+  author = {Girard, P. and Ramonda, M. and Arinero, R.},
+  title = {Dynamic atomic force microscopy operation based on high flexure modes
+	of the cantilever},
+  journal = {Rev. Sci. Instrum.},
+  year = {2006},
+  volume = {77},
+  pages = {096105},
+  number = {9},
+  month = {Sep},
+  af = {Girard, P. Ramonda, M. Arinero, R.},
+  date = {SEP},
+  date-added = {2007-10-11 19:54:40 -0400},
+  date-modified = {2007-10-11 19:54:54 -0400},
+  di = {ARTN 096105},
+  isi = {ISI:000240878100049},
+  issn = {0034-6748},
+  publication-type = {J}
+}
+
+@ARTICLE{GLEYZES:1991zr,
+  author = {GLEYZES, P. and KUO, P. K. and BOCCARA, A. C.},
+  title = {BISTABLE BEHAVIOR OF A VIBRATING TIP NEAR A SOLID-SURFACE},
+  journal = {Appl. Phys. Lett.},
+  year = {1991},
+  volume = {58},
+  pages = {2989--2991},
+  number = {25},
+  month = {Jun},
+  date = {JUN 24},
+  date-added = {2007-10-11 19:55:30 -0400},
+  date-modified = {2007-10-11 19:55:48 -0400},
+  isi = {ISI:A1991FT11500041},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{Green:2005qa,
+  author = {Green, C. P. and Sader, J. E.},
+  title = {Small amplitude oscillations of a thin beam immersed in a viscous
+	fluid near a solid surface},
+  journal = {Phys. Fluids},
+  year = {2005},
+  volume = {17},
+  pages = {073102},
+  number = {7},
+  month = {Jul},
+  date = {JUL},
+  date-added = {2007-10-15 01:06:46 -0400},
+  date-modified = {2007-10-15 01:06:46 -0400},
+  di = {ARTN 073102},
+  isi = {ISI:000230633700013},
+  issn = {1070-6631},
+  publication-type = {J}
+}
+
+@ARTICLE{Green:2005rw,
+  author = {Green, C. P. and Sader, J. E.},
+  title = {Frequency response of cantilever beams immersed in viscous fluids
+	near a solid surface with applications to the atomic force microscope},
+  journal = {J. Appl. Phys.},
+  year = {2005},
+  volume = {98},
+  pages = {114913},
+  number = {11},
+  month = {Dec},
+  date = {DEC 1},
+  date-added = {2007-10-15 01:06:46 -0400},
+  date-modified = {2007-10-15 01:06:46 -0400},
+  di = {ARTN 114913},
+  isi = {ISI:000234119600106},
+  issn = {0021-8979},
+  publication-type = {J}
+}
+
+@ARTICLE{Hertz_1881,
+  author = {H. Hertz, J. Reine},
+  journal = {Angew. Math.},
+  year = {1881},
+  volume = {92},
+  number = {156},
+  date-added = {2007-10-07 18:57:06 -0400},
+  date-modified = {2007-10-07 18:59:01 -0400},
+  publisher = {Angrew. Math.}
+}
+
+@ARTICLE{Holscher00,
+  author = {H\"olscher, H. and Schwarz, A. and Allers, W. and Schwarz, U. D.
+	and Wiesendanger, R.},
+  title = {Quantitative analysis of dynamic-force-spectroscopy data on graphite(0001)
+	in the contact and noncontact regimes},
+  journal = {Phys. Rev. B},
+  year = {2000},
+  volume = {61},
+  pages = {12678--12681},
+  number = {19},
+  month = {May},
+  bdsk-url-1 = {http://dx.doi.org/10.1103/PhysRevB.61.12678},
+  doi = {10.1103/PhysRevB.61.12678},
+  numpages = {3},
+  publisher = {American Physical Society}
+}
+
+@ARTICLE{Han_AppPhys_1996,
+  author = {Han, WH and Lindsay, SM and Jing, TW},
+  title = {A magnetically driven oscillating probe microscope for operation
+	in liquids},
+  journal = {Appl. Phys.},
+  year = {1996},
+  volume = {69},
+  pages = {4111-4113},
+  number = {26},
+  month = {Dec},
+  date = {DEC 23},
+  date-added = {2009-01-26 15:08:00 -0400},
+  date-modified = {2009-01-26 15:08:40 -0400},
+  isi = {ISI:A1996VY89400051},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{Han_APL_1996,
+  author = {Han, W. H. and Lindsay, S. M. and Jing, T. W.},
+  title = {A magnetically driven oscillating probe microscope for operation
+	in liquids},
+  journal = {Appl. Phys. Lett.},
+  year = {1996},
+  volume = {69},
+  pages = {4111--4113},
+  number = {26},
+  month = {Dec},
+  date = {DEC 23},
+  date-added = {2007-10-15 01:18:41 -0400},
+  date-modified = {2007-12-17 21:48:06 -0500},
+  isi = {ISI:A1996VY89400051},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{Haugstad_ULTRA_1999,
+  author = {Haugstad, G. and Jones, R. R.},
+  title = {Mechanisms of dynamic force microscopy on polyvinyl alcohol: region-specific
+	non-contact and intermittent contact regimes},
+  journal = {Ultramicroscopy},
+  year = {1999},
+  volume = {76},
+  pages = {77--86},
+  number = {1-2},
+  month = {Feb},
+  date = {FEB},
+  date-added = {2007-07-17 10:53:45 -0400},
+  date-modified = {2007-10-08 18:01:53 -0400},
+  isi = {ISI:000078487700008},
+  issn = {0304-3991},
+  publication-type = {J}
+}
+
+@ARTICLE{Heuberger_JVST_1996,
+  author = {Heuberger, M. and Dietler, G. and Schlapbach, L.},
+  title = {Elastic deformations of tip and sample during atomic force microscope
+	measurements},
+  journal = {J. Vac. Sci. Technol. B},
+  year = {1996},
+  volume = {14},
+  pages = {1250--1254},
+  number = {2},
+  month = {Mar-Apr},
+  date = {MAR-APR},
+  date-added = {2007-10-07 19:12:47 -0400},
+  date-modified = {2007-10-08 18:00:49 -0400},
+  isi = {ISI:A1996UH89000137},
+  issn = {1071-1023},
+  publication-type = {J}
+}
+
+@ARTICLE{Hinterdorfer16041996,
+  author = {Hinterdorfer, P and Baumgartner, W and Gruber, H J and Schilcher,
+	K and Schindler, H},
+  title = {Detection and localization of individual antibody-antigen recognition
+	events by atomic force microscopy},
+  journal = {Proceedings of the National Academy of Sciences},
+  year = {1996},
+  volume = {93},
+  pages = {3477-3481},
+  number = {8},
+  abstract = {A methodology has been developed for the study of molecular recognition
+	at the level of single events and for the localization of sites on
+	biosurfaces, in combining force microscopy with molecular recognition
+	by specific ligands. For this goal, a sensor was designed by covalently
+	linking an antibody (anti-human serum albumin, polyclonal) via a
+	flexible spacer to the tip of a force microscope. This sensor permitted
+	detection of single antibody-antigen recognition events by force
+	signals of unique shape with an unbinding force of 244 +/- 22 pN.
+	Analysis revealed that observed unbinding forces originate from the
+	dissociation of individual Fab fragments from a human serum albumin
+	molecule. The two Fab fragments of the antibody were found to bind
+	independently and with equal probability. The flexible linkage provided
+	the antibody with a 6-nm dynamical reach for binding, rendering binding
+	probability high, 0.5 for encounter times of 60 ms. This permitted
+	fast and reliable detection of antigenic sites during lateral scans
+	with a positional accuracy of 1.5 nm. It is indicated that this methodology
+	has promise for characterizing rate constants and kinetics of molecular
+	recognition complexes and for molecular mapping of biosurfaces such
+	as membranes.},
+  eprint = {http://www.pnas.org/content/93/8/3477.full.pdf+html},
+  url = {http://www.pnas.org/content/93/8/3477.abstract}
+}
+
+@ARTICLE{Holscher_IJNM_2007,
+  author = {Holscher, H. and Schwarz, U. D.},
+  title = {Theory of amplitude modulation atomic force microscopy with and without
+	Q-Control},
+  journal = {Int. J. Non-Linear Mech.},
+  year = {2007},
+  volume = {42},
+  pages = {608--625},
+  number = {4},
+  month = {May},
+  af = {Hoelscher, Hendrik Schwarz, Udo D.},
+  date = {MAY},
+  date-added = {2007-12-07 14:07:45 -0500},
+  date-modified = {2007-12-07 14:08:30 -0500},
+  isi = {ISI:000248031600004},
+  issn = {0020-7462},
+  publication-type = {J}
+}
+
+@PHDTHESIS{Hu_thesis,
+  author = {Shuiqing Hu},
+  title = {Nonlinear dynamics and force spectroscopy in dynamic atomic force
+	microscopy},
+  school = {Purdue University},
+  year = {2007}
+}
+
+@ARTICLE{Hu_APL_2007,
+  author = {Hu, S.Q. and Raman, A.},
+  title = {Analytical formulas and scaling laws for peak interaction forces
+	in dynamic atomic force microscopy},
+  journal = {Appl. Phys. Lett.},
+  year = {2007},
+  volume = {91},
+  pages = {123106},
+  date-added = {2007-10-08 19:13:07 -0400},
+  date-modified = {2007-10-08 19:15:59 -0400}
+}
+
+@ARTICLE{Hu_PRL_2006,
+  author = {Hu, S. Q. and Raman, A.},
+  title = {Chaos in atomic force microscopy},
+  journal = {Phys. Rev. Lett.},
+  year = {2006},
+  volume = {96},
+  pages = {036107},
+  number = {3},
+  month = {Jan},
+  date = {JAN 27},
+  date-added = {2007-10-08 17:51:28 -0400},
+  date-modified = {2007-10-08 17:52:03 -0400},
+  di = {ARTN 036107},
+  isi = {ISI:000234969300074},
+  issn = {0031-9007},
+  publication-type = {J}
+}
+
+@ARTICLE{Hu_RSI_2004,
+  author = {Hu, ZY and Seeley, T and Kossek, S and Thundat, T},
+  title = {Calibration of optical cantilever deflection readers},
+  journal = {Rev. Sci. Instrum.},
+  year = {2004},
+  volume = {75},
+  pages = {400-404},
+  number = {2},
+  month = {Feb},
+  date-added = {2008-10-20 14:53:00 -0400},
+  date-modified = {2008-10-20 14:53:01 -0400},
+  isi = {ISI:000188532400017},
+  issn = {0034-6748}
+}
+
+@ARTICLE{Huang:2004ve,
+  author = {Huang, L. and Su, C. M.},
+  title = {A torsional resonance mode AFM for in-plane tip surface interactions},
+  journal = {Ultramicroscopy},
+  year = {2004},
+  volume = {100},
+  pages = {277--285},
+  number = {3-4},
+  month = {Aug},
+  date = {AUG},
+  date-added = {2007-10-11 19:57:33 -0400},
+  date-modified = {2007-10-11 19:57:49 -0400},
+  isi = {ISI:000222716900020},
+  issn = {0304-3991},
+  publication-type = {J}
+}
+
+@ARTICLE{Humphris_Lang_2000,
+  author = {Humphris, A. D. L. and Tamayo, J. and Miles, M. J.},
+  title = {Active quality factor control in liquids for force spectroscopy},
+  journal = {Langmuir},
+  year = {2000},
+  volume = {16},
+  pages = {7891--7894},
+  number = {21},
+  month = {Oct},
+  date = {OCT 17},
+  date-added = {2007-12-06 16:55:30 -0500},
+  date-modified = {2007-12-06 16:55:58 -0500},
+  isi = {ISI:000089799900004},
+  issn = {0743-7463},
+  publication-type = {J}
+}
+
+@ARTICLE{Hunt:1998rt,
+  author = {Hunt, J. P. and Sarid, D.},
+  title = {Kinetics of lossy grazing impact oscillators},
+  journal = {Appl. Phys. Lett.},
+  year = {1998},
+  volume = {72},
+  pages = {2969--2971},
+  number = {23},
+  month = {Jun},
+  date = {JUN 8},
+  date-added = {2007-10-12 16:15:38 -0400},
+  date-modified = {2007-10-12 16:15:51 -0400},
+  isi = {ISI:000075273900015},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{Hutter_RSI_1993,
+  author = {Hutter, J L and Bechhoefer, J},
+  title = {CALIBRATION OF ATOMIC-FORCE MICROSCOPE TIPS},
+  journal = {Rev. Sci. Instrum.},
+  year = {1993},
+  volume = {64},
+  pages = {1868-1873},
+  number = {7},
+  month = {JUL},
+  abstract = {Images and force measurements taken by an atomic-force microscope
+	(AFM) depend greatly on the properties of the spring and tip used
+	to probe the sample's surface. In this article, we describe a simple,
+	nondestructive procedure for measuring the force constant, resonant
+	frequency, and quality factor of an AFM cantilever spring and the
+	effective radius of curvature of an AFM tip. Our procedure uses the
+	AFM itself and does not require additional equipment.},
+  date-added = {2009-02-01 13:15:27 -0500},
+  date-modified = {2009-02-01 13:16:43 -0500}
+}
+
+@BOOK{Israelachvili_1985,
+  title = {Intermolecular and Surface Forces},
+  publisher = {Academic Press},
+  year = {1985},
+  author = {Israelachvili, J.N.},
+  date-added = {2007-07-17 11:59:19 -0400},
+  date-modified = {2007-09-27 12:05:33 -0400}
+}
+
+@ARTICLE{Jamitzky:2006ys,
+  author = {Jamitzky, F. and Stark, M. and Bunk, W. and Heckl, W. M. and Stark,
+	R. W.},
+  title = {Chaos in dynamic atomic force microscopy},
+  journal = {Nanotechnology},
+  year = {2006},
+  volume = {17},
+  pages = {S213--S220},
+  number = {7},
+  month = {Apr},
+  date = {APR 14},
+  date-added = {2007-10-12 16:16:08 -0400},
+  date-modified = {2007-10-12 16:16:19 -0400},
+  isi = {ISI:000236979000020},
+  issn = {0957-4484},
+  publication-type = {J},
+  special-issue = {Sp. Iss. SI}
+}
+
+@ARTICLE{Janovjak2005,
+  author = {Janovjak, H. and Struckmeier, J. and Muller, D. J.},
+  title = {Hydrodynamic effects in fast AFM single-molecule force measurements},
+  journal = {Eur. Biophys. J. Biophy.},
+  year = {2005},
+  volume = {34},
+  pages = {91-96},
+  abstract = {Atomic force microscopy (AFM) allows the critical forces that unfold
+	single proteins and rupture individual receptor-ligand bonds to be
+	measured. To derive the shape of the energy landscape, the dynamic
+	strength of the system is probed at different force loading rates.
+	This is usually achieved by varying the pulling speed between a few
+	nm/s and a few mum/s, although for a more complete investigation
+	of the kinetic properties higher speeds are desirable. Above 10 mum/s,
+	the hydrodynamic drag force acting on the AFM cantilever reaches
+	the same order of magnitude as the molecular forces. This has limited
+	the maximum pulling speed in AFM single-molecule force spectroscopy
+	experiments. Here, we present an approach for considering these hydrodynamic
+	effects, thereby allowing a correct evaluation of AFM force measurements
+	recorded over an extended range of pulling speeds (and thus loading
+	rates). To support and illustrate our theoretical considerations,
+	we experimentally evaluated the mechanical unfolding of a multi-domain
+	protein recorded at 30 mum/s pulling speed. },
+  date-added = {2009-07-30 16:54:07 -0400},
+  date-modified = {2009-07-30 17:49:17 -0400}
+}
+
+@ARTICLE{Jeffery04prB,
+  author = {Jeffery, Steve and Hoffmann, Peter M. and Pethica, John B. and Ramanujan,
+	Chandra and \"Ozer, H. \"Ozg\"ur and Oral, Ahmet},
+  title = {Direct measurement of molecular stiffness and damping in confined
+	water layers},
+  journal = {Physical Review B},
+  year = {2004},
+  volume = {70},
+  pages = {054114},
+  number = {5},
+  month = {Aug},
+  annote = {water on mica, afm. pretty sure his fit to damping is bogus - really
+	is energy going to higher modes.},
+  keywords = {oscillatory forces,},
+  abstract = {We present direct and linear measurements of the normal stiffness
+	and damping of a confined, few molecule thick water layer. The measurements
+	were obtained by use of a small amplitude (0.36 Å) , off-resonance
+	atomic force microscopy technique. We measured stiffness and damping
+	oscillations revealing up to seven molecular layers separated by
+	2.526±0.482 Å . Relaxation times could also be calculated and were
+	found to indicate a significant slow-down of the dynamics of the
+	system as the confining separation was reduced. We found that the
+	dynamics of the system is determined not only by the interfacial
+	pressure, but more significantly by solvation effects which depend
+	on the exact separation of tip and surface. The dynamic forces reflect
+	the layering of the water molecules close to the mica surface and
+	are enhanced when the tip-surface spacing is equivalent to an integer
+	multiple of the size of the water molecules. We were able to model
+	these results by starting from the simple assumption that the relaxation
+	time depends linearly on the film stiffness.},
+  doi = {10.1103/PhysRevB.70.054114},
+  numpages = {8},
+  publisher = {American Physical Society}
+}
+
+@ARTICLE{JKR_1971,
+  author = {Johnson, K.L. and Kendall, K. and Roberts, A.D.},
+  title = {SURFACE ENERGY AND CONTACT OF ELASTIC SOLIDS},
+  journal = {Proc. Roy. Soc. A},
+  year = {1971},
+  volume = {324},
+  pages = {301},
+  number = {1558},
+  date-added = {2007-10-07 19:24:41 -0400},
+  date-modified = {2008-01-16 15:50:42 -0500},
+  isi = {ISI:A1971K318200004},
+  publication-type = {J}
+}
+
+@BOOK{johnson_1985,
+  title = {Contact Mechanics},
+  publisher = {Cambridge University Press},
+  year = {1985},
+  author = {K. L. Johnson},
+  owner = {drk},
+  timestamp = {2011.01.08}
+}
+
+@ARTICLE{Johnson1997,
+  author = {Johnson, K. L. and Greenwood, J. A.},
+  title = {An Adhesion Map for the Contact of Elastic Spheres},
+  journal = {J. Colloid Interface Sci.},
+  year = {1997},
+  volume = {192},
+  pages = {326 - 333}
+}
+
+@BOOK{JordanSmith,
+  title = { Nonlinear Ordinary Differential Equations},
+  publisher = {Oxford University Press},
+  year = { 1999 },
+  author = { D. W. Jordan and P. Smith }
+}
+
+@ARTICLE{kaggwa08apl,
+  author = {G. B. Kaggwa and J. I. Kilpatrick and J. E. Sader and S. P. Jarvis},
+  title = {Artifact-free dynamic atomic force microscopy reveals monotonic dissipation
+	for a simple confined liquid},
+  journal = {Applied Physics Letters},
+  year = {2008},
+  volume = {93},
+  pages = {011909},
+  number = {1},
+  eid = {011909},
+  keywords = {atomic force microscopy; liquid structure; organic compounds},
+  doi = {10.1063/1.2950324},
+  numpages = {3},
+  publisher = {AIP},
+  url = {http://link.aip.org/link/?APL/93/011909/1}
+}
+
+@ARTICLE{Kawagishi:2002mz,
+  author = {Kawagishi, T. and Kato, A. and Hoshi, Y. and Kawakatsu, H.},
+  title = {Mapping of lateral vibration of the tip in atomic force microscopy
+	at the torsional resonance of the cantilever},
+  journal = {Ultramicroscopy},
+  year = {2002},
+  volume = {91},
+  pages = {37--48},
+  number = {1-4},
+  month = {May},
+  date = {MAY},
+  date-added = {2007-10-11 19:56:01 -0400},
+  date-modified = {2007-10-11 19:56:15 -0400},
+  isi = {ISI:000177524500006},
+  issn = {0304-3991},
+  publication-type = {J}
+}
+
+@ARTICLE{Kawai:2006ly,
+  author = {Kawai, S. and Kawakatsu, H.},
+  title = {Atomically resolved dynamic force microscopy operating at 4.7 MHz},
+  journal = {Appl. Phys. Lett.},
+  year = {2006},
+  volume = {88},
+  pages = {133103},
+  number = {13},
+  month = {Mar},
+  date = {MAR 27},
+  date-added = {2007-10-11 19:56:28 -0400},
+  date-modified = {2007-10-11 19:56:42 -0400},
+  di = {ARTN 133103},
+  isi = {ISI:000236465100069},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{Kawai:2005gf,
+  author = {Kawai, S. and Kitamura, S. and Kobayashi, D. and Meguro, S. and Kawakatsu,
+	H.},
+  title = {An ultrasmall amplitude operation of dynamic force microscopy with
+	second flexural mode},
+  journal = {Appl. Phys. Lett.},
+  year = {2005},
+  volume = {86},
+  pages = {193107},
+  number = {19},
+  month = {May},
+  date = {MAY 9},
+  date-added = {2007-10-11 19:56:56 -0400},
+  date-modified = {2007-10-11 19:57:08 -0400},
+  di = {ARTN 193107},
+  isi = {ISI:000229397900081},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{Ke_PRB_1999,
+  author = {Ke, SH and Uda, T and Perez, R and Stich, I and Terakura, K},
+  title = {First-principles investigation of tip-surface interaction on a GaAs(110)
+	surface: Implications for atomic force and scanning tunneling microscopies},
+  journal = {Phys. Rev. B},
+  year = {1999},
+  volume = {60},
+  pages = {11631-11638},
+  number = {16},
+  month = {OCT 15},
+  date-added = {2008-04-23 12:17:00 -0400},
+  date-modified = {2008-04-23 12:49:25 -0400},
+  issn = {0163-1829},
+  unique-id = {ISI:000083554800062}
+}
+
+@ARTICLE{Kilpatrick2009,
+  author = {J. I. Kilpatrick and A. Gannepalli and J. P. Cleveland and S. P.
+	Jarvis},
+  title = {Frequency modulation atomic force microscopy in ambient environments
+	utilizing robust feedback tuning},
+  journal = {Rev. Sci. Inst.},
+  year = {2009},
+  volume = {80},
+  pages = {23701},
+  annote = {,fm in air\&water. feedback gains tuning process},
+  keywords = {afm,fm,,},
+  owner = {drk}
+}
+
+@ARTICLE{kiracofe2012veda,
+  author = {Daniel Kiracofe and John Melcher and Arvind Raman},
+  title = {Gaining insight into the physics of dynamic atomic force microscopy
+	in complex environments using the VEDA simulator},
+  journal = {Review of Scientific Instruments},
+  year = {2012},
+  volume = {83},
+  pages = {013702},
+  number = {1},
+  eid = {013702},
+  numpages = {17}
+}
+
+@ARTICLE{Kober2008,
+  author = {Kober, M. and Sahagun, E. and Fuss, M. and Briones, F. and Luna,
+	M. and Saenz, J. J.},
+  title = {Adhesion hysteresis in dynamic atomic force microscopy},
+  journal = {Physica Status Solidi - Rapid Research Letters},
+  year = {2008},
+  volume = {2},
+  pages = {138-140},
+  number = {3}
+}
+
+@ARTICLE{Kokavecz:2007oz,
+  author = {Kokavecz, J. and Mechler, A.},
+  title = {Investigation of fluid cell resonances in intermittent contact mode
+	atomic force microscopy},
+  journal = {Appl. Phys. Lett.},
+  year = {2007},
+  volume = {91},
+  pages = {023113},
+  number = {2},
+  month = {Jul},
+  af = {Kokavecz, J. Mechler, A.},
+  date = {JUL 9},
+  date-added = {2007-10-15 01:06:46 -0400},
+  date-modified = {2007-10-15 01:06:46 -0400},
+  di = {ARTN 023113},
+  isi = {ISI:000248017300086},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{Landman_1991,
+  author = {Landman, U. and Luedtke, W. D.},
+  title = {NANOMECHANICS AND DYNAMICS OF TIP SUBSTRATE INTERACTIONS},
+  journal = {J. Vac. Sci. Technol. B},
+  year = {1991},
+  volume = {9},
+  pages = {414--423},
+  number = {2},
+  month = {Mar-Apr},
+  date = {MAR-APR},
+  date-added = {2007-07-18 16:29:43 -0400},
+  date-modified = {2007-10-08 18:02:40 -0400},
+  isi = {ISI:A1991FL00400004},
+  issn = {1071-1023},
+  part-number = {Part 2},
+  publication-type = {J}
+}
+
+@ARTICLE{lee1960contact,
+  author = {E. H. Lee and J. R. M. Radok},
+  title = {The contact problem for viscoelastic bodies},
+  journal = {Journal of Applied Mechanics},
+  year = {1960},
+  volume = {27},
+  pages = {438-444}
+}
+
+@ARTICLE{Lee:2003fr,
+  author = {Lee, S. I. and Howell, S. W. and Raman, A. and Reifenberger, R.},
+  title = {Nonlinear dynamic perspectives on dynamic force microscopy},
+  journal = {Ultramicroscopy},
+  year = {2003},
+  volume = {97},
+  pages = {185--198},
+  number = {1-4},
+  month = {Oct-Nov},
+  date = {OCT-NOV},
+  date-added = {2007-10-12 16:16:38 -0400},
+  date-modified = {2007-10-12 16:16:58 -0400},
+  isi = {ISI:000183783200022},
+  issn = {0304-3991},
+  publication-type = {J}
+}
+
+@ARTICLE{Lee_PRB_2002,
+  author = {Lee, S. I. and Howell, S. W. and Raman, A. and Reifenberger, R.},
+  title = {Nonlinear dynamics of microcantilevers in tapping mode atomic force
+	microscopy: A comparison between theory and experiment},
+  journal = {Phys. Rev. B},
+  year = {2002},
+  volume = {66},
+  pages = {115409},
+  number = {11},
+  month = {Sep},
+  date = {SEP 15},
+  date-added = {2007-07-16 15:28:55 -0400},
+  date-modified = {2007-10-08 18:03:01 -0400},
+  di = {ARTN 115409},
+  isi = {ISI:000178461000079},
+  issn = {1098-0121},
+  publication-type = {J}
+}
+
+@ARTICLE{Legleiter:2005la,
+  author = {Legleiter, J. and Kowalewski, T.},
+  title = {Insights into fluid tapping-mode atomic force microscopy provided
+	by numerical simulations},
+  journal = {Appl. Phys. Lett.},
+  year = {2005},
+  volume = {87},
+  pages = {163120},
+  number = {16},
+  month = {Oct},
+  date = {OCT 17},
+  date-added = {2007-10-15 01:06:46 -0400},
+  date-modified = {2007-10-15 01:06:46 -0400},
+  di = {ARTN 163120},
+  isi = {ISI:000232557900076},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{Lozano_PRL_2008,
+  author = {Lozano, Jose R. and Garcia, Ricardo},
+  title = {Theory of multifrequency atomic force microscopy},
+  journal = {Phys. Rev. Lett.},
+  year = {2008},
+  volume = {1},
+  number = {7},
+  month = {FEB 22},
+  abstract = {We develop a theory that explains the origin of the high force sensitivity
+	observed in multifrequency force microscopy experiments. The ability
+	of the microscope to extract complementary information on the surface
+	properties is increased by the simultaneous excitation of several
+	flexural cantilever modes. The force sensitivity in multifrequency
+	operation is about 0.2 pN. The analytical model identifies the virial
+	and the energy dissipated by the tip-surface forces as the parameters
+	responsible for the material contrast. The agreement obtained among
+	the theory, experiments and numerical simulations validates the model.},
+  article-number = {076102},
+  bdsk-url-1 = {http://dx.doi.org/10.1103/PhysRevLett.100.07610217D},
+  date-added = {2009-01-12 15:04:44 -0500},
+  date-modified = {2009-01-12 15:04:44 -0500}
+}
+
+@ARTICLE{lozano_prB_2009,
+  author = {Jose R. Lozano and Ricardo García},
+  title = {Theory of phase spectroscopy in bimodal atomic force microscopy},
+  journal = {Physical Review B},
+  year = {2009},
+  volume = {79},
+  pages = {014110}
+}
+
+@ARTICLE{Martin_1987,
+  author = {Martin, Y. and Williams, C.C. and Wickramasinghe, H.K.},
+  title = {Atomic force microscope force mapping and profiling on a sub 100-a
+	scale},
+  journal = {Appl. Phys.},
+  year = {1987},
+  volume = {61},
+  pages = {4723-4729},
+  number = {10},
+  month = {May},
+  date = {MAY 15},
+  date-added = {2008-10-07 15:48:00 -0400},
+  date-modified = {2008-10-07 15:48:01 -0400},
+  isi = {ISI:A1987H386600001},
+  issn = {0021-8979},
+  publication-type = {J}
+}
+
+@BOOK{mase1999continuum,
+  title = {Continuum mechanics for engineers},
+  publisher = {CRC},
+  year = {1999},
+  author = {Mase, G.T. and Mase, G.E.}
+}
+
+@ARTICLE{Maugis_JCIS_1992,
+  author = {Maugis, D.},
+  title = {ADHESION OF SPHERES - THE JKR-DMT TRANSITION USING A DUGDALE MODEL},
+  journal = {J. Colloid Interface Sci.},
+  year = {1992},
+  volume = {150},
+  pages = {243--269},
+  number = {1},
+  month = {Apr},
+  date = {APR},
+  date-added = {2007-10-07 19:37:27 -0400},
+  date-modified = {2007-10-12 16:45:46 -0400},
+  isi = {ISI:A1992HK09800024},
+  issn = {0021-9797},
+  publication-type = {J}
+}
+
+@ARTICLE{Melcher_PNAS_2009,
+  author = {Melcher, J. and Carrasco, C. and Xu, X. and Carrascosa, J.L. and
+	G{\'o}mez-Herrero, J. and Jos{\'e} de Pablo, P. and Raman, A.},
+  title = {Origins of phase contrast in the atomic force microscope in liquids},
+  journal = {Proceedings of the National Academy of Sciences},
+  year = {2009},
+  volume = {106},
+  pages = {13655},
+  number = {33},
+  publisher = {National Acad Sciences}
+}
+
+@OTHER{VEDA,
+  author = {Melcher, J. and Hu, S. and Raman, A.},
+  date-added = {2007-10-08 17:38:40 -0400},
+  date-modified = {2007-10-08 17:40:23 -0400},
+  local-url = {www.nanohub.org},
+  title = {VEDA: Virtual Environment for Dynamic AFM}
+}
+
+@ARTICLE{Melcher_RSI_2008,
+  author = {Melcher, John and Hu, Shuiqing and Raman, Arvind},
+  title = {Invited Article: VEDA: A web-based virtual environment for dynamic
+	atomic force microscopy},
+  journal = {Rev. Sci. Instrum.},
+  year = {2008},
+  volume = {79},
+  number = {6},
+  month = {JUN},
+  abstract = {We describe here the theory and applications of virtual environment
+	dynamic atomic force microscopy (VEDA), a suite of state-of-the-art
+	simulation tools deployed on nanoHUB (www.nanohub.org) for the accurate
+	simulation of tip motion in dynamic atomic force microscopy (dAFM)
+	over organic and inorganic samples. VEDA takes advantage of nanoHUB's
+	cyberinfrastructure to run high-fidelity dAFM tip dynamics computations
+	on local clusters and the teragrid. Consequently, these tools are
+	freely accessible and the dAFM simulations are run using standard
+	web-based browsers without requiring additional software. A wide
+	range of issues in dAFM ranging from optimal probe choice, probe
+	stability, and tip-sample interaction forces, power dissipation,
+	to material property extraction and scanning dynamics over hetereogeneous
+	samples can be addressed. (C) 2008 American Institute of Physics.},
+  article-number = {061301},
+  bdsk-url-1 = {http://dx.doi.org/10.1063/1.2938864%7D},
+  date-added = {2009-02-02 11:47:30 -0500},
+  date-modified = {2009-02-02 11:47:30 -0500}
+}
+
+@ARTICLE{Melcher_APL_2007,
+  author = {Melcher, J. and Hu, S. and Raman, A.},
+  title = {Equivalent point-mass models of continuous atomic force microscope
+	probes},
+  journal = {Appl. Phys. Lett.},
+  year = {2007},
+  volume = {91},
+  pages = {053101},
+  number = {5},
+  month = {Jul},
+  date-added = {2007-07-17 11:35:37 -0400},
+  date-modified = {2007-10-10 15:18:24 -0400}
+}
+
+@ARTICLE{Melcher_APL_2008,
+  author = {Melcher, J and Xu, X and Raman, A},
+  title = {Multiple impact regimes in liquid environment dynamic atomic force
+	microscopy},
+  journal = {Appl. Phys. Lett.},
+  year = {2008},
+  volume = {93},
+  pages = {093111},
+  date-added = {2008-12-27 17:57:21 -0500},
+  date-modified = {2008-12-27 17:57:21 -0500}
+}
+
+@BOOK{Meirovitch_1997,
+  title = {Principals and Techniques of Vibrations},
+  publisher = {Prentice Hall},
+  year = {1997},
+  author = {Merirovitch, L.},
+  address = {New Jersey},
+  date-added = {2009-01-26 15:25:00 -0400},
+  date-modified = {2009-01-26 15:25:40 -0400}
+}
+
+@ARTICLE{Minne_APL_1996,
+  author = {Minne, S. C. and Manalis, S. R. and Atalar, A. and Quate, C. F.},
+  title = {Contact imaging in the atomic force microscope using a higher order
+	flexural mode combined with a new sensor},
+  journal = {Appl. Phys. Lett.},
+  year = {1996},
+  volume = {68},
+  pages = {1427--1429},
+  number = {10},
+  month = {Mar},
+  date = {MAR 4},
+  date-added = {2007-07-16 15:33:30 -0400},
+  date-modified = {2007-10-08 17:53:08 -0400},
+  isi = {ISI:A1996TX86100040},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{Montelius_APL_1993,
+  author = {Montelius, L. and Tegenfeldt, J. O.},
+  title = {DIRECT OBSERVATION OF THE TIP SHAPE IN SCANNING PROBE MICROSCOPY},
+  journal = {Appl. Phys. Lett.},
+  year = {1993},
+  volume = {62},
+  pages = {2628--2630},
+  number = {21},
+  month = {May},
+  date = {MAY 24},
+  date-added = {2007-07-16 15:32:54 -0400},
+  date-modified = {2007-10-08 17:53:16 -0400},
+  isi = {ISI:A1993LD12300011},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@BOOK{nielsen1994mechanical,
+  title = {Mechanical properties of polymers and composites},
+  publisher = {CRC Press},
+  year = {1994},
+  author = {Nielsen, L.E. and Landel, R.F.}
+}
+
+@ARTICLE{Nony_PRB_2006,
+  author = {Nony, L. and Baratoff, A.},
+  title = {Noncontact atomic force microscopy simulator with phase-locked-loop
+	controlled frequency detection and excitation},
+  journal = {Phys. Rev. B},
+  year = {2006},
+  volume = {74},
+  pages = {235439},
+  number = {23},
+  month = {Dec},
+  af = {Nony, Laurent Baratoff, Alexis},
+  date = {DEC},
+  date-added = {2007-07-17 12:54:21 -0400},
+  date-modified = {2007-10-08 17:53:36 -0400},
+  di = {ARTN 235439},
+  isi = {ISI:000243195700127},
+  issn = {1098-0121},
+  publication-type = {J}
+}
+
+@ARTICLE{Nony_JCP_1999,
+  author = {Nony, L. and Boisgard, R. and Aime, J. P.},
+  title = {Nonlinear dynamical properties of an oscillating tip-cantilever system
+	in the tapping mode},
+  journal = {J. Chem. Phys.},
+  year = {1999},
+  volume = {111},
+  pages = {1615--1627},
+  number = {4},
+  month = {Jul},
+  date = {JUL 22},
+  date-added = {2007-10-08 18:31:07 -0400},
+  date-modified = {2007-10-08 18:31:35 -0400},
+  isi = {ISI:000081393600034},
+  issn = {0021-9606},
+  publication-type = {J}
+}
+
+@ARTICLE{park1999methods,
+  author = {Park, SW and Schapery, RA},
+  title = {Methods of interconversion between linear viscoelastic material functions.
+	Part I—a numerical method based on Prony series},
+  journal = {International Journal of Solids and Structures},
+  year = {1999},
+  volume = {36},
+  pages = {1653--1675},
+  number = {11},
+  publisher = {Elsevier}
+}
+
+@UNPUBLISHED{penedo2011,
+  author = {Marcos Penedo and Monica Luna},
+  title = {Enhanced efficiency in higher modes excitation for AFM in liquids
+	by means of magnetostrictive actuation},
+  year = {2011}
+}
+
+@ARTICLE{Perez:1995fj,
+  author = {Perez, R. and Payne, M. C. and Simpson, A. D.},
+  title = {First principles simulations of silicon nanoindentation},
+  journal = {Phys. Rev. Lett.},
+  year = {1995},
+  volume = {75},
+  pages = {4748--4751},
+  number = {26},
+  month = {Dec},
+  date = {DEC 25},
+  date-added = {2007-10-11 19:43:25 -0400},
+  date-modified = {2007-10-11 19:44:16 -0400},
+  isi = {ISI:A1995TL67700008},
+  issn = {0031-9007},
+  publication-type = {J}
+}
+
+@ARTICLE{Perez:1998fk,
+  author = {Perez, R. and Stich, I. and Payne, M. C. and Terakura, K.},
+  title = {Surface-tip interactions in noncontact atomic-force microscopy on
+	reactive surfaces: Si(111)},
+  journal = {Phys. Rev. Lett.},
+  year = {1998},
+  volume = {58},
+  pages = {10835--10849},
+  number = {16},
+  month = {Oct},
+  date = {OCT 15},
+  date-added = {2007-10-11 19:40:11 -0400},
+  date-modified = {2007-10-11 19:44:05 -0400},
+  isi = {ISI:000076716500110},
+  issn = {0163-1829},
+  publication-type = {J}
+}
+
+@ARTICLE{pini2010,
+  author = {Pini, V. and Tiribilli, B. and Gambi, C.M.C. and Vassalli, M.},
+  title = {Dynamical characterization of vibrating AFM cantilevers forced by
+	photothermal excitation},
+  journal = {Physical Review B},
+  year = {2010},
+  volume = {81},
+  pages = {54302},
+  number = {5},
+  annote = {uses ramos 2006 for temperature distribution}
+}
+
+@ARTICLE{Polesel-Maris_JAP_2005,
+  author = {Polesel-Maris, J. and Gauthier, S.},
+  title = {A virtual dynamic atomic force microscope for image calculations},
+  journal = {J. Appl. Phys.},
+  year = {2005},
+  volume = {97},
+  pages = {044902},
+  number = {4},
+  month = {Feb},
+  date = {FEB 15},
+  date-added = {2007-07-17 13:00:07 -0400},
+  date-modified = {2007-10-08 17:53:46 -0400},
+  di = {ARTN 044902},
+  isi = {ISI:000226841900091},
+  issn = {0021-8979},
+  publication-type = {J}
+}
+
+@ARTICLE{Proksch_APL_2006,
+  author = {Proksch, R.},
+  title = {Multifrequency, repulsive-mode amplitude-modulated atomic force microscopy},
+  journal = {Appl. Phys. Lett.},
+  year = {2006},
+  volume = {89},
+  number = {11},
+  ap = {113121},
+  date-added = {2008-04-24 11:17:23 -0400},
+  date-modified = {2008-04-24 11:17:44 -0400},
+  di = {10.1063/1.2345593|ISSN 0003-6951},
+  isi = {WOS:000240545400126},
+  publication-type = {J},
+  times-cited = {9}
+}
+
+@ARTICLE{PUTMAN:1994pi,
+  author = {PUTMAN, C. A. J. and VANDERWERF, K. O. and DEGROOTH, B. G. and VANHULST,
+	N. F. and GREVE, J.},
+  title = {TAPPING MODE ATOMIC-FORCE MICROSCOPY IN LIQUID},
+  journal = {Appl. Phys. Lett.},
+  year = {1994},
+  volume = {64},
+  pages = {2454--2456},
+  number = {18},
+  month = {May},
+  date = {MAY 2},
+  date-added = {2007-10-15 01:06:46 -0400},
+  date-modified = {2007-10-15 01:06:46 -0400},
+  isi = {ISI:A1994NK02600043},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{Ramirez-Aguilar_LANG_1998,
+  author = {Ramirez-Aguilar, K. A. and Rowlen, K. L.},
+  title = {Tip characterization from AFM images of nanometric spherical particles},
+  journal = {Langmuir},
+  year = {1998},
+  volume = {14},
+  pages = {2562--2566},
+  number = {9},
+  month = {Apr},
+  date = {APR 28},
+  date-added = {2007-07-16 15:32:41 -0400},
+  date-modified = {2007-10-08 17:54:07 -0400},
+  isi = {ISI:000073391300047},
+  issn = {0743-7463},
+  publication-type = {J}
+}
+
+@ARTICLE{Ramos2006,
+  author = {Ramos,D. and Tamayo, J. and Mertens, J. and Callega, M.},
+  title = {Photothermal Excitation of Microcantilevers in Liquids},
+  journal = {Journal of Applied Physics},
+  year = {2006},
+  volume = {99},
+  pages = {124904}
+}
+
+@ARTICLE{rasa2002atomic,
+  author = {Rasa, M. and Kuipers, BWM and Philipse, AP},
+  title = {Atomic force microscopy and magnetic force microscopy study of model
+	colloids},
+  journal = {Journal of colloid and interface science},
+  year = {2002},
+  volume = {250},
+  pages = {303--315},
+  number = {2},
+  publisher = {Elsevier}
+}
+
+@BOOK{Rayleigh_1945,
+  title = {Theory of Sound Vol. 1 unabridged},
+  publisher = {Dover Publications},
+  year = {1945},
+  author = {Rayleigh, J.W.S.},
+  date-added = {2007-07-17 11:55:29 -0400},
+  date-modified = {2007-07-17 11:57:27 -0400}
+}
+
+@ARTICLE{Read1989,
+  author = {B. E. Read},
+  title = {Mechanical relaxation in isotactic polypropylene},
+  journal = {Polymer},
+  year = {1989},
+  volume = {30},
+  pages = {1439 - 1445},
+  number = {8},
+  keywords = {polypropylene},
+  doi = {DOI: 10.1016/0032-3861(89)90213-9},
+  issn = {0032-3861}
+}
+
+@ARTICLE{Reinstadtler:2005ul,
+  author = {Reinstadtler, M. and Kasai, T. and Rabe, U. and Bhushan, B. and Arnold,
+	W.},
+  title = {Imaging and measurement of elasticity and friction using the TRmode},
+  journal = {J. Phys. D Appl. Phys.},
+  year = {2005},
+  volume = {38},
+  pages = {R269--R282},
+  number = {18},
+  month = {Sep},
+  date = {SEP 21},
+  date-added = {2007-10-11 19:58:12 -0400},
+  date-modified = {2007-10-11 20:06:02 -0400},
+  isi = {ISI:000232452900001},
+  issn = {0022-3727},
+  publication-type = {J}
+}
+
+@ARTICLE{Reinstadtler:2003qf,
+  author = {Reinstadtler, M. and Rabe, U. and Scherer, V. and Hartmann, U. and
+	Goldade, A. and Bhushan, B. and Arnold, W.},
+  title = {On the nanoscale measurement of friction using atomic-force microscope
+	cantilever torsional resonances},
+  journal = {Appl. Phys. Lett.},
+  year = {2003},
+  volume = {82},
+  pages = {2604--2606},
+  number = {16},
+  month = {Apr},
+  date = {APR 21},
+  date-added = {2007-10-11 20:07:06 -0400},
+  date-modified = {2007-10-11 20:07:19 -0400},
+  isi = {ISI:000182258800018},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{Reinstaedtler:2003pd,
+  author = {Reinstaedtler, M. and Rabe, U. and Scherer, V. and Turner, J. A.
+	and Arnold, W.},
+  title = {Imaging of flexural and torsional resonance modes of atomic force
+	microscopy cantilevers using optical interferometry},
+  journal = {Surf. Sci.},
+  year = {2003},
+  volume = {532},
+  pages = {1152--1158},
+  month = {Jun},
+  date = {JUN 10},
+  date-added = {2007-10-11 20:07:45 -0400},
+  date-modified = {2007-10-11 20:08:47 -0400},
+  isi = {ISI:000183705900198},
+  issn = {0039-6028},
+  publication-type = {J}
+}
+
+@ARTICLE{Garcia_Rodriguez_2002,
+  author = {Rodriguez, T.R. and Garcia, R.},
+  title = {Tip motion in amplitude modulation (tapping-mode) atomic-force microscopy:
+	Comparison between continuous and point-mass models},
+  journal = {Phys. Rev. Lett.},
+  year = {2002},
+  volume = {80},
+  pages = {1646-1648},
+  number = {9},
+  month = {Mar},
+  date = {MAR 4},
+  date-added = {2008-10-16 15:52:00 -0400},
+  date-modified = {2008-10-16 15:52:01 -0400},
+  isi = {ISI:000174181400048},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{Rodriguez_APL_2002,
+  author = {Rodriguez, T. R. and Garcia, R.},
+  title = {Tip motion in amplitude modulation (tapping-mode) atomic-force microscopy:
+	Comparison between continuous and point-mass models},
+  journal = {Appl. Phys. Lett.},
+  year = {2002},
+  volume = {80},
+  pages = {1646--1648},
+  number = {9},
+  month = {Mar},
+  date = {MAR 4},
+  date-added = {2007-07-16 15:32:59 -0400},
+  date-modified = {2007-10-08 17:54:19 -0400},
+  isi = {ISI:000174181400048},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{Rutzel_PROC_2003,
+  author = {Rutzel, S. and Lee, S. I. and Raman, A.},
+  title = {Nonlinear dynamics of atomic-force-microscope probes driven in Lennard-Jones
+	potentials},
+  journal = {Proc. Roy. Soc. A},
+  year = {2003},
+  volume = {459},
+  pages = {1925--1948},
+  number = {2036},
+  month = {Aug},
+  date = {AUG 8},
+  date-added = {2007-10-08 19:03:27 -0400},
+  date-modified = {2007-10-08 19:04:15 -0400},
+  isi = {ISI:000184686700004},
+  issn = {1364-5021},
+  publication-type = {J}
+}
+
+@ARTICLE{Sader_RSI_1999,
+  author = {Sader, J.E. and Chon, J.W.M. and Mulvaney, P.},
+  title = {Calibration of rectangular atomic force microscope cantilevers},
+  journal = {Rev. Sci. Instrum.},
+  year = {1999},
+  volume = {70},
+  pages = {3967-3969},
+  number = {10},
+  month = {Oct},
+  date-added = {2008-10-20 14:40:00 -0400},
+  date-modified = {2008-10-20 14:40:01 -0400},
+  isi = {ISI:000082842300028},
+  issn = {0034-6748}
+}
+
+@ARTICLE{Sader_RSI_1995,
+  author = {Sader, J.E. and Larson, I. and Mulvaney, P. and White, L.R.},
+  title = {METHOD FOR THE CALIBRATION OF ATOMIC-FORCE MICROSCOPE CANTILEVERS},
+  journal = {Rev. Sci. Instrum.},
+  year = {1995},
+  volume = {66},
+  pages = {3789--3798},
+  number = {7},
+  month = {Jul},
+  date = {JUL},
+  date-added = {2007-10-08 18:53:14 -0400},
+  date-modified = {2007-10-12 16:47:12 -0400},
+  isi = {ISI:A1995RK22400012},
+  issn = {0034-6748},
+  publication-type = {J}
+}
+
+@ARTICLE{Sader_APL_2004,
+  author = {Sader, J. E. and Jarvis, S. P.},
+  title = {Accurate formulas for interaction force and energy in frequency modulation
+	force spectroscopy},
+  journal = {Appl. Phys. Lett.},
+  year = {2004},
+  volume = {84},
+  pages = {1801--1803},
+  number = {10},
+  month = {Mar},
+  date = {MAR 8},
+  date-added = {2007-10-08 18:25:20 -0400},
+  date-modified = {2007-10-08 18:29:38 -0400},
+  isi = {ISI:000189384900061},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{Sahagun_PRL_2007,
+  author = {Sahagun, E. and Garcia-Mochales, P. and Sacha, G. M. and Saenz, J.
+	J.},
+  title = {Energy dissipation due to capillary interactions: Hydrophobicity
+	maps in force microscopy},
+  journal = {Phys. Rev. Lett.},
+  year = {2007},
+  volume = {98},
+  pages = {176106},
+  number = {17},
+  month = {Apr},
+  af = {Sahagun, E. Garcia-Mochales, P. Sacha, G. M. Saenz, J. J.},
+  date = {APR 27},
+  date-added = {2007-07-17 10:20:18 -0400},
+  date-modified = {2007-10-08 17:54:54 -0400},
+  di = {ARTN 176106},
+  isi = {ISI:000246803900040},
+  issn = {0031-9007},
+  publication-type = {J}
+}
+
+@ARTICLE{Sahin_PRB_2008,
+  author = {Sahin, Ozgur},
+  title = {Time-varying tip-sample force measurements and steady-state dynamics
+	in tapping-mode atomic force microscopy},
+  journal = {Phys. Rev. B},
+  year = {2008},
+  volume = {77},
+  number = {11},
+  month = {MAR},
+  abstract = {Direct time-varying tip-sample force measurements by torsional harmonic
+	cantilevers facilitate detailed investigations of the cantilever
+	dynamics in tapping-mode atomic force microscopy. Here, we report
+	experimental evidence that the mathematical relationships describing
+	the steady-state dynamics are quantitatively satisfied by the independent
+	measurements of tip-sample forces over a broad range of experimental
+	conditions. These results confirm the existing understanding of tapping-mode
+	atomic force microscopy and build confidence on the reliability of
+	time-varying tip-sample force measurements by the torsional harmonic
+	cantilevers.},
+  article-number = {115405},
+  bdsk-url-1 = {http://dx.doi.org/10.1103/PhysRevB.77.115405y%7D},
+  date-added = {2009-01-12 15:07:01 -0500},
+  date-modified = {2009-01-12 15:07:01 -0500}
+}
+
+@ARTICLE{Sahin_RSI_2007,
+  author = {Sahin, Ozgur},
+  title = {Harnessing bifurcations in tapping-mode atomic force microscopy to
+	calibrate time-varying tip-sample force measurements},
+  journal = {Rev. Sci. Instrum.},
+  year = {2007},
+  volume = {78},
+  number = {10},
+  month = {OCT},
+  abstract = {Torsional harmonic cantilevers allow measurement of time-varying tip-sample
+	forces in tapping-mode atomic force microscopy. Accuracy of these
+	force measurements is important for quantitative nanomechanical measurements.
+	Here we demonstrate a method to convert the torsional deflection
+	signals into a calibrated force wave form with the use of nonlinear
+	dynamical response of the tapping cantilever. Specifically the transitions
+	between steady oscillation regimes are used to calibrate the torsional
+	deflection signals. (C) 2007 American Institute of Physics.},
+  article-number = {103707},
+  bdsk-url-1 = {http://dx.doi.org/10.1063/1.280100917D},
+  date-added = {2009-01-12 15:07:01 -0500},
+  date-modified = {2009-01-12 15:07:01 -0500}
+}
+
+@ARTICLE{Sahin_NN_2007,
+  author = {Sahin, O. and Magonov, S. and Su, C. and Quate, C. F. and Solgaard,
+	O.},
+  title = {An atomic force microscope tip designed to measure time-varying nanomechanical
+	forces},
+  journal = {Nature Nanotechnology},
+  year = {2007},
+  volume = {2},
+  pages = {507-514},
+  number = {8},
+  date-added = {2009-01-12 15:03:10 -0500},
+  date-modified = {2009-01-12 15:03:10 -0500}
+}
+
+@ARTICLE{Sahin_PRB_2004,
+  author = {Sahin, O. and Quate, C. F. and Solgaard, O. and Atalar, A.},
+  title = {Resonant harmonic response in tapping-mode atomic force microscopy},
+  journal = {Phys. Rev. B},
+  year = {2004},
+  volume = {69},
+  pages = {165416},
+  number = {16},
+  date-added = {2009-01-12 15:07:01 -0500},
+  date-modified = {2009-01-12 15:07:01 -0500}
+}
+
+@ARTICLE{Sahin_SA_2004,
+  author = {Sahin, O. and Yaralioglu, G. and Grow, R. and Zappe, S. F. and Atalar,
+	A. and Quate, C. and Solgaard, O.},
+  title = {High-resolution imaging of elastic properties using harmonic cantilevers},
+  journal = {Sensor Actuat. A-Phys.},
+  year = {2004},
+  volume = {114},
+  pages = {183--190},
+  number = {2-3},
+  date-added = {2009-01-12 15:00:26 -0500},
+  date-modified = {2009-01-12 15:00:26 -0500}
+}
+
+@ARTICLE{Salapaka_JAP_1997,
+  author = {Salapaka, M. V. and Bergh, H. S. and Lai, J. and Majumdar, A. and
+	McFarland, E.},
+  title = {Multi-mode noise analysis of cantilevers for scanning probe microscopy},
+  journal = {J. Appl. Phys.},
+  year = {1997},
+  volume = {81},
+  pages = {2480--2487},
+  number = {6},
+  month = {Mar},
+  date = {MAR 15},
+  date-added = {2007-10-08 18:58:13 -0400},
+  date-modified = {2007-10-08 18:58:33 -0400},
+  isi = {ISI:A1997WP16700003},
+  issn = {0021-8979},
+  publication-type = {J}
+}
+
+@ARTICLE{Salapaka:2001ly,
+  author = {Salapaka, S. and Dahleh, M. and Mezic, I.},
+  title = {On the dynamics of a harmonic oscillator undergoing impacts with
+	a vibrating platform},
+  journal = {Nonlinear Dyn.},
+  year = {2001},
+  volume = {24},
+  pages = {333--358},
+  number = {4},
+  month = {Apr},
+  date = {APR},
+  date-added = {2007-10-12 16:19:26 -0400},
+  date-modified = {2007-10-12 16:19:39 -0400},
+  isi = {ISI:000167853600001},
+  issn = {0924-090X},
+  publication-type = {J}
+}
+
+@ARTICLE{SanPaulo:2002mz,
+  author = {San Paulo, A. and Garcia, R.},
+  title = {Unifying theory of tapping-mode atomic-force microscopy},
+  journal = {Phys. Rev. B},
+  year = {2002},
+  volume = {66},
+  pages = {041406},
+  number = {4},
+  month = {Jul},
+  date = {JUL 15},
+  date-added = {2007-10-12 16:18:23 -0400},
+  date-modified = {2007-10-12 17:14:41 -0400},
+  di = {ARTN 041406},
+  isi = {ISI:000177426400023},
+  issn = {1098-0121},
+  publication-type = {J}
+}
+
+@ARTICLE{San_Paulo_PRB_2001,
+  author = {San Paulo, A. and Garcia, R.},
+  title = {Tip-surface forces, amplitude, and energy dissipation in amplitude-modulation
+	(tapping mode) force microscopy},
+  journal = {Phys. Rev. B},
+  year = {2001},
+  volume = {64},
+  pages = {art. no.--193411},
+  number = {19},
+  month = {Nov},
+  date = {NOV 15},
+  date-added = {2007-10-08 18:20:50 -0400},
+  date-modified = {2007-10-12 16:47:30 -0400},
+  isi = {ISI:000172307900032},
+  issn = {1098-0121},
+  publication-type = {J}
+}
+
+@ARTICLE{San-Paulo:2000vn,
+  author = {San Paulo, A. and Garcia, R.},
+  title = {High-resolution imaging of antibodies by tapping-mode atomic force
+	microscopy: Attractive and repulsive tip-sample interaction regimes},
+  journal = {Biophys. J.},
+  year = {2000},
+  volume = {78},
+  pages = {1599--1605},
+  number = {3},
+  month = {Mar},
+  date = {MAR},
+  date-added = {2007-10-12 16:12:49 -0400},
+  date-modified = {2007-10-12 16:15:07 -0400},
+  isi = {ISI:000085697800046},
+  issn = {0006-3495},
+  publication-type = {J}
+}
+
+@ARTICLE{SARID_VAC_1991,
+  author = {SARID, D. and ELINGS, V.},
+  title = {REVIEW OF SCANNING FORCE MICROSCOPY},
+  journal = {J. Vac. Sci. Technol. B},
+  year = {1991},
+  volume = {9},
+  pages = {431--437},
+  number = {2},
+  month = {Mar-Apr},
+  date = {MAR-APR},
+  date-added = {2007-07-24 21:31:58 -0400},
+  date-modified = {2007-10-08 18:03:53 -0400},
+  isi = {ISI:A1991FL00400006},
+  issn = {1071-1023},
+  part-number = {Part 2},
+  publication-type = {J}
+}
+
+@ARTICLE{Schaffer:1996xr,
+  author = {Schaffer, T. E. and Cleveland, J. P. and Ohnesorge, F. and Walters,
+	D. A. and Hansma, P. K.},
+  title = {Studies of vibrating atomic force microscope cantilevers in liquid},
+  journal = {J. Appl. Phys.},
+  year = {1996},
+  volume = {80},
+  pages = {3622--3627},
+  number = {7},
+  month = {Oct},
+  date = {OCT 1},
+  date-added = {2007-10-15 01:06:46 -0400},
+  date-modified = {2007-10-15 01:06:46 -0400},
+  isi = {ISI:A1996VL80100002},
+  issn = {0021-8979},
+  publication-type = {J}
+}
+
+@ARTICLE{Schitter_RSI_2001,
+  author = {Schitter, G. and Menold, P. and Knapp, H. F. and Allgower, F. and
+	Stemmer, A.},
+  title = {High performance feedback for fast scanning atomic force microscopes},
+  journal = {Rev. Sci. Instrum.},
+  year = {2001},
+  volume = {72},
+  pages = {3320--3327},
+  number = {8},
+  month = {Aug},
+  date = {AUG},
+  date-added = {2007-07-16 15:33:19 -0400},
+  date-modified = {2007-10-08 18:04:09 -0400},
+  isi = {ISI:000170046900022},
+  issn = {0034-6748},
+  publication-type = {J}
+}
+
+@ARTICLE{Shampine_SIAM_1997,
+  author = {Shampine, L. F. and Reichelt, M. W.},
+  title = {The MATLAB ODE suite},
+  journal = {SIAM J. Sci. Compu.},
+  year = {1997},
+  volume = {18},
+  pages = {1--22},
+  number = {1},
+  month = {Jan},
+  date = {JAN},
+  date-added = {2007-12-06 17:13:04 -0500},
+  date-modified = {2007-12-06 17:13:35 -0500},
+  isi = {ISI:A1997WE98100002},
+  issn = {1064-8275},
+  publication-type = {J}
+}
+
+@ARTICLE{Sharos:2004bh,
+  author = {Sharos, L. B. and Raman, A. and Crittenden, S. and Reifenberger,
+	R.},
+  title = {Enhanced mass sensing using torsional and lateral resonances in microcantilevers},
+  journal = {Appl. Phys. Lett.},
+  year = {2004},
+  volume = {84},
+  pages = {4638--4640},
+  number = {23},
+  month = {Jun},
+  date = {JUN 7},
+  date-added = {2007-10-11 20:09:57 -0400},
+  date-modified = {2007-10-11 20:10:19 -0400},
+  isi = {ISI:000221656900014},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{Soler:2002uq,
+  author = {Soler, J. M. and Artacho, E. and Gale, J. D. and Garcia, A. and Junquera,
+	J. and Ordejon, P. and Sanchez-Portal, D.},
+  title = {The SIESTA method for ab initio order-N materials simulation},
+  journal = {J. Phys.: Condensed Matter},
+  year = {2002},
+  volume = {14},
+  pages = {2745--2779},
+  number = {11},
+  month = {Mar},
+  date = {MAR 25},
+  date-added = {2007-10-11 19:42:14 -0400},
+  date-modified = {2007-10-12 16:50:13 -0400},
+  isi = {ISI:000174901100003},
+  issn = {0953-8984},
+  publication-type = {J}
+}
+
+@ARTICLE{Song:2006kx,
+  author = {Song, Y. X. and Bhushan, B.},
+  title = {Simulation of dynamic modes of atomic force microscopy using a 3D
+	finite element model},
+  journal = {Ultramicroscopy},
+  year = {2006},
+  volume = {106},
+  pages = {847--873},
+  number = {8-9},
+  month = {Jun-Jul},
+  af = {Song, Yaxin Bhushan, Bharat},
+  date = {JUN-JUL},
+  date-added = {2007-10-11 19:47:56 -0400},
+  date-modified = {2007-10-11 19:48:23 -0400},
+  isi = {ISI:000239230600030},
+  issn = {0304-3991},
+  publication-type = {J}
+}
+
+@ARTICLE{Stark_PNAS_2002,
+  author = {Stark, M. and Stark, R. W. and Heckl, W. M. and Guckenberger, R.},
+  title = {Inverting dynamic force microscopy: From signals to time-resolved
+	interaction forces},
+  journal = {PNAS},
+  year = {2002},
+  volume = {99},
+  pages = {8473--8478},
+  number = {13},
+  month = {Jun},
+  date = {JUN 25},
+  date-added = {2007-10-08 18:50:54 -0400},
+  date-modified = {2007-10-08 18:51:45 -0400},
+  isi = {ISI:000176478200005},
+  issn = {0027-8424},
+  publication-type = {J}
+}
+
+@ARTICLE{Stark_APL_1999,
+  author = {Stark, R. W. and Drobek, T. and Heckl, W. M.},
+  title = {Tapping-mode atomic force microscopy and phase-imaging in higher
+	eigenmodes},
+  journal = {Appl. Phys. Lett.},
+  year = {1999},
+  volume = {74},
+  pages = {3296--3298},
+  number = {22},
+  month = {May},
+  date = {MAY 31},
+  date-added = {2007-07-16 15:33:13 -0400},
+  date-modified = {2007-10-08 17:55:19 -0400},
+  isi = {ISI:000080474300018},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{Stroh24082004,
+  author = {Stroh, C. and Wang, H. and Bash, R. and Ashcroft, B. and Nelson,
+	J. and Gruber, H. and Lohr, D. and Lindsay, S. M. and Hinterdorfer,
+	P.},
+  title = {Single-molecule recognition imaging microscopy},
+  journal = {Proceedings of the National Academy of Sciences of the United States
+	of America},
+  year = {2004},
+  volume = {101},
+  pages = {12503-12507},
+  number = {34},
+  abstract = {Atomic force microscopy is a powerful and widely used imaging technique
+	that can visualize single molecules and follow processes at the single-molecule
+	level both in air and in solution. For maximum usefulness in biological
+	applications, atomic force microscopy needs to be able to identify
+	specific types of molecules in an image, much as fluorescent tags
+	do for optical microscopy. The results presented here demonstrate
+	that the highly specific antibodyâantigen interaction can be
+	used to generate single-molecule maps of specific types of molecules
+	in a compositionally complex sample while simultaneously carrying
+	out high-resolution topographic imaging. Because it can identify
+	specific components, the technique can be used to map composition
+	over an image and to detect compositional changes occurring during
+	a process.},
+  doi = {10.1073/pnas.0403538101},
+  eprint = {http://www.pnas.org/content/101/34/12503.full.pdf+html},
+  owner = {alexander},
+  timestamp = {2011.11.07},
+  url = {http://www.pnas.org/content/101/34/12503.abstract}
+}
+
+@ARTICLE{Strus_NANO_2005,
+  author = {Strus, M. C. and Raman, A. and Han, C. S. and Nguyen, C. V.},
+  title = {Imaging artefacts in atomic force microscopy with carbon nanotube
+	tips},
+  journal = {Nanotechnology},
+  year = {2005},
+  volume = {16},
+  pages = {2482--2492},
+  number = {11},
+  month = {Nov},
+  date = {NOV},
+  date-added = {2007-10-08 21:00:58 -0400},
+  date-modified = {2007-10-08 21:01:14 -0400},
+  isi = {ISI:000233494500003},
+  issn = {0957-4484},
+  publication-type = {J}
+}
+
+@ARTICLE{Sugimoto:2007lq,
+  author = {Sugimoto, Y. and Innami, S. and Abe, M. and Custance, O. and Morita,
+	S.},
+  title = {Dynamic force spectroscopy using cantilever higher flexural modes},
+  journal = {Appl. Phys. Lett.},
+  year = {2007},
+  volume = {91},
+  pages = {093120},
+  number = {9},
+  month = {Aug},
+  af = {Sugimoto, Yoshiaki Innami, Seiji Abe, Masayuki Custance, Oscar Morita,
+	Seizo},
+  date = {AUG 27},
+  date-added = {2007-10-11 20:10:39 -0400},
+  date-modified = {2007-10-11 20:11:08 -0400},
+  di = {ARTN 093120},
+  isi = {ISI:000249156100112},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{Sulchek_APL_2000,
+  author = {Sulchek, T. and Hsieh, R. and Adams, J. D. and Yaralioglu, G. G.
+	and Minne, S. C. and Quate, C. F. and Cleveland, J. P. and Atalar,
+	A. and Adderton, D. M.},
+  title = {High-speed tapping mode imaging with active Q control for atomic
+	force microscopy},
+  journal = {Appl. Phys. Lett.},
+  year = {2000},
+  volume = {76},
+  pages = {1473--1475},
+  number = {11},
+  month = {Mar},
+  date = {MAR 13},
+  date-added = {2007-12-07 14:09:46 -0500},
+  date-modified = {2007-12-07 14:10:02 -0500},
+  isi = {ISI:000085735800041},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{Tamayo_APL_2000,
+  author = {Tamayo, J. and Humphris, A. D. L. and Miles, M. J.},
+  title = {Piconewton regime dynamic force microscopy in liquid},
+  journal = {Appl. Phys. Lett.},
+  year = {2000},
+  volume = {77},
+  pages = {582--584},
+  number = {4},
+  month = {Jul},
+  date = {JUL 24},
+  date-added = {2007-12-06 16:55:30 -0500},
+  date-modified = {2007-12-06 16:56:36 -0500},
+  isi = {ISI:000088225400041},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{ting1966,
+  author = {T. C. T. Ting},
+  title = {The contact stresses between a rigid indenter and a viscoelastic
+	half},
+  journal = {Journal of Applied Mechanics},
+  year = {1966}
+}
+
+@ARTICLE{Tobik:1999qy,
+  author = {Tobik, J. and Stich, I. and Perez, R. and Terakura, K.},
+  title = {Simulation of tip-surface interactions in atomic force microscopy
+	of an InP(110) surface with a Si tip},
+  journal = {Phys. Rev. B},
+  year = {1999},
+  volume = {60},
+  pages = {11639--11644},
+  number = {16},
+  month = {Oct},
+  date = {OCT 15},
+  date-added = {2007-10-11 19:41:15 -0400},
+  date-modified = {2007-10-12 16:50:31 -0400},
+  isi = {ISI:000083554800063},
+  issn = {0163-1829},
+  publication-type = {J}
+}
+
+@ARTICLE{Trevethan_PRB_2007,
+  author = {Trevethan, T. and Watkins, M. and Kantorovich, L. N. and Shluger,
+	A. L.},
+  title = {Controlled manipulation of atoms in insulating surfaces with the
+	virtual atomic force microscope},
+  journal = {Phys. Rev. Lett.},
+  year = {2007},
+  volume = {98},
+  number = {2},
+  month = {Jan 12},
+  article-number = {028101},
+  date-added = {2008-04-23 12:14:26 -0400},
+  date-modified = {2008-04-23 12:52:09 -0400},
+  issn = {0031-9007},
+  unique-id = {ISI:000243586700067}
+}
+
+@ARTICLE{VanKeken_1995,
+  author = {VanKeken, P. E. and Yuen, D. A. and Petzold, L. R.},
+  title = {DASPK: A new high order and adaptive time-integration technique with
+	applications to mantle convection with strongly temperature- and
+	pressure-dependent rheology},
+  journal = {GEOPHYSICAL AND ASTROPHYSICAL FLUID DYNAMICS},
+  year = {1995},
+  volume = {80},
+  pages = {57--74},
+  number = {1-2},
+  date-added = {2007-07-18 16:20:01 -0400},
+  date-modified = {2007-07-18 16:20:16 -0400},
+  isi = {ISI:A1995UT96500003},
+  issn = {0309-1929},
+  publication-type = {J}
+}
+
+@ARTICLE{VanKeken_GAFD_1995,
+  author = {VanKeken, P. E. and Yuen, D. A. and Petzold, L. R.},
+  title = {DASPK: A new high order and adaptive time-integration technique with
+	applications to mantle convection with strongly temperature- and
+	pressure-dependent rheology},
+  journal = {Geophys. Astrophys. Fluid Dyn.},
+  year = {1995},
+  volume = {80},
+  pages = {57--74},
+  number = {1-2},
+  date-added = {2007-11-13 14:45:43 -0500},
+  date-modified = {2008-01-15 13:19:59 -0500},
+  isi = {ISI:A1995UT96500003},
+  issn = {0309-1929},
+  publication-type = {J}
+}
+
+@ARTICLE{Velegol_LANG_2003,
+  author = {Velegol, S. B. and Pardi, S. and Li, X. and Velegol, D. and Logan,
+	B. E.},
+  title = {AFM imaging artifacts due to bacterial cell height and AFM tip geometry},
+  journal = {Langmuir},
+  year = {2003},
+  volume = {19},
+  pages = {851--857},
+  number = {3},
+  month = {Feb},
+  date = {FEB 4},
+  date-added = {2007-07-16 15:33:36 -0400},
+  date-modified = {2007-10-08 17:55:37 -0400},
+  isi = {ISI:000180737100057},
+  issn = {0743-7463},
+  publication-type = {J}
+}
+
+@ARTICLE{Villarrubia_1997,
+  author = {Villarrubia, J. S.},
+  title = {Algorithms for scanned probe microscope image simulation, surface
+	reconstruction, and tip estimation},
+  journal = {J. Res. Natl. Inst. Stand. Technol.},
+  year = {1997},
+  volume = {102},
+  pages = {425--454},
+  number = {4},
+  month = {Jul-Aug},
+  date = {JUL-AUG},
+  date-added = {2007-07-16 15:32:35 -0400},
+  date-modified = {2007-10-12 16:52:52 -0400},
+  isi = {ISI:000168726500002},
+  issn = {1044-677X},
+  publication-type = {J}
+}
+
+@ARTICLE{Wang:1998gf,
+  author = {Wang, L.},
+  title = {Analytical descriptions of the tapping-mode atomic force microscopy
+	response},
+  journal = {Appl. Phys. Lett.},
+  year = {1998},
+  volume = {73},
+  pages = {3781--3783},
+  number = {25},
+  month = {Dec},
+  date = {DEC 21},
+  date-added = {2007-10-12 16:20:32 -0400},
+  date-modified = {2007-10-12 16:20:45 -0400},
+  isi = {ISI:000077458200052},
+  issn = {0003-6951},
+  publication-type = {J}
+}
+
+@ARTICLE{Wang:1999ve,
+  author = {Wang, L. G.},
+  title = {The role of damping in phase imaging in tapping mode atomic force
+	microscopy},
+  journal = {Surf. Sci.},
+  year = {1999},
+  volume = {429},
+  pages = {178--185},
+  number = {1-3},
+  month = {Jun},
+  date = {JUN 10},
+  date-added = {2007-10-12 16:21:28 -0400},
+  date-modified = {2007-10-12 16:21:44 -0400},
+  isi = {ISI:000081037200028},
+  issn = {0039-6028},
+  publication-type = {J}
+}
+
+@ARTICLE{Water_NANO_2000,
+  author = {van de Water, W. and Molenaar, J.},
+  title = {Dynamics of vibrating atomic force microscopy},
+  journal = {Nanotechnology},
+  year = {2000},
+  volume = {11},
+  pages = {192--199},
+  number = {3},
+  month = {Sep},
+  date = {SEP},
+  date-added = {2007-10-08 18:33:51 -0400},
+  date-modified = {2007-10-08 18:34:19 -0400},
+  isi = {ISI:000089427500010},
+  issn = {0957-4484},
+  publication-type = {J}
+}
+
+@ARTICLE{Watkins_PRB_2007,
+  author = {Watkins, M. and Trevethan, T. and Shluger, A. L. and Kantorovich,
+	L. N.},
+  title = {Dynamical processes at oxide surfaces studied with the virtual atomic
+	force microscope},
+  journal = {Phys. Rev. B},
+  year = {2007},
+  volume = {76},
+  number = {24},
+  month = {Dec},
+  article-number = {245421},
+  date-added = {2008-04-23 12:14:26 -0400},
+  date-modified = {2008-04-23 12:51:11 -0400},
+  issn = {1098-0121},
+  unique-id = {ISI:000251986600102}
+}
+
+@INBOOK{xu_2001,
+  chapter = {Chapter 6 Studies of Wetting and Capillary phenomena at nanometer
+	scale with Scanning Polarization Force Microscopy},
+  pages = {243-287},
+  title = {Nano-Surface Chemistry},
+  publisher = {Marcel Dekker Inc},
+  year = {2001},
+  editor = {M. Rosoff},
+  author = {Lei Xu and Miquel Salmeron},
+  owner = {drk},
+  timestamp = {2010.09.22}
+}
+
+@ARTICLE{Xu_BJ_2008,
+  author = {Xu, Xin and Carrasco, Carolina and Jose de Pablo, Pedro and Gomez-Herrero,
+	Julio and Raman, Arvind},
+  title = {Unmasking imaging forces on soft biological samples in liquids when
+	using dynamic atomic force microscopy: A case study on viral capsids},
+  journal = {Biophys. J.},
+  year = {2008},
+  volume = {95},
+  pages = {2520-2528},
+  number = {5},
+  month = {SEP 1},
+  abstract = {Dynamic atomic force microscopy is widely used for the imaging of
+	soft biological materials in liquid environments; yet very little
+	is known about the peak forces exerted by the oscillating probe tapping
+	on the sample in liquid environments. In this article, we combine
+	theory and experiments in liquid on virus capsids to propose scaling
+	laws for peak interaction forces exerted on soft samples in liquid
+	environments. We demonstrate how these laws can be used to choose
+	probes and operating conditions to minimize imaging forces and thereby
+	robustly image fragile biological samples.},
+  bdsk-url-1 = {http://dx.doi.org/10.1529/biophysj.108.132829%7D},
+  date-added = {2008-11-24 16:26:32 -0500},
+  date-modified = {2008-11-24 16:26:32 -0500}
+}
+
+@ARTICLE{Xu:2007mi,
+  author = {Xu, X. and Raman, A.},
+  title = {Comparative dynamics of magnetically, acoustically, and Brownian
+	motion driven microcantilevers in liquids},
+  journal = {J. Appl. Phys.},
+  year = {2007},
+  volume = {102},
+  pages = {034303},
+  number = {3},
+  month = {Aug},
+  af = {Xu, Xin Raman, Arvind},
+  date = {AUG 1},
+  date-added = {2007-10-15 01:06:46 -0400},
+  date-modified = {2007-10-15 01:06:46 -0400},
+  di = {ARTN 034303},
+  isi = {ISI:000249240600080},
+  issn = {0021-8979},
+  publication-type = {J}
+}
+
+@ARTICLE{Xu_JAP_2007,
+  author = {Xu, X. and Raman, A.},
+  title = {Comparative dynamics of magnetically, acoustically, and Brownian
+	motion driven microcantilevers in liquids},
+  journal = {J. Appl. Phys.},
+  year = {2007},
+  volume = {102},
+  pages = {034303},
+  number = {3},
+  date-added = {2009-01-12 18:28:58 -0500},
+  date-modified = {2009-01-12 18:28:58 -0500}
+}
+
+@ARTICLE{Yagasaki:2004ul,
+  author = {Yagasaki, K.},
+  title = {Nonlinear dynamics of vibrating microcantilevers in tapping-mode
+	atomic force microscopy},
+  journal = {Phys. Rev. B},
+  year = {2004},
+  volume = {70},
+  pages = {245419},
+  number = {24},
+  month = {Dec},
+  date = {DEC},
+  date-added = {2007-10-12 16:22:00 -0400},
+  date-modified = {2007-10-12 16:22:12 -0400},
+  di = {ARTN 245419},
+  isi = {ISI:000226112300102},
+  issn = {1098-0121},
+  publication-type = {J}
+}
+
+@ARTICLE{Zitzler_PRB_2002,
+  author = {Zitzler, L. and Herminghaus, S. and Mugele, F.},
+  title = {Capillary forces in tapping mode atomic force microscopy},
+  journal = {Phys. Rev. B},
+  year = {2002},
+  volume = {66},
+  pages = {155436},
+  number = {15},
+  month = {Oct},
+  date = {OCT 15},
+  date-added = {2007-10-07 21:56:38 -0400},
+  date-modified = {2007-10-08 17:55:54 -0400},
+  di = {ARTN 155436},
+  isi = {ISI:000179080800155},
+  issn = {1098-0121},
+  publication-type = {J}
+}
+
+@Article{dimitriadis2002determination,
+  author    = {Dimitriadis, Emilios K and Horkay, Ferenc and Maresca, Julia and Kachar, Bechara and Chadwick, Richard S},
+  title     = {Determination of elastic moduli of thin layers of soft material using the atomic force microscope},
+  journal   = {Biophysical journal},
+  year      = {2002},
+  volume    = {82},
+  number    = {5},
+  pages     = {2798--2810},
+  publisher = {Elsevier},
+}
+
+@Article{gavara2012determination,
+  author    = {Gavara, N{\'u}ria and Chadwick, Richard S},
+  title     = {Determination of the elastic moduli of thin samples and adherent cells using conical atomic force microscope tips},
+  journal   = {Nature nanotechnology},
+  year      = {2012},
+  volume    = {7},
+  number    = {11},
+  pages     = {733},
+  publisher = {Nature Publishing Group},
+}
+
+@Article{Mainardi2011,
+  author       = {Francesco Mainardi and Giorgio Spada},
+  title        = {Creep, Relaxation and Viscosity Properties for Basic Fractional Models in Rheology},
+  abstract     = {The purpose of this paper is twofold: from one side we provide a general survey to the viscoelastic models constructed via fractional calculus and from the other side we intend to analyze the basic fractional models as far as their creep, relaxation and viscosity properties are considered. The basic models are those that generalize via derivatives of fractional order the classical mechanical models characterized by two, three and four parameters, that we refer to as Kelvin-Voigt, Maxwell, Zener, anti-Zener and Burgers. For each fractional model we provide plots of the creep compliance, relaxation modulus and effective viscosity in non dimensional form in terms of a suitable time scale for different values of the order of fractional derivative. We also discuss the role of the order of fractional derivative in modifying the properties of the classical models.},
+  date         = {2011-10-15},
+  doi          = {10.1140/epjst/e2011-01387-1},
+  eprint       = {1110.3400v1},
+  eprintclass  = {cond-mat.mtrl-sci},
+  eprinttype   = {arXiv},
+  file         = {online:http\://arxiv.org/pdf/1110.3400v1:PDF},
+  journaltitle = {The European Physical Journal, Special Topics, Vol. 193 (2011) 133-160},
+  keywords     = {cond-mat.mtrl-sci, math-ph, math.MP, 26A33, 33E12, 44A10, 74D05, 74L10, 76A10},
+}
+
+@Misc{kelly,
+  author = {P A Kelley},
+  title  = {Mechanics Lecture Notes: An introduction to Solid Mechanics},
+  url    = {http://homepages.engineering.auckland.ac.nz/~pkel015/SolidMechanicsBooks/index.html},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/apps/nanowhim/invoke_app  -t adac -T /home/nanohub/drkiraco/app-adac

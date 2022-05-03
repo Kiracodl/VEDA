@@ -1,0 +1,879 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+VEDA Developer's Notes
+\end_layout
+
+\begin_layout Standard
+The following information may help those who wish to contribute to VEDA.
+\end_layout
+
+\begin_layout Section
+File and Directory layout
+\end_layout
+
+\begin_layout Standard
+The VEDA source code is contained in the following directories:
+\end_layout
+
+\begin_layout Itemize
+src: contains the FORTRAN source code to the main executables
+\end_layout
+
+\begin_layout Itemize
+doc: the manual
+\end_layout
+
+\begin_layout Itemize
+rappture: the .xml files for the rappture GUI
+\end_layout
+
+\begin_layout Itemize
+middleware: these are files needed to run VEDA on www.nanohub.org
+\end_layout
+
+\begin_layout Standard
+A detailed description of the files in each directory follows:
+\end_layout
+
+\begin_layout Subsection
+rappture/
+\end_layout
+
+\begin_layout Standard
+The rappture toolkit is available from www.rappture.org.
+ Each tool (approach curves, scanning, etc.) has a separate directory within
+ rappture/ that contains a tool.xml file.
+ The tool.xml is loaded by the rappture program to generate the GUI for that
+ program.
+ Because the various tools share many of the same common elements (tip-sample
+ interaction data, for example), those common elements are factored out
+ into separate files.
+ For example, the file “scanning
+\backslash
+_common.xml” contains all of the data that is common to the four scanning
+ tools (contact mode scan, basic AM scan, advanced AM scan, FM scan).
+ Then, each of the various tools has a template file that “includes” the
+ common files.
+ Because rappture does not have an “include” statement, use is made of the
+ standard C language macro-preprocessor.
+ The script “generate
+\backslash
+_guis.sh” runs the preprocessor on the template files to generate the tool.xml
+ files.
+ 
+\end_layout
+
+\begin_layout Standard
+Therefore, if you wish to edit the rappture GUI elements, do not edit the
+ tool.xml files directly, but rather edit the template files and then regenerate
+ the tool.xml files using the script.
+\end_layout
+
+\begin_layout Subsection
+src/
+\end_layout
+
+\begin_layout Subsubsection
+DMT_ddaskr.F90
+\end_layout
+
+\begin_layout Standard
+This is the main program file.
+ It contains all the setup and initialization, the main computation loop,
+ the differential equations functions, and a few miscellaneous functions.
+ The main call to the differential equation solver DDASKR is in this file.
+ The differential equations are contained in the function RES1.
+ Also, a good deal of pre-processor the output quantities is done here,
+ although the actual output is done later.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+modules.f90
+\end_layout
+
+\begin_layout Standard
+The files contains a number of modules.
+ A module is a FORTRAN concept that is similar to a class/object concept
+ in object-oriented programming.
+ It keeps related code together, and provide some encapsulation and data-hiding.
+ It is not as clean as proper object-oriented languages though, so in some
+ cases readability and elegance have been sacrified to make things work.
+ Here is a list of the modules, in order.
+ In general, a module can use any module that was defined above it in the
+ file, so order matters.
+\end_layout
+
+\begin_layout Standard
+• params: this contains parameters and constants.
+\end_layout
+
+\begin_layout Standard
+• FreqMod: all of the data from frequency moduluation and a few auxiliary
+ routines.
+ A majority of the FM code is intermixed with other code, unfortunately
+\end_layout
+
+\begin_layout Standard
+• Controller: this contains the Z controller routines which are used in
+ the scanning code only (amp and PLL controllers for FM are elsewhere).
+\end_layout
+
+\begin_layout Standard
+• LockInDataType: this contains all of the information for one Lockin (multiple
+ lockins may be used for higher harmonics)
+\end_layout
+
+\begin_layout Standard
+• LockIn: the code for computing the lock-in data.
+ This is solved using simple forward Euler method (originally solved these
+ equations using DDASKR, but it was very slow).
+\end_layout
+
+\begin_layout Standard
+• Approaching: Auxillary routines for the approach tools
+\end_layout
+
+\begin_layout Standard
+• timeAndCycle: this contains most the data dealing with times and cycles.
+ It specifically handles determining how many transient cycles to execute
+ before begining the main computation, how many points are calculated per
+ drive cycle, how many drive cycles are computed per output point, etc.
+ 
+\end_layout
+
+\begin_layout Standard
+• jumpMode: this was part of an old jump mode (i.e.
+ forceVolume) tool that was started but never finished or released.
+ This could potentially be deleted.
+\end_layout
+
+\begin_layout Standard
+• AppControl: Application control.
+ This module answers two questions at every computed point: should we write
+ data out to the file now, and should we compute another point? Originally
+ these were just if statements in the main loop, but the conditions got
+ so complicated they were moved out to separate routines.
+\end_layout
+
+\begin_layout Standard
+• Poincare: data for poincare sections
+\end_layout
+
+\begin_layout Standard
+• data1: this is a lot of miscellanous data and routines.
+ Originally this module was created to replace the global variables that
+ were present in very early code (i.e.
+ the code written by Shuiqing and later John).
+ It also contains routines that did not fit into any other specific module
+\end_layout
+
+\begin_layout Standard
+• contactModels: this is the module that the casual developer may want to
+ edit most.
+ This is where all of the computation of tip-sample interaction forces takes
+ place.
+ There are two main data types: the material property data and the force
+ coefficient data.
+ The force coefficient is just pre-computed values so that, for example,
+ the calculation for Hertz contact can be just $C*(-d)^{3/2}$ instead of
+ computing $
+\backslash
+frac{4}{3}
+\backslash
+left(
+\backslash
+frac{1-
+\backslash
+nu_{tip}^{2}}{E_{tip}}+
+\backslash
+frac{1-
+\backslash
+nu_{sample}^{2}}{E_{sample}}
+\backslash
+right)^{-1}
+\backslash
+sqrt{R}(-d)^{3/2}$ at every point.
+ 
+\end_layout
+
+\begin_layout Standard
+• Scanning: this contains everything else dealing with scanning except the
+ Z controller
+\end_layout
+
+\begin_layout Standard
+• ForcingCalculations: this calculates what forces are needed to get the
+ desired unconstrained amplitude.
+ This modules is quite complicated.
+ Refer to the theory portion of the VEDA manual extensively to understand
+ these routines.
+\end_layout
+
+\begin_layout Subsubsection
+basic_modules.f90
+\end_layout
+
+\begin_layout Standard
+some very basic generic routines like integrals, derivatives, stacks, interpolat
+ion, etc.
+ Modules in this file should ideally not have any dependencies (
+\begin_inset Quotes eld
+\end_inset
+
+use
+\begin_inset Quotes erd
+\end_inset
+
+ statements) at all, and definitely no dependencies on modules outside the
+ file.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+rappture_io.f90
+\end_layout
+
+\begin_layout Standard
+This file contains all of the input and output routines that read from and
+ write to the rappture libraries for file interface.
+ So, if you wish to add a new input or output, you will need to edit routines
+ in this file.
+ If you wish to write a new GUI front end that does not use rappture, you
+ can safely replace only the routines in this file without editing anything
+ else.
+\end_layout
+
+\begin_layout Subsubsection
+all other .f files
+\end_layout
+
+\begin_layout Standard
+These are the DDASKR library files.
+ You should not need to ever touch these.
+\end_layout
+
+\begin_layout Subsubsection
+Makefile
+\end_layout
+
+\begin_layout Standard
+For use on www.nanohub.org, the Intel fortran compiler is preferred because
+ it is the fastest.
+ However, it may not be available on other machines.
+ Therefore the option exists to use either g95 or gfortran (type either
+ “make F77=gfortran install” or “make F77=g95 install”)
+\end_layout
+
+\begin_layout Section
+Coding conventions
+\end_layout
+
+\begin_layout Standard
+The suffix _nd represents a non-dimensional variable, _dim represents a
+ dimensional variable.
+ All dimensional variables are in SI (mks) units.
+\end_layout
+
+\begin_layout Standard
+The prefix 'want' indicates a logical (boolean) variable.
+\end_layout
+
+\begin_layout Section
+Viscoelastic computations
+\end_layout
+
+\begin_layout Standard
+The implementation of the viscoelastic calculations in VEDA is significantly
+ complicated by the need to run very quickly.
+ Functions such as the stress relaxation function can be called tens of
+ millions of times during a simulation so the code must be very highly optimized.
+ However, a highly optimized code is less understandable.
+ Therefore, we provide here a reference implementation in matlab.
+ This contains the same basic algorithm as the VEDA FORTRAN code, but it
+ is less optimized and therefore (hopefully) more understandable.
+ Please try to understand this code before looking at the VEDA code.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset External
+	template PDFPages
+	filename ting.pdf
+	extra LaTeX "pages={1-3}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Electrostatic model of Gil
+\end_layout
+
+\begin_layout Standard
+For computational efficiency, we pull out the various constants that won't
+ change over the course of one run.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $c_{1}=\frac{4\pi}{(\pi-\theta_{lever})^{2}}\varepsilon\varepsilon_{0}U^{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(units: force)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $c_{2}=\frac{(tan(\theta_{lever}))^{2}\varepsilon\varepsilon_{0}U^{2}lw}{(\theta_{lever})^{2}h^{2}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(units: force )
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $c_{3}=sin\left(\frac{\theta_{tip}}{2}\right)(h-2\delta)$
+\end_inset
+
+(units:
+\end_layout
+
+\begin_layout Standard
+length)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $c_{4}=2l\tan(\frac{\theta_{lever}}{2})$
+\end_inset
+
+(units: length)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\delta=\frac{r}{2\tan^{2}\left(\frac{\theta_{tip}}{2}\right)}$
+\end_inset
+
+units:
+\end_layout
+
+\begin_layout Standard
+length (note, redefined this to include the factor of 1/2)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $c_{5}$
+\end_inset
+
+is the standard force non-dimensionalization in VEDA.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $l$
+\end_inset
+
+, 
+\begin_inset Formula $w$
+\end_inset
+
+ and 
+\begin_inset Formula $h$
+\end_inset
+
+ need length non-dimensionaliziation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{multline*}
+F_{total}(z)=c_{5}\left(c_{1}ln\left(\frac{z-\delta+h}{z+\delta}\right)-c_{1}c_{3}\frac{1}{\left(z-\delta+h\right)}\frac{z-\delta}{z+\delta}+c_{2}\frac{1}{\left(1+\frac{z}{h}\right)\left(1+\frac{z+c_{4}}{h}\right)}\right)
+\end{multline*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Determining ruppture force in WLC model
+\end_layout
+
+\begin_layout Standard
+the worm like chain force is 
+\begin_inset Formula $F=-\frac{K_{b}T}{L_{p}}\left[\frac{1}{4(1-d/L_{0})^{2}}-\frac{1}{4}+\frac{d}{L_{0}}\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+for convenience, define 
+\begin_inset Formula $F^{*}=\frac{FL_{p}}{K_{b}T}$
+\end_inset
+
+ and 
+\begin_inset Formula $x=d/L_{0}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $F^{*}=-\left[\frac{1}{4(1-x)^{2}}-\frac{1}{4}+x\right]$
+\end_inset
+
+ .
+ Expanding out we have
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $x^{3}+(F^{*}-\frac{9}{4})x^{2}+(-2F^{*}+\frac{3}{2})x+F^{*}=0$
+\end_inset
+
+.
+ This is a cubic polynomial.
+ So for a given F, the solution is by the cubic formula.
+\end_layout
+
+\begin_layout Section
+viscoelastic tracking surface coordinate after contact is left
+\end_layout
+
+\begin_layout Standard
+equation 12 in Ting 1966
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\int_{0}^{t}\psi(t-\tau)\frac{\partial}{\partial\tau}w(r,\tau)d\tau=\int_{0}^{a(t)}J(r,\xi)\xi p(\xi,t)d\xi
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+but after the tip leaves contact, 
+\begin_inset Formula $a(t)=0$
+\end_inset
+
+.
+ and we are interested in just the coordinate at the center, so 
+\begin_inset Formula $\alpha(t)=w(0,t)$
+\end_inset
+
+ so we have merely 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\int_{0}^{t}\psi(t-\tau)\frac{\partial}{\partial\tau}\alpha(\tau)d\tau=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $t_{2}$
+\end_inset
+
+ be the time at which we left contact
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\int_{0}^{t_{2}}\psi(t-\tau)\frac{\partial}{\partial\tau}\alpha(\tau)d\tau+\int_{t_{2}}^{t}\psi(t-\tau)\frac{\partial}{\partial\tau}\alpha(\tau)d\tau=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+All terms in the first integral are known (the indentation history up to
+ time 
+\begin_inset Formula $t=t_{2}$
+\end_inset
+
+ is known), and could be evaluated numerically.
+ 
+\color black
+For now, consider as an example case the three element model written as
+ 
+\begin_inset Formula $\psi(t)=G(g_{\infty}+g_{1}e^{-t/T})$
+\end_inset
+
+ where 
+\begin_inset Formula $g_{\infty}+g_{1}=1$
+\end_inset
+
+, and a sinusiodal indentation 
+\begin_inset Formula $\alpha(t)=\alpha_{0}\sin(\omega t)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+G\int_{0}^{t_{2}}g_{\infty}+g_{1}e^{-(t-\tau)/T}\alpha_{0}\omega\cos(\omega t)d\tau+\int_{t_{2}}^{t}\psi(t-\tau)\frac{\partial}{\partial\tau}\alpha(\tau)d\tau=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+After considerable manipulation, we can find the functional form of the
+ 1st integral is
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+c_{1}+c_{2}e^{-t/T}+\int_{t_{2}}^{t}\psi(t-\tau)\frac{\partial}{\partial\tau}\alpha(\tau)d\tau=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $c_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $c_{2}$
+\end_inset
+
+ are constants that depend on 
+\begin_inset Formula $g_{0}$
+\end_inset
+
+, 
+\begin_inset Formula $g_{\infty}$
+\end_inset
+
+, 
+\begin_inset Formula $T$
+\end_inset
+
+, 
+\begin_inset Formula $\alpha_{0}$
+\end_inset
+
+, 
+\begin_inset Formula $\omega$
+\end_inset
+
+ and 
+\begin_inset Formula $t_{2}$
+\end_inset
+
+.
+ The 
+\begin_inset Formula $t/T$
+\end_inset
+
+ dependence is the key thing.
+ Then, assume that for 
+\begin_inset Formula $t>t_{2}$
+\end_inset
+
+, the surface coordinate 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ is given by 
+\begin_inset Formula $\alpha(t)=\alpha_{1}e^{-t/\theta}$
+\end_inset
+
+, where 
+\begin_inset Formula $\theta$
+\end_inset
+
+ is a relaxation time that we must solve for.
+ After manipulating the second integral we have.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $c_{1}+c_{2}e^{-\frac{t}{T}}-e^{-t_{2}/\theta}G\alpha_{1}g_{\infty}+\left(e^{-\frac{t}{T}}\right)G\alpha_{1}g_{\infty}\left(e^{-t_{2}/\theta}e^{t_{2}/T}\theta-1\right)+\left(e^{-\frac{t}{\theta}}\right)G\alpha_{1}\frac{Tg_{\infty}-\theta g_{\infty}+Tg_{0}}{T-\theta}=0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For suitable choices of the constants, the first four terms will all cancel
+ out to zero.
+ The fifth term, however, can only be zero if 
+\begin_inset Formula $Tg_{\infty}-\theta g_{\infty}+Tg_{0}=0$
+\end_inset
+
+.
+ When combined with 
+\begin_inset Formula $g_{\infty}+g_{0}=1$
+\end_inset
+
+, this yields 
+\begin_inset Formula $\theta=T/g_{\infty}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+-----------------
+\end_layout
+
+\begin_layout Standard
+For a more general Prony series, say 
+\color black
+
+\begin_inset Formula $\psi(t)=G(g_{\infty}+g_{1}e^{-t/T_{1}}+g_{2}e^{-t/T_{2}})$
+\end_inset
+
+ where now 
+\begin_inset Formula $g_{\infty}+g_{1}+g_{2}=1$
+\end_inset
+
+, the first integral will work out to give
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+c_{0}+c_{1}e^{-t/T_{1}}+c_{2}e^{-t/T_{2}}+\int_{t_{2}}^{t}\psi(t-\tau)\frac{\partial}{\partial\tau}\alpha(\tau)d\tau=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We then assume a solution of the form 
+\begin_inset Formula $\alpha(t)=\alpha_{1}e^{-t/\theta_{1}}+\alpha_{2}e^{-t/\theta_{2}}$
+\end_inset
+
+.
+ A similar procedure follows, however, the formulas for 
+\begin_inset Formula $\theta_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\theta_{2}$
+\end_inset
+
+ in terms of the 
+\begin_inset Formula $g_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $g_{2}$
+\end_inset
+
+, 
+\begin_inset Formula $T_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $T_{2}$
+\end_inset
+
+ is somewhat complicated.
+ Using Maple to handle the manipulations, we arrive at 
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula 
+\begin{multline*}
+\theta_{i}=-\frac{1}{2g_{\infty}}(-T_{2}-T_{1}+T_{2}g_{1}+T_{1}g_{2}\pm\\
+\sqrt{T_{2}^{2}-2T_{1}T_{2}-2T_{2}^{2}g_{1}+2T_{1}T_{2}g_{2}+T_{1}^{2}+2T_{1}T_{2}g_{1}-2T_{1}^{2}g_{2}+T_{2}^{2}g_{1}^{2}+2g_{1}g_{2}T_{1}T_{2}+T_{1}^{2}g_{2}^{2}}
+\end{multline*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+track_surf_coord_pr.mw
+\end_layout
+
+\end_inset
+
+.
+ For three or more terms the calculations are too involved to be practical.
+\end_layout
+
+\begin_layout Section
+md fit
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $F_{att}=\begin{cases}
+-H_{a}R_{tip}/d_{shield}(x-d_{ca})^{2} & ,approach\\
+-H_{r}R_{tip}/d_{shield}(x-d_{cr})^{2} & ,retract
+\end{cases}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $H_{a}$
+\end_inset
+
+, 
+\begin_inset Formula $R_{tip}$
+\end_inset
+
+, 
+\begin_inset Formula $d_{ca}$
+\end_inset
+
+ are constants (for given tip radius), 
+\begin_inset Formula $d_{cr}=0.5789d_{int}+0.0609+d_{ca}$
+\end_inset
+
+, and 
+\begin_inset Formula $H_{r}=-0.0725d_{int}+0.0184$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $F_{r}=\begin{cases}
+\frac{4}{3}E_{a}\sqrt{R_{tip}}d(x-d_{ca})^{3/2}, & approach\\
+\frac{4}{3}E_{r}d(x-d_{cr})^{2}, & retract
+\end{cases}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $E_{a}$
+\end_inset
+
+ is a constant (for given tip radius) and 
+\begin_inset Formula $E_{r}$
+\end_inset
+
+ is given by the table in sheet 
+\begin_inset Quotes eld
+\end_inset
+
+Er_vs_dint
+\begin_inset Quotes erd
+\end_inset
+
+ column J.
+ 
+\end_layout
+
+\end_body
+\end_document

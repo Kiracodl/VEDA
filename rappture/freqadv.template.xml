@@ -1,0 +1,289 @@
+<?xml version="1.0"?>
+<run>
+#include "tool.xml"
+    
+    <input>
+    	<phase id="op">
+		<about>
+			<label>Operating cond. and cant. prop.</label>
+		</about>
+
+	<choice id="operating_mode">
+		<about>
+		<enable>no</enable>
+		<label>Choose operating mode</label>
+		</about>	
+	
+		<option>
+		<about>
+		<label>Approach</label>
+		</about>
+		<value>1</value>
+		</option>
+
+		<option>
+		<about>
+		<label>Freq Sweep</label>
+		</about>
+		<value>2</value>
+		</option>
+
+		<option>
+		<about>
+		<label>Scan</label>
+		</about>
+		<value>3</value>
+		</option>
+				
+		<default>2</default>
+	</choice>
+
+#include "fexcite_adv.xml"	
+
+	<choice id="modulation_type">
+		<about><label>Choose modulation type</label>
+		  <enable>false</enable>
+		</about>	
+	
+		<option>
+		  <about>
+		    <label>Amplitude Modulation</label>
+		  </about>
+		  <value>1</value>
+		</option>
+		
+		<option>
+		  <about>
+		    <label>Frequency Modulation</label>		    
+		  </about>
+		  <value>2</value>
+		</option>
+				
+		<default>1</default>
+	</choice>
+	
+
+
+	<choice id="freqchoice">
+		<about><label>Excitation scheme</label>
+		<description>Choose how frequency changes with time</description>
+		</about>	
+	
+		<option>
+		<about>
+		<label>Linear Ramp Frequency Sweep</label>
+		<description>Drive frequency changes continuously as a function of time. This is best to match analytical prediction (follows branches farther)</description>
+		</about>
+		<value>3</value>
+		</option>
+
+	        <option>
+		<about>
+		<label>Stair Step Frequency Sweep</label>
+		<description>Drive frequency is incremented discretely over time.  Thhis is best to match experimental predictions</description>
+		</about>
+		<value>4</value>
+		</option>
+
+		<default>3</default>
+	</choice>
+
+        <number id="numModes">
+            <about>
+                <label>Number of eigenmodes</label>
+	    <description></description>
+            </about>
+            <units></units>
+            <min>1</min>
+            <max>9</max>
+
+            <default>1</default>
+        </number>
+
+
+
+	<boolean id="want_Abase_direct">
+	  <about>
+	    <label>Direct Input of Base Amp / Mag Forces</label>
+	    <description>If this box is checked, you can enter the base excitation amplitude (acoustic drive) or magnetic modal forces (magnetic drive) directly.  If it is unchecked (the default) then these parameters are automatically calculated corresponding to the specified unconstrained amplitude. Most users will want to use the default</description>	    
+	  </about>
+	  <default>off</default>
+	</boolean>
+
+	<string id="Abase_direct">
+	  <about>
+	    <label>Direct input</label>
+	    <description>Directly enter the base amplitude (nm) for acoustic excitation, or comman separated list of modal forces for magnetic excitation. For acoustic bimodal enter comma separated list, magnetic bimodal is not supported here. Most users will want to uncheck the above box and enter the tip amplitude instead</description>
+	    <enable>input.phase(op).boolean(want_Abase_direct)   </enable>
+	  </about>
+	  <min>0</min>
+	  <max>1000</max>
+	  <default>0.1</default>
+	</string>
+
+
+        <number id="Ainitial">
+            <about>
+                <label>Unconstrained Amp. @ Nat. Freq.(nm)</label>
+                <description>The unconstrained amplitude at the first natural frequency ( far from the sample surface in the absence of tip-sample interaction forces).</description>
+		<enable>!input.phase(op).boolean(want_Abase_direct)</enable>
+            </about>
+            <units></units>
+            <min>0.01</min>
+            <max>1000</max>
+            <default>10</default>
+        </number>
+
+#include "keq.xml"	
+
+
+        <string id="Quality1">
+            <about>
+                <label>Qi</label>
+                <description>Enter comma separated values for the quality factors. We define quality factor as 1/(2*damping ratio)..</description>
+            </about>
+            <units></units>
+              <default>2.0</default>
+        </string>
+#include "auto_calc_omega.xml"
+
+
+	<string id="omega1">
+            <about>
+                <label>Nat. Freq. (kHz)</label>
+                <description>Enter comma separated values for the natural frequencies of each eigenmode.</description>
+            </about>
+            <units></units>
+	    <default>10,71</default>
+        </string>
+
+
+        <number id="omegad_start">
+            <about>
+                <label>Start Drive Freq. (kHz)</label>
+                <description>The starting frequency for a frequency sweep</description>
+
+            </about>
+            <units></units>
+            <min>0.1</min>
+            <max>10000</max>
+            <default>5</default>
+        </number>
+        <number id="omegad_stop">
+            <about>
+                <label>Stop Drive Freq. (kHz)</label>
+                <description>The ending frequency for a frequency sweep</description>
+
+            </about>
+            <units></units>
+            <min>0.1</min>
+            <max>10000</max>
+            <default>15</default>
+        </number>
+        <number id="sweep_time">
+            <about>
+                <label>Sweep time (s)</label>
+                <description>The duration of the frequency sweep</description>
+
+            </about>
+            <units></units>
+            <min>0.001</min>
+            <max>1000</max>
+            <default>0.3</default>
+        </number>
+
+	
+	<number id="mtip">
+            <about>
+                <label>Tip mass</label>
+                <description>Tip mass as a fraction of the cantilever beam mass.</description>	        	   
+            </about>
+            <units></units>
+            <min>0</min>
+            <default>0</default>
+        </number>
+
+	<boolean id="WantSetPt">
+	  <about><label>Use setpoint</label>
+	    <description>Check this box to approach to a given setpoint before starting the sweep.  Otherwise, input a Z distance manually. Using a setpoint is recommended especially if you have long-range forces.</description>
+	    </about>
+	  <default>on</default>
+	</boolean>
+			
+       <number id="Asp">
+         <about>
+           <label>Set point ratio </label>
+           <description>Enter the ratio of scanning amplitude to initial amplitude</description>
+	   <enable>input.phase(op).boolean(WantSetPt)</enable>
+         </about>
+         <units></units>
+         <min>0.01</min>
+         <max>0.99</max>
+         <default>0.90</default>
+         <current>0.9</current>
+       </number>
+	
+       <number id="Z0">
+            <about>
+                <label>Z separation (nm)</label>
+                <description>The initial gap between the sample and the base of the cantilever. (Note: this is not the tip-sample gap. Any static deflection due to long range forces is added (or subtracted) to this value to get the initial tip-sample gap.</description>
+		<enable>!input.phase(op).boolean(WantSetPt)</enable>
+	    </about>
+
+            <units></units>
+	    <default>35</default>
+        </number>	
+		
+
+#include "lockin.xml"	
+
+       <note><contents>file://../ignore.html</contents></note>
+
+#include "chi.xml"
+#include "alpha.xml"
+#include "afluid.xml"
+#include "hydro.xml"       
+#include "B.xml"
+
+	</phase>
+	
+
+	<phase id="ts">
+		<about>
+		       <label>Tip-sample interaction</label>
+		</about>
+#define PATH input.phase(ts)
+#include "ts-model-choice.xml"
+#include "tip.xml"	
+#include "sample.xml"
+        </phase>
+	
+	<phase id="sim">
+	<about> <label>Simulation param.</label> </about>
+
+	<boolean id="Want_ContTrans">
+          <about> 
+            <label>Controller Transients</label> 
+            <description></description>
+            <enable>off</enable>
+          </about>
+          <default>off</default>
+        </boolean>
+
+
+	#include "plotpnts.xml"
+       
+	#include "numincycle.xml"
+	
+#include "higher-harm.xml"
+
+#define TIME_HIST_FREQ
+#include "timehist.xml"			
+
+#include "poincare.xml"	
+
+#include "plots.xml"
+						
+	</phase>
+    </input>
+</run>

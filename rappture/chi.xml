@@ -1,0 +1,38 @@
+      <choice id="output_type">
+	<about>
+	  <label>Output Type</label>
+	</about>	
+	
+	<option>
+	  <about>
+	    <label>Photodiode, Autocalculated slopes (default)</label>
+	  </about>
+	  <value>1</value>
+	</option>
+
+	<option>
+	  <about>
+	    <label>Photodiode, Custom slopes</label>
+	  </about>
+	  <value>2</value>
+	</option>
+
+	<option>
+	  <about>
+	    <label>Interferometer (direct tip displacement)</label>
+	  </about>
+	  <value>3</value>
+	</option>
+	
+	<default>1</default>
+      </choice>
+
+      <string id="Chi2_n">
+	<about>
+	  <label>Slope Calibration 1 - Slope Calibration n</label>
+	  <enable>input.phase(op).choice(output_type) == 2</enable>
+	  <description>Enter comma separated values for Slope Calibration (Chi) values starting with the 1st eigenmode.</description>
+        </about>
+	<default>1,3.47</default>
+      </string>
+      

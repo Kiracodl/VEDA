@@ -1,0 +1,152 @@
+<group id="timehist">
+  <about>
+    <label>Time Histories</label>
+  </about>
+  	<boolean id="Wanthist">
+		<about> 
+		<label>Include time histories</label> 
+		<description>To include a sample of deflection waveform, interaction history data and more, select "yes."</description>
+		</about>
+		<default>off</default>
+	</boolean>
+
+  	<boolean id="Wanthist_byA">
+		<about> 
+		<label>History based on Amp ratios?</label> 
+		<description>To extract time histories at specific amplitude ratios locations, select "yes." To extract time histories at specific Z locations, select "no"</description>
+#ifdef TIME_HIST_AMP
+            	<enable>input.phase(sim).group(timehist).boolean(Wanthist)</enable>
+#else
+                <enable>off</enable>
+#endif
+		</about>
+		<default>on</default>
+	</boolean>
+	
+	<boolean id="do_fft">
+	  <about>
+	    <label>Fourier transform of force?</label>
+	    <description>To display the fourier transformed force history and see the frequncy content select "yes". To display the result against time, select "no"</description>
+	    <enable>input.phase(sim).group(timehist).boolean(Wanthist)</enable>
+	    </about>
+	    <default>off</default>
+	</boolean>
+	
+	<integer id="numHist">
+            <about>
+                <label>Number of time histories</label>
+                <description>Number of individual time histories to be collected.</description>
+#ifdef NUM_TIME_HIST
+                <enable>off</enable>
+#else
+            	<enable>input.phase(sim).group(timehist).boolean(Wanthist)</enable>
+#endif
+	    </about>
+            <units></units>
+            <min>1</min>
+            <max>9</max>
+#ifdef NUM_TIME_HIST
+            <default>NUM_TIME_HIST</default>
+#else
+            <default>3</default>            	
+#endif
+
+
+        </integer>				
+	    
+       <string id="Ahist1">
+	 <about>
+#ifdef TIME_HIST_AMP_ONLY
+                <label>Choose time history Amp ratios</label>
+		<description>For these comma-separated values of A1/A0 the simulation plots a sample of the deflection and tip-sample interaction histories.</description>
+#elif defined TIME_HIST_AMP
+                <label>Choose time history A or Z points</label>
+		<description>For these comma-separated values of A1/A0 or Z, as applicable, the simulation plots a sample of the deflection and tip-sample interaction histories.</description>
+#elif defined TIME_HIST_X
+                <label>Choose time history X points</label>
+		<description>For these comma-separated values of X, the simulation plots a sample of the deflection and tip-sample interaction histories.</description>
+#elif defined TIME_HIST_FREQ
+                <label>Frequency for sample of history data</label>
+  <description>For these comma separated values of frequency, the simulation plots a sample of the deflection and tip-sample interaction histories.</description>
+#endif
+
+#ifdef TIME_HIST_NO_CHOICE
+                <enable>false</enable>
+#else
+         	<enable>input.phase(sim).group(timehist).boolean(Wanthist)</enable>
+#endif
+	</about>
+            <default>0.95,0.9,0.5</default>
+        </string>
+	
+       <integer id="Nhist">
+            <about>
+                <label>Number of cycles</label>
+		<description>This is the number of complete cycles included in the sample of defelction and tip-sample interaction history.</description>
+#ifdef TIME_HIST_NUM_CYCLE
+<enable>input.phase(sim).group(timehist).boolean(Wanthist)</enable>
+#else
+<enable>off</enable>
+#endif
+	   </about>
+            <units></units>
+            <min>1</min>
+            <max>5000</max>
+#ifdef TIME_HIST_NUM_CYCLE
+<default>TIME_HIST_NUM_CYCLE</default>
+#else
+<default>5</default>
+#endif
+        </integer>
+
+	<boolean id="Want_TH_obs_defl">
+	  <about>
+	    <label>Observed Deflection in Time History</label>
+	    <enable>input.phase(sim).group(timehist).boolean(Wanthist)</enable>
+	    <description>Check to include observed deflection in the time history plot</description>
+	  </about>
+	  <default>yes</default>
+	</boolean>
+
+#ifndef NO_ACCELERATION	
+	<boolean id="Want_TH_acceleration">
+	  <about>
+	    <label>Tip Acceleration in Time History</label>
+	    <enable>input.phase(sim).group(timehist).boolean(Wanthist)</enable>
+	    <description>Check to include tip acceleration (actual deflection, not observed deflection, but neglecting base acceleration or piezo acceleration)</description>
+	  </about>
+	  <default>no</default>
+	</boolean>
+	#else
+	<boolean id="Want_TH_acceleration">
+	  <about>
+	    <label>Tip Acceleration in Time History</label>
+	    <enable>off</enable>
+	    <description>Check to include tip acceleration (actual deflection, not observed deflection, but neglecting base acceleration or piezo acceleration)</description>
+	  </about>
+	  <default>no</default>
+	</boolean>
+	#endif
+
+	<boolean id="Want_TH_force_gap">
+	  <about>
+	    <label>Make plots of force versus gap</label>
+	    <enable>input.phase(sim).group(timehist).boolean(Wanthist)</enable>
+	    <description>By default, the time history plot is force and gap versus time.  If you click this, then you get force plotted versus gap.</description>
+	  </about>
+	  <default>off</default>
+	</boolean>
+
+#ifdef TH_PEAK_FORCE
+<boolean id="Want_FZ">
+  <about>
+    <label>Measure Force versus Z-distance</label>
+    <enable>input.phase(sim).group(timehist).boolean(Wanthist)</enable>
+    <description>Check to include measured force versus time for the entered X positions</description>
+  </about>
+  <default>no</default>
+</boolean>
+
+#endif
+	
+</group>
