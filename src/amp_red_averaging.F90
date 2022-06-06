@@ -329,7 +329,7 @@ write(tmp,*)"Relaxation time tau=",DimenTime(substrate_props%threeelm_tau_stress
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         
       ! loop over amplitude setpoints
-      if (Asp_i < Asp_f) call WriteFatalError('Final amplitude setpoint must be less than initial amplitude setpoint (i.e. only approach curves, cannot simulate retract)')
+      !if (Asp_i < Asp_f) call WriteFatalError('Final amplitude setpoint must be less than initial amplitude setpoint (i.e. only approach curves, cannot simulate retract)')
 
       if ((Asp_i == Asp_f) .and. (Asp_n > 1) ) call WriteFatalError('Final amplitude setpoint must be different than initial setpoint (unless number of points = 1)')
       
@@ -338,7 +338,7 @@ write(tmp,*)"Relaxation time tau=",DimenTime(substrate_props%threeelm_tau_stress
             Asp = Asp_i
             delta_Asp = 0.1 !for sequential search we use the spacing between points, but for only 1 point there is no spacing
          else
-            delta_Asp = (Asp_i - Asp_f) / (Asp_n-1)
+            delta_Asp = ABS((Asp_i - Asp_f) / (Asp_n-1))
             Asp = Asp_i - delta_Asp * (Asp_ndx-1) 
          end if
 
@@ -732,7 +732,7 @@ end subroutine brent
 recursive subroutine sequential_search_brent( func, cumulative_iteration, Z1, Z2, error1, error2, tol, search_step, max_Z1_limit, max_Z2_limit, stat_func, target_for_stat,  Z_new, err_new ) 
   integer, parameter :: max_iter = 100
   integer, intent(inout) :: cumulative_iteration
-  real*8, intent(inout)  :: Z1, Z2, error1, error2
+  real*8, intent(inout)  :: Z1, Z2, error1, error2, search_step
   real*8, intent(out) ::  Z_new, err_new
   real*8, intent(in) :: tol , search_step, target_for_stat, max_Z1_limit, max_Z2_limit
   real*8, external :: func
