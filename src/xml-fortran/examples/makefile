@@ -17,8 +17,8 @@ FOPT	=	-c -I ../src
 
 all		:	tst_grid tst_readint
 
-tst_grid	:	tst_grid.o grid.o ../src/xmlparse.a ../src/write_xml_prims.o
-	$(FC) -o tst_grid tst_grid.o grid.o ../src/xmlparse.a
+tst_grid	:	tst_grid.o grid.o ../src/xmlparse.a
+	$(FC) -o tst_grid tst_grid.o grid.o ../src/xmlparse.a  ../src/write_xml_prims.o
 
 tst_grid.o	:	tst_grid.f90 grid.o
 	$(FC) $(FOPT) tst_grid.f90
