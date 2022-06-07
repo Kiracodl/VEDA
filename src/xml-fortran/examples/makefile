@@ -35,10 +35,10 @@ tst_readint	:	tst_readint.o readint.o ../src/xmlparse.a
 	$(FC) -o tst_readint tst_readint.o readint.o ../src/xmlparse.a
 
 tst_readint.o	:	tst_readint.f90 readint.o
-	$(FC) $(FOPT) readint.f90
+	$(FC) $(FOPT) tst_readint.f90 -o tst_readint.o
 
 readint.o	:	readint.f90
-	$(FC) $(FOPT) readint.f90
+	$(FC) $(FOPT) readint.f90 -o readint.o
 
 readint.f90	:	readint.xml
 	echo readint > xmlreader.inp

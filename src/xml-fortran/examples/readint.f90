@@ -62,21 +62,13 @@ subroutine read_xml_file_readint(fname, lurep, errout)
       endif
       select case( tag )
       case('x')
-         call read_xml_integer( &
-            info, tag, attribs, noattribs, data, nodata, &
-            x, has_x )
+         call read_xml_integer( info, tag, endtag, attribs, noattribs, data, nodata, x, has_x )
       case('y')
-         call read_xml_integer( &
-            info, tag, attribs, noattribs, data, nodata, &
-            y, has_y )
+         call read_xml_integer( info, tag, endtag, attribs, noattribs, data, nodata, y, has_y )
       case('z')
-         call read_xml_integer( &
-            info, tag, attribs, noattribs, data, nodata, &
-            z, has_z )
+         call read_xml_integer( info, tag, endtag, attribs, noattribs, data, nodata, z, has_z )
       case('w')
-         call read_xml_integer_array( &
-            info, tag, attribs, noattribs, data, nodata, &
-            w, has_w )
+         call read_xml_integer_array( info, tag,  endtag, attribs, noattribs, data, nodata, w, has_w )
       case ('comment', '!--')
          ! Simply ignore
       case default
