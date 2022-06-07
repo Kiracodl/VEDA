@@ -732,7 +732,7 @@ end subroutine brent
 recursive subroutine sequential_search_brent( func, cumulative_iteration, Z1, Z2, error1, error2, tol, search_step, max_Z1_limit, max_Z2_limit, stat_func, target_for_stat,  Z_new, err_new ) 
   integer, parameter :: max_iter = 100
   integer, intent(inout) :: cumulative_iteration
-  real*8, intent(inout)  :: Z1, Z2, error1, error2, search_step
+  real*8, intent(inout)  :: Z1, Z2, error1, error2
   real*8, intent(out) ::  Z_new, err_new
   real*8, intent(in) :: tol , search_step, target_for_stat, max_Z1_limit, max_Z2_limit
   real*8, external :: func
