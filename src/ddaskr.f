@@ -1395,7 +1395,7 @@ C
       DIMENSION Y(*),YPRIME(*)
       DIMENSION INFO(20)
       DIMENSION RWORK(LRW),IWORK(LIW)
-      DIMENSION RTOL(*),ATOL(*)
+      DIMENSION RTOL(*),ATOL(*), JROOT(*)
       DIMENSION RPAR(*),IPAR(*)
       CHARACTER MSG*80
       EXTERNAL  RES, JAC, PSOL, RT, DDASID, DDASIK, DNEDD, DNEDK
@@ -2498,7 +2498,7 @@ C Pointers into RWORK:
       INTEGER JOB, NRT, NEQ, KOLD, JROOT, IRT, INFO3, IWORK, IPAR
       DOUBLE PRECISION TN, TOUT, Y, YP, PHI, PSI, R0, R1, RX, UROUND,
      *  RWORK, RPAR
-      DIMENSION Y(*), YP(*), PHI(NEQ,*), PSI(*),
+      DIMENSION Y(*), YP(*), PHI(NEQ,*), PSI(*), RPAR(*), IPAR(*),
      *          R0(*), R1(*), RX(*), JROOT(*), RWORK(*), IWORK(*)
       INTEGER I, JFLAG
       DOUBLE PRECISION H
@@ -7123,7 +7123,7 @@ C
 C        Minimize (B-A*X,B-A*X).
 C        First form Q*B.
 C
-         DO 20 K = 1, N
+         DO K = 1, N
             KP1 = K + 1
             IQ = 2*(K-1) + 1
             C = Q(IQ)
@@ -7132,7 +7132,7 @@ C
             T2 = B(KP1)
             B(K) = C*T1 - S*T2
             B(KP1) = S*T1 + C*T2
-   20    CONTINUE
+         END DO
 C
 C        Now solve R*X = Q*B.
 C
