@@ -3038,7 +3038,7 @@ Keep in mind that typically, relaxation times far away from the contact time gen
 
     if (.not. ((cur_props%fts_ve_model == VEM_HERTZ_BASED) .and. (( cur_props%VEchoice == VEC_GENMAXWELL) .or. ( cur_props%VEchoice == VEC_MAXWELL) .or. ( cur_props%VEchoice == VEC_THREEELM_E1E2ETA))))  return
 
-    call assert( .not. isnan(d) )       
+    call assert( .not. isnan(d), "unexpected nan in Update_viscoelasticity_outsideRes1_Hertz"  )       
 
     if (d > 0) then
        !not in contact.  clear anything out that might be there.
