@@ -88,8 +88,7 @@ end subroutine skip_until_endtag
 !    var         Variable to be filled
 !    has_var     Has the variable been set?
 !
-subroutine read_xml_integer( info, tag, endtag, attribs, noattribs, data, nodata, &
-                             var, has_var )
+subroutine read_xml_integer( info, tag, endtag, attribs, noattribs, data, nodata, var, has_var )
    integer, intent(inout)                       :: var
 
    include 'read_xml_scalar.inc'
