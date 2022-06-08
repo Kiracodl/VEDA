@@ -338,8 +338,10 @@ write(tmp,*)"Relaxation time tau=",DimenTime(substrate_props%threeelm_tau_stress
             Asp = Asp_i
             delta_Asp = 0.1 !for sequential search we use the spacing between points, but for only 1 point there is no spacing
          else
-            delta_Asp = ABS((Asp_i - Asp_f) / (Asp_n-1))
+            delta_Asp = (Asp_i - Asp_f) / (Asp_n-1)
             Asp = Asp_i - delta_Asp * (Asp_ndx-1) 
+            delta_Asp = ABS((Asp_i - Asp_f) / (Asp_n-1))
+
          end if
 
          !write(*,*) "starting Asp: ", Asp, ' Z1 ', Z1, ' Z2 ', Z2
