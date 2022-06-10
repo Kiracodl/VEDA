@@ -61,7 +61,7 @@ subroutine ReadAmpRedOpParameters( Asp_i, Asp_f, Asp_n,Asp_tolerance, iteration_
   integer, intent(out):: Asp_n, iteration_method, ode_solver, omega2_omega1_rounding
   character*1500, intent(inout) :: InputEcho
   character*200 strVal
-  integer rp_lib_get_integer
+  integer readGenericInteger
   integer status, i
 
   status = 0
@@ -81,7 +81,8 @@ call read_value(driver, INPUT_PREFIX // "(op).number(omega2_omega1_ratio).curren
   
   call read_integer(driver,INPUT_PREFIX//"(op).choice(omega1_omega2_rounding).current", omega2_omega1_rounding, InputEcho, "omega2_omega1_rounding ")
 
-  if ((iteration_method == 1) .or.  (iteration_method == 4)) then
+  
+if ((iteration_method == 1) .or.  (iteration_method == 4)) then
      if (Asp_n > 100) call WriteFatalError("fixed z input only works for 99 Z points or less")
      
      strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(sim).group(backwards_compat).string(debug_z_nm).current" )
@@ -127,8 +128,8 @@ subroutine ReadControllerProperties( LineSpeed,  NoiseAmp, KP, KI, WantConstZ, Z
 
   real*8 :: SNratio
   character*100 strVal, tmpStr
-  integer status, rp_units_convert_dbl, rp_lib_get_integer
-  
+  integer status, rp_units_convert_dbl, readGenericInteger
+
   status = 0
 
   call read_value(driver, INPUT_PREFIX // "(sim).number(Transient_timeout).current", status, transient_timeout_in, InputEcho, "transient_timeout " )
@@ -140,7 +141,7 @@ subroutine ReadControllerProperties( LineSpeed,  NoiseAmp, KP, KI, WantConstZ, Z
   
   call read_value(driver, INPUT_PREFIX // "(op).number(LineSpeed).current", status, LineSpeed, InputEcho, "LineSpeed "   )
   
-  z_feedback_choice = rp_lib_get_integer(driver, INPUT_PREFIX // "(op).choice(Z_feedback_choice).current")
+  z_feedback_choice = readGenericInteger(driver, INPUT_PREFIX // "(op).choice(Z_feedback_choice).current")
   write( tmpstr, *)   Z_feedback_choice
   InputEcho = trim(InputEcho) // "Z_feedback_choice " // trim( tmpstr) // char(10)
 
@@ -209,7 +210,7 @@ subroutine ReadFMData(  fm_gain_k0, fm_gain_i0, fm_gain_d0, fm_gain_k1, fm_gain_
   logical, intent(out) ::  fm_direct_control, fm_want_noncontact,  WantCalcPLLGains,WantCalcAmpGains, want_pre_BPF,     Want_NormFreqShift
   character*1500, intent(inout) :: InputEcho
 
-  integer :: rp_units_convert_dbl, rp_lib_get_integer, status, tmp
+  integer :: rp_units_convert_dbl, readGenericInteger, status, tmp
   character*105:: strVal, tmpStr
 
   status = 0
@@ -270,7 +271,7 @@ subroutine ReadFMData(  fm_gain_k0, fm_gain_i0, fm_gain_d0, fm_gain_k1, fm_gain_
      freq_shift_sp = freq_shift_sp * 2 * pi
   end if
 
-  tmp = rp_lib_get_integer(driver, INPUT_PREFIX // "(fm).choice(FM_want_nc).current")
+  tmp = readGenericInteger(driver, INPUT_PREFIX // "(fm).choice(FM_want_nc).current")
   write( tmpstr, *)  tmp
   InputEcho = trim(InputEcho) // "FM_want_nc " // trim( tmpstr) // char(10)
   fm_want_noncontact = (tmp == 1)
@@ -283,13 +284,13 @@ subroutine ReadTipData( Rtip_dim, Etip, Poisson_tip, tip_angle, tip_shape, Input
   real*8, intent(out) :: Rtip_dim, Etip, Poisson_tip, tip_angle
   integer, intent(out) :: tip_shape
   character*1500, intent(inout) :: InputEcho
-  integer :: rp_units_convert_dbl, rp_lib_get_integer
+  integer :: rp_units_convert_dbl, readGenericInteger
   integer :: status
   character*100:: strVal
 
   status = 0
 
-  tip_shape =  rp_lib_get_integer(driver,  INPUT_PREFIX // "(ts).choice(TipShape).current")
+  tip_shape =  readGenericInteger(driver,  INPUT_PREFIX // "(ts).choice(TipShape).current")
   write(strVal,*) tip_shape
   InputEcho = trim(InputEcho) // "tip shape = " // trim(strVal) // char(10)
 
@@ -329,7 +330,7 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
   character(len=*) :: path ! = "group(ts)" for substrate/normal and "group(feature).group(fp)" for feature
   character*200:: strVal
   character*500:: tmpstr
-  integer :: status, rp_units_convert_dbl, rp_lib_get_integer, i
+  integer :: status, rp_units_convert_dbl, readGenericInteger, i, readGenericInteger
 
   status = 0
   
@@ -351,7 +352,7 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
   call read_value(driver, path // ".number(kts_R).current", status, MatProp%kts_R, InputEcho, "kts_R "   )
   call read_value(driver, path // ".number(kts_A).current", status, MatProp%kts_A, InputEcho, "kts_A "   )
 		
-  MatProp%CalcADMT =  rp_lib_get_integer(driver, path // ".choice(CalcADMT).current")
+  MatProp%CalcADMT =  readGenericInteger(driver, path // ".choice(CalcADMT).current")
 
   call read_value(driver, path // ".number(Fadhesion).current", status, MatProp%Fadhesion, InputEcho, "Fadhesion "   )
   MatProp%Fadhesion = MatProp%Fadhesion/1d9
@@ -362,7 +363,7 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
 !	A_hamaker is the hamaker consant user in the DMT model (J)
   call read_value(driver, path // ".number(A_hamaker).current", status, MatProp%A_hamaker_dim, InputEcho, "A_hamaker " )	
 
-  MatProp%fts_model = rp_lib_get_integer(driver, path // ".choice(fts_model).current") 	
+  MatProp%fts_model = readGenericInteger(driver, path // ".choice(fts_model).current") 	
   write( tmpstr, *) MatProp%fts_model
   InputEcho = trim(InputEcho) // "fts_model " // trim( tmpstr) // char(10)
   
@@ -432,7 +433,7 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
            call read_value(driver, path // ".group(solvation).number(Ret_decay).current", status, MatProp%ret_decay, InputEcho,  "ret_decay ")
            call read_value(driver, path // ".group(solvation).number(app_scaling).current", status, MatProp%app_scaling, InputEcho,  "app_scaling ")
            call read_value(driver, path // ".group(solvation).number(cutoff_dist).current", status, MatProp%cutoff_dist, InputEcho,  "cutoff_dist ")
-           MatProp%nside = rp_lib_get_integer(driver, path // ".group(solvation).integer(nside).current")
+           MatProp%nside = readGenericInteger(driver, path // ".group(solvation).integer(nside).current")
            write( tmpstr, *)  MatProp%nside
            InputEcho = trim(InputEcho) // "nside " // trim( tmpstr) // char(10)
         end if
@@ -488,15 +489,15 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
            es_w_dim = es_w_dim * 1d-6
         end if
 
-        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
+        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         !viscoelasticity starts here
 
         if   ((MatProp%fts_model == HERTZ) .or. ( MatProp%fts_model == DMT) ) then
-           MatProp%VEchoice = rp_lib_get_integer(driver, path // ".group(nc).choice(VEchoiceHertz).current")
+           MatProp%VEchoice = readGenericInteger(driver, path // ".group(nc).choice(VEchoiceHertz).current")
         elseif (MatProp%fts_model == LINEAR) then
-           MatProp%VEchoice = rp_lib_get_integer(driver, path // ".group(nc).choice(VEchoiceLinear).current")
+           MatProp%VEchoice = readGenericInteger(driver, path // ".group(nc).choice(VEchoiceLinear).current")
         elseif ( ( MatProp%fts_model == ATTARD_FOURIER_LSQ)  .or. (MatProp%fts_model == ATTARD_FOURIER_BAHRAM )) then
-           MatProp%VEchoice = rp_lib_get_integer(driver, path // ".group(nc).group(VEAttard).choice(VEChoiceAttard).current")
+           MatProp%VEchoice = readGenericInteger(driver, path // ".group(nc).group(VEAttard).choice(VEChoiceAttard).current")
 !           write(*,*) "foo: ", MatProp%VEchoice
         else
            MatProp%VEchoice = VEC_NONE
@@ -509,7 +510,7 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
         
         if (( MatProp%fts_model == ATTARD_FOURIER_BAHRAM) .or. ( MatProp%fts_model == ATTARD_FOURIER_LSQ)) then
              
-           MatProp%N_attard_spatial = rp_lib_get_integer( driver, path// ".group(nc).integer(N_attard_spatial).current")
+           MatProp%N_attard_spatial = readGenericInteger( driver, path// ".group(nc).integer(N_attard_spatial).current")
            write( tmpstr, *)  MatProp%N_attard_spatial
            InputEcho = trim(InputEcho) // "N_attard " // trim( tmpstr) // char(10)
 
@@ -527,7 +528,7 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
            call read_value(driver, path // ".group(nc).number(attard_stop).current", status, MatProp%attard_stop_dim, InputEcho, "attard_stop "   )
            MatProp%attard_stop_dim = MatProp%attard_stop_dim * 1e-9
            
-           MatProp%N_attard_fourier = rp_lib_get_integer( driver, path// ".group(nc).integer(N_attard_fourier).current")
+           MatProp%N_attard_fourier = readGenericInteger( driver, path// ".group(nc).integer(N_attard_fourier).current")
            write( tmpstr, *)  MatProp%N_attard_fourier
            InputEcho = trim(InputEcho) // "N_attard_fourier " // trim( tmpstr) // char(10)
            !call assert(MatProp%N_attard_fourier > 0, "MatProp%N_attard_fourier <= 0 ?")
@@ -538,7 +539,7 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
         !this is more complicated than it needs to be, but this is the only way to make the gui look reasonable
         !and still have exact control over what options the user can pick.
         if  ((((MatProp%fts_model == DMT) .or. ( MatProp%fts_model == HERTZ)) .and. (MatProp%VEchoice /= VEC_NONE)) )  then
-           MatProp%input_shear_modulus = (rp_lib_get_integer( driver, path// ".group(nc).group(VEHertz).choice(modulus_type).current") == 2)
+           MatProp%input_shear_modulus = (readGenericInteger( driver, path// ".group(nc).group(VEHertz).choice(modulus_type).current") == 2)
 
            call read_value(driver, path // ".group(nc).group(VEHertz).number(etasampleHertz).current", status, MatProp%etasample, InputEcho, "etasample "   )
 
@@ -546,7 +547,7 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
            MatProp%threeelm_e2 = MatProp%threeelm_e2 * 1e9
            
            if ( MatProp%VEChoice == VEC_GENMAXWELL) then
-              MatProp%N_gen_max = rp_lib_get_integer(driver, path // ".group(nc).group(VEHertz).integer(gen_max_N).current")
+              MatProp%N_gen_max = readGenericInteger(driver, path // ".group(nc).group(VEHertz).integer(gen_max_N).current")
               
               strVal = rp_lib_get_wrap(driver, path // ".group(nc).group(VEHertz).string(gen_max_E).current" )
               read( strVal, *, end=100, err=100) (MatProp%E_gen_max(i),i=1,MatProp%N_gen_max)
@@ -561,7 +562,7 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
            call read_value(driver, path // ".group(nc).number(etasampleLin).current", status, MatProp%etasample, InputEcho, "etasample ")
            call read_value(driver, path // ".group(nc).number(k2Lin).current", status, MatProp%k2, InputEcho, "k2 "   )
         elseif ((MatProp%fts_model == ATTARD_FOURIER_LSQ ) .or. ( MatProp%fts_model == ATTARD_FOURIER_BAHRAM)) then
-           MatProp%input_shear_modulus = (rp_lib_get_integer( driver, path// ".group(nc).group(VEAttard).choice(modulus_type).current") == 2)
+           MatProp%input_shear_modulus = (readGenericInteger( driver, path// ".group(nc).group(VEAttard).choice(modulus_type).current") == 2)
 
 !           write(*,*) MatProp%VEchoice
            
@@ -759,9 +760,9 @@ subroutine read_integer(driver, path, output_var, InputEcho, desc)
   integer, intent(out) :: output_var
   character*100:: strVal
   character*1500, intent(inout) :: InputEcho
-  integer, external :: rp_lib_get_integer
+  integer, external :: readGenericInteger, readGenericInteger
 
-  output_var =  rp_lib_get_integer(driver, path)
+  output_var =  readGenericInteger(driver, path)
   write(strVal,*) output_var
   InputEcho = trim(InputEcho) // desc // trim(strVal) // char(10)
 end subroutine read_integer
@@ -776,11 +777,11 @@ subroutine ReadSimulationParameters(Zrange,Wanthist,WantHH,Want_Strob,Want_Impac
   character*1500, intent(inout) :: InputEcho
 
   character*100 strVal, tmpStr
-  integer status, rp_lib_get_integer, rp_units_convert_dbl, foo
+  integer status, readGenericInteger, rp_units_convert_dbl, foo, readGenericInteger
 
   status = 0
   
-  Zrange = rp_lib_get_integer(driver, INPUT_PREFIX // "(op).choice(Zrange).current")
+  Zrange = readGenericInteger(driver, INPUT_PREFIX // "(op).choice(Zrange).current")
   write(tmpStr, *) Zrange
   InputEcho = trim(InputEcho) // "Zrange " // tmpStr // char(10)
   
@@ -796,8 +797,8 @@ subroutine ReadSimulationParameters(Zrange,Wanthist,WantHH,Want_Strob,Want_Impac
   Want_Strob =  daniel_get_boolean(INPUT_PREFIX // "(sim).group(poinc).boolean(Want_Strob).current")
   Want_Impact =  daniel_get_boolean( INPUT_PREFIX // "(sim).group(poinc).boolean(Want_Impact).current")
 		
-  numHH = rp_lib_get_integer(driver, INPUT_PREFIX // "(sim).integer(numHH).current")
-  numpoinc = rp_lib_get_integer(driver, INPUT_PREFIX // "(sim).group(poinc).integer(numpoinc).current")
+  numHH = readGenericInteger(driver, INPUT_PREFIX // "(sim).integer(numHH).current")
+  numpoinc = readGenericInteger(driver, INPUT_PREFIX // "(sim).group(poinc).integer(numpoinc).current")
 		  
   if ((operating_mode /= SCAN) .or. (modulation_type == FORCE_VOL)) then
      strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(op).number(Z0).current" )
@@ -824,12 +825,12 @@ subroutine ReadSimulationParameters(Zrange,Wanthist,WantHH,Want_Strob,Want_Impac
   end if
   
 
-  plotpnts = rp_lib_get_integer( driver, INPUT_PREFIX // "(sim).integer(plotpnts).current")               
+  plotpnts = readGenericInteger( driver, INPUT_PREFIX // "(sim).integer(plotpnts).current")               
   if (plotpnts == 0) plotpnts = 1000 !backwards compat.
   
 
-  numincycle_dropdown = rp_lib_get_integer(driver, INPUT_PREFIX // "(sim).choice(numincycle).current")  
-  numincycle_direct = rp_lib_get_integer(driver, INPUT_PREFIX // "(sim).integer(numincycle).current")
+  numincycle_dropdown = readGenericInteger(driver, INPUT_PREFIX // "(sim).choice(numincycle).current")  
+  numincycle_direct = readGenericInteger(driver, INPUT_PREFIX // "(sim).integer(numincycle).current")
  
 
    call read_integer( driver,  INPUT_PREFIX // "(sim).integer(openmp_num_threads).current", openmp_num_threads, InputEcho, "openmp_num_threads ")
@@ -838,9 +839,9 @@ subroutine ReadSimulationParameters(Zrange,Wanthist,WantHH,Want_Strob,Want_Impac
   InputEcho = trim(InputEcho) // trim(tmpStr) // char(10)
 
   if ((Wanthist) .or. (operating_mode == FIXED) ) then
-     numHist = rp_lib_get_integer(driver, INPUT_PREFIX // "(sim).group(timehist).integer(numHist).current")
+     numHist = readGenericInteger(driver, INPUT_PREFIX // "(sim).group(timehist).integer(numHist).current")
           
-     hist_cycles = rp_lib_get_integer(driver, INPUT_PREFIX // "(sim).group(timehist).integer(Nhist).current") 
+     hist_cycles = readGenericInteger(driver, INPUT_PREFIX // "(sim).group(timehist).integer(Nhist).current") 
      write(tmpStr, *) "Hhist(cycles) ", hist_cycles
      InputEcho = trim(InputEcho) //  tmpStr // char(10)
   else
@@ -861,7 +862,7 @@ subroutine ReadSimulationParameters(Zrange,Wanthist,WantHH,Want_Strob,Want_Impac
          end if
       end if
  
-      xchoice = rp_lib_get_integer(driver, INPUT_PREFIX // "(sim).choice(xchoice).current")
+      xchoice = readGenericInteger(driver, INPUT_PREFIX // "(sim).choice(xchoice).current")
       if (status > 0) call WriteFatalError( "Error reading simulation parameters. Please check values1")  
       transient_allowance = -1d0
       call read_value(driver, INPUT_PREFIX // "(sim).number(transient).current", foo, transient_allowance, InputEcho, "transient_allowance " ) !no status on this one, backwards compatability
@@ -875,7 +876,7 @@ subroutine readForceVol(LineSpeed, F_ForceVol_dim, ForceVolSettleTime, z_feedbac
   character*100 strVal, tmpStr
   integer, intent(out) :: z_feedback_choice
   integer status
-  integer :: rp_units_convert_dbl, rp_lib_get_integer
+  integer :: rp_units_convert_dbl, readGenericInteger, readGenericInteger
   status = 0
    strVal = rp_lib_get_wrap(driver,  INPUT_PREFIX // "(op).number(F_ForceVol_dim).current")
    InputEcho = trim(InputEcho) // "F_ForceVol_dim " // StrVal // char(10)
@@ -885,7 +886,7 @@ subroutine readForceVol(LineSpeed, F_ForceVol_dim, ForceVolSettleTime, z_feedbac
    InputEcho = trim(InputEcho) // "ForceVolSettleTime " // StrVal // char(10)
    status = status +  rp_units_convert_dbl(strVal," ",ForceVolSettleTime)
    call read_value(driver, INPUT_PREFIX // "(op).number(LineSpeed).current", status, LineSpeed, InputEcho, "LineSpeed "   )
-   z_feedback_choice = rp_lib_get_integer(driver, INPUT_PREFIX // "(op).choice(Z_feedback_choice).current")
+   z_feedback_choice = readGenericInteger(driver, INPUT_PREFIX // "(op).choice(Z_feedback_choice).current")
   
   write( tmpstr, *)   Z_feedback_choice
   InputEcho = trim(InputEcho) // "Z_feedback_choice " // trim( tmpstr) // char(10)
@@ -1002,22 +1003,22 @@ subroutine ReadOperatingParameter( fexcite, exc_choice, sweepchoice, numModes, o
   logical, intent(out) :: CalcInputK, AutoCalcOmega,  AutoCalcAlpha
   character*1500, intent(inout) :: InputEcho
   character*100 :: tmpStr
-  integer :: rp_lib_get_integer
+  integer :: readGenericInteger, readGenericInteger
   logical ::  AutoCalcChi
 
   !primary operating mode APPROACH = 1, FREQUENCY SWEEP = 2, SCAN = 3
-  operating_mode =  rp_lib_get_integer(driver, INPUT_PREFIX // "(op).choice(operating_mode).current")
+  operating_mode = readGenericInteger(driver, INPUT_PREFIX // "(op).choice(operating_mode).current")
 
    !	  Choice of excitation 
-  fexcite = rp_lib_get_integer(driver, INPUT_PREFIX // "(op).choice(fexcite).current")
+  fexcite = readGenericInteger(driver, INPUT_PREFIX // "(op).choice(fexcite).current")
 
 
-  modulation_type = rp_lib_get_integer(driver, INPUT_PREFIX // "(op).choice(modulation_type).current")
+  modulation_type = readGenericInteger(driver, INPUT_PREFIX // "(op).choice(modulation_type).current")
 
   CalcInputK =  daniel_get_boolean( INPUT_PREFIX // "(op).boolean(CalcInputK).current")
 
   
-  output_type = rp_lib_get_integer(driver, INPUT_PREFIX // "(op).choice(output_type).current")
+  output_type = readGenericInteger(driver, INPUT_PREFIX // "(op).choice(output_type).current")
   !backwards compatibility
   if (output_type == 0) then
      AutoCalcChi = daniel_get_boolean( INPUT_PREFIX // "(op).boolean(AutoCalcChi).current")
@@ -1035,15 +1036,15 @@ subroutine ReadOperatingParameter( fexcite, exc_choice, sweepchoice, numModes, o
   
   if ( operating_mode .ne. FREQSWEEP) then
      !(1) single mode, (2) bimodal
-     exc_choice = rp_lib_get_integer(driver, INPUT_PREFIX // "(op).choice(freqchoice).current")     
+     exc_choice = readGenericInteger(driver, INPUT_PREFIX // "(op).choice(freqchoice).current")     
      write( tmpStr, *) "exc_choice = ", exc_choice     
   else
-     sweepchoice = rp_lib_get_integer(driver, INPUT_PREFIX // "(op).choice(freqchoice).current")
+     sweepchoice = readGenericInteger(driver, INPUT_PREFIX // "(op).choice(freqchoice).current")
      exc_choice = SINGLE
      write( tmpStr, *) "freq_choice = ", sweepchoice
   end if
   
-  numModes =  rp_lib_get_integer(driver, INPUT_PREFIX // "(op).number(numModes).current")
+  numModes =  readGenericInteger(driver, INPUT_PREFIX // "(op).number(numModes).current")
 
   InputEcho = trim( InputEcho) // tmpStr // char(10)
   write(tmpStr, *) "operating mode ", operating_mode, " fexcite ", fexcite, " numModes ", numModes
@@ -1065,7 +1066,7 @@ Asample_dim, omegas_dim, wantSampleExc, InputEcho)
   
   logical :: want_Afluid
   character*100 strVal
-  integer status, rp_units_convert_dbl, i, rp_lib_get_integer
+  integer status, rp_units_convert_dbl, i, readGenericInteger
   real*8 :: tmp, Afluid_real, Afluid_imag
 
   status = 0
@@ -1073,13 +1074,13 @@ Asample_dim, omegas_dim, wantSampleExc, InputEcho)
      want_AutoCalcTC = daniel_get_boolean(INPUT_PREFIX // "(op).boolean(Want_AutoCalcTC).current")
   end if
   if (.not. want_AutoCalcTC) then
-     LockInTC = rp_lib_get_integer( driver, INPUT_PREFIX // "(op).choice(LockInTC).current")
+     LockInTC = readGenericInteger( driver, INPUT_PREFIX // "(op).choice(LockInTC).current")
      write(strVal, *) LockInTC
      InputEcho = trim(InputEcho) // "LockInTC (us) " // trim(strVal) // char(10)
      LockInTC = LockInTC / 1d6
   end if
 
-  LockInOrder = rp_lib_get_integer(driver,INPUT_PREFIX // "(op).choice(LockInOrder).current")  
+  LockInOrder = readGenericInteger(driver,INPUT_PREFIX // "(op).choice(LockInOrder).current")  
   write(strVal, *) LockInOrder
   InputEcho = trim(InputEcho) // "LockInOrder " // trim(strVal) // char(10)
 
@@ -1263,12 +1264,12 @@ subroutine readFeatureProperties( FeatureType, HF, LF, LF2, SubsLen, WantTSCON, 
   character*1500, intent(inout) :: InputEcho
 
   character*100 strVal
-  integer :: rp_lib_get_integer
+  integer :: readGenericInteger
   integer status, rp_units_convert_dbl
 
   status = 0
 
-  FeatureType = rp_lib_get_integer(driver,INPUT_PREFIX // "(feature).choice(FeatureType).current")  
+  FeatureType = readGenericInteger(driver,INPUT_PREFIX // "(feature).choice(FeatureType).current")  
   !       step (1), trapizoid (2), sindusoid (3) 	
   	
   strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(feature).number(HF).current")
@@ -1511,7 +1512,7 @@ end subroutine readCantModalProps
 !only used in forceViewer.f90
 subroutine readForceViewerParameters( Z0, Zf, plotpnts, vel_model, tf, mov_avg_filt_len)
   integer, intent(out) :: vel_model, mov_avg_filt_len
-  integer :: rp_lib_get_integer, rp_units_convert_dbl, status
+  integer :: readGenericInteger, rp_units_convert_dbl, status
   character*100 :: strVal
   real*8 :: moving_avg_fraction 
   real*8, intent(out) :: tf, Z0, Zf
@@ -1529,9 +1530,9 @@ subroutine readForceViewerParameters( Z0, Zf, plotpnts, vel_model, tf, mov_avg_f
   status = status +  rp_units_convert_dbl(strVal," ",Zf)
   Zf = Zf/1d9
 
-  plotpnts = rp_lib_get_integer( driver, INPUT_PREFIX // "(op).integer(plotpnts).current")       
+  plotpnts = readGenericInteger( driver, INPUT_PREFIX // "(op).integer(plotpnts).current")       
 
-  vel_model = rp_lib_get_integer( driver, INPUT_PREFIX // "(op).choice(vel_model).current")  
+  vel_model = readGenericInteger( driver, INPUT_PREFIX // "(op).choice(vel_model).current")  
 
   if (vel_model > 1) then
      strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(op).number(t).current" )
@@ -3173,6 +3174,10 @@ logical function daniel_get_boolean( path )
   end if
 end function daniel_get_boolean
 
+integer function readGenericInteger( element_to_read)
+   character(len=*), intent(in) :: element_to_read
+   readGenericInteger = readGenericInteger(driver, element_to_read)
+end function
 
 !Rappture is very inefficient when it comes to output.  Writing out 1000 points 
 !one at a time is maybe 10 times slower than writing out all of the points in 
