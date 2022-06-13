@@ -760,7 +760,7 @@ subroutine read_integer(driver, path, output_var, InputEcho, desc)
   integer, intent(out) :: output_var
   character*100:: strVal
   character*1500, intent(inout) :: InputEcho
-  integer, external :: readGenericInteger, readGenericInteger
+  integer, external :: readGenericInteger
 
   output_var =  readGenericInteger(driver, path)
   write(strVal,*) output_var
@@ -777,8 +777,7 @@ subroutine ReadSimulationParameters(Zrange,Wanthist,WantHH,Want_Strob,Want_Impac
   character*1500, intent(inout) :: InputEcho
 
   character*100 strVal, tmpStr
-  integer status, readGenericInteger, rp_units_convert_dbl, foo, readGenericInteger
-
+  integer status, readGenericInteger, rp_units_convert_dbl, foo
   status = 0
   
   Zrange = readGenericInteger(driver, INPUT_PREFIX // "(op).choice(Zrange).current")
@@ -876,7 +875,7 @@ subroutine readForceVol(LineSpeed, F_ForceVol_dim, ForceVolSettleTime, z_feedbac
   character*100 strVal, tmpStr
   integer, intent(out) :: z_feedback_choice
   integer status
-  integer :: rp_units_convert_dbl, readGenericInteger, readGenericInteger
+  integer :: rp_units_convert_dbl, readGenericInteger
   status = 0
    strVal = rp_lib_get_wrap(driver,  INPUT_PREFIX // "(op).number(F_ForceVol_dim).current")
    InputEcho = trim(InputEcho) // "F_ForceVol_dim " // StrVal // char(10)
@@ -1003,7 +1002,7 @@ subroutine ReadOperatingParameter( fexcite, exc_choice, sweepchoice, numModes, o
   logical, intent(out) :: CalcInputK, AutoCalcOmega,  AutoCalcAlpha
   character*1500, intent(inout) :: InputEcho
   character*100 :: tmpStr
-  integer :: readGenericInteger, readGenericInteger
+  integer :: readGenericInteger
   logical ::  AutoCalcChi
 
   !primary operating mode APPROACH = 1, FREQUENCY SWEEP = 2, SCAN = 3
@@ -3177,6 +3176,16 @@ end function daniel_get_boolean
 integer function readGenericInteger( element_to_read)
    character(len=*), intent(in) :: element_to_read
    readGenericInteger = readGenericInteger(driver, element_to_read)
+end function
+Anosike
+
+
+integer function stringVal(Input_Prefix)
+   character(len=*), intent(in) :: Input_Prefix
+   stringVal = stringVal(Input_Prefix)
+  strVal = rp_lib_get_wrap(driver,  INPUT_PREFIX // "")
+  InputEcho = trim(InputEcho) // " " // StrVal // char(10)
+  status = status +  rp_units_convert_dbl(strVal," "," ") 
 end function
 
 !Rappture is very inefficient when it comes to output.  Writing out 1000 points 
