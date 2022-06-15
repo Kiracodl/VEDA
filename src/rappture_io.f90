@@ -2063,9 +2063,10 @@ subroutine setup_debug_viscoelastic()
 end subroutine setup_debug_viscoelastic
 
 !Replace rp_lib_put_str
-subrountine putGenericString()
+subroutine putGenericString()
  call rp_lib_put_str(driver, "output.curve(" //name// ").component.xy", tmp, 1) 
-end subrountine
+end subroutine
+
 subroutine SetupGenericPlot(name, label, group, xlabel, xunits, ylabel, yunits, scatter )
   character(len=*), intent(in) :: name, label, group, xlabel, xunits, ylabel, yunits
   logical, intent(in), optional :: scatter
