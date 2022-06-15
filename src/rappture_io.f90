@@ -600,7 +600,7 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
         MatProp%epsilon = readGenericDbl(status, INPUT_PREFIX // ".number(epsilon).current", "epsilon", InputEcho, 1)
         MatProp%sigmat = readGenericDbl(status, INPUT_PREFIX // ".number(sigmat).current", "sigmat", InputEcho, 1)
 
-        sMatProp%sigmas = readGenericDbl(status, INPUT_PREFIX // ".number(sigmas).current", "sigmas", InputEcho, 1)
+        MatProp%sigmas = readGenericDbl(status, INPUT_PREFIX // ".number(sigmas).current", "sigmas", InputEcho, 1)
 
         !chadwick and the bottom edge correction models
         call read_value(driver, path // ".number(hs).current", status, MatProp%hs, InputEcho, "hs " )
@@ -3041,7 +3041,6 @@ end function daniel_get_boolean
 
 integer function readGenericInteger( element_to_read)
    character(len=*), intent(in) :: element_to_read
-   integer :: rp_lib_get_integer
    readGenericInteger = rp_lib_get_integer(driver, element_to_read)
 end function
 
