@@ -2999,14 +2999,15 @@ character*100  function rp_lib_get_wrap( driver, path)
   call rp_lib_get( driver, path, rp_lib_get_wrap)
 end function rp_lib_get_wrap
 
-real*8 function readGenericDbl( status, element_to_read, short_name, InputEcho, units_convert)
+integer function readGenericDbl( status, element_to_read, short_name, InputEcho, units_convert)
   integer, intent(inout) :: status
   character(len=*), intent(in) :: element_to_read, short_name
   character*1500, intent(inout) :: InputEcho
   real*8, intent(in) :: units_convert
 
   character*100 :: strVal
-  real*8 :: value, rp_units_convert_dbl
+  integer :: rp_units_convert_dbl
+  real*8 :: value
   
   strVal = rp_lib_get_wrap(driver, element_to_read )
   status = status +  rp_units_convert_dbl(strVal," ", value)
