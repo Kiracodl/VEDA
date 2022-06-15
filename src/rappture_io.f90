@@ -149,15 +149,10 @@ subroutine ReadControllerProperties( LineSpeed,  NoiseAmp, KP, KI, WantConstZ, Z
   NoiseAmp = 10**(-SNratio/20)
   ! NoiseAmp is relative to the unconstrained deflection amplitude   
 
+  KP = readGenericDbl(status, INPUT_PREFIX // "(op).number(KP).current", "KP", InputEcho, 1)
+  KI = readGenericDbl(status, INPUT_PREFIX // "(op).number(KI).current", "KI", InputEcho, 1)
   
-  strVal = rp_lib_get_wrap(driver,  INPUT_PREFIX // "(op).number(KP).current")
-  InputEcho = trim(InputEcho) // "KP " // trim(strVal) // char(10)
-  status = status +  rp_units_convert_dbl(strVal," ",KP)
-  
-  strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(op).number(KI).current")
-  InputEcho = trim(InputEcho) // "KI " // trim(strVal) // char(10)
-  status = status +  rp_units_convert_dbl(strVal," ",KI)
-  
+ 
   WantConstZ = daniel_get_boolean( INPUT_PREFIX // "(op).boolean(ConstZ).current")
   write( tmpstr, *)  WantConstZ
   InputEcho = trim(InputEcho) // "ConstZ " // trim(tmpstr) // char(10)
@@ -229,17 +224,9 @@ subroutine ReadFMData(  fm_gain_k0, fm_gain_i0, fm_gain_d0, fm_gain_k1, fm_gain_
   InputEcho = trim(InputEcho) // "wantCalcPLLGains " // tmpStr // char(10)
 
   if (.not. wantCalcPLLGains) then
-     strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(fm).number(FmGainI0).current" )
-     status = status +  rp_units_convert_dbl(strVal," ", fm_gain_i0  )
-     InputEcho = trim(InputEcho) // "FmGainI0 = " // trim(strVal) // char(10)
-     
-     strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(fm).number(FmGainK0).current" )
-     status = status +  rp_units_convert_dbl(strVal," ", fm_gain_k0  )
-     InputEcho = trim(InputEcho) // "FmGainK0 = " // trim(strVal) // char(10)
-
-     strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(fm).number(FmGainD0).current" )
-     status = status +  rp_units_convert_dbl(strVal," ", fm_gain_d0  )
-     InputEcho = trim(InputEcho) // "FmGainD0 = " // trim(strVal) // char(10)
+     FmGainI0 = readGenericDbl(status, INPUT_PREFIX // "(op).number(FmGainI0).current", "FmGainI0", InputEcho, 1)
+     FmGainK0 = readGenericDbl(status, INPUT_PREFIX // "(op).number(FmGainK0).current", "FmGainK0", InputEcho, 1)
+     FmGainD0 = readGenericDbl(status, INPUT_PREFIX // "(op).number(FmGainD0).current", "FmGainD0", InputEcho, 1)
   end if
 
   wantCalcAmpGains = daniel_get_boolean(INPUT_PREFIX // "(fm).boolean(WantCalcAmpGains).current")
@@ -247,27 +234,15 @@ subroutine ReadFMData(  fm_gain_k0, fm_gain_i0, fm_gain_d0, fm_gain_k1, fm_gain_
   InputEcho = trim(InputEcho) // "wantCalcAmpGains " // tmpStr // char(10)
 
   if (.not. wantCalcAmpGains) then  
-     strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(fm).number(FmGainK1).current" )
-     status = status +  rp_units_convert_dbl(strVal," ", fm_gain_k1  )
-     InputEcho = trim(InputEcho) // "FmGainK1 = " // trim(strVal) // char(10)
-     
-     strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(fm).number(FmGainI1).current" )
-     status = status +  rp_units_convert_dbl(strVal," ", fm_gain_i1  )
-     InputEcho = trim(InputEcho) // "FmGainI1 = " // trim(strVal) // char(10)
-
-     strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(fm).number(FmGainD1).current" )
-     status = status +  rp_units_convert_dbl(strVal," ", fm_gain_d1  )
-     InputEcho = trim(InputEcho) // "FmGainD1 = " // trim(strVal) // char(10)
+     FmGainK1 = readGenericDbl(status, INPUT_PREFIX // "(op).number(FmGainK1).current", "FmGainK1", InputEcho, 1)
+     FmGainI1 = readGenericDbl(status, INPUT_PREFIX // "(op).number(FmGainI1).current", "FmGainI1", InputEcho, 1)
+     FmGainD1 = readGenericDbl(status, INPUT_PREFIX // "(op).number(FmGainD1).current", "FmGainD1", InputEcho, 1)
   end if
      
   if ( Z_feedback_choice == PHASE_Z) then
-     strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(fm).number(phase_sp).current" )
-     status = status +  rp_units_convert_dbl(strVal," ", freq_shift_sp  )
-     InputEcho = trim(InputEcho) // "phase_sp = " // trim(strVal) // char(10)
+     phase_sp = readGenericDbl(status, INPUT_PREFIX // "(op).number(phase_sp).current", "phase_sp", InputEcho, 1)
   else
-     strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(fm).number(freq_shift_sp).current" )
-     status = status +  rp_units_convert_dbl(strVal," ", freq_shift_sp  )
-     InputEcho = trim(InputEcho) // "freq_shift_sp = " // trim(strVal) // char(10)
+     freq_shift_sp = readGenericDbl(status, INPUT_PREFIX // "(op).number(freq_shift_sp).current", "freq_shift_sp", InputEcho, 1)
      freq_shift_sp = freq_shift_sp * 2 * pi
   end if
 
@@ -306,16 +281,11 @@ subroutine ReadTipData( Rtip_dim, Etip, Poisson_tip, tip_angle, tip_shape, Input
   call read_value(driver, INPUT_PREFIX // "(ts).number(Rtip).current" , status, Rtip_dim, InputEcho, "Rtip "   )  
   Rtip_dim = Rtip_dim/1d9
   !	Rtip_dim is the radius of the probe tip converted to (m)
-  
-  strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(ts).number(Etip).current"  )
-  InputEcho = trim(InputEcho) // "Etip = " // trim(strVal) // char(10)
-  status = status +  rp_units_convert_dbl(strVal," ",Etip)
+  Etip = readGenericDbl(status, INPUT_PREFIX // "(op).number(Etip).current", "Etip", InputEcho, 1)
   Etip = Etip*1d9
   
-  strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(ts).number(Poisson_tip).current"  )
-  InputEcho = trim(InputEcho) // "Poisson_tip = " // trim(strVal) // char(10)
-  status = status +  rp_units_convert_dbl(strVal," ",Poisson_tip)
-  
+  Poisson_tip = readGenericDbl(status, INPUT_PREFIX // "(op).number(Poisson_tip).current", "Poisson_tip", InputEcho, 1)
+
   if (status > 0) call WriteFatalError( "Could not read tip data.  Please check values.")
 
 end subroutine ReadTipData
@@ -372,10 +342,7 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
   InputEcho = trim(InputEcho) // "want tip squeeze " // trim( tmpstr) // char(10)
   
   if (MatProp%Want_Tip_Squeeze) then
-     strVal = rp_lib_get_wrap(driver, path // ".group(nc).number(etaliquid).current"  )
-     InputEcho = trim(InputEcho) // "etaliquid " // trim(strVal) // char(10)
-     status = status +  rp_units_convert_dbl(strVal," ", MatProp%eta_liquid)
-  else
+     etaliquid = readGenericDbl(status, INPUT_PREFIX // ".group(nc).number(etaliquid).current", "etaliquid", InputEcho, 1)
      MatProp%eta_liquid=0
   end if
   
@@ -390,25 +357,17 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
 
 
         if ( MatProp%WantOscillatory ) then
-           strVal = rp_lib_get_wrap(driver, path // ".group(solvation).number(sigma_solvation).current"  )
-           InputEcho = trim(InputEcho) // "sigma_solvation " // trim(strVal) // char(10)
-           status = status +  rp_units_convert_dbl(strVal," ", MatProp%sigma_solvation_dim)
+           sigma_solvation = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(sigma_solvation).current", "sigma_solvation", InputEcho, 1)
            MatProp%sigma_solvation_dim = MatProp%sigma_solvation_dim * 1d-9
 
-           strVal = rp_lib_get_wrap(driver, path // ".group(solvation).number(rho_solvation).current"  )
-           InputEcho = trim(InputEcho) // "rho_solvation " // trim(strVal) // char(10)
-           status = status +  rp_units_convert_dbl(strVal," ", MatProp%rho)
+           rho_solvation = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(rho_solvation).current", "rho_solvation", InputEcho, 1)
         end if
 
         if ( MatProp%WantHydration ) then
-           strVal = rp_lib_get_wrap(driver, path // ".group(solvation).number(lambda_solvation).current"  )
-           InputEcho = trim(InputEcho) // "lambda_solvation " // trim(strVal) // char(10)
-           status = status +  rp_units_convert_dbl(strVal," ", MatProp%lambda_solvation_dim)
+           lambda_solvation = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(lambda_solvation).current", "lambda_solvation", InputEcho, 1)
            MatProp%lambda_solvation_dim = MatProp%lambda_solvation_dim * 1d-9
 
-           strVal = rp_lib_get_wrap(driver, path // ".group(solvation).number(p_h).current"  )
-           InputEcho = trim(InputEcho) // "p_h " // trim(strVal) // char(10)
-           status = status +  rp_units_convert_dbl(strVal," ", MatProp%p_h)
+           p_h = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(p_h).current", "p_h", InputEcho, 1)
         end if
 
         MatProp%Want_hyst_hydr =  daniel_get_boolean(  path // ".group(solvation).boolean(Want_hysteretic_hydration).current")
@@ -452,40 +411,28 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
            call read_value(driver, path // ".group(es).number(dc_bias_voltage).current", status, MatProp%dc_bias_voltage, InputEcho,  "dc_bias_voltage ")
            call read_value(driver, path // ".group(es).number(surface_pot).current", status, MatProp%surface_pot, InputEcho,  "surface_pot ")
 
-           strVal = rp_lib_get_wrap(driver, path // ".group(es).number(ac_bias_voltage).current"  )
-           status = status +  rp_units_convert_dbl(strVal," ",MatProp%ac_bias_voltage)
-           InputEcho = trim(InputEcho) // "ac_bias_voltage " // trim(strVal) // char(10)
+           ac_bias_voltage = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(ac_bias_voltage).current", "ac_bias_voltage", InputEcho, 1)
 
-           strVal = rp_lib_get_wrap(driver, path // ".group(es).number(bias_freq).current"  )
-           status = status +  rp_units_convert_dbl(strVal," ",MatProp%bias_freq_rads)
-           InputEcho = trim(InputEcho) // "bias_freq " // trim(strVal) // char(10)
+           bias_freq = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(bias_freq).current", "bias_freq", InputEcho, 1)
+
+        
            MatProp%bias_freq_rads = MatProp%bias_freq_rads * 1e3 * 2 * pi
         end if
 
         if (( MatProp%fts_model == ELECTROSTATIC_GIL) .or. (MatProp%fts_model == ELECTROSTATIC_NONCONS)) then
-           strVal = rp_lib_get_wrap(driver, path // ".group(es).number(theta_tip).current"  )
-           InputEcho = trim(InputEcho) // "electrostatic theta tip " // trim(strVal) // char(10)
-           status = status +  rp_units_convert_dbl(strVal," ", theta_tip)
+           theta_tip = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(theta_tip).current", "theta_tip", InputEcho, 1)
            theta_tip = theta_tip * pi / 180d0
 
-           strVal = rp_lib_get_wrap(driver, path // ".group(es).number(theta_lever).current"  )
-           InputEcho = trim(InputEcho) // "electrostatic theta lever " // trim(strVal) // char(10)
-           status = status +  rp_units_convert_dbl(strVal," ", theta_lever)
+           theta_lever = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(theta_lever).current", "theta_lever", InputEcho, 1)
            theta_lever = theta_lever * pi / 180d0
 
-           strVal = rp_lib_get_wrap(driver, path // ".group(es).number(es_h).current"  )
-           InputEcho = trim(InputEcho) // "electrostatic height " // trim(strVal) // char(10)
-           status = status +  rp_units_convert_dbl(strVal," ", es_h_dim)
+           es_h = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(es_h).current", "es_h", InputEcho, 1)
            es_h_dim = es_h_dim * 1d-6
 
-           strVal = rp_lib_get_wrap(driver, path // ".group(es).number(es_l).current"  )
-           InputEcho = trim(InputEcho) // "electrostatic length " // trim(strVal) // char(10)
-           status = status +  rp_units_convert_dbl(strVal," ", es_l_dim)
+           es_l = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(es_l).current", "es_l", InputEcho, 1)
            es_l_dim = es_l_dim * 1d-6
 
-           strVal = rp_lib_get_wrap(driver, path // ".group(es).number(es_w).current"  )
-           InputEcho = trim(InputEcho) // "electrostatic width " // trim(strVal) // char(10)
-           status = status +  rp_units_convert_dbl(strVal," ", es_w_dim)
+           es_w = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(es_w).current", "es_w", InputEcho, 1)
            es_w_dim = es_w_dim * 1d-6
         end if
 
@@ -616,13 +563,9 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
         MatProp%want_exp_dashpot =  daniel_get_boolean( path //".group(solvation).boolean(Want_exp_dashpot).current")
 
         if (MatProp%want_exp_dashpot) then
-           strVal = rp_lib_get_wrap(driver, path // ".group(solvation).number(exp_dashpot_scale).current"  )
-           status = status +  rp_units_convert_dbl(strVal," ",MatProp%exp_dashpot_scale)
-           InputEcho = trim(InputEcho) // "exp_dashpot_scale " // trim(strVal) // char(10)
+           exp_dashpot_scale = readGenericDbl(status, INPUT_PREFIX // "".group(solvation).number(exp_dashpot_scale).current", "exp_dashpot_scale", InputEcho, 1)
+           exp_dashpot_decay = readGenericDbl(status, INPUT_PREFIX // "".group(solvation).number(exp_dashpot_decay).current", "exp_dashpot_decay", InputEcho, 1)
 
-           strVal = rp_lib_get_wrap(driver, path // ".group(solvation).number(exp_dashpot_decay).current"  )
-           status = status +  rp_units_convert_dbl(strVal," ",MatProp%exp_dashpot_decay)
-           InputEcho = trim(InputEcho) // "exp_dashpot_decay " // trim(strVal) // char(10)
            MatProp%exp_dashpot_decay = MatProp%exp_dashpot_decay * 1e-9
         else
            MatProp%exp_dashpot_scale=0
@@ -631,14 +574,12 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
         
 	
 	if (MatProp%WantCapAd ) then
-		strVal = rp_lib_get_wrap(driver, path // ".group(nc).number(D_0).current"  )
-                InputEcho = trim(InputEcho) // "D_0 " // trim(strVal) // char(10)
-        	status = status +  rp_units_convert_dbl(strVal," ", MatProp%D_0)
+            D_0 = readGenericDbl(status, INPUT_PREFIX // "".group(solvation).number(D_0).current", "D_0", InputEcho, 1)
+
 		MatProp%D_0 = MatProp%D_0/1d9
 
- 		strVal = rp_lib_get_wrap(driver, path // ".group(nc).number(deltaE).current"  )
-                InputEcho = trim(InputEcho) // "deltaE " // trim(strVal) // char(10)
-        	status = status +  rp_units_convert_dbl(strVal," ", MatProp%deltaE)
+		deltaE = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(deltaE).current", "deltaE", InputEcho, 1)
+ 		
 		MatProp%deltaE = MatProp%deltaE/ electrons_per_coulomb                
 	else
 		MatProp%D_0 = 1d-9
@@ -651,31 +592,15 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
 
 !	Etip and Esample are the Young's modulus of the sample converted to (Pa)
 
-
-        strVal = rp_lib_get_wrap(driver, path // ".number(Poisson_sample).current"  )   
-        InputEcho = trim(InputEcho) // "Poisson_sample " // trim(strVal) // char(10)
-        status = status +  rp_units_convert_dbl(strVal," ",MatProp%Poisson_sample)
-
+        Poisson_sample = readGenericDbl(status, INPUT_PREFIX // ".number(Poisson_sample).current", "Poisson_sample", InputEcho, 1)
 
 !	DLVO Force parameters
-
-        strVal = rp_lib_get_wrap( driver, path // ".number(KD).current")
-        InputEcho = trim(InputEcho) // "KD " // trim(strVal) // char(10)
-        status = status +  rp_units_convert_dbl(strVal," ",MatProp%KD_dim)
+        KD = readGenericDbl(status, INPUT_PREFIX // ".number(KD).current", "KD", InputEcho, 1)
 	MatProp%KD_dim = 1d6/MatProp%KD_dim
+        epsilon = readGenericDbl(status, INPUT_PREFIX // ".number(epsilon).current", "epsilon", InputEcho, 1)
+        sigmat = readGenericDbl(status, INPUT_PREFIX // ".number(sigmat).current", "sigmat", InputEcho, 1)
 
-	strVal = rp_lib_get_wrap(driver, path // ".number(epsilon).current"  )
-        InputEcho = trim(InputEcho) // "epsilon " // trim(strVal) // char(10)
-        status = status +  rp_units_convert_dbl(strVal," ",MatProp%epsilon)
-
-	strVal = rp_lib_get_wrap(driver, path // ".number(sigmat).current"  )
-        InputEcho = trim(InputEcho) // "sigmat " // trim(strVal) // char(10)
-        status = status +  rp_units_convert_dbl(strVal," ",MatProp%sigmat)
-
-	strVal = rp_lib_get_wrap(driver, path // ".number(sigmas).current"  )
-        InputEcho = trim(InputEcho) // "sigmas " // trim(strVal) // char(10)
-        status = status +  rp_units_convert_dbl(strVal," ",MatProp%sigmas)
-	
+        sigmas = readGenericDbl(status, INPUT_PREFIX // ".number(sigmas).current", "sigmas", InputEcho, 1)
 
         !chadwick and the bottom edge correction models
         call read_value(driver, path // ".number(hs).current", status, MatProp%hs, InputEcho, "hs " )
@@ -683,28 +608,16 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
         
 
         if ( MatProp%fts_model == MORSE) then
-           strVal = rp_lib_get_wrap(driver, path // ".number(MorseRc).current"  )
-           InputEcho = trim(InputEcho) // "MorseRc " // trim(strVal) // char(10)
-           status = status +  rp_units_convert_dbl(strVal," ",MatProp%MorseRc_dim)
+           MorseRc = readGenericDbl(status, INPUT_PREFIX // ".number(MorseRc).current", "MorseRc", InputEcho, 1)
            MatProp%MorseRc_dim= MatProp%MorseRc_dim*1e-9
-           
-           strVal = rp_lib_get_wrap(driver, path // ".number(MorseU0).current"  )
-           InputEcho = trim(InputEcho) // "MorseU0 " // trim(strVal) // char(10)
-           status = status +  rp_units_convert_dbl(strVal," ",MatProp%MorseU0)
-           
-           strVal = rp_lib_get_wrap(driver, path // ".number(MorseLambda).current"  )
-           InputEcho = trim(InputEcho) // "MorseLambda " // trim(strVal) // char(10)
-           status = status +  rp_units_convert_dbl(strVal," ",MatProp%MorseLambda_dim)
+           MorseU0 = readGenericDbl(status, INPUT_PREFIX // ".number(MorseU0).current", "MorseU0", InputEcho, 1)
+
+           MorseLambda = readGenericDbl(status, INPUT_PREFIX // ".number(MorseLambda).current", "MorseLambda", InputEcho, 1)
            MatProp%MorseLambda_dim= MatProp%MorseLambda_dim*1e-9
         elseif ((MatProp%fts_model == LENNARD_JONES) .or. (MatProp%fts_model == ATTARD_FOURIER_LSQ ) .or. ( MatProp%fts_model == ATTARD_FOURIER_BAHRAM)) then
-           strVal = rp_lib_get_wrap(driver, path // ".number(LJ_r0).current"  )
-           InputEcho = trim(InputEcho) // "LJ_r0 " // trim(strVal) // char(10)
-           status = status +  rp_units_convert_dbl(strVal," ",MatProp%LJ_r0_dim)
+           LJ_r0 = readGenericDbl(status, INPUT_PREFIX // ".number(LJ_r0).current", "LJ_r0", InputEcho, 1)
            MatProp%LJ_r0_dim = MatProp%LJ_r0_dim * 1e-9
-           
-           strVal = rp_lib_get_wrap(driver, path // ".number(LJ_E0).current"  )
-           InputEcho = trim(InputEcho) // "LJ_E0 " // trim(strVal) // char(10)
-           status = status +  rp_units_convert_dbl(strVal," ",MatProp%LJ_E0)
+           LJ_E0 = readGenericDbl(status, INPUT_PREFIX // ".number(LJ_E0).current", "LJ_E0", InputEcho, 1)
         else
            MatProp%LJ_r0_dim=0
            MatProp%LJ_E0=0
@@ -800,25 +713,18 @@ subroutine ReadSimulationParameters(Zrange,Wanthist,WantHH,Want_Strob,Want_Impac
   numpoinc = readGenericInteger(driver, INPUT_PREFIX // "(sim).group(poinc).integer(numpoinc).current")
 		  
   if ((operating_mode /= SCAN) .or. (modulation_type == FORCE_VOL)) then
-     strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(op).number(Z0).current" )
-     InputEcho = trim(InputEcho) // "Z0 " // StrVal // char(10)
-     status = status +  rp_units_convert_dbl(strVal," ",Z0)
+     Z0 = readGenericDbl(status, INPUT_PREFIX // "(op).number(Z0).current", "Z0", InputEcho, 1)
      Z0 = Z0/1d9
      
-     if ((operating_mode == APPROACH ) .or. (operating_mode == APPROACH_STEP ) .or. (operating_mode == APPR_RET )) then 
-        strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(op).number(Zf).current" )
-        InputEcho = trim(InputEcho) // "Zf " // StrVal // char(10)
-        status = status +  rp_units_convert_dbl(strVal," ",Zf)
+     if ((operating_mode == APPROACH ) .or. (operating_mode == APPROACH_STEP ) .or. (operating_mode == APPR_RET )) then
+        Zf = readGenericDbl(status, INPUT_PREFIX // "(op).number(Zf).current", "Zf", InputEcho, 1)
         Zf = Zf/1d9
         
         if (Zrange == ZRANGE_ASP) then
-           strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(op).number(Asp_f).current" )
-           InputEcho = trim(InputEcho) // "Asp_f " // StrVal // char(10)
-           status = status +  rp_units_convert_dbl(strVal," ",Asp_f)
+        Asp_f = readGenericDbl(status, INPUT_PREFIX // "(op).number(Asp_f).current", "Asp_f", InputEcho, 1)
         elseif (Zrange == ZRANGE_FREQSHIFT) then
-           strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(op).number(freqshift_f).current" )
-           InputEcho = trim(InputEcho) // "freqshift_f " // StrVal // char(10)
-           status = status +  rp_units_convert_dbl(strVal," ",freqshift_f)
+        freqshift_f = readGenericDbl(status, INPUT_PREFIX // "(op).number(freqshift_f).current", "freqshift_f", InputEcho, 1)
+
         end if
      end if
   end if
@@ -855,9 +761,8 @@ subroutine ReadSimulationParameters(Zrange,Wanthist,WantHH,Want_Strob,Want_Impac
       
       if ((operating_mode == SCAN) .or. (want_freqswp_sp_aprch)) then
          if ((modulation_type .ne. FORCE_VOL) .and.(modulation_type .ne. PEAK_FORCE))  then
-            strVal = rp_lib_get_wrap(driver,  INPUT_PREFIX // "(op).number(Asp).current")
-            InputEcho = trim(InputEcho) // "Asp " // StrVal // char(10)
-            status = status +  rp_units_convert_dbl(strVal," ",ASetPt)
+         Asp = readGenericDbl(status, INPUT_PREFIX // "(op).number(Asp).current", "Asp", InputEcho, 1)
+      
          end if
       end if
  
@@ -877,13 +782,9 @@ subroutine readForceVol(LineSpeed, F_ForceVol_dim, ForceVolSettleTime, z_feedbac
   integer status
   integer :: rp_units_convert_dbl, readGenericInteger
   status = 0
-   strVal = rp_lib_get_wrap(driver,  INPUT_PREFIX // "(op).number(F_ForceVol_dim).current")
-   InputEcho = trim(InputEcho) // "F_ForceVol_dim " // StrVal // char(10)
-   status = status +  rp_units_convert_dbl(strVal," ",F_ForceVol_dim)
+   F_ForceVol_dim = readGenericDbl(status, INPUT_PREFIX // "(op).number(F_ForceVol_dim).current", "F_ForceVol_dim", InputEcho, 1)
    F_ForceVol_dim = F_ForceVol_dim / 1d9
-   strVal = rp_lib_get_wrap(driver,  INPUT_PREFIX // "(op).number(ForceVolSettleTime).current")
-   InputEcho = trim(InputEcho) // "ForceVolSettleTime " // StrVal // char(10)
-   status = status +  rp_units_convert_dbl(strVal," ",ForceVolSettleTime)
+   ForceVolSettleTime = readGenericDbl(status, INPUT_PREFIX // "(op).number(ForceVolSettleTime).current", "ForceVolSettleTime", InputEcho, 1)
    call read_value(driver, INPUT_PREFIX // "(op).number(LineSpeed).current", status, LineSpeed, InputEcho, "LineSpeed "   )
    z_feedback_choice = readGenericInteger(driver, INPUT_PREFIX // "(op).choice(Z_feedback_choice).current")
   
@@ -1082,25 +983,17 @@ Asample_dim, omegas_dim, wantSampleExc, InputEcho)
   LockInOrder = readGenericInteger(driver,INPUT_PREFIX // "(op).choice(LockInOrder).current")  
   write(strVal, *) LockInOrder
   InputEcho = trim(InputEcho) // "LockInOrder " // trim(strVal) // char(10)
-
-  strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(op).number(mtip).current" )
-  InputEcho = trim(InputEcho) // "mtip " // trim(strVal) // char(10)
-  status = status +  rp_units_convert_dbl(strVal," ",mtip)
-
+  
+  mtip = readGenericDbl(status, INPUT_PREFIX // "(op).number(mtip).current", "mtip", InputEcho, 1)
 
 
   if (exc_choice == SELFEXC) then
-     strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(op).group(selfexc).number(selfexc_gain).current" )
-     InputEcho = trim(InputEcho) // "selfexc_gain " // trim(strVal) // char(10)
-     status = status +  rp_units_convert_dbl(strVal," ",selfexc_gain)
+     selfexc_gain = readGenericDbl(status, INPUT_PREFIX // "(op).group(selfexc_gain).current", "selfexc_gain", InputEcho, 1)
 
-     strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(op).group(selfexc).number(selfexc_sat).current" )
-     InputEcho = trim(InputEcho) // "selfexc_sat " // trim(strVal) // char(10)
-     status = status +  rp_units_convert_dbl(strVal," ",selfexc_saturation)
+     selfexc_sat = readGenericDbl(status, INPUT_PREFIX // "(op).group(selfexc_sat).current", "selfexc_sat", InputEcho, 1)
+     
+     selfexc_phase = readGenericDbl(status, INPUT_PREFIX // "(op).group(selfexc_phase).current", "selfexc_phase", InputEcho, 1)
 
-     strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(op).group(selfexc).number(selfexc_phase).current" )
-     InputEcho = trim(InputEcho) // "selfexc_phase " // trim(strVal) // char(10)
-     status = status +  rp_units_convert_dbl(strVal," ",selfexc_phase)
   end if
 
   !drive frequencies
@@ -1118,38 +1011,24 @@ Asample_dim, omegas_dim, wantSampleExc, InputEcho)
      end if
 
   else
-     strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(op).number(omegad_start).current" )
-     InputEcho = trim(InputEcho) // "omegad_start " // trim(strVal) // char(10)
-     status = status +  rp_units_convert_dbl(strVal," ", tmp)
-     omegad_start = tmp *2*pi*1d3 !rad/s
-     
-     strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(op).number(omegad_stop).current" )
-     InputEcho = trim(InputEcho) // "omegad_stop " // trim(strVal) // char(10)
-     status = status +  rp_units_convert_dbl(strVal," ",tmp)
+     omegad_start = readGenericDbl(status, INPUT_PREFIX // "(op).number(omegad_start).current", "omegad_start", InputEcho, 1)
+     omegad_start = tmp *2*pi*1d3 !rad/s.023
+
+     omegad_stop = readGenericDbl(status, INPUT_PREFIX // "(op).number(omegad_stop).current", "omegad_stop", InputEcho, 1)
      omegad_stop = tmp *2*pi*1d3
-     
-     strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(op).number(sweep_time).current" )
-     InputEcho = trim(InputEcho) // "sweep_time " // trim(strVal) // char(10)
-     status = status +  rp_units_convert_dbl(strVal," ", sweep_time)
+     sweep_time = readGenericDbl(status, INPUT_PREFIX // "(op).number(sweep_time).current", "sweep_time", InputEcho, 1)
      
   end if
 
   want_Afluid = daniel_get_boolean(INPUT_PREFIX // "(op).boolean(want_Afluid).current")
   if (want_Afluid) then
-
-     strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(op).number(Afluid_real).current" )
-     InputEcho = trim(InputEcho) // "Afluid_real " // trim(strVal) // char(10)
-     status = status +  rp_units_convert_dbl(strVal," ", Afluid_real)
-
-     strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(op).number(Afluid_imag).current" )
-     InputEcho = trim(InputEcho) // "Afluid_imag " // trim(strVal) // char(10)
-     status = status +  rp_units_convert_dbl(strVal," ", Afluid_imag)
-
+     Afluid_real = readGenericDbl(status, INPUT_PREFIX // "(op).number(Afluid_real).current", "Afluid_real", InputEcho, 1)
+    
+     Afluid_imag = readGenericDbl(status, INPUT_PREFIX // "(op).number(Afluid_imag).current", "Afluid_imag", InputEcho, 1)
      Afluid = CMPLX(Afluid_real, Afluid_imag)
-     
-     strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(op).number(mstar_div_m).current" )
-     InputEcho = trim(InputEcho) // "mstar_div_m " // trim(strVal) // char(10)
-     status = status +  rp_units_convert_dbl(strVal," ", mstar_div_m)     
+     mstar_div_m = readGenericDbl(status, INPUT_PREFIX // "(op).number(mstar_div_m).current", "mstar_div_m", InputEcho, 1)
+
+  
   else
      Afluid = 0d0
      mstar_div_m = 0d0
@@ -1231,11 +1110,9 @@ Asample_dim, omegas_dim, wantSampleExc, InputEcho)
      read( strVal, *, end=999, err=999) (Y_IC(i),i=1,2*numModes)
   end if
 !!!!!!!!!!!!
-
+https://www.google.com/search?q=jet+freeze&rlz=1C1UEAD_enUS958US958&sxsrf=ALiCzsbN29JoSnXGau3GvQZylGG4uFeZ_Q:1654902133892&source=lnms&tbm=nws&sa=X&ved=2ahUKEwi-nNDu_qP4AhU0mo4IHbGBCSUQ_AUoA3oECAIQBQ
   if ((isOpModeApp(operating_mode)) .or. (modulation_type == FORCE_VOL) .or. (modulation_type == PEAK_FORCE)) then 
-     strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(op).number(gamma_drag).current" )
-     InputEcho = trim(InputEcho) // "gamma_drag " // trim(strVal) // char(10)
-     status = status +  rp_units_convert_dbl(strVal," ", gamma_drag)
+     gamma_drag = readGenericDbl(status, INPUT_PREFIX // "(op).number(gamma_drag).current", "gamma_drag", InputEcho, 1)
 
      if (modulation_type /= PEAK_FORCE) then
         AprchS_dim = readGenericDbl(status, INPUT_PREFIX // "(op).number(AprchS).current", "Approach speed", InputEcho, 1d9)
@@ -1270,25 +1147,15 @@ subroutine readFeatureProperties( FeatureType, HF, LF, LF2, SubsLen, WantTSCON, 
 
   FeatureType = readGenericInteger(driver,INPUT_PREFIX // "(feature).choice(FeatureType).current")  
   !       step (1), trapizoid (2), sindusoid (3) 	
-  	
-  strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(feature).number(HF).current")
-  InputEcho = trim(InputEcho) // "HF " // trim(strVal) // char(10)
-  status = status +  rp_units_convert_dbl(strVal," ",HF)
+  HF = readGenericDbl(status, INPUT_PREFIX // "(feature).number(HF).current", "HF", InputEcho, 1)
   HF = HF/1d9
-  
-  strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(feature).number(LF).current")
-  InputEcho = trim(InputEcho) // "LF " // trim(strVal) // char(10)
-  status = status +  rp_units_convert_dbl(strVal," ",LF)
+
+  LF = readGenericDbl(status, INPUT_PREFIX // "(feature).number(LF).current", "LF", InputEcho, 1)
   LF = LF/1d9
-  
-  strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(feature).number(LF2).current")
-  InputEcho = trim(InputEcho) // "LF2 " // trim(strVal) // char(10)
-  status = status +  rp_units_convert_dbl(strVal," ",LF2)
+
+  LF2 = readGenericDbl(status, INPUT_PREFIX // "(feature).number(LF2).current", "LF2", InputEcho, 1)
   LF2 = LF2/1d9
-  
-  strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(sim).number(LS).current")
-  InputEcho = trim(InputEcho) // "LS " // trim(strVal) // char(10)
-  status = status +  rp_units_convert_dbl(strVal," ", SubsLen)
+
   SubsLen = SubsLen/1d9
  
   WantTSCON = daniel_get_boolean( INPUT_PREFIX // "(feature).boolean(WantTSCON).current")
@@ -1310,10 +1177,7 @@ subroutine ReadSampleFreq( sample_freq, InputEcho)
   integer status, rp_units_convert_dbl
   
   status = 0
-
-  strVal =  rp_lib_get_wrap(driver,INPUT_PREFIX // "(op).number(sample_freq).current")
-  InputEcho = trim(InputEcho) // "sample_freq Mhz " // trim(strVal) // char(10)
-  status = status +  rp_units_convert_dbl(strVal," ", sample_freq)
+  sample_freq = readGenericDbl(status, INPUT_PREFIX // "(op).number(sample_freq).current", "sample_freq", InputEcho, 1)
   sample_freq = sample_freq * 1d6
 
   write( strVal, *)  "sample_freq ", sample_freq
@@ -1332,14 +1196,9 @@ subroutine readTriggeredFzMode(  jumpDeflLim, PiezoReverseTime_pct , Want_FzEig,
   integer :: status, rp_units_convert_dbl
 
   call read_integer(driver, INPUT_PREFIX // "(op).choice(fzshape).current" , fzshape , InputEcho, "fzshape")
+  PiezoReverseTime_pct = readGenericDbl(status, INPUT_PREFIX // "(op).number(PiezoReverseTime_pct).current", "PiezoReverseTime_pct", InputEcho, 1)
 
-  strVal = rp_lib_get_wrap(driver,  INPUT_PREFIX // "(op).number(PiezoReverseTime_pct).current")
-  InputEcho = trim(InputEcho) // "PiezoReverseTime_pct " // trim(strVal) // char(10)
-  status = rp_units_convert_dbl(strVal," ",PiezoReverseTime_pct)
-
-  strVal = rp_lib_get_wrap(driver,  INPUT_PREFIX // "(op).number(jumpDeflLim).current")
-  InputEcho = trim(InputEcho) // "jumpDeflLim " // trim(strVal) // char(10)
-  status = rp_units_convert_dbl(strVal," ",jumpDeflLim)
+  jumpDeflLim = readGenericDbl(status, INPUT_PREFIX // "(op).number(jumpDeflLim).current", "jumpDeflLim", InputEcho, 1)
   jumpDeflLim = jumpDeflLim / 1e9;
 
   Want_FzEig = daniel_get_boolean( INPUT_PREFIX // "(sim).group(plots).boolean(Want_FzEig).current")
@@ -1418,7 +1277,7 @@ subroutine readCantModalProps(  numModes, fexcite, omegai,  Keq, Quality, CalcIn
 
   if (isMagnetic(fexcite)) then
      want_custom_B = daniel_get_boolean( INPUT_PREFIX // "(op).boolean(want_custom_B).current")
-     if (want_custom_B) then
+
         strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(op).string(B_input).current" )
         read( strVal, *, end=988, err=988) (B_input(i),i=1,numModes)
         inputEcho = trim(inputEcho) // "B = " // trim(strVal) // char(10)
@@ -2203,20 +2062,23 @@ subroutine setup_debug_viscoelastic()
   call  setupgenericplot( 'visc_t1', 't1', 'Viscoelasticity Debug', 'time', 't/T', 't1', 'ndx')
 end subroutine setup_debug_viscoelastic
 
-
+!Replace rp_lib_put_str
+subrountine putGenericString()
+ call rp_lib_put_str(driver, "output.curve(" //name// ").component.xy", tmp, 1) 
+end subrountine
 subroutine SetupGenericPlot(name, label, group, xlabel, xunits, ylabel, yunits, scatter )
   character(len=*), intent(in) :: name, label, group, xlabel, xunits, ylabel, yunits
   logical, intent(in), optional :: scatter
          
-  call rp_lib_put_str(driver, "output.curve(" //name// ").about.label", label, 0) 
-  call rp_lib_put_str(driver, "output.curve(" //name// ").about.group", group, 0) 
-  call rp_lib_put_str(driver, "output.curve(" //name// ").xaxis.label", xlabel, 0) 
-  call rp_lib_put_str(driver, "output.curve(" //name// ").xaxis.units", xunits, 0) 
-  call rp_lib_put_str(driver, "output.curve(" //name// ").yaxis.label", ylabel,0)
-  call rp_lib_put_str(driver, "output.curve(" //name// ").yaxis.units", yunits, 0) 
+  call putGenericString(driver, "output.curve(" //name// ").about.label", label, 0) 
+  call putGenericString(driver, "output.curve(" //name// ").about.group", group, 0) 
+  call putGenericString(driver, "output.curve(" //name// ").xaxis.label", xlabel, 0) 
+  call putGenericString(driver, "output.curve(" //name// ").xaxis.units", xunits, 0) 
+  call putGenericString(driver, "output.curve(" //name// ").yaxis.label", ylabel,0)
+  call putGenericString(driver, "output.curve(" //name// ").yaxis.units", yunits, 0) 
   if (present(scatter)) then
      if (scatter) then
-        call rp_lib_put_str(driver, "output.curve(" //name//").about.type", "scatter", 0)
+        call putGenericString(driver, "output.curve(" //name//").about.type", "scatter", 0)
      end if
   end if
 end subroutine SetupGenericPlot
@@ -2262,7 +2124,7 @@ subroutine output_debug_viscoelastic(t, t1)
   character*150 :: tmpStr
 
   write(tmpStr,fmtStr) t, t1, char(10)
-  call rp_lib_put_str(driver, "output.curve(visc_t1).component.xy", tmpStr, 1)
+  call putGenericString(driver, "output.curve(visc_t1).component.xy", tmpStr, 1)
 end subroutine output_debug_viscoelastic
 
 
@@ -2274,20 +2136,20 @@ subroutine Output_hydro_Plots( xaxis, added_m, added_c, omega, damping)
   character*150 :: tmpStr
 
  write(tmpStr,fmtStr) xaxis,  added_m, char(10)
- call rp_lib_put_str(driver, "output.curve(addM).component.xy", tmpStr, 1)
+ call putGenericString(driver, "output.curve(addM).component.xy", tmpStr, 1)
  write(tmpStr,fmtStr) xaxis,  added_c, char(10)
- call rp_lib_put_str(driver, "output.curve(addC).component.xy", tmpStr, 1)
+ call putGenericString(driver, "output.curve(addC).component.xy", tmpStr, 1)
  write(tmpStr,fmtStr) xaxis,  omega, char(10)
- call rp_lib_put_str(driver, "output.curve(dbgomega).component.xy", tmpStr, 1)
+ call putGenericString(driver, "output.curve(dbgomega).component.xy", tmpStr, 1)
  write(tmpStr,fmtStr) xaxis,  damping, char(10)
- call rp_lib_put_str(driver, "output.curve(dbgdamping).component.xy", tmpStr, 1)
+ call putGenericString(driver, "output.curve(dbgdamping).component.xy", tmpStr, 1)
 end subroutine Output_hydro_Plots
 
 subroutine OutputInputEcho( InputEcho1)
   character*3000, intent(in) :: InputEcho1
 
-  call rp_lib_put_str(driver, "output.string(echo).about.label", "Echo of input parameters",0)
-  call rp_lib_put_str(driver, "output.string(echo).current", InputEcho1,0)
+  call putGenericString(driver, "output.string(echo).about.label", "Echo of input parameters",0)
+  call putGenericString(driver, "output.string(echo).current", InputEcho1,0)
 end subroutine OutputInputEcho
 
 !a separate tab to output various internal numbers that we might care about
@@ -2306,7 +2168,7 @@ subroutine OutputMiscParameters( numModes, F, phid, Keq, pad, numincycle, aDMT, 
 
 
 
-  call rp_lib_put_str(driver, "output.string(Misc).about.label","Misc. Internal values", 0) 
+  call putGenericString(driver, "output.string(Misc).about.label","Misc. Internal values", 0) 
   
   Str = "Internal values for reference. Most users can ignore these."
 
@@ -2409,7 +2271,7 @@ subroutine OutputMiscParameters( numModes, F, phid, Keq, pad, numincycle, aDMT, 
   Str = trim(Str) // CHAR(10) // "min relaxation time (subs): " // s  
 
   
-  call rp_lib_put_str(driver, "output.string(Misc).current", Str, 0)  
+  call putGenericString(driver, "output.string(Misc).current", Str, 0)  
 
 end subroutine OutputMiscParameters
 
@@ -2449,19 +2311,19 @@ end subroutine OutputMiscParameters
        !this one is different x-axis because if axis=Amp, then outputting Amp vs Amp isn't very useful.
        if (AmpRedAvg) then
              write(tmpStr,fmtStr) xaxis_1,  DimenLength(Amp*1d9), char(10)
-             call rp_lib_put_str(driver, "output.curve(Amp).component.xy", tmpStr, 1)
+             call putGenericString(driver, "output.curve(Amp).component.xy", tmpStr, 1)
 
              write(tmpStr,fmtStr) xaxis_1,  DimenLength(LockInR*1d9), char(10) !reusing variable name. not really LockIn
-             call rp_lib_put_str(driver, "output.curve(Amp_iter).component.xy", tmpStr, 1)          
+             call putGenericString(driver, "output.curve(Amp_iter).component.xy", tmpStr, 1)          
        elseif (Want_AZ) then
           if (want_Fourier) then
              write(tmpStr,fmtStr) xaxis_1,  DimenLength(Amp*1d9), char(10)
-             call rp_lib_put_str(driver, "output.curve(Amp).component.xy", tmpStr, 1)
+             call putGenericString(driver, "output.curve(Amp).component.xy", tmpStr, 1)
           end if
           
           if (useLockIn) then 
              write(tmpStr,fmtStr) xaxis_1,  DimenLength(LockInR*1d9), char(10)
-             call rp_lib_put_str(driver, "output.curve(LockinR).component.xy", tmpStr, 1)
+             call putGenericString(driver, "output.curve(LockinR).component.xy", tmpStr, 1)
           end if
 
        end if
@@ -2469,19 +2331,19 @@ end subroutine OutputMiscParameters
        
        if (want_RMS) then
           write(tmpStr,fmtStr) xaxis,  DimenLength(sqrt(RMS)*1d9), char(10)
-          call rp_lib_put_str(driver, "output.curve(RMSAmp).component.xy", tmpStr, 1)
+          call putGenericString(driver, "output.curve(RMSAmp).component.xy", tmpStr, 1)
        end if
 
 
        if (Want_NumImpact) then
           write(tmpStr,fmtStr) xaxis,  avg_impacts_per_cycle, char(10)
-          call rp_lib_put_str(driver, "output.curve(NumImpact).component.xy", tmpStr, 1)
+          call putGenericString(driver, "output.curve(NumImpact).component.xy", tmpStr, 1)
        end if
        
        if (Want_P1) then     
           if (want_Fourier) then
              write(tmpStr,fmtStr) xaxis,  Phase*180/pi, char(10)
-             call rp_lib_put_str(driver, "output.curve(Phase).component.xy",tmpStr, 1)
+             call putGenericString(driver, "output.curve(Phase).component.xy",tmpStr, 1)
 
           end if
           
@@ -2490,21 +2352,21 @@ end subroutine OutputMiscParameters
              tmp_ph = 90d0 - LockInTh*180/pi
              if (tmp_ph > 180) tmp_ph = tmp_ph - 360
              write(tmpStr,fmtStr) xaxis, tmp_ph , char(10)
-             call rp_lib_put_str(driver, "output.curve(LockinPhase).component.xy",tmpStr, 1)
+             call putGenericString(driver, "output.curve(LockinPhase).component.xy",tmpStr, 1)
           end if           
        end if
        
        if (Want_PF) then
           write(tmpStr,fmtStr) xaxis, DimenForce(FPeakAtt)*1d9, char(10)
-          call rp_lib_put_str(driver, "output.curve(FPeakAtt).component.xy",tmpStr, 1)     
+          call putGenericString(driver, "output.curve(FPeakAtt).component.xy",tmpStr, 1)     
           
           write(tmpStr,fmtStr) xaxis,  DimenForce(FPeakRep)*1d9, char(10)
-          call rp_lib_put_str(driver, "output.curve(FPeakRep).component.xy",tmpStr, 1) 
+          call putGenericString(driver, "output.curve(FPeakRep).component.xy",tmpStr, 1) 
        end if
        
        if (Want_MF) then       
           write(tmpStr,fmtStr) xaxis,  DimenForce(MeanForce)*1d9, char(10)
-          call rp_lib_put_str(driver, "output.curve(MeanForce).component.xy",tmpStr, 1)
+          call putGenericString(driver, "output.curve(MeanForce).component.xy",tmpStr, 1)
        end if       
 
        if (want_ev) then
@@ -2515,46 +2377,46 @@ end subroutine OutputMiscParameters
        
        if (Want_ED) then       
           write(tmpStr,fmtStr) xaxis,  Ets*energy_units_conversion, char(10)                  
-          call rp_lib_put_str(driver, "output.curve(Pts).component.xy",tmpStr, 1)
+          call putGenericString(driver, "output.curve(Pts).component.xy",tmpStr, 1)
        end if
        
        if (Want_EP) then
           if (isAcoustic(fexcite)) then
              write(tmpStr,fmtStr) xaxis,  Ebs*energy_units_conversion, char(10)
-             call rp_lib_put_str(driver, "output.curve(Ebs).component.xy",tmpStr, 1)
+             call putGenericString(driver, "output.curve(Ebs).component.xy",tmpStr, 1)
           end if
           
          do iprop=1,numModes
 	   write (String1, '(I1)') iprop
            write(tmpStr,fmtStr) xaxis,  Eprop(iprop)*energy_units_conversion, char(10)
-	   call rp_lib_put_str(driver, "output.curve(Eprop_" // String1 // ").component.xy",tmpStr, 1)
+	   call putGenericString(driver, "output.curve(Eprop_" // String1 // ").component.xy",tmpStr, 1)
 
            write(tmpStr,fmtStr) xaxis,  Edamp(iprop)*energy_units_conversion, char(10)
-	   call rp_lib_put_str(driver, "output.curve(Edmp_" // String1 // ").component.xy",tmpStr, 1)
+	   call putGenericString(driver, "output.curve(Edmp_" // String1 // ").component.xy",tmpStr, 1)
 
            write(tmpStr,fmtStr) xaxis,  Edrive(iprop)*energy_units_conversion, char(10)
-	   call rp_lib_put_str(driver, "output.curve(Edrv_" // String1 // ").component.xy",tmpStr, 1)
+	   call putGenericString(driver, "output.curve(Edrv_" // String1 // ").component.xy",tmpStr, 1)
 	 end do
        end if
               
        if (Want_E_Anc) then 
           write(tmpStr,fmtStr) xaxis,  E_Anc*energy_units_conversion, char(10)
-          call rp_lib_put_str(driver, "output.curve(E_anc).component.xy",tmpStr, 1)
+          call putGenericString(driver, "output.curve(E_anc).component.xy",tmpStr, 1)
        end if
           
        if (Want_virial) then 
           write(tmpStr,fmtStr) xaxis,  virial*energy_units_conversion, char(10)
-          call rp_lib_put_str(driver, "output.curve(virial).component.xy",tmpStr, 1)
+          call putGenericString(driver, "output.curve(virial).component.xy",tmpStr, 1)
        end if
 
        if (Want_I) then 
         write(tmpStr,fmtStr) xaxis,  DimenLength(Indent*1d9), char(10)
-        call rp_lib_put_str(driver, "output.curve(Indent).component.xy",tmpStr, 1)
+        call putGenericString(driver, "output.curve(Indent).component.xy",tmpStr, 1)
        end if
        
        if (Want_CT) then       
         write(tmpStr,fmtStr) xaxis,  DimenTime(tc*1d6), char(10)
-        call rp_lib_put_str(driver, "output.curve(tcontact).component.xy",tmpStr, 1)
+        call putGenericString(driver, "output.curve(tcontact).component.xy",tmpStr, 1)
        end if     
      end subroutine OutputMainResults
  
@@ -2602,7 +2464,7 @@ end subroutine OutputMiscParameters
       
       write (PlotNum, '(I1)') ii
       write(tmpStr,fmtStr) X_p, Y_p, char(10)
-      call rp_lib_put_str(driver, "output.curve(Poinc_" // path // PlotNum // ").component.xy", tmpStr, 1)    
+      call putGenericString(driver, "output.curve(Poinc_" // path // PlotNum // ").component.xy", tmpStr, 1)    
    end do
    
  end subroutine OutputPoincare
@@ -2640,19 +2502,19 @@ subroutine OutputHigherFrequencies( del_time, numHH, an, bn, xaxis_a, xaxis_p, l
     write(tmpStr, '(E15.7,E15.7,A)' ) xaxis_a, AmpHH*1d9, char(10)
 
     if (label == 3) then
-       call rp_lib_put_str(driver,"output.curve(FtsHarm).component.xy", tmpStr, 1)
+       call putGenericString(driver,"output.curve(FtsHarm).component.xy", tmpStr, 1)
     elseif ((label == 2) .and. Want_A2  .and. Want_Fourier) then
-        call rp_lib_put_str(driver,"output.curve(Amp2).component.xy", tmpStr, 1)
+        call putGenericString(driver,"output.curve(Amp2).component.xy", tmpStr, 1)
     elseif ((label == 1) .and. Want_Fourier) then
-       call rp_lib_put_str(driver,"output.curve(AmpHH" // Trim(Snum) // ").component.xy", tmpStr, 1)	 
+       call putGenericString(driver,"output.curve(AmpHH" // Trim(Snum) // ").component.xy", tmpStr, 1)	 
     end if
 
     write(tmpStr, '(E15.7,E15.7,A)' ) xaxis_p, PhaseHH*180/pi, char(10)
 
     if ((label == 2) .and. Want_P2 .and. Want_Fourier) then
-         call rp_lib_put_str(driver, "output.curve(Phase2).component.xy", tmpStr, 1)
+         call putGenericString(driver, "output.curve(Phase2).component.xy", tmpStr, 1)
     elseif ((label == 1) .and. Want_Fourier) then
-       call rp_lib_put_str(driver, "output.curve(PhaseHH" // Trim(Snum) // ").component.xy", tmpStr, 1)
+       call putGenericString(driver, "output.curve(PhaseHH" // Trim(Snum) // ").component.xy", tmpStr, 1)
     end if
     
   end do
@@ -2686,11 +2548,11 @@ subroutine OutputHigherHarmonicLockins( del_time, numHH, HigherHarmLockin, xaxis
 
     write(tmpStr, '(E15.7,E15.7,A)' ) xaxis, AmpHH, char(10)
 
-    call rp_lib_put_str(driver,"output.curve(LockinHH" // Trim(Snum) // "R).component.xy", tmpStr, 1) 
+    call putGenericString(driver,"output.curve(LockinHH" // Trim(Snum) // "R).component.xy", tmpStr, 1) 
     
     write(tmpStr, '(E15.7,E15.7,A)' ) xaxis, PhaseHH, char(10)
     
-    call rp_lib_put_str(driver, "output.curve(LockinHH" // Trim(Snum) // "Th).component.xy", tmpStr, 1)
+    call putGenericString(driver, "output.curve(LockinHH" // Trim(Snum) // "Th).component.xy", tmpStr, 1)
     
   end do
 
@@ -2711,13 +2573,13 @@ subroutine OutputBimodalLockin( BimodalLockin, xaxis_a, xaxis_p, want_a2, want_p
     if (want_a2) then
        Amp = DimenLength(BimodalLockin%R *1d9)
        write(tmpStr, '(E15.7,E15.7,A)' ) xaxis_a, Amp, char(10)       
-       call rp_lib_put_str(driver,"output.curve(LockinAmp2).component.xy", tmpStr, 1)	     
+       call putGenericString(driver,"output.curve(LockinAmp2).component.xy", tmpStr, 1)	     
     end if
 
     if (want_p2) then
        Phase = 90d0 -  BimodalLockin%Th *180d0 / pi    
        write(tmpStr, '(E15.7,E15.7,A)' ) xaxis_p, Phase, char(10)
-       call rp_lib_put_str(driver, "output.curve(LockinPhase2).component.xy", tmpStr, 1)
+       call putGenericString(driver, "output.curve(LockinPhase2).component.xy", tmpStr, 1)
     end if
 end subroutine OutputBimodalLockin
 
@@ -2737,17 +2599,17 @@ subroutine OutputBimodal_AmpRed( Amp2, Amp2_iter, Phase2, xaxis_a, xaxis_p, want
     if (want_a2) then
        Amp = DimenLength(Amp2 *1d9)
        write(tmpStr, fmtStr ) xaxis_a, Amp, char(10)       
-       call rp_lib_put_str(driver,"output.curve(Amp2).component.xy", tmpStr, 1)
+       call putGenericString(driver,"output.curve(Amp2).component.xy", tmpStr, 1)
 
        Amp = DimenLength(Amp2_iter *1d9)
        write(tmpStr, fmtStr ) xaxis_a, Amp, char(10)       
-       call rp_lib_put_str(driver,"output.curve(Amp2_iter).component.xy", tmpStr, 1)	     
+       call putGenericString(driver,"output.curve(Amp2_iter).component.xy", tmpStr, 1)	     
     end if
 
     if (want_p2) then
        Phase = Phase2 *180d0 / pi    
        write(tmpStr, '(E15.7,E15.7,A)' ) xaxis_p, Phase, char(10)
-       call rp_lib_put_str(driver, "output.curve(Phase2).component.xy", tmpStr, 1)
+       call putGenericString(driver, "output.curve(Phase2).component.xy", tmpStr, 1)
     end if
 
 
@@ -2759,14 +2621,14 @@ subroutine OutputBimodal_AmpRed( Amp2, Amp2_iter, Phase2, xaxis_a, xaxis_p, want
     
     
     write(tmpStr,fmtStr) xaxis_p,  virial1*energy_units_conversion, char(10)                  
-    call rp_lib_put_str(driver, "output.curve(virial1).component.xy",tmpStr, 1)
+    call putGenericString(driver, "output.curve(virial1).component.xy",tmpStr, 1)
     write(tmpStr,fmtStr) xaxis_p,  virial2*energy_units_conversion, char(10)                  
-    call rp_lib_put_str(driver, "output.curve(virial2).component.xy",tmpStr, 1)
+    call putGenericString(driver, "output.curve(virial2).component.xy",tmpStr, 1)
 
     write(tmpStr,fmtStr) xaxis_p,  dissipation1*energy_units_conversion, char(10)                  
-    call rp_lib_put_str(driver, "output.curve(Pts1).component.xy",tmpStr, 1)
+    call putGenericString(driver, "output.curve(Pts1).component.xy",tmpStr, 1)
     write(tmpStr,fmtStr) xaxis_p,  dissipation2*energy_units_conversion, char(10)                  
-    call rp_lib_put_str(driver, "output.curve(Pts2).component.xy",tmpStr, 1)
+    call putGenericString(driver, "output.curve(Pts2).component.xy",tmpStr, 1)
     
   end subroutine OutputBimodal_AmpRed
 
@@ -2801,54 +2663,54 @@ subroutine OutputFzCurvesNew(u,Force,d,dpr,Zdist,Zdot, jumpState,t, y,want_FzEig
    defl = DimenLength(u*1d9)
    
    write(tmpStr,fmtStr) Zdist, defl, char(10)
-   call rp_lib_put_str(driver, "output.curve(DeflZ" // dir // ").component.xy", tmpStr, 1) 
+   call putGenericString(driver, "output.curve(DeflZ" // dir // ").component.xy", tmpStr, 1) 
 
    write(tmpStr,fmtStr) Zdist,  DimenLength(d*1d9), char(10)
-   call rp_lib_put_str(driver, "output.curve(gapZ" // dir // ").component.xy", tmpStr, 1) 
+   call putGenericString(driver, "output.curve(gapZ" // dir // ").component.xy", tmpStr, 1) 
 
    write(tmpStr,fmtStr) Zdist,  DimenLength(Indent*1d9), char(10)
-   call rp_lib_put_str(driver, "output.curve(Indent" // dir // ").component.xy",tmpStr, 1)
+   call putGenericString(driver, "output.curve(Indent" // dir // ").component.xy",tmpStr, 1)
 
    
    write(tmpStr,fmtStr) T,  Zdist, char(10)
-   call rp_lib_put_str(driver, "output.curve(ZT).component.xy", tmpStr, 1) 
+   call putGenericString(driver, "output.curve(ZT).component.xy", tmpStr, 1) 
 
    !doesn't work correctly for the new sine wave option on FZ curves, but this was mostly for debugging anyway,
    !so just got rid of it.   
 !   write(tmpStr,fmtStr) T,  Zdot, char(10)
-!   call rp_lib_put_str(driver, "output.curve(ZdotT).component.xy", tmpStr, 1) 
+!   call putGenericString(driver, "output.curve(ZdotT).component.xy", tmpStr, 1) 
 
    
    write(tmpStr,fmtStr) T,  DimenLength(d*1d9), char(10)
-   call rp_lib_put_str(driver, "output.curve(gapT).component.xy", tmpStr, 1) 
+   call putGenericString(driver, "output.curve(gapT).component.xy", tmpStr, 1) 
 
    write(tmpStr,fmtStr) T,  DimenVelocity(dpr*1d6), char(10)
-   call rp_lib_put_str(driver, "output.curve(dprT).component.xy", tmpStr, 1) 
+   call putGenericString(driver, "output.curve(dprT).component.xy", tmpStr, 1) 
    
    write(tmpStr,fmtStr) DimenLength(d*1d9), DimenForce(Force)*1d9, char(10)
-   call rp_lib_put_str(driver, "output.curve(FtsGap).component.xy", tmpStr, 1)
+   call putGenericString(driver, "output.curve(FtsGap).component.xy", tmpStr, 1)
 
    write(tmpStr,fmtStr) Zdist, DimenForce(Force)*1d9, char(10)
-   call rp_lib_put_str(driver, "output.curve(FtsZ" // dir // ").component.xy", tmpStr, 1)
+   call putGenericString(driver, "output.curve(FtsZ" // dir // ").component.xy", tmpStr, 1)
 
    write(tmpStr,fmtStr) t, DimenForce(Force)*1d9, char(10)
-   call rp_lib_put_str(driver, "output.curve(FtsT).component.xy", tmpStr, 1)
+   call putGenericString(driver, "output.curve(FtsT).component.xy", tmpStr, 1)
    
    if ( want_FzEig) then
       do i = 1, numModes
          write(n , '(I1)') i
          write(tmpStr,fmtStr) t, DimenLength(y(2*i-1) * 1d9), char(10) 
-         call rp_lib_put_str(driver, "output.curve(Eig" // trim(n) // ").component.xy", tmpStr, 1)
+         call putGenericString(driver, "output.curve(Eig" // trim(n) // ").component.xy", tmpStr, 1)
 
          write(tmpStr,fmtStr) t, DimenVelocity(y(2*i) * 1d6), char(10)
-         call rp_lib_put_str(driver, "output.curve(EigVel" // trim(n) // ").component.xy", tmpStr, 1)
+         call putGenericString(driver, "output.curve(EigVel" // trim(n) // ").component.xy", tmpStr, 1)
 
       end do
    end if
 
    if (wantAttard) then
       write(tmpStr,fmtStr) t, DimenLength(surf_u0)*1d9, char(10)
-      call rp_lib_put_str(driver, "output.curve(AttardSurfPos).component.xy", tmpStr, 1)
+      call putGenericString(driver, "output.curve(AttardSurfPos).component.xy", tmpStr, 1)
 
       if (d < cur_props%attard_start_nd) call output_movie_frame(Y, driver, d, iout , cur_props, 1, t )      
    end if
@@ -2866,37 +2728,37 @@ subroutine DebugFM_Transient( t, u, Z0, omegad, LockInR, LockInTh, DrvAmp, phase
    character(len=*), parameter :: fmtStr = '(E16.7E3,E16.7E3,A)'   !see comment in ouputMainResults
 
 !  write(tmpStr,fmtStr) t,  theta, char(10)
-!  call rp_lib_put_str(driver, "output.curve(thetaTrans).component.xy", tmpStr, 1)    
+!  call putGenericString(driver, "output.curve(thetaTrans).component.xy", tmpStr, 1)    
 
   write(tmpStr,fmtStr) t,  DimenLength(LockInR*1d9), char(10)
-  call rp_lib_put_str(driver, "output.curve(lckR).component.xy", tmpStr, 1)  
+  call putGenericString(driver, "output.curve(lckR).component.xy", tmpStr, 1)  
 
   write(tmpStr,fmtStr) t,  phase_err*180/Pi, char(10)
-  call rp_lib_put_str(driver, "output.curve(PhaseErrTrans).component.xy", tmpStr, 1)  
+  call putGenericString(driver, "output.curve(PhaseErrTrans).component.xy", tmpStr, 1)  
 
 !  write(tmpStr,fmtStr) t,  phase_err_dt*180/Pi, char(10)
-!  call rp_lib_put_str(driver, "output.curve(PhaseErrIntTrans).component.xy", tmpStr, 1)  
+!  call putGenericString(driver, "output.curve(PhaseErrIntTrans).component.xy", tmpStr, 1)  
 
   write(tmpStr,fmtStr) t,  amp_err, char(10)
-  call rp_lib_put_str(driver, "output.curve(AmpErrTrans).component.xy", tmpStr, 1)  
+  call putGenericString(driver, "output.curve(AmpErrTrans).component.xy", tmpStr, 1)  
 
 !  write(tmpStr,fmtStr) t,  amp_err_dt, char(10)
-!  call rp_lib_put_str(driver, "output.curve(AmpErrIntTrans).component.xy", tmpStr, 1)  
+!  call putGenericString(driver, "output.curve(AmpErrIntTrans).component.xy", tmpStr, 1)  
 
   write(tmpStr,fmtStr) t,  LockInTh*180/Pi, char(10)
-  call rp_lib_put_str(driver, "output.curve(lckTh).component.xy", tmpStr, 1)  
+  call putGenericString(driver, "output.curve(lckTh).component.xy", tmpStr, 1)  
 
   write(tmpStr,fmtStr) t,  DimenLength(Z0*1d9), char(10)
-  call rp_lib_put_str(driver, "output.curve(Z0).component.xy", tmpStr, 1)  
+  call putGenericString(driver, "output.curve(Z0).component.xy", tmpStr, 1)  
  
   write(tmpStr,fmtStr) t, Zerr, char(10)
-  call rp_lib_put_str(driver, "output.curve(Zerr).component.xy", tmpStr, 1)  
+  call putGenericString(driver, "output.curve(Zerr).component.xy", tmpStr, 1)  
  
   write(tmpStr,fmtStr) t,  DimenFreq(omegad) / (1d3 * 2d0 * pi) , char(10)
-  call rp_lib_put_str(driver, "output.curve(omegad).component.xy", tmpStr, 1)            
+  call putGenericString(driver, "output.curve(omegad).component.xy", tmpStr, 1)            
  
   write(tmpStr,fmtStr) t,  DrvAmp , char(10)
-  call rp_lib_put_str(driver, "output.curve(DrvAmpTrans).component.xy", tmpStr, 1)            
+  call putGenericString(driver, "output.curve(DrvAmpTrans).component.xy", tmpStr, 1)            
 
   
 end subroutine DebugFM_Transient
@@ -2910,10 +2772,10 @@ subroutine DebugAMScan_Transient( t,Z0, Amp)
    character(len=*), parameter :: fmtStr = '(E16.7E3,E16.7E3,A)'   !see comment in ouputMainResults
     
    write(tmpStr,fmtStr) DimenTime(t),  Amp, char(10)
-   call rp_lib_put_str(driver, "output.curve(dbgAmp).component.xy", tmpStr, 1)  
+   call putGenericString(driver, "output.curve(dbgAmp).component.xy", tmpStr, 1)  
   
    write(tmpStr,fmtStr) DimenTime(t),  DimenLength(Z0*1d9), char(10)
-   call rp_lib_put_str(driver, "output.curve(Z0).component.xy", tmpStr, 1)  
+   call putGenericString(driver, "output.curve(Z0).component.xy", tmpStr, 1)  
 
  end subroutine DebugAMScan_Transient
 
@@ -2926,10 +2788,10 @@ subroutine DebugContactScan_Transient( t,Z0, Defl)
    character(len=*), parameter :: fmtStr = '(E16.7E3,E16.7E3,A)'   !see comment in ouputMainResults
     
    write(tmpStr,fmtStr) DimenTime(t), DimenLength(Defl*1e9), char(10)
-   call rp_lib_put_str(driver, "output.curve(dbgDefl).component.xy", tmpStr, 1)  
+   call putGenericString(driver, "output.curve(dbgDefl).component.xy", tmpStr, 1)  
   
    write(tmpStr,fmtStr) DimenTime(t),  DimenLength(Z0*1d9), char(10)
-   call rp_lib_put_str(driver, "output.curve(Z0).component.xy", tmpStr, 1)  
+   call putGenericString(driver, "output.curve(Z0).component.xy", tmpStr, 1)  
 
  end subroutine DebugContactScan_Transient
 
@@ -2942,13 +2804,13 @@ subroutine DebugForceModScan_Transient( t,Z0, Defl, R)
    character(len=*), parameter :: fmtStr = '(E16.7E3,E16.7E3,A)'   !see comment in ouputMainResults
     
    write(tmpStr,fmtStr) DimenTime(t), DimenLength(Defl*1e9), char(10)
-   call rp_lib_put_str(driver, "output.curve(dbgDefl).component.xy", tmpStr, 1)  
+   call putGenericString(driver, "output.curve(dbgDefl).component.xy", tmpStr, 1)  
 
    write(tmpStr,fmtStr) DimenTime(t), DimenLength(R*1e9), char(10)
-   call rp_lib_put_str(driver, "output.curve(dbgMeanDefl).component.xy", tmpStr, 1)  
+   call putGenericString(driver, "output.curve(dbgMeanDefl).component.xy", tmpStr, 1)  
   
    write(tmpStr,fmtStr) DimenTime(t),  DimenLength(Z0*1d9), char(10)
-   call rp_lib_put_str(driver, "output.curve(Z0).component.xy", tmpStr, 1)  
+   call putGenericString(driver, "output.curve(Z0).component.xy", tmpStr, 1)  
 
  end subroutine DebugForceModScan_Transient
 
@@ -2961,10 +2823,10 @@ subroutine DebugPeakForceScan_Transient( t,Z0, Force)
    character(len=*), parameter :: fmtStr = '(E16.7E3,E16.7E3,A)'   !see comment in ouputMainResults
     
    write(tmpStr,fmtStr) DimenTime(t), DimenLength(Force*1e9), char(10)
-   call rp_lib_put_str(driver, "output.curve(dbgPeak).component.xy", tmpStr, 1)  
+   call putGenericString(driver, "output.curve(dbgPeak).component.xy", tmpStr, 1)  
   
    write(tmpStr,fmtStr) DimenTime(t),  DimenLength(Z0*1d9), char(10)
-   call rp_lib_put_str(driver, "output.curve(Z0).component.xy", tmpStr, 1)  
+   call putGenericString(driver, "output.curve(Z0).component.xy", tmpStr, 1)  
 
  end subroutine DebugPeakForceScan_Transient
 
@@ -2977,19 +2839,19 @@ subroutine DebugPeakForceScan_Transient( t,Z0, Force)
    character(len=*), parameter :: fmtStr = '(E16.7E3,E16.7E3,A)'   !see comment in ouputMainResults
     
    write(tmpStr,fmtStr) DimenTime(t), DimenLength(Force*1e9), char(10)
-   call rp_lib_put_str(driver, "output.curve(dbgPeak_full).component.xy", tmpStr, 1)  
+   call putGenericString(driver, "output.curve(dbgPeak_full).component.xy", tmpStr, 1)  
 
    write(tmpStr,fmtStr) DimenTime(t),  DimenLength(Z0*1d9), char(10)
-   call rp_lib_put_str(driver, "output.curve(Z0_full).component.xy", tmpStr, 1)  
+   call putGenericString(driver, "output.curve(Z0_full).component.xy", tmpStr, 1)  
 
    write(tmpStr,fmtStr) DimenTime(t),  DimenLength(d*1d9), char(10)
-   call rp_lib_put_str(driver, "output.curve(d_full).component.xy", tmpStr, 1)  
+   call putGenericString(driver, "output.curve(d_full).component.xy", tmpStr, 1)  
 
    write(tmpStr,fmtStr) DimenTime(t),  DimenVelocity(dpr*1d6), char(10)
-   call rp_lib_put_str(driver, "output.curve(dpr_full).component.xy", tmpStr, 1)  
+   call putGenericString(driver, "output.curve(dpr_full).component.xy", tmpStr, 1)  
 
    write(tmpStr,fmtStr) DimenTime(t),  DimenLength(q1*1d9), char(10)
-   call rp_lib_put_str(driver, "output.curve(q1_full).component.xy", tmpStr, 1)  
+   call putGenericString(driver, "output.curve(q1_full).component.xy", tmpStr, 1)  
 
    
  end subroutine DebugPeakForceScan_FullTransient
@@ -3005,19 +2867,19 @@ subroutine OutputScanData( xaxis, Ztrack, Amp, setpoint, ZF, ErrorZ, fexcite, u,
   
   if ((fexcite .ne. NO_EXC) .and.(z_feedback_choice .ne. MEAN_DEFL_Z).and. (z_feedback_choice .ne. MAX_FORCE)) then
      write(tmpStr, fmtStr ) xaxis, DimenLength((Amp-setpoint)*1d9), char(10)
-     call rp_lib_put_str(driver, "output.curve(AmpDist).component.xy", tmpStr, 1) !fixme, needs a better name
+     call putGenericString(driver, "output.curve(AmpDist).component.xy", tmpStr, 1) !fixme, needs a better name
   elseif (z_feedback_choice .ne. MAX_FORCE) then
      write(tmpStr, fmtStr ) xaxis, DimenLength((setpoint - u)*1d9), char(10)
-     call rp_lib_put_str(driver, "output.curve(DeflErr).component.xy", tmpStr, 1) !fixme, needs a better name
+     call putGenericString(driver, "output.curve(DeflErr).component.xy", tmpStr, 1) !fixme, needs a better name
   end if
   
   write( tmpStr, fmtStr ) xaxis, DimenLength(ZF*1d9), char(10)
-  call rp_lib_put_str(driver, "output.curve(Hsample).component.xy",  tmpStr, 1) 
+  call putGenericString(driver, "output.curve(Hsample).component.xy",  tmpStr, 1) 
   write( tmpStr, fmtStr) xaxis, DimenLength(Ztrack*1d9), char(10)
-  call rp_lib_put_str(driver, "output.curve(Topog).component.xy",  tmpStr, 1)
+  call putGenericString(driver, "output.curve(Topog).component.xy",  tmpStr, 1)
 
   write( tmpStr, fmtStr) xaxis,  DimenLength(ErrorZ*1d9), char(10)
-  call rp_lib_put_str(driver, "output.curve(ErrorZ).component.xy", tmpStr, 1)
+  call putGenericString(driver, "output.curve(ErrorZ).component.xy", tmpStr, 1)
   
 end subroutine OutputScanData
 
@@ -3028,10 +2890,10 @@ subroutine OutputPeakForceData( xaxis, PeakForceR,  PeakForceA )
   character(len=*), parameter :: fmtStr = '(E16.7E3,E16.7E3,A)'   !see comment in ouputMainResults
   
   write(tmpStr, fmtStr ) xaxis, DimenForce(PeakForceR)*1e9, char(10)
-  call rp_lib_put_str(driver, "output.curve(PeakDistR).component.xy", tmpStr, 1) !fixme, needs a better name
+  call putGenericString(driver, "output.curve(PeakDistR).component.xy", tmpStr, 1) !fixme, needs a better name
 
   write(tmpStr, fmtStr ) xaxis, DimenForce(PeakForceA)*1e9, char(10)
-  call rp_lib_put_str(driver, "output.curve(PeakDistA).component.xy", tmpStr, 1) !fixme, needs a better name
+  call putGenericString(driver, "output.curve(PeakDistA).component.xy", tmpStr, 1) !fixme, needs a better name
 
 end subroutine OutputPeakForceData
 
@@ -3043,20 +2905,20 @@ subroutine OutputFMPlots( xaxis, omegad, phase_err, Drive_Signal)
   character(len=*), parameter :: fmtStr = '(E16.7E3,E16.7E3,A)'   !see comment in ouputMainResults
 
 !  write(tmpStr, fmtStr ) xaxis, freq_shift, char(10)
-!  call rp_lib_put_str( "output.curve(FreqShift).component.xy", tmpStr, 1) 
+!  call putGenericString( "output.curve(FreqShift).component.xy", tmpStr, 1) 
 !
 
   write(tmpStr, fmtStr ) omegad, Drive_signal, char(10)
-  call rp_lib_put_str(driver, "output.curve(AmpVsFreq).component.xy", tmpStr, 1) 
+  call putGenericString(driver, "output.curve(AmpVsFreq).component.xy", tmpStr, 1) 
 
   write(tmpStr, fmtStr ) xaxis, omegad, char(10)
-  call rp_lib_put_str(driver, "output.curve(DriveFreq).component.xy", tmpStr, 1) 
+  call putGenericString(driver, "output.curve(DriveFreq).component.xy", tmpStr, 1) 
 
   write(tmpStr, fmtStr ) xaxis, Drive_signal, char(10)
-  call rp_lib_put_str(driver, "output.curve(DriveAmp).component.xy", tmpStr, 1) 
+  call putGenericString(driver, "output.curve(DriveAmp).component.xy", tmpStr, 1) 
 
   write(tmpStr, fmtStr ) xaxis, phase_err * 180d0 / (2 * pi) , char(10)
-  call rp_lib_put_str(driver, "output.curve(PhaseErr).component.xy", tmpStr, 1) 
+  call putGenericString(driver, "output.curve(PhaseErr).component.xy", tmpStr, 1) 
 
 end subroutine OutputFMPlots
 
@@ -3086,13 +2948,13 @@ subroutine OutputIterationStatsPlots_Z(iteration_number, Z, Asp_target, Asp_erro
   character*50 tmpStr
   
   write(tmpStr,fmtStr) iteration_number,  DimenLength(Z*1d9), char(10)
-  call rp_lib_put_str(driver, "output.curve(Z).component.xy",tmpStr, 1 )
+  call putGenericString(driver, "output.curve(Z).component.xy",tmpStr, 1 )
 
   write(tmpStr,fmtStr) iteration_number, Asp_target, char(10)
-  call rp_lib_put_str(driver, "output.curve(Asp_t).component.xy",tmpStr, 1)
+  call putGenericString(driver, "output.curve(Asp_t).component.xy",tmpStr, 1)
 
   write(tmpStr,fmtStr) iteration_number, Asp_error, char(10)
-  call rp_lib_put_str(driver, "output.curve(Asp_e).component.xy",tmpStr, 1)
+  call putGenericString(driver, "output.curve(Asp_e).component.xy",tmpStr, 1)
 
   iteration_number = iteration_number+1
 end subroutine OutputIterationStatsPlots_Z
@@ -3105,14 +2967,14 @@ subroutine OutputIterationStatsPlots_A2(iteration_number, Asp2, Z , Asp2_error)
   character*50 tmpStr
   !fixme arguments need better names here.  Z is really A.  confusing... copied from the tapping mode and need a fresh routine
   write(tmpStr,fmtStr) iteration_number,  Asp2, char(10)
-  call rp_lib_put_str(driver, "output.curve(Asp2).component.xy",tmpStr, 1 )
+  call putGenericString(driver, "output.curve(Asp2).component.xy",tmpStr, 1 )
 
   write(tmpStr,fmtStr) iteration_number, DimenLength(Z*1e9) , char(10)
-  call rp_lib_put_str(driver, "output.curve(Z_A2).component.xy",tmpStr, 1)
+  call putGenericString(driver, "output.curve(Z_A2).component.xy",tmpStr, 1)
 
   
   write(tmpStr,fmtStr) iteration_number, Asp2_error, char(10)
-  call rp_lib_put_str(driver, "output.curve(Asp2_e).component.xy",tmpStr, 1)
+  call putGenericString(driver, "output.curve(Asp2_e).component.xy",tmpStr, 1)
 
   iteration_number = iteration_number+1
 end subroutine OutputIterationStatsPlots_A2
@@ -3180,13 +3042,6 @@ end function
 Anosike
 
 
-integer function stringVal(Input_Prefix)
-   character(len=*), intent(in) :: Input_Prefix
-   stringVal = stringVal(Input_Prefix)
-  strVal = rp_lib_get_wrap(driver,  INPUT_PREFIX // "")
-  InputEcho = trim(InputEcho) // " " // StrVal // char(10)
-  status = status +  rp_units_convert_dbl(strVal," "," ") 
-end function
 
 !Rappture is very inefficient when it comes to output.  Writing out 1000 points 
 !one at a time is maybe 10 times slower than writing out all of the points in 
@@ -3347,7 +3202,7 @@ subroutine FlushTimeHistory(do_fft)
 
        if (th_set%want_contact_area) then
           call GenerateOutputString(buffer_len4, outputbuffer(k,j,1,:), outputbuffer(k,j,2,:), tmp)
-          call rp_lib_put_str(driver, "output.curve(cr" // ST // ").component.xy", tmp,1)   
+          call putGenericString(driver, "output.curve(cr" // ST // ").component.xy", tmp,1)   
           k=k+1
        end if
 
@@ -3360,7 +3215,7 @@ subroutine FlushTimeHistory(do_fft)
 
          
          call GenerateOutputString(buffer_len4, outputbuffer(k,j,1,:), outputbuffer(k,j,2,:), tmp)
-         call rp_lib_put_str(driver, "output.curve(surf" // ST // ").component.xy", tmp,1)
+         call putGenericString(driver, "output.curve(surf" // ST // ").component.xy", tmp,1)
          k = k+1
       end if
 
@@ -3373,13 +3228,13 @@ subroutine FlushTimeHistory(do_fft)
          end if
 
          call GenerateOutputString(buffer_len4, outputbuffer(k,j,1,:), outputbuffer(k,j,2,:), tmp)
-         call rp_lib_put_str(driver, "output.curve(defl" // ST // ").component.xy", tmp,1)
+         call putGenericString(driver, "output.curve(defl" // ST // ").component.xy", tmp,1)
          k = k+1
       end if
 
       if (th_set%want_th_force_gap) then
          call GenerateOutputString(buffer_len4, outputbuffer(k,j,1,:), outputbuffer(k,j,2,:), tmp)
-         call rp_lib_put_str(driver, "output.curve(Fts" // ST // ").component.xy", tmp,1)
+         call putGenericString(driver, "output.curve(Fts" // ST // ").component.xy", tmp,1)
          k = k+1
       else
          if (do_fft) then
@@ -3388,7 +3243,7 @@ subroutine FlushTimeHistory(do_fft)
          end if 
 
          call GenerateOutputString(buffer_len4, outputbuffer(k,j,1,:), outputbuffer(k,j,2,:), tmp)
-         call rp_lib_put_str(driver, "output.curve(Fts" // ST // ").component.xy", tmp,1)
+         call putGenericString(driver, "output.curve(Fts" // ST // ").component.xy", tmp,1)
          k = k+1
 
          if (do_fft) then
@@ -3397,57 +3252,57 @@ subroutine FlushTimeHistory(do_fft)
          end if 
 
          call GenerateOutputString(buffer_len4, outputbuffer(k,j,1,:), outputbuffer(k,j,2,:), tmp)
-         call rp_lib_put_str(driver, "output.curve(gap" // ST // ").component.xy", tmp,1)
+         call putGenericString(driver, "output.curve(gap" // ST // ").component.xy", tmp,1)
          k =k+1
       end if
       call GenerateOutputString(buffer_len4, outputbuffer(k,j,1,:), outputbuffer(k,j,2,:), tmp)
-      call rp_lib_put_str(driver, "output.curve(Pspace" // ST // ").component.xy", tmp,1)   
+      call putGenericString(driver, "output.curve(Pspace" // ST // ").component.xy", tmp,1)   
       k=k+1
 
       if (th_set%want_modal) then
          do i =1, numModes
             write (SE, '(I1)') i
             call GenerateOutputString(buffer_len4, outputbuffer(k,j,1,:), outputbuffer(k,j,2,:), tmp)
-            call rp_lib_put_str(driver, "output.curve(eig" // SE // ST // ").component.xy", tmp,1)   
+            call putGenericString(driver, "output.curve(eig" // SE // ST // ").component.xy", tmp,1)   
             k=k+1
          end do
       end if
       
        if (th_set%want_self_exc) then
           call GenerateOutputString(buffer_len4, outputbuffer(k,j,1,:), outputbuffer(k,j,2,:), tmp)
-          call rp_lib_put_str(driver, "output.curve(drvforce" // ST // ").component.xy", tmp,1)   
+          call putGenericString(driver, "output.curve(drvforce" // ST // ").component.xy", tmp,1)   
           k=k+1
        end if
 
        if (th_set%want_voltage) then
           call GenerateOutputString(buffer_len4, outputbuffer(k,j,1,:), outputbuffer(k,j,2,:), tmp)
-          call rp_lib_put_str(driver, "output.curve(voltage" // ST // ").component.xy", tmp,1)   
+          call putGenericString(driver, "output.curve(voltage" // ST // ").component.xy", tmp,1)   
           k=k+1
        end if
 
        if (th_set%want_acceleration) then
           call GenerateOutputString(buffer_len4, outputbuffer(k,j,1,:), outputbuffer(k,j,2,:), tmp)
-          call rp_lib_put_str(driver, "output.curve(TipAcceleration" // ST // ").component.xy", tmp,1)   
+          call putGenericString(driver, "output.curve(TipAcceleration" // ST // ").component.xy", tmp,1)   
           k=k+1
        end if
 
 
        if (th_set%want_FZ) then
           call GenerateOutputString(buffer_len4, outputbuffer(k,j,1,:), outputbuffer(k,j,2,:), tmp)
-          call rp_lib_put_str(driver, "output.curve(FvsZ" // ST // ").component.xy", tmp,1)   
+          call putGenericString(driver, "output.curve(FvsZ" // ST // ").component.xy", tmp,1)   
           k=k+1
        end if
 
        if (th_set%want_PerfMetrics) then
           call GenerateOutputString(buffer_len4, outputbuffer(k,j,1,:), outputbuffer(k,j,2,:), tmp)
-          call rp_lib_put_str(driver, "output.curve(NumRES1" // ST // ").component.xy", tmp,1)   
+          call putGenericString(driver, "output.curve(NumRES1" // ST // ").component.xy", tmp,1)   
           k=k+1
        end if
 
 
        if (th_set%want_sampletopo) then
           call GenerateOutputString(buffer_len4, outputbuffer(k,j,1,:), outputbuffer(k,j,2,:), tmp)
-          call rp_lib_put_str(driver, "output.curve(Topo" // ST // ").component.xy", tmp,1)   
+          call putGenericString(driver, "output.curve(Topo" // ST // ").component.xy", tmp,1)   
           k=k+1
        end if
 
@@ -3487,45 +3342,45 @@ subroutine FlushTimeHistory(do_fft)
      n1 = 2*numModes+1
      
      write(frameStr, '(E16.7)') t
-     call rp_lib_put_str(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").index", frameStr, 0)
+     call putGenericString(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").index", frameStr, 0)
 
-     call rp_lib_put_str(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Surf).xaxis.label", "Radius", 0)
-     call rp_lib_put_str(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Surf).xaxis.units", "nm", 0)
+     call putGenericString(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Surf).xaxis.label", "Radius", 0)
+     call putGenericString(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Surf).xaxis.units", "nm", 0)
 
-     call rp_lib_put_str(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Surf).yaxis.label", "Tip / Surface coordinate", 0)
-     call rp_lib_put_str(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Surf).yaxis.units", "nm", 0)
+     call putGenericString(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Surf).yaxis.label", "Tip / Surface coordinate", 0)
+     call putGenericString(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Surf).yaxis.units", "nm", 0)
 
-     call rp_lib_put_str(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Surf).about.label", "Sample Surface", 0)
+     call putGenericString(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Surf).about.label", "Sample Surface", 0)
 
-     call rp_lib_put_str(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Tip).about.label", "Tip", 0)
+     call putGenericString(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Tip).about.label", "Tip", 0)
 
      
      if (cur_props%N_attard_fourier == 0) then
         u = Y(n1:NEQ) !input is directly the deflection
 
         call GenerateOutputString(cur_props%N_attard_spatial, 1d9 * DimenLengthArray(cur_props%rr,N ), 1d9 * DimenLengthArray(u,N), tmp)                   
-        call rp_lib_put_str(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Surf).component.xy", tmp, 1)
+        call putGenericString(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Surf).component.xy", tmp, 1)
 
 
         call GenerateOutputString(cur_props%N_attard_spatial, 1d9 * DimenLengthArray(cur_props%rr,N ), 1d9 * DimenLengthArray(d + cur_props%tip_shape,N), tmp)           
-        call rp_lib_put_str(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Tip).component.xy", tmp, 1)
+        call putGenericString(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Tip).component.xy", tmp, 1)
 
      else
         if (.true.) then           
            u = compute_u_cur(Y(n1:NEQ), cur_props) !in this case the input is the fourier coeff
            
            call GenerateOutputString(cur_props%N_attard_spatial, 1d9 * DimenLengthArray(cur_props%rr,N ), 1d9 * DimenLengthArray(u,N), tmp)           
-           call rp_lib_put_str(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Surf).component.xy", tmp, 1)
+           call putGenericString(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Surf).component.xy", tmp, 1)
            
            
            call GenerateOutputString(cur_props%N_attard_spatial, 1d9 * DimenLengthArray(cur_props%rr,N), 1d9 * DimenLengthArray(d+cur_props%tip_shape,N), tmp)
-           call rp_lib_put_str(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Tip).component.xy", tmp, 1) 
+           call putGenericString(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Tip).component.xy", tmp, 1) 
         else
            !direct output of the fourier coeff, for debugging only
            do i = 1, cur_props%N_attard_fourier
               write(tmp,fmtStr1) i , 1d9 * DimenLength(Y(n1+i)), char(10)
               
-              call rp_lib_put_str(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Surf).component.xy", tmp, 1)
+              call putGenericString(driver, "output.sequence(AttardMovie" // ST // ").element(" // frameStr // ").curve(Surf).component.xy", tmp, 1)
            end do
         end if
      end if
@@ -3540,9 +3395,9 @@ subroutine FlushTimeHistory(do_fft)
      character(len=*), intent(in) :: time_units
      character*1, intent(in) :: ST
 
-     call rp_lib_put_str(driver, "output.sequence(AttardMovie" // ST // ").about.label", "Surface Deformation Movie " // SA , 0)
+     call putGenericString(driver, "output.sequence(AttardMovie" // ST // ").about.label", "Surface Deformation Movie " // SA , 0)
 
-     call rp_lib_put_str(driver, "output.sequence(AttardMovie" // ST // ").index.label",time_units , 0)
+     call putGenericString(driver, "output.sequence(AttardMovie" // ST // ").index.label",time_units , 0)
      
    end subroutine start_movie
 
@@ -3559,8 +3414,8 @@ subroutine WriteFatalError(message)
   character(len=*), intent(in) :: message
  ! if (debugging) then
      !this is best for developers, so we can see debugging transients
-     call rp_lib_put_str(driver, "output.string(ErrorMessage).about.label","ErrorMessage", 0) 
-     call rp_lib_put_str(driver, "output.string(ErrorMessage).current", message, 0)
+     call putGenericString(driver, "output.string(ErrorMessage).about.label","ErrorMessage", 0) 
+     call putGenericString(driver, "output.string(ErrorMessage).current", message, 0)
 
      if ((wantHist) .and. (Amp_index > 1)) call FlushTimeHistory(.false.) !fixme, should be able to know do_fft instead of hard code false
  
