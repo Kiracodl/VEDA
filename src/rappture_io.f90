@@ -2063,7 +2063,9 @@ subroutine setup_debug_viscoelastic()
 end subroutine setup_debug_viscoelastic
 
 !Replace rp_lib_put_str
-subroutine putGenericString()
+subroutine putGenericString(driver, name, tmp, append)
+character(len=*), intent(in) :: name, tmp
+integer, intent(in) :: driver, append
  call rp_lib_put_str(driver, "output.curve(" //name// ").component.xy", tmp, 1) 
 end subroutine
 
