@@ -3003,7 +3003,7 @@ real*8 function readGenericDbl( status, element_to_read, short_name, InputEcho, 
   integer, intent(inout) :: status
   character(len=*), intent(in) :: element_to_read, short_name
   character*1500, intent(inout) :: InputEcho
-  integer, intent(in) :: units_convert
+  real*8, intent(in) :: units_convert
 
   character*100 :: strVal
   integer :: rp_units_convert_dbl
@@ -3041,6 +3041,7 @@ end function daniel_get_boolean
 
 integer function readGenericInteger( element_to_read)
    character(len=*), intent(in) :: element_to_read
+   integer :: rp_lib_get_integer
    readGenericInteger = rp_lib_get_integer(driver, element_to_read)
 end function
 
