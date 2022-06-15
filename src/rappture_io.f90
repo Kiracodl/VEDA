@@ -300,7 +300,7 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
   character(len=*) :: path ! = "group(ts)" for substrate/normal and "group(feature).group(fp)" for feature
   character*200:: strVal
   character*500:: tmpstr
-  integer :: status, rp_units_convert_dbl, readGenericInteger, i, readGenericInteger
+  integer :: status, rp_units_convert_dbl, i, readGenericInteger
 
   status = 0
   
@@ -1110,7 +1110,7 @@ Asample_dim, omegas_dim, wantSampleExc, InputEcho)
      read( strVal, *, end=999, err=999) (Y_IC(i),i=1,2*numModes)
   end if
 !!!!!!!!!!!!
-https://www.google.com/search?q=jet+freeze&rlz=1C1UEAD_enUS958US958&sxsrf=ALiCzsbN29JoSnXGau3GvQZylGG4uFeZ_Q:1654902133892&source=lnms&tbm=nws&sa=X&ved=2ahUKEwi-nNDu_qP4AhU0mo4IHbGBCSUQ_AUoA3oECAIQBQ
+
   if ((isOpModeApp(operating_mode)) .or. (modulation_type == FORCE_VOL) .or. (modulation_type == PEAK_FORCE)) then 
      gamma_drag = readGenericDbl(status, INPUT_PREFIX // "(op).number(gamma_drag).current", "gamma_drag", InputEcho, 1)
 
@@ -1769,7 +1769,7 @@ subroutine SetupMainOutputPlots(xchoice,exc_choice,Want_A2,Want_P2,Want_AZ,Want_
      end if
 
   end if
-     
+    
     !everything else will have same labels
     scatter = .false.
     if ( isOpModeApp(operating_mode)) then
