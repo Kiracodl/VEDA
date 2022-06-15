@@ -1197,7 +1197,7 @@ subroutine readTriggeredFzMode(  jumpDeflLim, PiezoReverseTime_pct , Want_FzEig,
   integer :: status, rp_units_convert_dbl
 
   call read_integer(driver, INPUT_PREFIX // "(op).choice(fzshape).current" , fzshape , InputEcho, "fzshape")
-  PiezoReverseTime_pct = readGenericDbl(status, INPUT_PREFIX // "(op).number(PiezoReverseTime_pct).current", "PiezoReverseTime_pct", InputEcho, 1)
+  PiezoReverseTime_pct = readGenericDbl(status, INPUT_PREFIX // "(op).number(PiezoReverseTime_pct).current", "PiezoReverseTime_pct", InputEcho, 1d0)
 
   jumpDeflLim = readGenericDbl(status, INPUT_PREFIX // "(op).number(jumpDeflLim).current", "jumpDeflLim", InputEcho, 1)
   jumpDeflLim = jumpDeflLim / 1e9;
