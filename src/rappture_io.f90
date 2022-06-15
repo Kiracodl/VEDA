@@ -563,8 +563,8 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
         MatProp%want_exp_dashpot =  daniel_get_boolean( path //".group(solvation).boolean(Want_exp_dashpot).current")
 
         if (MatProp%want_exp_dashpot) then
-           exp_dashpot_scale = readGenericDbl(status, INPUT_PREFIX // "".group(solvation).number(exp_dashpot_scale).current", "exp_dashpot_scale", InputEcho, 1)
-           exp_dashpot_decay = readGenericDbl(status, INPUT_PREFIX // "".group(solvation).number(exp_dashpot_decay).current", "exp_dashpot_decay", InputEcho, 1)
+           exp_dashpot_scale = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(exp_dashpot_scale).current", "exp_dashpot_scale", InputEcho, 1)
+           exp_dashpot_decay = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(exp_dashpot_decay).current", "exp_dashpot_decay", InputEcho, 1)
 
            MatProp%exp_dashpot_decay = MatProp%exp_dashpot_decay * 1e-9
         else
@@ -574,7 +574,7 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
         
 	
 	if (MatProp%WantCapAd ) then
-            D_0 = readGenericDbl(status, INPUT_PREFIX // "".group(solvation).number(D_0).current", "D_0", InputEcho, 1)
+            D_0 = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(D_0).current", "D_0", InputEcho, 1)
 
 		MatProp%D_0 = MatProp%D_0/1d9
 
