@@ -1277,7 +1277,7 @@ subroutine readCantModalProps(  numModes, fexcite, omegai,  Keq, Quality, CalcIn
 
   if (isMagnetic(fexcite)) then
      want_custom_B = daniel_get_boolean( INPUT_PREFIX // "(op).boolean(want_custom_B).current")
-
+      if (want_custom_B) then
         strVal = rp_lib_get_wrap(driver, INPUT_PREFIX // "(op).string(B_input).current" )
         read( strVal, *, end=988, err=988) (B_input(i),i=1,numModes)
         inputEcho = trim(inputEcho) // "B = " // trim(strVal) // char(10)
