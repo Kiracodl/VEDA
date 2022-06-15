@@ -3006,8 +3006,7 @@ real*8 function readGenericDbl( status, element_to_read, short_name, InputEcho, 
   real*8, intent(in) :: units_convert
 
   character*100 :: strVal
-  integer :: rp_units_convert_dbl
-  real*8 :: value
+  real*8 :: value, rp_units_convert_dbl
   
   strVal = rp_lib_get_wrap(driver, element_to_read )
   status = status +  rp_units_convert_dbl(strVal," ", value)
