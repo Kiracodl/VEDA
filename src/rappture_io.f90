@@ -673,7 +673,7 @@ subroutine read_integer(driver, path, output_var, InputEcho, desc)
   integer, intent(out) :: output_var
   character*100:: strVal
   character*1500, intent(inout) :: InputEcho
- !integer, external :: readGenericInteger
+ integer, external :: readGenericInteger
 
   output_var =  readGenericInteger(driver, path)
   write(strVal,*) output_var
@@ -3416,24 +3416,16 @@ subroutine WriteFatalError(message)
   use rappture_io, only: driver,   FlushTimeHistory
   use params
 
-  character(len=*), intent(in) :: message, ErrorMessage
- ! if (debugging) then
-     !this is best for developers, so we can see debugging transients
-     call putGenericString(driver, "output.string("//ErrorMessage//").about.label","ErrorMessage", 0) 
-     call putGenericString(driver, "output.string("//ErrorMessage//").current", message, 0)
+  character(len=*), intent(in) :: message
+
+     call putGenericString(driver, "output.string(ErrorMessage).about.label","ErrorMessage", 0) 
+     call putGenericString(driver, "output.string(ErrorMessage).current", message, 0)
 
      if ((wantHist) .and. (Amp_index > 1)) call FlushTimeHistory(.false.) !fixme, should be able to know do_fft instead of hard code false
  
      call rp_result(driver)
      stop 0
 
-!4/24/2012.  this used to work, but it appears to be broken in the newest version of rappture.
-!i've filed a bug report and going back to the old way for now.  
- ! else
- !    !this behavior will be better for the average user.
- !    write(0,*) message !0 is stderr in fortran
- !    stop 1  !this tells rappture that we failed.
- ! end if
 
 end subroutine WriteFatalError
 
