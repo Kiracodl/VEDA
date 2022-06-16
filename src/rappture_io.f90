@@ -128,7 +128,7 @@ subroutine ReadControllerProperties( LineSpeed,  NoiseAmp, KP, KI, WantConstZ, Z
 
   real*8 :: SNratio
   character*100 strVal, tmpStr
-  integer status, rp_units_convert_dbl, readGenericInteger
+  integer status, rp_units_convert_dbl
 
   status = 0
 
@@ -205,7 +205,7 @@ subroutine ReadFMData(  fm_gain_k0, fm_gain_i0, fm_gain_d0, fm_gain_k1, fm_gain_
   logical, intent(out) ::  fm_direct_control, fm_want_noncontact,  WantCalcPLLGains,WantCalcAmpGains, want_pre_BPF,     Want_NormFreqShift
   character*1500, intent(inout) :: InputEcho
 
-  integer :: rp_units_convert_dbl, readGenericInteger, status, tmp
+  integer :: rp_units_convert_dbl, status, tmp
   character*105:: strVal, tmpStr
 
   status = 0
@@ -259,7 +259,7 @@ subroutine ReadTipData( Rtip_dim, Etip, Poisson_tip, tip_angle, tip_shape, Input
   real*8, intent(out) :: Rtip_dim, Etip, Poisson_tip, tip_angle
   integer, intent(out) :: tip_shape
   character*1500, intent(inout) :: InputEcho
-  integer :: rp_units_convert_dbl, readGenericInteger
+  integer :: rp_units_convert_dbl
   integer :: status
   character*100:: strVal
 
@@ -300,7 +300,7 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
   character(len=*) :: path ! = "group(ts)" for substrate/normal and "group(feature).group(fp)" for feature
   character*200:: strVal
   character*500:: tmpstr
-  integer :: status, rp_units_convert_dbl, i, readGenericInteger
+  integer :: status, rp_units_convert_dbl, i
 
   status = 0
   
@@ -690,7 +690,7 @@ subroutine ReadSimulationParameters(Zrange,Wanthist,WantHH,Want_Strob,Want_Impac
   character*1500, intent(inout) :: InputEcho
 
   character*100 strVal, tmpStr
-  integer status, readGenericInteger, rp_units_convert_dbl, foo
+  integer status, rp_units_convert_dbl, foo
   status = 0
   
   Zrange = readGenericInteger(driver, INPUT_PREFIX // "(op).choice(Zrange).current")
@@ -780,7 +780,7 @@ subroutine readForceVol(LineSpeed, F_ForceVol_dim, ForceVolSettleTime, z_feedbac
   character*100 strVal, tmpStr
   integer, intent(out) :: z_feedback_choice
   integer status
-  integer :: rp_units_convert_dbl, readGenericInteger
+  integer :: rp_units_convert_dbl
   status = 0
    F_ForceVol_dim = readGenericDbl(status, INPUT_PREFIX // "(op).number(F_ForceVol_dim).current", "F_ForceVol_dim", InputEcho, 1d0)
    F_ForceVol_dim = F_ForceVol_dim / 1d9
@@ -966,7 +966,7 @@ Asample_dim, omegas_dim, wantSampleExc, InputEcho)
   
   logical :: want_Afluid
   character*100 strVal
-  integer status, rp_units_convert_dbl, i, readGenericInteger
+  integer status, rp_units_convert_dbl, i
   real*8 :: tmp, Afluid_real, Afluid_imag
 
   status = 0
@@ -1140,7 +1140,7 @@ subroutine readFeatureProperties( FeatureType, HF, LF, LF2, SubsLen, WantTSCON, 
   character*1500, intent(inout) :: InputEcho
 
   character*100 strVal
-  integer :: readGenericInteger
+ !integer :: readGenericInteger
   integer status, rp_units_convert_dbl
 
   status = 0
@@ -1371,7 +1371,7 @@ end subroutine readCantModalProps
 !only used in forceViewer.f90
 subroutine readForceViewerParameters( Z0, Zf, plotpnts, vel_model, tf, mov_avg_filt_len)
   integer, intent(out) :: vel_model, mov_avg_filt_len
-  integer :: readGenericInteger, rp_units_convert_dbl, status
+  integer :: rp_units_convert_dbl, status
   character*100 :: strVal
   real*8 :: moving_avg_fraction 
   real*8, intent(out) :: tf, Z0, Zf
@@ -3039,9 +3039,9 @@ logical function daniel_get_boolean( path )
   end if
 end function daniel_get_boolean
 
-integer function readGenericInteger( element_to_read)
+integer function readGenericInteger(driver, element_to_read)
    character(len=*), intent(in) :: element_to_read
-   integer :: rp_lib_get_integer
+   integer :: rp_lib_get_integer, driver
    readGenericInteger = rp_lib_get_integer(driver, element_to_read)
 end function
 
