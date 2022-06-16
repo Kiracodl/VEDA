@@ -3416,11 +3416,11 @@ subroutine WriteFatalError(message)
   use rappture_io, only: driver,   FlushTimeHistory
   use params
 
-  character(len=*), intent(in) :: message
+  character(len=*), intent(in) :: message, ErrorMessage
  ! if (debugging) then
      !this is best for developers, so we can see debugging transients
-     call putGenericString(driver, "output.string("//message//").about.label",message, 0) 
-     call putGenericString(driver, "output.string("//message//").current", "ErrorMessage", 0)
+     call putGenericString(driver, "output.string("//ErrorMessage//").about.label","ErrorMessage", 0) 
+     call putGenericString(driver, "output.string("//ErrorMessage//").current", message, 0)
 
      if ((wantHist) .and. (Amp_index > 1)) call FlushTimeHistory(.false.) !fixme, should be able to know do_fft instead of hard code false
  
