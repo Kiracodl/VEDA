@@ -903,7 +903,7 @@ subroutine ReadOperatingParameter( fexcite, exc_choice, sweepchoice, numModes, o
   logical, intent(out) :: CalcInputK, AutoCalcOmega,  AutoCalcAlpha
   character*1500, intent(inout) :: InputEcho
   character*100 :: tmpStr
-  integer :: readGenericInteger
+  !integer :: readGenericInteger
   logical ::  AutoCalcChi
 
   !primary operating mode APPROACH = 1, FREQUENCY SWEEP = 2, SCAN = 3
