@@ -149,8 +149,8 @@ subroutine ReadControllerProperties( LineSpeed,  NoiseAmp, KP, KI, WantConstZ, Z
   NoiseAmp = 10**(-SNratio/20)
   ! NoiseAmp is relative to the unconstrained deflection amplitude   
 
-  KP = readGenericDbl(status, INPUT_PREFIX // "(op).number(KP).current", "KP", InputEcho, 1)
-  KI = readGenericDbl(status, INPUT_PREFIX // "(op).number(KI).current", "KI", InputEcho, 1)
+  KP = readGenericDbl(status, INPUT_PREFIX // "(op).number(KP).current", "KP", InputEcho, 1d0)
+  KI = readGenericDbl(status, INPUT_PREFIX // "(op).number(KI).current", "KI", InputEcho, 1d0)
   
  
   WantConstZ = daniel_get_boolean( INPUT_PREFIX // "(op).boolean(ConstZ).current")
@@ -224,9 +224,9 @@ subroutine ReadFMData(  fm_gain_k0, fm_gain_i0, fm_gain_d0, fm_gain_k1, fm_gain_
   InputEcho = trim(InputEcho) // "wantCalcPLLGains " // tmpStr // char(10)
 
   if (.not. wantCalcPLLGains) then
-     fm_gain_i0 = readGenericDbl(status, INPUT_PREFIX // "(fm).number(FmGainI0).current", "FmGainI0", InputEcho, 1)
-     fm_gain_k0 = readGenericDbl(status, INPUT_PREFIX // "(fm).number(FmGainK0).current", "FmGainK0", InputEcho, 1)
-     fm_gain_d0 = readGenericDbl(status, INPUT_PREFIX // "(fm).number(FmGainD0).current", "FmGainD0", InputEcho, 1)
+     fm_gain_i0 = readGenericDbl(status, INPUT_PREFIX // "(fm).number(FmGainI0).current", "FmGainI0", InputEcho, 1d0)
+     fm_gain_k0 = readGenericDbl(status, INPUT_PREFIX // "(fm).number(FmGainK0).current", "FmGainK0", InputEcho, 1d0)
+     fm_gain_d0 = readGenericDbl(status, INPUT_PREFIX // "(fm).number(FmGainD0).current", "FmGainD0", InputEcho, 1d0)
   end if
 
   wantCalcAmpGains = daniel_get_boolean(INPUT_PREFIX // "(fm).boolean(WantCalcAmpGains).current")
@@ -234,15 +234,15 @@ subroutine ReadFMData(  fm_gain_k0, fm_gain_i0, fm_gain_d0, fm_gain_k1, fm_gain_
   InputEcho = trim(InputEcho) // "wantCalcAmpGains " // tmpStr // char(10)
 
   if (.not. wantCalcAmpGains) then  
-     fm_gain_k1 = readGenericDbl(status, INPUT_PREFIX // "(fm).number(FmGainK1).current", "FmGainK1", InputEcho, 1)
-     fm_gain_i1 = readGenericDbl(status, INPUT_PREFIX // "(fm).number(FmGainI1).current", "FmGainI1", InputEcho, 1)
-     fm_gain_d1 = readGenericDbl(status, INPUT_PREFIX // "(fm).number(FmGainD1).current", "FmGainD1", InputEcho, 1)
+     fm_gain_k1 = readGenericDbl(status, INPUT_PREFIX // "(fm).number(FmGainK1).current", "FmGainK1", InputEcho, 1d0)
+     fm_gain_i1 = readGenericDbl(status, INPUT_PREFIX // "(fm).number(FmGainI1).current", "FmGainI1", InputEcho, 1d0)
+     fm_gain_d1 = readGenericDbl(status, INPUT_PREFIX // "(fm).number(FmGainD1).current", "FmGainD1", InputEcho, 1d0)
   end if
      
   if ( Z_feedback_choice == PHASE_Z) then
-     freq_shift_sp = readGenericDbl(status, INPUT_PREFIX // "(fm).number(phase_sp).current", "phase_sp", InputEcho, 1)
+     freq_shift_sp = readGenericDbl(status, INPUT_PREFIX // "(fm).number(phase_sp).current", "phase_sp", InputEcho, 1d0)
   else
-     freq_shift_sp = readGenericDbl(status, INPUT_PREFIX // "(fm).number(freq_shift_sp).current", "freq_shift_sp", InputEcho, 1)
+     freq_shift_sp = readGenericDbl(status, INPUT_PREFIX // "(fm).number(freq_shift_sp).current", "freq_shift_sp", InputEcho, 1d0)
      freq_shift_sp = freq_shift_sp * 2 * pi
   end if
 
@@ -281,10 +281,10 @@ subroutine ReadTipData( Rtip_dim, Etip, Poisson_tip, tip_angle, tip_shape, Input
   call read_value(driver, INPUT_PREFIX // "(ts).number(Rtip).current" , status, Rtip_dim, InputEcho, "Rtip "   )  
   Rtip_dim = Rtip_dim/1d9
   !	Rtip_dim is the radius of the probe tip converted to (m)
-  Etip = readGenericDbl(status, INPUT_PREFIX // "(ts).number(Etip).current", "Etip", InputEcho, 1)
+  Etip = readGenericDbl(status, INPUT_PREFIX // "(ts).number(Etip).current", "Etip", InputEcho, 1d0)
   Etip = Etip*1d9
   
-  Poisson_tip = readGenericDbl(status, INPUT_PREFIX // "(ts).number(Poisson_tip).current", "Poisson_tip", InputEcho, 1)
+  Poisson_tip = readGenericDbl(status, INPUT_PREFIX // "(ts).number(Poisson_tip).current", "Poisson_tip", InputEcho, 1d0)
 
   if (status > 0) call WriteFatalError( "Could not read tip data.  Please check values.")
 
@@ -342,7 +342,7 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
   InputEcho = trim(InputEcho) // "want tip squeeze " // trim( tmpstr) // char(10)
   
   if (MatProp%Want_Tip_Squeeze) then
-     MatProp%eta_liquid = readGenericDbl(status, INPUT_PREFIX // ".group(nc).number(etaliquid).current", "etaliquid", InputEcho, 1)
+     MatProp%eta_liquid = readGenericDbl(status, INPUT_PREFIX // ".group(nc).number(etaliquid).current", "etaliquid", InputEcho, 1d0)
      MatProp%eta_liquid=0
   end if
   
@@ -357,17 +357,17 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
 
 
         if ( MatProp%WantOscillatory ) then
-           MatProp%sigma_solvation_dim = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(sigma_solvation).current", "sigma_solvation", InputEcho, 1)
+           MatProp%sigma_solvation_dim = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(sigma_solvation).current", "sigma_solvation", InputEcho, 1d0)
            MatProp%sigma_solvation_dim = MatProp%sigma_solvation_dim * 1d-9
 
-           MatProp%rho = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(rho_solvation).current", "rho_solvation", InputEcho, 1)
+           MatProp%rho = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(rho_solvation).current", "rho_solvation", InputEcho, 1d0)
         end if
 
         if ( MatProp%WantHydration ) then
-           MatProp%lambda_solvation_dim = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(lambda_solvation).current", "lambda_solvation", InputEcho, 1)
+           MatProp%lambda_solvation_dim = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(lambda_solvation).current", "lambda_solvation", InputEcho, 1d0)
            MatProp%lambda_solvation_dim = MatProp%lambda_solvation_dim * 1d-9
 
-           MatProp%p_h = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(p_h).current", "p_h", InputEcho, 1)
+           MatProp%p_h = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(p_h).current", "p_h", InputEcho, 1d0)
         end if
 
         MatProp%Want_hyst_hydr =  daniel_get_boolean(  path // ".group(solvation).boolean(Want_hysteretic_hydration).current")
@@ -411,28 +411,28 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
            call read_value(driver, path // ".group(es).number(dc_bias_voltage).current", status, MatProp%dc_bias_voltage, InputEcho,  "dc_bias_voltage ")
            call read_value(driver, path // ".group(es).number(surface_pot).current", status, MatProp%surface_pot, InputEcho,  "surface_pot ")
 
-           MatProp%ac_bias_voltage = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(ac_bias_voltage).current", "ac_bias_voltage", InputEcho, 1)
+           MatProp%ac_bias_voltage = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(ac_bias_voltage).current", "ac_bias_voltage", InputEcho, 1d0)
 
-           MatProp%bias_freq_rads = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(bias_freq).current", "bias_freq", InputEcho, 1)
+           MatProp%bias_freq_rads = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(bias_freq).current", "bias_freq", InputEcho, 1d0)
 
         
            MatProp%bias_freq_rads = MatProp%bias_freq_rads * 1e3 * 2 * pi
         end if
 
         if (( MatProp%fts_model == ELECTROSTATIC_GIL) .or. (MatProp%fts_model == ELECTROSTATIC_NONCONS)) then
-           theta_tip = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(theta_tip).current", "theta_tip", InputEcho, 1)
+           theta_tip = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(theta_tip).current", "theta_tip", InputEcho, 1d0)
            theta_tip = theta_tip * pi / 180d0
 
-           theta_lever = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(theta_lever).current", "theta_lever", InputEcho, 1)
+           theta_lever = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(theta_lever).current", "theta_lever", InputEcho, 1d0)
            theta_lever = theta_lever * pi / 180d0
 
-           es_h_dim = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(es_h).current", "es_h", InputEcho, 1)
+           es_h_dim = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(es_h).current", "es_h", InputEcho, 1d0)
            es_h_dim = es_h_dim * 1d-6
 
-           es_l_dim = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(es_l).current", "es_l", InputEcho, 1)
+           es_l_dim = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(es_l).current", "es_l", InputEcho, 1d0)
            es_l_dim = es_l_dim * 1d-6
 
-           es_w_dim = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(es_w).current", "es_w", InputEcho, 1)
+           es_w_dim = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(es_w).current", "es_w", InputEcho, 1d0)
            es_w_dim = es_w_dim * 1d-6
         end if
 
@@ -563,8 +563,8 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
         MatProp%want_exp_dashpot =  daniel_get_boolean( path //".group(solvation).boolean(Want_exp_dashpot).current")
 
         if (MatProp%want_exp_dashpot) then
-           MatProp%exp_dashpot_scale = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(exp_dashpot_scale).current", "exp_dashpot_scale", InputEcho, 1)
-           MatProp%exp_dashpot_decay = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(exp_dashpot_decay).current", "exp_dashpot_decay", InputEcho, 1)
+           MatProp%exp_dashpot_scale = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(exp_dashpot_scale).current", "exp_dashpot_scale", InputEcho, 1d0)
+           MatProp%exp_dashpot_decay = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(exp_dashpot_decay).current", "exp_dashpot_decay", InputEcho, 1d0)
 
            MatProp%exp_dashpot_decay = MatProp%exp_dashpot_decay * 1e-9
         else
@@ -574,11 +574,11 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
         
 	
 	if (MatProp%WantCapAd ) then
-           MatProp%D_0 = readGenericDbl(status, INPUT_PREFIX // ".group(nc).number(D_0).current", "D_0", InputEcho, 1)
+           MatProp%D_0 = readGenericDbl(status, INPUT_PREFIX // ".group(nc).number(D_0).current", "D_0", InputEcho, 1d0)
 
 		MatProp%D_0 = MatProp%D_0/1d9
 
-		MatProp%deltaE = readGenericDbl(status, INPUT_PREFIX // ".group(nc).number(deltaE).current", "deltaE", InputEcho, 1)
+		MatProp%deltaE = readGenericDbl(status, INPUT_PREFIX // ".group(nc).number(deltaE).current", "deltaE", InputEcho, 1d0)
  		
 		MatProp%deltaE = MatProp%deltaE/ electrons_per_coulomb                
 	else
@@ -592,15 +592,15 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
 
 !	Etip and Esample are the Young's modulus of the sample converted to (Pa)
 
-        MatProp%Poisson_sample = readGenericDbl(status, INPUT_PREFIX // ".number(Poisson_sample).current", "Poisson_sample", InputEcho, 1)
+        MatProp%Poisson_sample = readGenericDbl(status, INPUT_PREFIX // ".number(Poisson_sample).current", "Poisson_sample", InputEcho, 1d0)
 
 !	DLVO Force parameters
-        MatProp%KD_dim = readGenericDbl(status, INPUT_PREFIX // ".number(KD).current", "KD", InputEcho, 1)
+        MatProp%KD_dim = readGenericDbl(status, INPUT_PREFIX // ".number(KD).current", "KD", InputEcho, 1d0)
 	     MatProp%KD_dim = 1d6/MatProp%KD_dim
-        MatProp%epsilon = readGenericDbl(status, INPUT_PREFIX // ".number(epsilon).current", "epsilon", InputEcho, 1)
-        MatProp%sigmat = readGenericDbl(status, INPUT_PREFIX // ".number(sigmat).current", "sigmat", InputEcho, 1)
+        MatProp%epsilon = readGenericDbl(status, INPUT_PREFIX // ".number(epsilon).current", "epsilon", InputEcho, 1d0)
+        MatProp%sigmat = readGenericDbl(status, INPUT_PREFIX // ".number(sigmat).current", "sigmat", InputEcho, 1d0)
 
-        MatProp%sigmas = readGenericDbl(status, INPUT_PREFIX // ".number(sigmas).current", "sigmas", InputEcho, 1)
+        MatProp%sigmas = readGenericDbl(status, INPUT_PREFIX // ".number(sigmas).current", "sigmas", InputEcho, 1d0)
 
         !chadwick and the bottom edge correction models
         call read_value(driver, path // ".number(hs).current", status, MatProp%hs, InputEcho, "hs " )
@@ -608,16 +608,16 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
         
 
         if ( MatProp%fts_model == MORSE) then
-           MatProp%MorseRc_dim = readGenericDbl(status, INPUT_PREFIX // ".number(MorseRc).current", "MorseRc", InputEcho, 1)
+           MatProp%MorseRc_dim = readGenericDbl(status, INPUT_PREFIX // ".number(MorseRc).current", "MorseRc", InputEcho, 1d0)
            MatProp%MorseRc_dim= MatProp%MorseRc_dim*1e-9
-           MatProp%MorseU0 = readGenericDbl(status, INPUT_PREFIX // ".number(MorseU0).current", "MorseU0", InputEcho, 1)
+           MatProp%MorseU0 = readGenericDbl(status, INPUT_PREFIX // ".number(MorseU0).current", "MorseU0", InputEcho, 1d0)
 
-           MatProp%MorseLambda_dim = readGenericDbl(status, INPUT_PREFIX // ".number(MorseLambda).current", "MorseLambda", InputEcho, 1)
+           MatProp%MorseLambda_dim = readGenericDbl(status, INPUT_PREFIX // ".number(MorseLambda).current", "MorseLambda", InputEcho, 1d0)
            MatProp%MorseLambda_dim= MatProp%MorseLambda_dim*1e-9
         elseif ((MatProp%fts_model == LENNARD_JONES) .or. (MatProp%fts_model == ATTARD_FOURIER_LSQ ) .or. ( MatProp%fts_model == ATTARD_FOURIER_BAHRAM)) then
-           MatProp%LJ_r0_dim = readGenericDbl(status, INPUT_PREFIX // ".number(LJ_r0).current", "LJ_r0", InputEcho, 1)
+           MatProp%LJ_r0_dim = readGenericDbl(status, INPUT_PREFIX // ".number(LJ_r0).current", "LJ_r0", InputEcho, 1d0)
            MatProp%LJ_r0_dim = MatProp%LJ_r0_dim * 1e-9
-           MatProp%LJ_E0 = readGenericDbl(status, INPUT_PREFIX // ".number(LJ_E0).current", "LJ_E0", InputEcho, 1)
+           MatProp%LJ_E0 = readGenericDbl(status, INPUT_PREFIX // ".number(LJ_E0).current", "LJ_E0", InputEcho, 1d0)
         else
            MatProp%LJ_r0_dim=0
            MatProp%LJ_E0=0
@@ -713,17 +713,17 @@ subroutine ReadSimulationParameters(Zrange,Wanthist,WantHH,Want_Strob,Want_Impac
   numpoinc = readGenericInteger(driver, INPUT_PREFIX // "(sim).group(poinc).integer(numpoinc).current")
 		  
   if ((operating_mode /= SCAN) .or. (modulation_type == FORCE_VOL)) then
-     Z0 = readGenericDbl(status, INPUT_PREFIX // "(op).number(Z0).current", "Z0", InputEcho, 1)
+     Z0 = readGenericDbl(status, INPUT_PREFIX // "(op).number(Z0).current", "Z0", InputEcho, 1d0)
      Z0 = Z0/1d9
      
      if ((operating_mode == APPROACH ) .or. (operating_mode == APPROACH_STEP ) .or. (operating_mode == APPR_RET )) then
-        Zf = readGenericDbl(status, INPUT_PREFIX // "(op).number(Zf).current", "Zf", InputEcho, 1)
+        Zf = readGenericDbl(status, INPUT_PREFIX // "(op).number(Zf).current", "Zf", InputEcho, 1d0)
         Zf = Zf/1d9
         
         if (Zrange == ZRANGE_ASP) then
-        Asp_f = readGenericDbl(status, INPUT_PREFIX // "(op).number(Asp_f).current", "Asp_f", InputEcho, 1)
+        Asp_f = readGenericDbl(status, INPUT_PREFIX // "(op).number(Asp_f).current", "Asp_f", InputEcho, 1d0)
         elseif (Zrange == ZRANGE_FREQSHIFT) then
-        freqshift_f = readGenericDbl(status, INPUT_PREFIX // "(op).number(freqshift_f).current", "freqshift_f", InputEcho, 1)
+        freqshift_f = readGenericDbl(status, INPUT_PREFIX // "(op).number(freqshift_f).current", "freqshift_f", InputEcho, 1d0)
 
         end if
      end if
@@ -761,7 +761,7 @@ subroutine ReadSimulationParameters(Zrange,Wanthist,WantHH,Want_Strob,Want_Impac
       
       if ((operating_mode == SCAN) .or. (want_freqswp_sp_aprch)) then
          if ((modulation_type .ne. FORCE_VOL) .and.(modulation_type .ne. PEAK_FORCE))  then
-         ASetPt = readGenericDbl(status, INPUT_PREFIX // "(op).number(Asp).current", "Asp", InputEcho, 1)
+         ASetPt = readGenericDbl(status, INPUT_PREFIX // "(op).number(Asp).current", "Asp", InputEcho, 1d0)
       
          end if
       end if
@@ -782,9 +782,9 @@ subroutine readForceVol(LineSpeed, F_ForceVol_dim, ForceVolSettleTime, z_feedbac
   integer status
   integer :: rp_units_convert_dbl, readGenericInteger
   status = 0
-   F_ForceVol_dim = readGenericDbl(status, INPUT_PREFIX // "(op).number(F_ForceVol_dim).current", "F_ForceVol_dim", InputEcho, 1)
+   F_ForceVol_dim = readGenericDbl(status, INPUT_PREFIX // "(op).number(F_ForceVol_dim).current", "F_ForceVol_dim", InputEcho, 1d0)
    F_ForceVol_dim = F_ForceVol_dim / 1d9
-   ForceVolSettleTime = readGenericDbl(status, INPUT_PREFIX // "(op).number(ForceVolSettleTime).current", "ForceVolSettleTime", InputEcho, 1)
+   ForceVolSettleTime = readGenericDbl(status, INPUT_PREFIX // "(op).number(ForceVolSettleTime).current", "ForceVolSettleTime", InputEcho, 1d0)
    call read_value(driver, INPUT_PREFIX // "(op).number(LineSpeed).current", status, LineSpeed, InputEcho, "LineSpeed "   )
    z_feedback_choice = readGenericInteger(driver, INPUT_PREFIX // "(op).choice(Z_feedback_choice).current")
   
@@ -984,15 +984,15 @@ Asample_dim, omegas_dim, wantSampleExc, InputEcho)
   write(strVal, *) LockInOrder
   InputEcho = trim(InputEcho) // "LockInOrder " // trim(strVal) // char(10)
   
-  mtip = readGenericDbl(status, INPUT_PREFIX // "(op).number(mtip).current", "mtip", InputEcho, 1)
+  mtip = readGenericDbl(status, INPUT_PREFIX // "(op).number(mtip).current", "mtip", InputEcho, 1d0)
 
 
   if (exc_choice == SELFEXC) then
-     selfexc_gain = readGenericDbl(status, INPUT_PREFIX // "(op).group(selfexc).number(selfexc_gain).current", "selfexc_gain", InputEcho, 1)
+     selfexc_gain = readGenericDbl(status, INPUT_PREFIX // "(op).group(selfexc).number(selfexc_gain).current", "selfexc_gain", InputEcho, 1d0)
 
-     selfexc_saturation = readGenericDbl(status, INPUT_PREFIX // "(op).group(selfexc).number(selfexc_sat).current", "selfexc_sat", InputEcho, 1)
+     selfexc_saturation = readGenericDbl(status, INPUT_PREFIX // "(op).group(selfexc).number(selfexc_sat).current", "selfexc_sat", InputEcho, 1d0)
      
-     selfexc_phase = readGenericDbl(status, INPUT_PREFIX // "(op).group(selfexc).number(selfexc_phase).current", "selfexc_phase", InputEcho, 1)
+     selfexc_phase = readGenericDbl(status, INPUT_PREFIX // "(op).group(selfexc).number(selfexc_phase).current", "selfexc_phase", InputEcho, 1d0)
 
   end if
 
@@ -1011,22 +1011,22 @@ Asample_dim, omegas_dim, wantSampleExc, InputEcho)
      end if
 
   else
-     tmp = readGenericDbl(status, INPUT_PREFIX // "(op).number(omegad_start).current", "omegad_start", InputEcho, 1)
+     tmp = readGenericDbl(status, INPUT_PREFIX // "(op).number(omegad_start).current", "omegad_start", InputEcho, 1d0)
      tmp = tmp *2*pi*1d3 !rad/s.023
 
-     tmp = readGenericDbl(status, INPUT_PREFIX // "(op).number(omegad_stop).current", "omegad_stop", InputEcho, 1)
+     tmp = readGenericDbl(status, INPUT_PREFIX // "(op).number(omegad_stop).current", "omegad_stop", InputEcho, 1d0)
      tmp = tmp *2*pi*1d3
-     sweep_time = readGenericDbl(status, INPUT_PREFIX // "(op).number(sweep_time).current", "sweep_time", InputEcho, 1)
+     sweep_time = readGenericDbl(status, INPUT_PREFIX // "(op).number(sweep_time).current", "sweep_time", InputEcho, 1d0)
      
   end if
 
   want_Afluid = daniel_get_boolean(INPUT_PREFIX // "(op).boolean(want_Afluid).current")
   if (want_Afluid) then
-     Afluid_real = readGenericDbl(status, INPUT_PREFIX // "(op).number(Afluid_real).current", "Afluid_real", InputEcho, 1)
+     Afluid_real = readGenericDbl(status, INPUT_PREFIX // "(op).number(Afluid_real).current", "Afluid_real", InputEcho, 1d0)
     
-     Afluid_imag = readGenericDbl(status, INPUT_PREFIX // "(op).number(Afluid_imag).current", "Afluid_imag", InputEcho, 1)
+     Afluid_imag = readGenericDbl(status, INPUT_PREFIX // "(op).number(Afluid_imag).current", "Afluid_imag", InputEcho, 1d0)
      Afluid = CMPLX(Afluid_real, Afluid_imag)
-     mstar_div_m = readGenericDbl(status, INPUT_PREFIX // "(op).number(mstar_div_m).current", "mstar_div_m", InputEcho, 1)
+     mstar_div_m = readGenericDbl(status, INPUT_PREFIX // "(op).number(mstar_div_m).current", "mstar_div_m", InputEcho, 1d0)
 
   
   else
@@ -1112,7 +1112,7 @@ Asample_dim, omegas_dim, wantSampleExc, InputEcho)
 !!!!!!!!!!!!
 
   if ((isOpModeApp(operating_mode)) .or. (modulation_type == FORCE_VOL) .or. (modulation_type == PEAK_FORCE)) then 
-     gamma_drag = readGenericDbl(status, INPUT_PREFIX // "(op).number(gamma_drag).current", "gamma_drag", InputEcho, 1)
+     gamma_drag = readGenericDbl(status, INPUT_PREFIX // "(op).number(gamma_drag).current", "gamma_drag", InputEcho, 1d0)
 
      if (modulation_type /= PEAK_FORCE) then
         AprchS_dim = readGenericDbl(status, INPUT_PREFIX // "(op).number(AprchS).current", "Approach speed", InputEcho, 1d9)
@@ -1147,16 +1147,16 @@ subroutine readFeatureProperties( FeatureType, HF, LF, LF2, SubsLen, WantTSCON, 
 
   FeatureType = readGenericInteger(driver,INPUT_PREFIX // "(feature).choice(FeatureType).current")  
   !       step (1), trapizoid (2), sindusoid (3) 	
-  HF = readGenericDbl(status, INPUT_PREFIX // "(feature).number(HF).current", "HF", InputEcho, 1)
+  HF = readGenericDbl(status, INPUT_PREFIX // "(feature).number(HF).current", "HF", InputEcho, 1d0)
   HF = HF/1d9
 
-  LF = readGenericDbl(status, INPUT_PREFIX // "(feature).number(LF).current", "LF", InputEcho, 1)
+  LF = readGenericDbl(status, INPUT_PREFIX // "(feature).number(LF).current", "LF", InputEcho, 1d0)
   LF = LF/1d9
 
-  LF2 = readGenericDbl(status, INPUT_PREFIX // "(feature).number(LF2).current", "LF2", InputEcho, 1)
+  LF2 = readGenericDbl(status, INPUT_PREFIX // "(feature).number(LF2).current", "LF2", InputEcho, 1d0)
   LF2 = LF2/1d9
 
-  SubsLen = readGenericDbl(status, INPUT_PREFIX // "(sim).number(LS).current", "LF2", InputEcho, 1)
+  SubsLen = readGenericDbl(status, INPUT_PREFIX // "(sim).number(LS).current", "LF2", InputEcho, 1d0)
   SubsLen = SubsLen/1d9
  
   WantTSCON = daniel_get_boolean( INPUT_PREFIX // "(feature).boolean(WantTSCON).current")
@@ -1178,7 +1178,7 @@ subroutine ReadSampleFreq( sample_freq, InputEcho)
   integer status, rp_units_convert_dbl
   
   status = 0
-  sample_freq = readGenericDbl(status, INPUT_PREFIX // "(op).number(sample_freq).current", "sample_freq", InputEcho, 1)
+  sample_freq = readGenericDbl(status, INPUT_PREFIX // "(op).number(sample_freq).current", "sample_freq", InputEcho, 1d0)
   sample_freq = sample_freq * 1d6
 
   write( strVal, *)  "sample_freq ", sample_freq
@@ -1199,7 +1199,7 @@ subroutine readTriggeredFzMode(  jumpDeflLim, PiezoReverseTime_pct , Want_FzEig,
   call read_integer(driver, INPUT_PREFIX // "(op).choice(fzshape).current" , fzshape , InputEcho, "fzshape")
   PiezoReverseTime_pct = readGenericDbl(status, INPUT_PREFIX // "(op).number(PiezoReverseTime_pct).current", "PiezoReverseTime_pct", InputEcho, 1d0)
 
-  jumpDeflLim = readGenericDbl(status, INPUT_PREFIX // "(op).number(jumpDeflLim).current", "jumpDeflLim", InputEcho, 1)
+  jumpDeflLim = readGenericDbl(status, INPUT_PREFIX // "(op).number(jumpDeflLim).current", "jumpDeflLim", InputEcho, 1d0)
   jumpDeflLim = jumpDeflLim / 1e9;
 
   Want_FzEig = daniel_get_boolean( INPUT_PREFIX // "(sim).group(plots).boolean(Want_FzEig).current")
