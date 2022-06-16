@@ -673,7 +673,7 @@ subroutine read_integer(driver, path, output_var, InputEcho, desc)
   integer, intent(out) :: output_var
   character*100:: strVal
   character*1500, intent(inout) :: InputEcho
- integer, external :: readGenericInteger
+!integer, external :: readGenericInteger
 
   output_var =  readGenericInteger(driver, path)
   write(strVal,*) output_var
