@@ -3413,7 +3413,7 @@ end module rappture_io
 !this is a hack. can't be inside the module because of dependencies issues
 subroutine WriteFatalError(message)
   use timeHistory, only : Amp_index,  wantHist
-  use rappture_io, only: driver,   FlushTimeHistory
+  use rappture_io, only: driver,   FlushTimeHistory, putGenericString
   use params
 
   character(len=*), intent(in) :: message
