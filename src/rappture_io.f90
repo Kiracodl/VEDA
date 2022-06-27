@@ -2067,7 +2067,7 @@ end subroutine setup_debug_viscoelastic
 subroutine putGenericString(driver, name, tmp, append)
 character(len=*), intent(in) :: name, tmp
 integer, intent(in) :: driver, append
- call rp_lib_put_str(driver, "output.curve(" //name// ").component.xy", tmp, 1) 
+ call rp_lib_put_str(driver, name, tmp, 1) 
 end subroutine
 
 subroutine SetupGenericPlot(name, label, group, xlabel, xunits, ylabel, yunits, scatter )
@@ -2082,7 +2082,7 @@ subroutine SetupGenericPlot(name, label, group, xlabel, xunits, ylabel, yunits, 
   call putGenericString(driver, "output.curve(" //name// ").yaxis.units", yunits, 0) 
   if (present(scatter)) then
      if (scatter) then
-        call putGenericString(driver, "output.curve(" //name//").about.type", "scatter", 0)
+        call putGenericString(driver, "output.curve(" //name// ").about.type", "scatter", 0)
      end if
   end if
 end subroutine SetupGenericPlot
@@ -3413,7 +3413,7 @@ end module rappture_io
 !this is a hack. can't be inside the module because of dependencies issues
 subroutine WriteFatalError(message)
   use timeHistory, only : Amp_index,  wantHist
-  use rappture_io, only: driver,   FlushTimeHistory, putGenericString
+  use rappture_io, only: driver, FlushTimeHistory, putGenericString
   use params
 
   character(len=*), intent(in) :: message
