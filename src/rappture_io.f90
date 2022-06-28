@@ -319,6 +319,7 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
      MatProp%wlc_Fr = MatProp%wlc_Fr * 1e-9
   end if
 
+  
   call read_value(driver, path // ".number(kts_R).current", status, MatProp%kts_R, InputEcho, "kts_R "   )
   call read_value(driver, path // ".number(kts_A).current", status, MatProp%kts_A, InputEcho, "kts_A "   )
 		
@@ -350,7 +351,7 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
   write( tmpstr, *) MatProp%WantOscillatory
   InputEcho = trim(InputEcho) // "want oscillatory " // trim( tmpstr) // char(10)
 
-
+  
         MatProp%WantHydration =  daniel_get_boolean(  path // ".group(solvation).boolean(WantHydration).current")
         write( tmpstr, *) MatProp%WantHydration
         InputEcho = trim(InputEcho) // "want hydration " // trim( tmpstr) // char(10)
@@ -396,8 +397,7 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
            write( tmpstr, *)  MatProp%nside
            InputEcho = trim(InputEcho) // "nside " // trim( tmpstr) // char(10)
         end if
-
-
+        
         if ( MatProp%fts_model == MAG_DIPOLE ) then
            call read_value(driver, path // ".group(md).number(mom_sample).current", status, MatProp%mom_sample, InputEcho,  "mom_sample ")
            call read_value(driver, path // ".group(md).number(mom_tip).current", status, MatProp%mom_tip, InputEcho,  "mom_tip ")
@@ -435,7 +435,7 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
            es_w_dim = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(es_w).current", "es_w", InputEcho, 1d0)
            es_w_dim = es_w_dim * 1d-6
         end if
-
+        
         !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         !viscoelasticity starts here
 
@@ -571,7 +571,8 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
            MatProp%exp_dashpot_scale=0
            MatProp%exp_dashpot_decay=0
         end if
-        
+
+       
 	
 	if (MatProp%WantCapAd ) then
            MatProp%D_0 = readGenericDbl(status, INPUT_PREFIX // ".group(nc).number(D_0).current", "D_0", InputEcho, 1d0)
@@ -586,27 +587,30 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
 		MatProp%deltaE = 0d0
 	end if		
 
-
+ 
         call read_value(driver, path // ".number(Esample).current" , status, MatProp%Esample , InputEcho, "Esample "   )
  	MatProp%Esample = MatProp%Esample*1d9
 
+ 
 !	Etip and Esample are the Young's modulus of the sample converted to (Pa)
 
         MatProp%Poisson_sample = readGenericDbl(status, INPUT_PREFIX // ".number(Poisson_sample).current", "Poisson_sample", InputEcho, 1d0)
 
+       
 !	DLVO Force parameters
         MatProp%KD_dim = readGenericDbl(status, INPUT_PREFIX // ".number(KD).current", "KD", InputEcho, 1d0)
-	     MatProp%KD_dim = 1d6/MatProp%KD_dim
+        MatProp%KD_dim = 1d6/MatProp%KD_dim
         MatProp%epsilon = readGenericDbl(status, INPUT_PREFIX // ".number(epsilon).current", "epsilon", InputEcho, 1d0)
         MatProp%sigmat = readGenericDbl(status, INPUT_PREFIX // ".number(sigmat).current", "sigmat", InputEcho, 1d0)
 
+        
         MatProp%sigmas = readGenericDbl(status, INPUT_PREFIX // ".number(sigmas).current", "sigmas", InputEcho, 1d0)
 
         !chadwick and the bottom edge correction models
         call read_value(driver, path // ".number(hs).current", status, MatProp%hs, InputEcho, "hs " )
         MatProp%hs = MatProp%hs*1d-9			
         
-
+        
         if ( MatProp%fts_model == MORSE) then
            MatProp%MorseRc_dim = readGenericDbl(status, INPUT_PREFIX // ".number(MorseRc).current", "MorseRc", InputEcho, 1d0)
            MatProp%MorseRc_dim= MatProp%MorseRc_dim*1e-9
@@ -640,7 +644,6 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
         else
            MatProp%N_custom = 0
         end if
-
      
 
         if (status > 0) call WriteFatalError( "Could not read sample and/or feature material properties.  Please check values. (path = " // path // ")" )
@@ -667,13 +670,14 @@ subroutine read_value(driver, path, status, output_var, InputEcho, desc)
   InputEcho = trim(InputEcho) // desc // trim(strVal) // char(10)
 end subroutine read_value
 
+!to do: we have a "read_integer" and a "readGenericInteger", so a wrapper around a wrapper.  that was not
+!the intent.  Merge these two.  
 subroutine read_integer(driver, path, output_var, InputEcho, desc)
   character(len=*), intent(in) :: path, desc
   integer, intent(in) :: driver
   integer, intent(out) :: output_var
   character*100:: strVal
   character*1500, intent(inout) :: InputEcho
-!integer, external :: readGenericInteger
 
   output_var =  readGenericInteger(driver, path)
   write(strVal,*) output_var
@@ -3013,6 +3017,7 @@ real*8 function readGenericDbl( status, element_to_read, short_name, InputEcho, 
   status = status +  rp_units_convert_dbl(strVal," ", value)
   InputEcho = trim(InputEcho) // short_name // " = " // trim(strVal) // char(10)
   readGenericDbl = value / units_convert
+
 end function readGenericDbl
 
 
