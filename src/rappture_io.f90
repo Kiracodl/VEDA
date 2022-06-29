@@ -2072,7 +2072,7 @@ subroutine putGenericString(driver, name, tmp, append)
 character(len=*), intent(in) :: name, tmp
 integer, intent(in) :: driver, append
  call rp_lib_put_str(driver, name, tmp, 1) 
-end subroutine
+end subroutine putGenericString
 
 subroutine SetupGenericPlot(name, label, group, xlabel, xunits, ylabel, yunits, scatter )
   character(len=*), intent(in) :: name, label, group, xlabel, xunits, ylabel, yunits
