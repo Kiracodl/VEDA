@@ -343,7 +343,7 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
   InputEcho = trim(InputEcho) // "want tip squeeze " // trim( tmpstr) // char(10)
   
   if (MatProp%Want_Tip_Squeeze) then
-     MatProp%eta_liquid = readGenericDbl(status, path // ".group(nc).number(etaliquid).current", "etaliquid", InputEcho, 1d0)
+     MatProp%eta_liquid = readGenericDbl(status, INPUT_PREFIX // ".group(nc).number(etaliquid).current", "etaliquid", InputEcho, 1d0)
      MatProp%eta_liquid=0
   end if
   
@@ -358,17 +358,17 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
 
 
         if ( MatProp%WantOscillatory ) then
-           MatProp%sigma_solvation_dim = readGenericDbl(status, path // ".group(solvation).number(sigma_solvation).current", "sigma_solvation", InputEcho, 1d0)
+           MatProp%sigma_solvation_dim = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(sigma_solvation).current", "sigma_solvation", InputEcho, 1d0)
            MatProp%sigma_solvation_dim = MatProp%sigma_solvation_dim * 1d-9
 
-           MatProp%rho = readGenericDbl(status, path // ".group(solvation).number(rho_solvation).current", "rho_solvation", InputEcho, 1d0)
+           MatProp%rho = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(rho_solvation).current", "rho_solvation", InputEcho, 1d0)
         end if
 
         if ( MatProp%WantHydration ) then
-           MatProp%lambda_solvation_dim = readGenericDbl(status, path // ".group(solvation).number(lambda_solvation).current", "lambda_solvation", InputEcho, 1d0)
+           MatProp%lambda_solvation_dim = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(lambda_solvation).current", "lambda_solvation", InputEcho, 1d0)
            MatProp%lambda_solvation_dim = MatProp%lambda_solvation_dim * 1d-9
 
-           MatProp%p_h = readGenericDbl(status, path // ".group(solvation).number(p_h).current", "p_h", InputEcho, 1d0)
+           MatProp%p_h = readGenericDbl(status, INPUT_PREFIX // ".group(solvation).number(p_h).current", "p_h", InputEcho, 1d0)
         end if
 
         MatProp%Want_hyst_hydr =  daniel_get_boolean(  path // ".group(solvation).boolean(Want_hysteretic_hydration).current")
@@ -411,28 +411,28 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
            call read_value(driver, path // ".group(es).number(dc_bias_voltage).current", status, MatProp%dc_bias_voltage, InputEcho,  "dc_bias_voltage ")
            call read_value(driver, path // ".group(es).number(surface_pot).current", status, MatProp%surface_pot, InputEcho,  "surface_pot ")
 
-           MatProp%ac_bias_voltage = readGenericDbl(status, path // ".group(es).number(ac_bias_voltage).current", "ac_bias_voltage", InputEcho, 1d0)
+           MatProp%ac_bias_voltage = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(ac_bias_voltage).current", "ac_bias_voltage", InputEcho, 1d0)
 
-           MatProp%bias_freq_rads = readGenericDbl(status, path // ".group(es).number(bias_freq).current", "bias_freq", InputEcho, 1d0)
+           MatProp%bias_freq_rads = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(bias_freq).current", "bias_freq", InputEcho, 1d0)
 
         
            MatProp%bias_freq_rads = MatProp%bias_freq_rads * 1e3 * 2 * pi
         end if
 
         if (( MatProp%fts_model == ELECTROSTATIC_GIL) .or. (MatProp%fts_model == ELECTROSTATIC_NONCONS)) then
-           theta_tip = readGenericDbl(status, path // ".group(es).number(theta_tip).current", "theta_tip", InputEcho, 1d0)
+           theta_tip = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(theta_tip).current", "theta_tip", InputEcho, 1d0)
            theta_tip = theta_tip * pi / 180d0
 
-           theta_lever = readGenericDbl(status, path // ".group(es).number(theta_lever).current", "theta_lever", InputEcho, 1d0)
+           theta_lever = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(theta_lever).current", "theta_lever", InputEcho, 1d0)
            theta_lever = theta_lever * pi / 180d0
 
-           es_h_dim = readGenericDbl(status, path // ".group(es).number(es_h).current", "es_h", InputEcho, 1d0)
+           es_h_dim = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(es_h).current", "es_h", InputEcho, 1d0)
            es_h_dim = es_h_dim * 1d-6
 
-           es_l_dim = readGenericDbl(status, path // ".group(es).number(es_l).current", "es_l", InputEcho, 1d0)
+           es_l_dim = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(es_l).current", "es_l", InputEcho, 1d0)
            es_l_dim = es_l_dim * 1d-6
 
-           es_w_dim = readGenericDbl(status, path // ".group(es).number(es_w).current", "es_w", InputEcho, 1d0)
+           es_w_dim = readGenericDbl(status, INPUT_PREFIX // ".group(es).number(es_w).current", "es_w", InputEcho, 1d0)
            es_w_dim = es_w_dim * 1d-6
         end if
         
@@ -594,17 +594,17 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
  
 !	Etip and Esample are the Young's modulus of the sample converted to (Pa)
 
-        MatProp%Poisson_sample = readGenericDbl(status, INPUT_PREFIX // ".number(Poisson_sample).current", "Poisson_sample", InputEcho, 1d0)
+        MatProp%Poisson_sample = readGenericDbl(status, path // ".number(Poisson_sample).current", "Poisson_sample", InputEcho, 1d0)
 
        
 !	DLVO Force parameters
-        MatProp%KD_dim = readGenericDbl(status, INPUT_PREFIX // ".number(KD).current", "KD", InputEcho, 1d0)
+        MatProp%KD_dim = readGenericDbl(status, path // ".number(KD).current", "KD", InputEcho, 1d0)
         MatProp%KD_dim = 1d6/MatProp%KD_dim
-        MatProp%epsilon = readGenericDbl(status, INPUT_PREFIX // ".number(epsilon).current", "epsilon", InputEcho, 1d0)
-        MatProp%sigmat = readGenericDbl(status, INPUT_PREFIX // ".number(sigmat).current", "sigmat", InputEcho, 1d0)
+        MatProp%epsilon = readGenericDbl(status, path // ".number(epsilon).current", "epsilon", InputEcho, 1d0)
+        MatProp%sigmat = readGenericDbl(status, path // ".number(sigmat).current", "sigmat", InputEcho, 1d0)
 
         
-        MatProp%sigmas = readGenericDbl(status, INPUT_PREFIX // ".number(sigmas).current", "sigmas", InputEcho, 1d0)
+        MatProp%sigmas = readGenericDbl(status, path // ".number(sigmas).current", "sigmas", InputEcho, 1d0)
 
         !chadwick and the bottom edge correction models
         call read_value(driver, path // ".number(hs).current", status, MatProp%hs, InputEcho, "hs " )
@@ -612,16 +612,16 @@ subroutine ReadSampleData( MatProp, path, InputEcho)
         
         
         if ( MatProp%fts_model == MORSE) then
-           MatProp%MorseRc_dim = readGenericDbl(status, INPUT_PREFIX // ".number(MorseRc).current", "MorseRc", InputEcho, 1d0)
+           MatProp%MorseRc_dim = readGenericDbl(status, path // ".number(MorseRc).current", "MorseRc", InputEcho, 1d0)
            MatProp%MorseRc_dim= MatProp%MorseRc_dim*1e-9
-           MatProp%MorseU0 = readGenericDbl(status, INPUT_PREFIX // ".number(MorseU0).current", "MorseU0", InputEcho, 1d0)
+           MatProp%MorseU0 = readGenericDbl(status, path // ".number(MorseU0).current", "MorseU0", InputEcho, 1d0)
 
-           MatProp%MorseLambda_dim = readGenericDbl(status, INPUT_PREFIX // ".number(MorseLambda).current", "MorseLambda", InputEcho, 1d0)
+           MatProp%MorseLambda_dim = readGenericDbl(status, path // ".number(MorseLambda).current", "MorseLambda", InputEcho, 1d0)
            MatProp%MorseLambda_dim= MatProp%MorseLambda_dim*1e-9
         elseif ((MatProp%fts_model == LENNARD_JONES) .or. (MatProp%fts_model == ATTARD_FOURIER_LSQ ) .or. ( MatProp%fts_model == ATTARD_FOURIER_BAHRAM)) then
-           MatProp%LJ_r0_dim = readGenericDbl(status, INPUT_PREFIX // ".number(LJ_r0).current", "LJ_r0", InputEcho, 1d0)
+           MatProp%LJ_r0_dim = readGenericDbl(status, path // ".number(LJ_r0).current", "LJ_r0", InputEcho, 1d0)
            MatProp%LJ_r0_dim = MatProp%LJ_r0_dim * 1e-9
-           MatProp%LJ_E0 = readGenericDbl(status, INPUT_PREFIX // ".number(LJ_E0).current", "LJ_E0", InputEcho, 1d0)
+           MatProp%LJ_E0 = readGenericDbl(status, path // ".number(LJ_E0).current", "LJ_E0", InputEcho, 1d0)
         else
            MatProp%LJ_r0_dim=0
            MatProp%LJ_E0=0
@@ -3433,4 +3433,3 @@ subroutine WriteFatalError(message)
 
 
 end subroutine WriteFatalError
-
